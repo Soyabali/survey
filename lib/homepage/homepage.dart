@@ -29,6 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var cityname = 'Puri city';
   var cityname2 = 'Puri city Tourisum';
   var cityname3 = 'Puri city Tourisum 3';
+  var cityname4 = 'Puri city Tourisum 3';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
