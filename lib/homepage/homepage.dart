@@ -26,6 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var cityname = 'Puri city';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
