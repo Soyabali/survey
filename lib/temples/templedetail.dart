@@ -57,8 +57,6 @@ class _TemplesHomeState extends State<TemplesDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar
-      //appBar: getAppBar("TEMPLES"),
       appBar: getAppBarBack('TEMPLES'),
       drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
       body: ListView(
@@ -82,36 +80,119 @@ class _TemplesHomeState extends State<TemplesDetail> {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
                       )));
                     },
-                    child: Container(
-                      height: 56.0,
-                      width: 200.0,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        // Background color of the container
-                        borderRadius: BorderRadius.circular(28.0),
-                        // Circular border radius
-                        border: Border.all(
-                          color: Colors.yellow, // Border color
-                          width: 2.0, // Border width
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/images/gallery.png',
-                            // Replace with your image path
-                            height: 25.0,
-                            width: 25.0,
+                   child: Container(
+                     height: 35,
+                     decoration: BoxDecoration(
+                       color: Colors.red,
+                       // Background color of the container
+                       borderRadius: BorderRadius.circular(28.0),
+                       // Circular border radius
+                       border: Border.all(
+                         color: Colors.yellow, // Border color
+                         width: 0.5, // Border width
+                       ),
+                     ),
+                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.red,
+                          shadowColor: Colors.red, // Custom shadow color
+                          elevation: 5, // Text color
+                        ).copyWith(
+                          overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                                (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.yellow; // Splash color when pressed
+                              }
+                              return null; // Default splash color
+                            },
                           ),
-                          const SizedBox(width: 10.0),
-                          // Space between image and text
-                          Text('VIEW GALLERY',
-                              style: AppTextStyle
-                                  .font18penSansExtraboldWhiteTextStyle),
-                        ],
+                        ),
+                        onPressed: () {
+                          // Button pressed action
+                        },
+                        child: Text('VIEW GALLERY',style: AppTextStyle
+                            .font14penSansExtraboldWhiteTextStyle,),
                       ),
-                    ),
+                   ),
+
+                    // child: LayoutBuilder(
+                    //   builder: (BuildContext context, BoxConstraints constraints) {
+                    //     return ElevatedButton(
+                    //       onPressed: () {},
+                    //       child: const Text('Responsive Button'),
+                    //       style: ElevatedButton.styleFrom(
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(25),
+                    //         ),
+                    //         minimumSize: Size(constraints.maxWidth, 50), // Make it responsive
+                    //         padding: EdgeInsets.symmetric(horizontal: 16),
+                    //         textStyle: TextStyle(fontSize: 14),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+
+                    // child: ElevatedButton(
+                    //   onPressed: () {},
+                    //   style: ButtonStyle(
+                    //     backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    //           (Set<MaterialState> states) {
+                    //         if (states.contains(MaterialState.pressed))
+                    //           return Colors.green;
+                    //         return Colors.white; // Use the component's default.
+                    //       },
+                    //     ),
+                    //   ),
+                    //   child: const Text('Button with Pressed State'),
+                    // ),
+                    // child: ElevatedButton(
+                    //   onPressed: () {},
+                    //   style: ElevatedButton.styleFrom(
+                    //     foregroundColor: Colors.white, // textColor
+                    //     backgroundColor: Colors.red, // background colore
+                    //     elevation: 5, // button's elevation when it's pressed
+                    //   ),
+                    //   child: const Text('Styled Button'),
+                    // ),
+
+
+                    // child: Container(
+                    //   height: 35.0,
+                    //   width: 200.0,
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.red,
+                    //     // Background color of the container
+                    //     borderRadius: BorderRadius.circular(28.0),
+                    //     // Circular border radius
+                    //     border: Border.all(
+                    //       color: Colors.yellow, // Border color
+                    //       width: 2.0, // Border width
+                    //     ),
+                    //   ),
+                    //   child: Center(
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       children: [
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(left: 33),
+                    //           child: Image.asset(
+                    //             'assets/images/gallery.png',
+                    //             // Replace with your image path
+                    //             height: 18.0,
+                    //             width: 18.0,
+                    //           ),
+                    //         ),
+                    //         const SizedBox(width: 10.0),
+                    //         // Space between image and text
+                    //         Text('VIEW GALLERY',
+                    //             style: AppTextStyle
+                    //                 .font14penSansExtraboldWhiteTextStyle),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+
                   ),
                 ),
               )
@@ -126,29 +207,34 @@ class _TemplesHomeState extends State<TemplesDetail> {
                 color: Colors.white,
                 child: Stack(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          'assets/images/cityelementone.png',
-                          // Replace with your first image path
-                          height: 50.0,
-                          width: 50.0,
-                        ),
-                        Spacer(),
-                        Image.asset(
-                          'assets/images/listelementtop.png',
-                          // Replace with your second image path
-                          height: 50.0,
-                          width: 50.0,
-                        ),
-                      ],
+                    Positioned(
+                      left: 5,
+                      top: 5,
+                      right: 5,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                            'assets/images/cityelementone.png',
+                            // Replace with your first image path
+                            height: 25.0,
+                            width: 25.0,
+                          ),
+                          Spacer(),
+                          Image.asset(
+                            'assets/images/listelementtop.png',
+                            // Replace with your second image path
+                            height: 25.0,
+                            width: 25.0,
+                          ),
+                        ],
+                      ),
                     ),
                     Positioned(
                       top: 20,
                       child: Image.asset('assets/images/templeelement1.png',
                           // Replace with your first image path
-                          height: 50.0,
+                          height: 30.0,
                           width: MediaQuery.of(context).size.width),
                     ),
                     Positioned(
@@ -158,7 +244,7 @@ class _TemplesHomeState extends State<TemplesDetail> {
                         child: Center(
                           child: Text('${widget.templeName}',
                               style: AppTextStyle
-                                  .font18penSansExtraboldRedTextStyle),
+                                  .font16penSansExtraboldRedTextStyle),
                         ))
                   ],
                 ),
@@ -168,17 +254,17 @@ class _TemplesHomeState extends State<TemplesDetail> {
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: Container(
-              height: 300,
+              height: 280,
               width: MediaQuery.of(context).size.width - 50,
               color: Color(0xFFD3D3D3),
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 15),
                   Text('Temple Timings',
-                      style: AppTextStyle.font18penSansExtraboldRedTextStyle),
+                      style: AppTextStyle.font16penSansExtraboldRedTextStyle),
                   SizedBox(height: 15),
                   Text('Summer',
-                      style: AppTextStyle.font18penSansExtraboldRedTextStyle),
+                      style: AppTextStyle.font16penSansExtraboldRedTextStyle),
                   SizedBox(height: 5),
                   Center(
                     child: Row(
@@ -186,13 +272,13 @@ class _TemplesHomeState extends State<TemplesDetail> {
                       children: [
                         Text('Morning 05:00 ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('am to ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('12:00 pm',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                       ],
                     ),
                   ),
@@ -203,21 +289,20 @@ class _TemplesHomeState extends State<TemplesDetail> {
                       children: [
                         Text('Evening 02:00 ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('pm to ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('8:00 pm',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                       ],
                     ),
                   ),
                   SizedBox(height: 5),
                   Text(
                     'Winter',
-                    style: TextStyle(color: Colors.red, fontSize: 18),
-                  ),
+                    style: AppTextStyle.font16penSansExtraboldRedTextStyle),
                   SizedBox(height: 5),
                   Center(
                     child: Row(
@@ -225,13 +310,13 @@ class _TemplesHomeState extends State<TemplesDetail> {
                       children: [
                         Text('Morning 05:00 ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('am to ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('12:00 pm',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                       ],
                     ),
                   ),
@@ -242,21 +327,20 @@ class _TemplesHomeState extends State<TemplesDetail> {
                       children: [
                         Text('Evening 02:00 ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('pm to ',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                         Text('8:00 pm',
                             style: AppTextStyle
-                                .font16penSansExtraboldBlack45TextStyle),
+                                .font14penSansExtraboldBlack45TextStyle),
                       ],
                     ),
                   ),
                   SizedBox(height: 15),
                   Text(
                     'Aarti Time',
-                    style: TextStyle(color: Colors.red, fontSize: 18),
-                  ),
+                    style: AppTextStyle.font16penSansExtraboldRedTextStyle),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -280,11 +364,10 @@ class _TemplesHomeState extends State<TemplesDetail> {
               ),
             ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
           Center(
             child: Container(
-              height: 56.0,
-              width: 200,
+              height: 35,
               decoration: BoxDecoration(
                 color: Colors.red,
                 // Background color of the container
@@ -292,31 +375,67 @@ class _TemplesHomeState extends State<TemplesDetail> {
                 // Circular border radius
                 border: Border.all(
                   color: Colors.yellow, // Border color
-                  width: 2.0, // Border width
+                  width: 0.5, // Border width
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('LIVE DARSHAN',
-                      style: AppTextStyle
-                          .font18penSansExtraboldWhiteTextStyle),
-                ],
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.red,
+                  shadowColor: Colors.red, // Custom shadow color
+                  elevation: 5, // Text color
+                ).copyWith(
+                  overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return Colors.yellow; // Splash color when pressed
+                      }
+                      return null; // Default splash color
+                    },
+                  ),
+                ),
+                onPressed: () {
+                  // Button pressed action
+                },
+                child: Text('LIVE DARSHAN',style: AppTextStyle
+                    .font14penSansExtraboldWhiteTextStyle,),
               ),
             ),
+            // child: Container(
+            //   height: 35.0,
+            //   width: 200,
+            //   decoration: BoxDecoration(
+            //     color: Colors.red,
+            //     // Background color of the container
+            //     borderRadius: BorderRadius.circular(28.0),
+            //     // Circular border radius
+            //     border: Border.all(
+            //       color: Colors.yellow, // Border color
+            //       width: 2.0, // Border width
+            //     ),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text('LIVE DARSHAN',
+            //           style: AppTextStyle
+            //               .font14penSansExtraboldWhiteTextStyle),
+            //     ],
+            //   ),
+            // ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
           Image.asset('assets/images/templelement2.png',
               // Replace with your first image path
-              height: 50.0,
+              height: 30.0,
               width: MediaQuery.of(context).size.width),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
           Center(
             child: Text('About Temple',
                 style: AppTextStyle
-                    .font18penSansExtraboldRedTextStyle),
+                    .font16penSansExtraboldRedTextStyle),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
     Padding(
       padding: const EdgeInsets.only(left: 10,right: 10),
       child: ReadMoreText(
@@ -328,24 +447,24 @@ Daily Rituals:''',
       trimMode: TrimMode.Line,
       trimCollapsedText: 'Show more',
       trimExpandedText: 'Show less',
-      style: TextStyle(color: Colors.black, fontSize: 18),
+      style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
       moreStyle: TextStyle(
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: FontWeight.bold,
       color: Colors.red),
       textAlign: TextAlign.justify, // Justify text alignment
       ),
     ),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
           Image.asset('assets/images/templeelement3.png',
               // Replace with your first image path
-              height: 50.0,
+              height: 30.0,
               width: MediaQuery.of(context).size.width),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
           Center(
             child: Container(
-              height: 56.0,
-              width: MediaQuery.of(context).size.width-50,
+              height: 35.0,
+              width: MediaQuery.of(context).size.width-100,
               decoration: BoxDecoration(
                 color: Colors.red,
                 // Background color of the container
@@ -356,14 +475,48 @@ Daily Rituals:''',
                   width: 2.0, // Border width
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('CLICK ON MAP TO NAVIGATE',
-                      style: AppTextStyle
-                          .font18penSansExtraboldWhiteTextStyle),
-                ],
+              child: Container(
+                height: 35,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  // Background color of the container
+                  borderRadius: BorderRadius.circular(28.0),
+                  // Circular border radius
+                  border: Border.all(
+                    color: Colors.yellow, // Border color
+                    width: 0.5, // Border width
+                  ),
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.red,
+                    shadowColor: Colors.red, // Custom shadow color
+                    elevation: 5, // Text color
+                  ).copyWith(
+                    overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return Colors.yellow; // Splash color when pressed
+                        }
+                        return null; // Default splash color
+                      },
+                    ),
+                  ),
+                  onPressed: () {
+                    // Button pressed action
+                  },
+                  child: Text('CLICK ON MAP TO NAVIGATE',style: AppTextStyle
+                      .font14penSansExtraboldWhiteTextStyle,),
+                ),
               ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text('CLICK ON MAP TO NAVIGATE',
+              //         style: AppTextStyle.font14penSansExtraboldWhiteTextStyle),
+              //   ],
+              // ),
             ),
           ),
           SizedBox(height: 50),

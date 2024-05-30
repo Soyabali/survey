@@ -39,7 +39,7 @@ class AppTextStyle {
   static TextStyle font16penSansExtraboldWhiteTextStyle = GoogleFonts.openSans(
     color: AppColors.white,
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+   // fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
@@ -63,7 +63,14 @@ class AppTextStyle {
   static TextStyle font18penSansExtraboldRedTextStyle = GoogleFonts.openSans(
     color: AppColors.red,
     fontSize: 18,
-    fontWeight: FontWeight.w600,
+    //fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
+  static TextStyle font16penSansExtraboldRedTextStyle = GoogleFonts.openSans(
+    color: AppColors.red,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );

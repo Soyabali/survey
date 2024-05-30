@@ -103,27 +103,27 @@ getAppBarBack(String title){
       },
     ),
     title: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Image.asset(
-          "assets/images/header_line1.png",
-          width: 80,
-          height: 15,
-        ),
-        SizedBox(width: 10),
-        Text(
-          title,
-          style: AppTextStyle
-              .font16penSansExtraboldWhiteTextStyle
-        ),
-        SizedBox(width: 10),
-        Image.asset(
-          "assets/images/header_line2.png",
-          width: 75,
-          height: 10,
-        ),
-      ],
-    ),
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Image.asset(
+            "assets/images/header_line1.png",
+            width: 80,
+            height: 15,
+          ),
+          SizedBox(width: 10),
+          Text(
+            title,
+            style: AppTextStyle
+                .font16penSansExtraboldWhiteTextStyle
+          ),
+          SizedBox(width: 10),
+          Image.asset(
+            "assets/images/header_line2.png",
+            width: 75,
+            height: 10,
+          ),
+        ],
+      ),
   );
 }
 
