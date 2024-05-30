@@ -107,10 +107,12 @@ class _TemplesHomeState extends State<TempleGallery> with SingleTickerProviderSt
             width:  double.infinity,
             child: TabBarView(
               controller: _tabController,
-              children: const <Widget>[
+              children: const <Widget>
+              [
                 /// here you put gallery code
                 CookiePage(),
                 CookiePage(),
+                SizedBox(height: 50),
               ],
             ),
           ),

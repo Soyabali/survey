@@ -26,10 +26,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var cityname = 'Puri city';
-  var cityname2 = 'Puri city Tourisum';
-  var cityname3 = 'Puri city Tourisum 3';
-  var cityname4 = 'Puri city Tourisum 3';
+  bool isTextVisible2 = false;
+  bool isTextVisible = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                            height: 200),
                                Positioned(
                                  top: 75,
-                                 left: 85,
+                                 left: 100,
                                  child: Text(AppStrings.puriOne,
                                    style: AppTextStyle.font30penSansExtraboldWhiteTextStyle
                                  )
@@ -70,31 +73,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               )
           ),
+          // circle
           Positioned(
-            top: 330,
+             top: 330,
               left: 15,
               right: 15,
               child: Container(
-                height: 360,
+                height: 300,
                 width: MediaQuery.of(context).size.width-50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), // Set the border radius
                   image: const DecorationImage(
                     image: AssetImage(ImageAssets.changecitybackground), // Provide your image path here
-                    fit: BoxFit.cover, // Cover the entire container
+                    fit: BoxFit.fill, // Cover the entire container
                   ),
                 ),
                 child: Stack(
                   children: <Widget>[
                     Positioned(
-                       top: 170,
-                      left: 132,
+                       top: 140,
+                      left: 128,
                       right: 100,
-                    child: Text("SELECT PLACE", style:AppTextStyle.font14penSansExtraboldWhiteTextStyle)
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text("SELECT PLACE", style:AppTextStyle.font14penSansExtraboldWhiteTextStyle),
+                    )
                       ),
                     Positioned(
                         top: 40,
-                        left: 135,
+                        left: 145,
                         right: 40,
                         child: InkWell(
                           onTap: (){
@@ -104,58 +111,72 @@ class _MyHomePageState extends State<MyHomePage> {
                               MaterialPageRoute(builder: (context) => TemplesHome()),
                             );
                           },
-                            child: Text('Temples',
-                              style: AppTextStyle.font20penSansExtraboldWhiteTextStyle
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text('Temples',
+                                style: AppTextStyle.font16penSansExtraboldWhiteTextStyle
+                              ),
                             )
                         )),
                     Positioned(
-                        top: 150,
-                        left: 10,
+                        top: 120,
+                        left: 25,
                         right: 40,
                         child: InkWell(
                           onTap: (){
                             print('-----114-----');
                           },
-                            child: Text('Help Line',
-                              style: AppTextStyle.font20penSansExtraboldWhiteTextStyle
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text('Help Line',
+                                style: AppTextStyle.font16penSansExtraboldWhiteTextStyle
+                              ),
                             )
                         )),
                     Positioned(
-                        top: 150,
-                        right: 5,
+                        top: 120,
+                        right: 15,
                         child: InkWell(
                             onTap: (){
                               print('----122------');
                             },
-                            child: Text('Complaints',
-                              style: AppTextStyle.font20penSansExtraboldWhiteTextStyle,
-                              ))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text('Complaints',
+                                style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
+                                ),
+                            ))),
                     Positioned(
-                        bottom: 70,
-                        right: 40,
+                        bottom: 50,
+                        right: 50,
                         child: InkWell(
                           onTap: (){
                             print('----130------');
                           },
-                            child: Text('Near by Place',
-                              style: AppTextStyle.font20penSansExtraboldWhiteTextStyle
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text('Near by Place',
+                                style: AppTextStyle.font16penSansExtraboldWhiteTextStyle
 
+                              ),
                             ))),
                     Positioned(
-                        bottom: 70,
-                        left: 40,
-                        child: InkWell(
-                          onTap: (){
-                            print('----138------');
-                          },
-                            child: Text('Toilet Locator ',
-                              style: AppTextStyle.font20penSansExtraboldWhiteTextStyle,
+                          bottom: 50,
+                          left: 52,
+                          child: InkWell(
+                            onTap: (){
+                              print('----138------');
+                            },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Toilet Locator ',
+                                  style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
+                                  ),
                               ))),
                   ],
                 )
               )
           )
-
         ],
       )
     );

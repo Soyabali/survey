@@ -43,78 +43,85 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
         // appBar
         appBar: getAppBar("EMERGENCY"),
         drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
-        body: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: TabBar(
-                    controller: _tabController,
-                    indicatorColor: Colors.transparent,
-                    labelColor: Colors.red,
-                    isScrollable:true,
-                    labelPadding: EdgeInsets.only(right: 45.0),
-                    unselectedLabelColor: Colors.black45,
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 50),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: ListView(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: TabBar(
+                        controller: _tabController,
+                        indicatorColor: Colors.transparent,
+                        labelColor: Colors.red,
+                        isScrollable:true,
+                        labelPadding: EdgeInsets.only(right: 45.0),
+                        unselectedLabelColor: Colors.black45,
 
-                    tabs: const [
-                      Tab(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image(image: AssetImage("assets/images/facilities.png"),height: 25,width: 25,
-                              fit: BoxFit.cover,
+                        tabs: const [
+                          Tab(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image(image: AssetImage("assets/images/facilities.png"),height: 25,width: 25,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(height: 2),
+                                Text('HOSPITAL',style: TextStyle(fontSize: 12),)
+                              ],
                             ),
-                            SizedBox(height: 2),
-                            Text('HOSPITAL',style: TextStyle(fontSize: 12),)
-                          ],
-                        ),
-                      ),
-                      Tab(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image(image: AssetImage("assets/images/policefade.png"),
-                              height: 25,width: 25,
-                              fit: BoxFit.cover,),
-                            SizedBox(height: 2),
-                            Text('POLICE STATIION',style: TextStyle(fontSize: 12),)
-                          ],
-                        ),
-                      ),
-                      Tab(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image(image: AssetImage("assets/images/administrationfade.png"),height: 25,width: 25,
-                              fit: BoxFit.cover,),
-                            SizedBox(height: 2),
-                            Text('ADMINISTRATION',style: TextStyle(fontSize: 12),)
-                          ],
-                        ),
-                      ),
+                          ),
+                          Tab(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image(image: AssetImage("assets/images/policefade.png"),
+                                  height: 25,width: 25,
+                                  fit: BoxFit.cover,),
+                                SizedBox(height: 2),
+                                Text('POLICE STATIION',style: TextStyle(fontSize: 12),)
+                              ],
+                            ),
+                          ),
+                          Tab(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image(image: AssetImage("assets/images/administrationfade.png"),height: 25,width: 25,
+                                  fit: BoxFit.cover,),
+                                SizedBox(height: 2),
+                                Text('ADMINISTRATION',style: TextStyle(fontSize: 12),)
+                              ],
+                            ),
+                          ),
 
 
-                    ]),
-              ),
-              SizedBox(height: 5),
-              Container(
-                height: MediaQuery.of(context).size.height - 50.0,
-                width:  double.infinity,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const <Widget>[
-                    /// here you put gallery code
-                    // CookiePage(),
-                    Hospital(),
-                    PoliceStation(),
-                    Administration(),
-                  ],
-                ),
-              ),
+                        ]),
+                  ),
+                  SizedBox(height: 5),
+                  Container(
+                    height: MediaQuery.of(context).size.height - 50.0,
+                    width:  double.infinity,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: const <Widget>[
+                        /// here you put gallery code
+                        // CookiePage(),
+                        Hospital(),
+                        PoliceStation(),
+                        Administration(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 50),
 
-            ]
+                ]
+            ),
+          ),
         )
       // ],
     );

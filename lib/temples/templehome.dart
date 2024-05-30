@@ -161,7 +161,8 @@ class _TemplesHomeState extends State<TemplesHome> {
                   },
                   ),
                 ),
-              )
+              ),
+              SizedBox(height: 50)
               ]
 
           ),

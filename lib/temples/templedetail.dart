@@ -336,24 +336,6 @@ Daily Rituals:''',
       textAlign: TextAlign.justify, // Justify text alignment
       ),
     ),
-
-          // const ReadMoreText(
-          //   '''GeeksForGeeks is the best tutorial website for programmers.
-          //   If you are beginner or intermediate or expert programmer
-          // GeeksForGeeks is the best website for learning to code and
-          // learn different frameworks.''',
-          //   trimLines: 2,
-          //  // textScaleFactor: 1,
-          //   colorClickableText: Colors.red,
-          //   trimMode: TrimMode.Line,
-          //   trimCollapsedText: 'Show more',
-          //   trimExpandedText: 'Show less',
-          //   style: TextStyle(color: Colors.black, fontSize: 18),
-          //   moreStyle: TextStyle(
-          //       fontSize: 15,
-          //       fontWeight: FontWeight.bold,
-          //       color: Colors.red),
-          // ),
           SizedBox(height: 15),
           Image.asset('assets/images/templeelement3.png',
               // Replace with your first image path
@@ -384,27 +366,7 @@ Daily Rituals:''',
               ),
             ),
           ),
-          SizedBox(height: 15),
-
-          // ReadMoreText(
-          //   '''GeeksForGeeks is the best tutorial website for programmers.
-          //   If you are beginner or intermediate or expert programmer
-          // GeeksForGeeks is the best website for learning to code and
-          // learn different frameworks.
-          //   ''',
-          //   trimLines: 4,
-          // //  textScaleFactor: 1,
-          //   colorClickableText: Colors.red,
-          //   trimMode: TrimMode.Line,
-          //   trimCollapsedText: 'Show more',
-          //   trimExpandedText: 'Show less',
-          //   style: TextStyle(color: Colors.black, fontSize: 18),
-          //   moreStyle: TextStyle(
-          //       fontSize: 15,
-          //       fontWeight: FontWeight.bold,
-          //       color: Colors.red),
-          // ),
-
+          SizedBox(height: 50),
 
         ],
       ),
