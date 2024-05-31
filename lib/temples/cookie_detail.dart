@@ -8,6 +8,7 @@ class CookieDetail extends StatelessWidget {
 
    @override
   Widget build(BuildContext context) {
+     var title ="Title";
     return Scaffold(
       appBar: getAppBarBack('IMAGES'),
       body: Padding(
