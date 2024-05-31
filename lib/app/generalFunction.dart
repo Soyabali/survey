@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../homepage/homepage.dart';
 import '../resources/app_text_style.dart';
 import '../temples/cityhistory/cityhistory.dart';
 import '../temples/emergency/emergencyhome.dart';
@@ -11,7 +13,78 @@ import '../temples/facilities/facilities.dart';
 import '../temples/howToReach/howToReach.dart';
 import '../temples/templehome.dart';
 import '../temples/weather/weather.dart';
+ // readmoreTemple
+ readmore(String templeDetails){
+   return ReadMoreText(
+     '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
 
+Daily Rituals:''',
+     trimLines: 1,
+     colorClickableText: Colors.red,
+     trimMode: TrimMode.Line,
+     trimCollapsedText: 'Show more',
+     trimExpandedText: 'Show less',
+     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+     moreStyle: TextStyle(
+         fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
+     textAlign: TextAlign.justify, // Justify text alignment
+   );
+ }
+// middleHeader
+middleHeader(BuildContext context,String templeName){
+ return Stack(
+   children: <Widget>[
+     Container(
+       height: 120,
+       width: double.infinity,
+       color: Colors.white,
+       child: Stack(
+         children: <Widget>[
+           Positioned(
+             left: 5,
+             top: 5,
+             right: 5,
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 Image.asset(
+                   'assets/images/cityelementone.png',
+                   // Replace with your first image path
+                   height: 25.0,
+                   width: 25.0,
+                 ),
+                 Spacer(),
+                 Image.asset(
+                   'assets/images/listelementtop.png',
+                   // Replace with your second image path
+                   height: 25.0,
+                   width: 25.0,
+                 ),
+               ],
+             ),
+           ),
+           Positioned(
+             top: 20,
+             child: Image.asset('assets/images/templeelement1.png',
+                 // Replace with your first image path
+                 height: 30.0,
+                 width: MediaQuery.of(context).size.width),
+           ),
+           Positioned(
+               top: 70,
+               left: 0,
+               right: 0,
+               child: Center(
+                 child: Text(templeName,
+                     style: AppTextStyle
+                         .font16penSansExtraboldRedTextStyle),
+               ))
+         ],
+       ),
+     )
+   ],
+ );
+}
 // appBar
 getAppBar(String title){
   return AppBar(
@@ -34,8 +107,8 @@ getAppBar(String title){
               scale: 0.8,
               // Adjust the scale factor as needed to reduce the image size
               child: Container(
-                height: 35,
-                width: 35,
+                height: 25,
+                width: 25,
                 child: Image.asset("assets/images/menu.png"),
               ),
             ),
@@ -194,14 +267,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        const Text(
+                        Text(
                           'TEMPLES',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xff3f617d),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppTextStyle.font16penSansExtraboldRedTextStyle
                         ),
                       ],
                     ),
@@ -228,14 +296,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        const Text(
+                        Text(
                           'CITY HISTORY',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xff3f617d),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppTextStyle.font16penSansExtraboldRedTextStyle,
                         ),
                       ],
                     ),
@@ -263,14 +326,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        const Text(
+                         Text(
                           'WEATHER',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xff3f617d),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
                         ),
                       ],
                     ),
@@ -297,14 +355,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        const Text(
+                        Text(
                           'FACILITIES',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xff3f617d),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
                         ),
                       ],
                     ),
@@ -332,14 +385,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        const Text(
+                        Text(
                           'EMERGENCY',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xff3f617d),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
                         ),
                       ],
                     ),
@@ -367,14 +415,40 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        const Text(
+                         Text(
                           'HOW TO REACH',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xff3f617d),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () {
+                      //_showBottomSheet(context);  //  HowToReach
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) =>  HowToReach(),
+                      //   ),
+                      // );
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/images/back.png',
+                          width: 25,
+                          height: 25,
+                          color: Colors.red
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                            'HOME',
+                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
                         ),
                       ],
                     ),

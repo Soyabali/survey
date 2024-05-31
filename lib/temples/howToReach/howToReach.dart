@@ -5,6 +5,8 @@ import 'package:puri/temples/temple_gallery.dart';
 import 'package:readmore/readmore.dart';
 import '../../app/generalFunction.dart';
 import '../../resources/app_text_style.dart';
+import '../../resources/assets_manager.dart';
+import '../../resources/custom_elevated_button.dart';
 
 
 class HowToReach extends StatefulWidget {
@@ -51,10 +53,9 @@ class _TemplesHomeState extends State<HowToReach> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      // appBar
-      appBar: getAppBar("HOW To REACH"),
-      drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
+        backgroundColor: Colors.white,
+        appBar: getAppBar("HOW TO REACH"),
+        drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
 
         body: Padding(
           padding: const EdgeInsets.only(bottom: 50),
@@ -68,105 +69,44 @@ class _TemplesHomeState extends State<HowToReach> {
                   Container(
                     height: 200,
                     width: MediaQuery.of(context).size.width,
-                    child: Image.asset("assets/images/reachmathura.png",
-                    fit: BoxFit.cover,
-                    ) //Image.network('${itemList['images']}', fit: BoxFit.cover),
+                    child: Image.asset("assets/images/reachmathura.png",fit:BoxFit.cover),
                   ),
                   Positioned(
-                    top: 135,
+                    top: 155,
                     left: 0,
                     right: 0,
                     child: Align(
                       alignment: Alignment.bottomCenter,
-                      child: InkWell(
-                        onTap: (){
-                          print('----118---');
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                          )));
-                        },
-                        child: Container(
-                          height: 50.0,
-                          width: 150.0,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            // Background color of the container
-                            borderRadius: BorderRadius.circular(28.0),
-                            // Circular border radius
-                            border: Border.all(
-                              color: Colors.yellow, // Border color
-                              width: 2.0, // Border width
-                            ),
+                      child: Container(
+                        height: 35,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          // Background color of the container
+                          borderRadius: BorderRadius.circular(17.0),
+                          // Circular border radius
+                          border: Border.all(
+                            color: Colors.yellow, // Border color
+                            width: 0.5, // Border width
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'assets/images/gallery.png',
-                                // Replace with your image path
-                                height: 20.0,
-                                width: 20.0,
-                              ),
-                              const SizedBox(width: 10.0),
-                              // Space between image and text
-                              Text('CITY MAP',
-                                  style: AppTextStyle
-                                      .font18penSansExtraboldWhiteTextStyle),
-                            ],
-                          ),
+                        ),
+                        child: CustomElevatedButton(
+                          text: 'VIEW GALLERY',
+                          onTap: () {
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => TempleGallery(templeName:'Puri')));
+                          },
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 5),
-              Stack(
-                children: <Widget>[
-                  Container(
-                    height: 120,
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: Stack(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset(
-                              'assets/images/cityelementone.png',
-                              // Replace with your first image path
-                              height: 50.0,
-                              width: 50.0,
-                            ),
-                            Spacer(),
-                            Image.asset(
-                              'assets/images/listelementtop.png',
-                              // Replace with your second image path
-                              height: 50.0,
-                              width: 50.0,
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          top: 25,
-                          child: Image.asset('assets/images/templelement2.png',
-                              // Replace with your first image path
-                              height: 50.0,
-                              width: MediaQuery.of(context).size.width),
-                        ),
-                        Positioned(
-                            top: 80,
-                            left: 0,
-                            right: 0,
-                            child: Center(
-                              child: Text('By Road',
-                                  style: AppTextStyle
-                                      .font18penSansExtraboldRedTextStyle),
-                            ))
-                      ],
-                    ),
-                  )
-                ],
+              middleHeader(context,'Puri'),
+              SizedBox(height: 5),
+              Center(
+                child: Text('By Road',
+                    style: AppTextStyle.font16penSansExtraboldRedTextStyle),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
@@ -192,8 +132,7 @@ class _TemplesHomeState extends State<HowToReach> {
               SizedBox(height: 5),
               Center(
                 child: Container(
-                  height: 50.0,
-                  width: 200,
+                  height: 35,
                   decoration: BoxDecoration(
                     color: Colors.red,
                     // Background color of the container
@@ -201,19 +140,20 @@ class _TemplesHomeState extends State<HowToReach> {
                     // Circular border radius
                     border: Border.all(
                       color: Colors.yellow, // Border color
-                      width: 2.0, // Border width
+                      width: 0.5, // Border width
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('BUS DETAILS',
-                          style: AppTextStyle
-                              .font18penSansExtraboldWhiteTextStyle),
-                    ],
+                  child: CustomElevatedButton(
+                    text: 'BUS DETAILS',
+                    onTap: () {
+                      print('---Live Darshan-----');
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
+                      //)));
+                    },
                   ),
                 ),
               ),
+
               SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.only(left: 15,right: 15),
@@ -253,8 +193,7 @@ class _TemplesHomeState extends State<HowToReach> {
               SizedBox(height: 5),
               Center(
                 child: Container(
-                  height: 50.0,
-                  width: 200,
+                  height: 35,
                   decoration: BoxDecoration(
                     color: Colors.red,
                     // Background color of the container
@@ -262,16 +201,16 @@ class _TemplesHomeState extends State<HowToReach> {
                     // Circular border radius
                     border: Border.all(
                       color: Colors.yellow, // Border color
-                      width: 2.0, // Border width
+                      width: 0.5, // Border width
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('TRAIN DETAILS',
-                          style: AppTextStyle
-                              .font18penSansExtraboldWhiteTextStyle),
-                    ],
+                  child: CustomElevatedButton(
+                    text: 'TRAIN DETAILS',
+                    onTap: () {
+                      print('---Live Darshan-----');
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
+                      //)));
+                    },
                   ),
                 ),
               ),
@@ -315,7 +254,7 @@ class _TemplesHomeState extends State<HowToReach> {
                   // Replace with your first image path
                   height: 20.0,
                   width: MediaQuery.of(context).size.width),
-              SizedBox(height: 70)
+              SizedBox(height: 50)
 
 
                 ],

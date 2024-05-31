@@ -152,8 +152,8 @@ class _TemplesHomeState extends State<Hotel> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Container(
-                                    height: 20,
-                                    width: 20,
+                                    height: 12,
+                                    width: 12,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
 

@@ -74,6 +74,12 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
+  static TextStyle fontTab16penSansExtraboldRedTextStyle = GoogleFonts.openSans(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
   static TextStyle font14penSansExtraboldRedTextStyle = GoogleFonts.openSans(
     color: AppColors.red,
     fontSize: 14,

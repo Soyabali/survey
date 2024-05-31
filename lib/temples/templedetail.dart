@@ -2,49 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/temples/temple_gallery.dart';
-import 'package:readmore/readmore.dart';
 import '../app/generalFunction.dart';
 import '../resources/app_text_style.dart';
-
+import '../resources/custom_elevated_button.dart';
 
 class TemplesDetail extends StatefulWidget {
   final templeName;
   final image;
 
   TemplesDetail({super.key, this.templeName, this.image});
-
   @override
   State<TemplesDetail> createState() => _TemplesHomeState();
 }
 
 class _TemplesHomeState extends State<TemplesDetail> {
   GeneralFunction generalFunction = GeneralFunction();
-  final List<Map<String, String>> itemList = [
-    {
-      'image':
-          'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
-      'temple': 'Jagannath Temple'
-    },
-    {
-      'image':
-          'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
-      'temple': 'PanchaTirtha'
-    },
-    {
-      'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg',
-      'temple': 'Lokanath Temple'
-    },
-    {
-      'image':
-          'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
-      'temple': 'Vimala Temple'
-    },
-    {
-      'image':
-          'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
-      'temple': 'Varahi Temple'
-    },
-  ];
 
   @override
   void initState() {
@@ -58,7 +30,8 @@ class _TemplesHomeState extends State<TemplesDetail> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: getAppBarBack('TEMPLES'),
-      drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
+      drawer:
+          generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
         children: <Widget>[
           Stack(
@@ -69,188 +42,37 @@ class _TemplesHomeState extends State<TemplesDetail> {
                 child: Image.network('${widget.image}', fit: BoxFit.cover),
               ),
               Positioned(
-                top: 135,
+                top: 155,
                 left: 0,
                 right: 0,
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: InkWell(
-                    onTap: (){
-                      print('----118---');
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                      )));
-                    },
-                   child: Container(
-                     height: 35,
-                     decoration: BoxDecoration(
-                       color: Colors.red,
-                       // Background color of the container
-                       borderRadius: BorderRadius.circular(28.0),
-                       // Circular border radius
-                       border: Border.all(
-                         color: Colors.yellow, // Border color
-                         width: 0.5, // Border width
-                       ),
-                     ),
-                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.red,
-                          shadowColor: Colors.red, // Custom shadow color
-                          elevation: 5, // Text color
-                        ).copyWith(
-                          overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                                (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed)) {
-                                return Colors.yellow; // Splash color when pressed
-                              }
-                              return null; // Default splash color
-                            },
-                          ),
-                        ),
-                        onPressed: () {
-                          // Button pressed action
-                        },
-                        child: Text('VIEW GALLERY',style: AppTextStyle
-                            .font14penSansExtraboldWhiteTextStyle,),
+                  child: Container(
+                    height: 35,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      // Background color of the container
+                      borderRadius: BorderRadius.circular(17.0),
+                      // Circular border radius
+                      border: Border.all(
+                        color: Colors.yellow, // Border color
+                        width: 0.5, // Border width
                       ),
-                   ),
-
-                    // child: LayoutBuilder(
-                    //   builder: (BuildContext context, BoxConstraints constraints) {
-                    //     return ElevatedButton(
-                    //       onPressed: () {},
-                    //       child: const Text('Responsive Button'),
-                    //       style: ElevatedButton.styleFrom(
-                    //         shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(25),
-                    //         ),
-                    //         minimumSize: Size(constraints.maxWidth, 50), // Make it responsive
-                    //         padding: EdgeInsets.symmetric(horizontal: 16),
-                    //         textStyle: TextStyle(fontSize: 14),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-
-                    // child: ElevatedButton(
-                    //   onPressed: () {},
-                    //   style: ButtonStyle(
-                    //     backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    //           (Set<MaterialState> states) {
-                    //         if (states.contains(MaterialState.pressed))
-                    //           return Colors.green;
-                    //         return Colors.white; // Use the component's default.
-                    //       },
-                    //     ),
-                    //   ),
-                    //   child: const Text('Button with Pressed State'),
-                    // ),
-                    // child: ElevatedButton(
-                    //   onPressed: () {},
-                    //   style: ElevatedButton.styleFrom(
-                    //     foregroundColor: Colors.white, // textColor
-                    //     backgroundColor: Colors.red, // background colore
-                    //     elevation: 5, // button's elevation when it's pressed
-                    //   ),
-                    //   child: const Text('Styled Button'),
-                    // ),
-
-
-                    // child: Container(
-                    //   height: 35.0,
-                    //   width: 200.0,
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.red,
-                    //     // Background color of the container
-                    //     borderRadius: BorderRadius.circular(28.0),
-                    //     // Circular border radius
-                    //     border: Border.all(
-                    //       color: Colors.yellow, // Border color
-                    //       width: 2.0, // Border width
-                    //     ),
-                    //   ),
-                    //   child: Center(
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.start,
-                    //       children: [
-                    //         Padding(
-                    //           padding: const EdgeInsets.only(left: 33),
-                    //           child: Image.asset(
-                    //             'assets/images/gallery.png',
-                    //             // Replace with your image path
-                    //             height: 18.0,
-                    //             width: 18.0,
-                    //           ),
-                    //         ),
-                    //         const SizedBox(width: 10.0),
-                    //         // Space between image and text
-                    //         Text('VIEW GALLERY',
-                    //             style: AppTextStyle
-                    //                 .font14penSansExtraboldWhiteTextStyle),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-
+                    ),
+                    child: CustomElevatedButton(
+                      text: 'VIEW GALLERY',
+                      onTap: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => TempleGallery(templeName:'${widget.templeName}')));
+                      },
+                    ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
           SizedBox(height: 5),
-          Stack(
-            children: <Widget>[
-              Container(
-                height: 120,
-                width: double.infinity,
-                color: Colors.white,
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      left: 5,
-                      top: 5,
-                      right: 5,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(
-                            'assets/images/cityelementone.png',
-                            // Replace with your first image path
-                            height: 25.0,
-                            width: 25.0,
-                          ),
-                          Spacer(),
-                          Image.asset(
-                            'assets/images/listelementtop.png',
-                            // Replace with your second image path
-                            height: 25.0,
-                            width: 25.0,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 20,
-                      child: Image.asset('assets/images/templeelement1.png',
-                          // Replace with your first image path
-                          height: 30.0,
-                          width: MediaQuery.of(context).size.width),
-                    ),
-                    Positioned(
-                        top: 80,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: Text('${widget.templeName}',
-                              style: AppTextStyle
-                                  .font16penSansExtraboldRedTextStyle),
-                        ))
-                  ],
-                ),
-              )
-            ],
-          ),
+          middleHeader(context,'${widget.templeName}'),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: Container(
@@ -300,9 +122,8 @@ class _TemplesHomeState extends State<TemplesDetail> {
                     ),
                   ),
                   SizedBox(height: 5),
-                  Text(
-                    'Winter',
-                    style: AppTextStyle.font16penSansExtraboldRedTextStyle),
+                  Text('Winter',
+                      style: AppTextStyle.font16penSansExtraboldRedTextStyle),
                   SizedBox(height: 5),
                   Center(
                     child: Row(
@@ -338,10 +159,9 @@ class _TemplesHomeState extends State<TemplesDetail> {
                     ),
                   ),
                   SizedBox(height: 15),
-                  Text(
-                    'Aarti Time',
-                    style: AppTextStyle.font16penSansExtraboldRedTextStyle),
-                  Center(
+                  Text('Aarti Time',
+                      style: AppTextStyle.font16penSansExtraboldRedTextStyle),
+                  const Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -378,51 +198,15 @@ class _TemplesHomeState extends State<TemplesDetail> {
                   width: 0.5, // Border width
                 ),
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.red,
-                  shadowColor: Colors.red, // Custom shadow color
-                  elevation: 5, // Text color
-                ).copyWith(
-                  overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed)) {
-                        return Colors.yellow; // Splash color when pressed
-                      }
-                      return null; // Default splash color
-                    },
-                  ),
-                ),
-                onPressed: () {
-                  // Button pressed action
+              child: CustomElevatedButton(
+                text: 'LIVE DARSHAN',
+                onTap: () {
+                  print('---Live Darshan-----');
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
+                  //)));
                 },
-                child: Text('LIVE DARSHAN',style: AppTextStyle
-                    .font14penSansExtraboldWhiteTextStyle,),
               ),
             ),
-            // child: Container(
-            //   height: 35.0,
-            //   width: 200,
-            //   decoration: BoxDecoration(
-            //     color: Colors.red,
-            //     // Background color of the container
-            //     borderRadius: BorderRadius.circular(28.0),
-            //     // Circular border radius
-            //     border: Border.all(
-            //       color: Colors.yellow, // Border color
-            //       width: 2.0, // Border width
-            //     ),
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text('LIVE DARSHAN',
-            //           style: AppTextStyle
-            //               .font14penSansExtraboldWhiteTextStyle),
-            //     ],
-            //   ),
-            // ),
           ),
           SizedBox(height: 10),
           Image.asset('assets/images/templelement2.png',
@@ -432,29 +216,13 @@ class _TemplesHomeState extends State<TemplesDetail> {
           SizedBox(height: 10),
           Center(
             child: Text('About Temple',
-                style: AppTextStyle
-                    .font16penSansExtraboldRedTextStyle),
+                style: AppTextStyle.font16penSansExtraboldRedTextStyle),
           ),
           SizedBox(height: 10),
-    Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
-      child: ReadMoreText(
-      '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
-
-Daily Rituals:''',
-      trimLines: 1,
-      colorClickableText: Colors.red,
-      trimMode: TrimMode.Line,
-      trimCollapsedText: 'Show more',
-      trimExpandedText: 'Show less',
-      style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-      moreStyle: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-      color: Colors.red),
-      textAlign: TextAlign.justify, // Justify text alignment
-      ),
-    ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: readmore('readmore'),
+          ),
           SizedBox(height: 10),
           Image.asset('assets/images/templeelement3.png',
               // Replace with your first image path
@@ -463,8 +231,7 @@ Daily Rituals:''',
           SizedBox(height: 10),
           Center(
             child: Container(
-              height: 35.0,
-              width: MediaQuery.of(context).size.width-100,
+              height: 35,
               decoration: BoxDecoration(
                 color: Colors.red,
                 // Background color of the container
@@ -472,55 +239,20 @@ Daily Rituals:''',
                 // Circular border radius
                 border: Border.all(
                   color: Colors.yellow, // Border color
-                  width: 2.0, // Border width
+                  width: 0.5, // Border width
                 ),
               ),
-              child: Container(
-                height: 35,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  // Background color of the container
-                  borderRadius: BorderRadius.circular(28.0),
-                  // Circular border radius
-                  border: Border.all(
-                    color: Colors.yellow, // Border color
-                    width: 0.5, // Border width
-                  ),
-                ),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.red,
-                    shadowColor: Colors.red, // Custom shadow color
-                    elevation: 5, // Text color
-                  ).copyWith(
-                    overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          return Colors.yellow; // Splash color when pressed
-                        }
-                        return null; // Default splash color
-                      },
-                    ),
-                  ),
-                  onPressed: () {
-                    // Button pressed action
-                  },
-                  child: Text('CLICK ON MAP TO NAVIGATE',style: AppTextStyle
-                      .font14penSansExtraboldWhiteTextStyle,),
-                ),
+              child: CustomElevatedButton(
+                text: 'CLICK ON MAP TO NAVIGATE',
+                onTap: () {
+                  print('---Live Darshan-----');
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
+                  //)));
+                },
               ),
-              // child: Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Text('CLICK ON MAP TO NAVIGATE',
-              //         style: AppTextStyle.font14penSansExtraboldWhiteTextStyle),
-              //   ],
-              // ),
             ),
           ),
-          SizedBox(height: 50),
-
+          SizedBox(height: 20),
         ],
       ),
     );
