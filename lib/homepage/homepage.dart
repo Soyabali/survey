@@ -41,15 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body:Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Opacity(
-            opacity: 0.8,
-            child: Container(
+         Container(
               width: MediaQuery.of(context).size.width-50,
               height: MediaQuery.of(context).size.height,
               child: Image.asset(ImageAssets.templepuri4,
               fit: BoxFit.cover,),
             ),
-          ),
           Positioned(
             top: 70,
               right: 10,
@@ -106,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Positioned(
-                        top: containerSize * 0.11,
+                        top: containerSize * 0.09,
                         left: containerSize * 0.40,
                         child: InkWell(
                           onTap: () {
@@ -115,8 +112,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               MaterialPageRoute(builder: (context) => TemplesHome()),
                             );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            width: containerSize * 0.2,
+                            height: containerSize * 0.2,
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
                             child: Text(
                               'Temples',
                               style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
@@ -125,14 +125,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Positioned(
-                        top: containerSize * 0.40,
+                        top: containerSize * 0.35,
                         left: containerSize * 0.07,
                         child: InkWell(
                           onTap: () {
                             print('-----114-----');
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            width: containerSize * 0.2,
+                            height: containerSize * 0.2,
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
                             child: Text(
                               'Help Line',
                               style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
@@ -141,32 +144,43 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Positioned(
-                        top: containerSize * 0.40,
-                        right: containerSize * 0.07,
+                        top: containerSize * 0.35,
+                        right: containerSize * 0.06,
+                        left: containerSize * 0.65,
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).pushReplacement(
+                            Navigator.push(
+                              context,
                               MaterialPageRoute(builder: (context) => ComplaintHomePage()),
                             );
+                            // Navigator.of(context).pushReplacement(
+                            //   MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                            // );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            width: containerSize * 0.2,
+                            height: containerSize * 0.2,
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
                             child: Text(
-                              'Complaints',
+                              'Grievance',
                               style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        bottom: containerSize * 0.15,
+                        bottom: containerSize * 0.12,
                         right: containerSize * 0.18,
                         child: InkWell(
                           onTap: () {
                             print('----130------');
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            width: containerSize * 0.2,
+                            height: containerSize * 0.2,
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
                             child: Text(
                               'Near by Place',
                               style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
@@ -175,14 +189,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Positioned(
-                        bottom: containerSize * 0.14,
-                        left: containerSize * 0.16,
+                        bottom: containerSize * 0.12,
+                        left: containerSize * 0.20,
                         child: InkWell(
                           onTap: () {
                             print('----138------');
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: containerSize * 0.2,
+                            height: containerSize * 0.2,
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
                             child: Text(
                               'Toilet Locator ',
                               style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
@@ -196,112 +213,126 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           )
-
           // Positioned(
-          //     top: 280,
-          //     left: 15,
-          //     right: 15,
-          //     child: Container(
-          //       height: 360,
-          //      // width: MediaQuery.of(context).size.width-50,
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(20), // Set the border radius
-          //         image: const DecorationImage(
-          //           image: AssetImage(ImageAssets.changecitybackground), // Provide your image path here
-          //           fit: BoxFit.cover, // Cover the entire container
+          //   top: 280,
+          //   left: 15,
+          //   right: 15,
+          //   child: LayoutBuilder(
+          //     builder: (context, constraints) {
+          //       double containerSize = constraints.maxWidth;
+          //       return Container(
+          //         height: containerSize,
+          //         width: containerSize,
+          //         decoration: BoxDecoration(
+          //           borderRadius: BorderRadius.circular(containerSize / 2), // Make it circular
+          //           image: const DecorationImage(
+          //             image: AssetImage(ImageAssets.changecitybackground), // Provide your image path here
+          //             fit: BoxFit.cover, // Cover the entire container
+          //           ),
           //         ),
-          //       ),
-          //       child: Stack(
-          //         children: <Widget>[
-          //           Positioned(
-          //              top: 140,
-          //             left: 128,
-          //             right: 100,
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(2.0),
-          //             child: Text("SELECT PLACE", style:AppTextStyle.font10penSansExtraboldWhiteTextStyle),
-          //           )
+          //         child: Stack(
+          //           children: <Widget>[
+          //             Positioned(
+          //               top: containerSize * 0.47,
+          //               left: containerSize * 0.38,
+          //               child: Padding(
+          //                 padding: const EdgeInsets.all(2.0),
+          //                 child: Text(
+          //                   "SELECT PLACE",
+          //                   style: AppTextStyle.font10penSansExtraboldWhiteTextStyle,
+          //                 ),
+          //               ),
           //             ),
-          //           Positioned(
-          //               top: 40,
-          //               left: 145,
-          //               right: 40,
+          //             Positioned(
+          //               top: containerSize * 0.11,
+          //               left: containerSize * 0.40,
           //               child: InkWell(
-          //                 onTap: (){
+          //                 onTap: () {
           //                   print("-----105----");
-          //                  // Navigator.of(context).pushNamed(Routes.templePagehome);
           //                   Navigator.of(context).pushReplacement(
           //                     MaterialPageRoute(builder: (context) => TemplesHome()),
           //                   );
           //                 },
-          //                   child: Padding(
-          //                     padding: const EdgeInsets.all(2.0),
-          //                     child: Text('Temples',
-          //                       style: AppTextStyle.font10penSansExtraboldWhiteTextStyle
-          //                     ),
-          //                   )
-          //               )),
-          //           Positioned(
-          //               top: 120,
-          //               left: 25,
-          //               right: 40,
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(2.0),
+          //                   child: Text(
+          //                     'Temples',
+          //                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             Positioned(
+          //               top: containerSize * 0.40,
+          //               left: containerSize * 0.07,
           //               child: InkWell(
-          //                 onTap: (){
+          //                 onTap: () {
           //                   print('-----114-----');
           //                 },
-          //                   child: Padding(
-          //                     padding: const EdgeInsets.all(2.0),
-          //                     child: Text('Help Line',
-          //                       style: AppTextStyle.font10penSansExtraboldWhiteTextStyle
-          //                     ),
-          //                   )
-          //               )),
-          //           Positioned(
-          //               top: 120,
-          //               right: 15,
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(2.0),
+          //                   child: Text(
+          //                     'Help Line',
+          //                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             Positioned(
+          //               top: containerSize * 0.40,
+          //               right: containerSize * 0.07,
           //               child: InkWell(
-          //                   onTap: (){
-          //                     //print('----122------');
-          //                     Navigator.of(context).pushReplacement(
-          //                         MaterialPageRoute(builder: (context) => ComplaintHomePage()));
-          //
-          //                   },
-          //                   child: Padding(
-          //                     padding: const EdgeInsets.all(2.0),
-          //                     child: Text('Complaints',
-          //                       style: AppTextStyle.font10penSansExtraboldWhiteTextStyle,
-          //                       ),
-          //                   ))),
-          //           Positioned(
-          //               bottom: 50,
-          //               right: 50,
+          //                 onTap: () {
+          //                   Navigator.of(context).pushReplacement(
+          //                     MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+          //                   );
+          //                 },
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(2.0),
+          //                   child: Text(
+          //                     'Complaints',
+          //                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             Positioned(
+          //               bottom: containerSize * 0.15,
+          //               right: containerSize * 0.18,
           //               child: InkWell(
-          //                 onTap: (){
+          //                 onTap: () {
           //                   print('----130------');
           //                 },
-          //                   child: Padding(
-          //                     padding: const EdgeInsets.all(2.0),
-          //                     child: Text('Near by Place',
-          //                       style: AppTextStyle.font10penSansExtraboldWhiteTextStyle
-          //
-          //                     ),
-          //                   ))),
-          //           Positioned(
-          //                 bottom: 50,
-          //                 left: 52,
-          //                 child: InkWell(
-          //                   onTap: (){
-          //                     print('----138------');
-          //                   },
-          //                     child: Padding(
-          //                       padding: const EdgeInsets.all(8.0),
-          //                       child: Text('Toilet Locator ',
-          //                         style: AppTextStyle.font10penSansExtraboldWhiteTextStyle,
-          //                         ),
-          //                     ))),
-          //         ],
-          //       )
-          //     )
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(2.0),
+          //                   child: Text(
+          //                     'Near by Place',
+          //                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             Positioned(
+          //               bottom: containerSize * 0.14,
+          //               left: containerSize * 0.16,
+          //               child: InkWell(
+          //                 onTap: () {
+          //                   print('----138------');
+          //                 },
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(8.0),
+          //                   child: Text(
+          //                     'Toilet Locator ',
+          //                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       );
+          //     },
+          //   ),
           // )
         ],
       )

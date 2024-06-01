@@ -13,80 +13,82 @@ import '../temples/facilities/facilities.dart';
 import '../temples/howToReach/howToReach.dart';
 import '../temples/templehome.dart';
 import '../temples/weather/weather.dart';
- // readmoreTemple
- readmore(String templeDetails){
-   return ReadMoreText(
-     '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
+
+// readmoreTemple
+readmore(String templeDetails) {
+  return ReadMoreText(
+    '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
 
 Daily Rituals:''',
-     trimLines: 1,
-     colorClickableText: Colors.red,
-     trimMode: TrimMode.Line,
-     trimCollapsedText: 'Show more',
-     trimExpandedText: 'Show less',
-     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-     moreStyle: TextStyle(
-         fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
-     textAlign: TextAlign.justify, // Justify text alignment
-   );
- }
-// middleHeader
-middleHeader(BuildContext context,String templeName){
- return Stack(
-   children: <Widget>[
-     Container(
-       height: 120,
-       width: double.infinity,
-       color: Colors.white,
-       child: Stack(
-         children: <Widget>[
-           Positioned(
-             left: 5,
-             top: 5,
-             right: 5,
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 Image.asset(
-                   'assets/images/cityelementone.png',
-                   // Replace with your first image path
-                   height: 25.0,
-                   width: 25.0,
-                 ),
-                 Spacer(),
-                 Image.asset(
-                   'assets/images/listelementtop.png',
-                   // Replace with your second image path
-                   height: 25.0,
-                   width: 25.0,
-                 ),
-               ],
-             ),
-           ),
-           Positioned(
-             top: 20,
-             child: Image.asset('assets/images/templeelement1.png',
-                 // Replace with your first image path
-                 height: 30.0,
-                 width: MediaQuery.of(context).size.width),
-           ),
-           Positioned(
-               top: 70,
-               left: 0,
-               right: 0,
-               child: Center(
-                 child: Text(templeName,
-                     style: AppTextStyle
-                         .font16penSansExtraboldRedTextStyle),
-               ))
-         ],
-       ),
-     )
-   ],
- );
+    trimLines: 1,
+    colorClickableText: Colors.red,
+    trimMode: TrimMode.Line,
+    trimCollapsedText: 'Show more',
+    trimExpandedText: 'Show less',
+    style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+    moreStyle:
+        TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
+    textAlign: TextAlign.justify, // Justify text alignment
+  );
 }
+
+// middleHeader
+middleHeader(BuildContext context, String templeName) {
+  return Stack(
+    children: <Widget>[
+      Container(
+        height: 120,
+        width: double.infinity,
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              left: 5,
+              top: 5,
+              right: 5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/images/cityelementone.png',
+                    // Replace with your first image path
+                    height: 25.0,
+                    width: 25.0,
+                  ),
+                  Spacer(),
+                  Image.asset(
+                    'assets/images/listelementtop.png',
+                    // Replace with your second image path
+                    height: 25.0,
+                    width: 25.0,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 20,
+              child: Image.asset('assets/images/templeelement1.png',
+                  // Replace with your first image path
+                  height: 30.0,
+                  width: MediaQuery.of(context).size.width),
+            ),
+            Positioned(
+                top: 70,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Text(templeName,
+                      style: AppTextStyle.font16penSansExtraboldRedTextStyle),
+                ))
+          ],
+        ),
+      )
+    ],
+  );
+}
+
 // appBar
-getAppBar(String title){
+getAppBar(String title) {
   return AppBar(
     backgroundColor: Colors.red,
     elevation: 10,
@@ -98,17 +100,17 @@ getAppBar(String title){
           onTap: () {
             print('----26-----xxx-----');
             Scaffold.of(context).openDrawer();
-           // Navigator.pop(context);
+            // Navigator.pop(context);
           },
           child: Padding(
             padding: const EdgeInsets.only(left: 16.0),
             // Adjust the left margin as needed
             child: Transform.scale(
-              scale: 0.8,
+              scale: 0.6,
               // Adjust the scale factor as needed to reduce the image size
               child: Container(
-                height: 25,
-                width: 25,
+                height: 20,
+                width: 20,
                 child: Image.asset("assets/images/menu.png"),
               ),
             ),
@@ -125,11 +127,7 @@ getAppBar(String title){
           height: 15,
         ),
         SizedBox(width: 10),
-        Text(
-          title,
-          style: AppTextStyle
-              .font16penSansExtraboldWhiteTextStyle
-        ),
+        Text(title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
         SizedBox(width: 10),
         Image.asset(
           "assets/images/header_line2.png",
@@ -140,8 +138,9 @@ getAppBar(String title){
     ),
   );
 }
+
 // appbar with backbutton
-getAppBarBack(String title){
+getAppBarBack(String title) {
   return AppBar(
     backgroundColor: Colors.red,
     elevation: 10,
@@ -151,24 +150,17 @@ getAppBarBack(String title){
       builder: (BuildContext context) {
         return InkWell(
           onTap: () {
+            print('Leading icon tapped');
+            Navigator.pop(context);
           },
-          child: InkWell(
-            onTap: (){
-              print('------75---');
-              Navigator.pop(context);
-              //Navigator.pop(context);
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              // Adjust the left margin as needed
-              child: Transform.scale(
-                scale: 0.6,
-                // Adjust the scale factor as needed to reduce the image size
-                child: Container(
-                  height: 25,
-                  width: 25,
-                  child: Image.asset("assets/images/back.png"),
-                ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Transform.scale(
+              scale: 0.6,
+              child: Container(
+                height: 20,
+                width: 20,
+                child: Image.asset("assets/images/back.png"),
               ),
             ),
           ),
@@ -176,33 +168,44 @@ getAppBarBack(String title){
       },
     ),
     title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Image.asset(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Flexible(
+          flex: 2,
+          child: Image.asset(
             "assets/images/header_line1.png",
-            width: 80,
-            height: 15,
+            fit: BoxFit.contain,
           ),
-          SizedBox(width: 10),
-          Text(
+        ),
+        SizedBox(width: 10),
+        Expanded(
+          flex: 3,
+          child: Text(
             title,
-            style: AppTextStyle
-                .font16penSansExtraboldWhiteTextStyle
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(width: 10),
-          Image.asset(
+        ),
+        SizedBox(width: 10),
+        Flexible(
+          flex: 2,
+          child: Image.asset(
             "assets/images/header_line2.png",
-            width: 75,
-            height: 10,
+            fit: BoxFit.contain,
           ),
-        ],
-      ),
+        ),
+      ],
+    ),
   );
 }
 
 class GeneralFunction {
-  void logout(BuildContext context)async {
-       /// TODO LOGOUT CODE
+  void logout(BuildContext context) async {
+    /// TODO LOGOUT CODE
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("iUserId");
     prefs.remove("sName");
@@ -224,6 +227,7 @@ class GeneralFunction {
     //       (route) => false, // Pop all routes until this page
     // );
   }
+
   // drawerFunction
   drawerFunction(BuildContext context, String sName, String sContactNo) {
     return Drawer(
@@ -233,7 +237,8 @@ class GeneralFunction {
           DrawerHeader(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/applogo.png'), // Replace with your asset image path
+                image: AssetImage('assets/images/applogo.png'),
+                // Replace with your asset image path
                 fit: BoxFit.cover,
               ),
             ),
@@ -267,10 +272,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          'TEMPLES',
-                          style: AppTextStyle.font16penSansExtraboldRedTextStyle
-                        ),
+                        Text('TEMPLES',
+                            style: AppTextStyle
+                                .font16penSansExtraboldRedTextStyle),
                       ],
                     ),
                   ),
@@ -278,7 +282,9 @@ class GeneralFunction {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => CityHistory(templeName:"",image: "")),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CityHistory(templeName: "", image: "")),
                       );
                       // Navigator.push(
                       //   context,
@@ -298,7 +304,8 @@ class GeneralFunction {
                         const SizedBox(width: 10),
                         Text(
                           'CITY HISTORY',
-                          style: AppTextStyle.font16penSansExtraboldRedTextStyle,
+                          style:
+                              AppTextStyle.font16penSansExtraboldRedTextStyle,
                         ),
                       ],
                     ),
@@ -326,10 +333,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                         Text(
-                          'WEATHER',
-                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
-                        ),
+                        Text('WEATHER',
+                            style: AppTextStyle
+                                .font16penSansExtraboldRedTextStyle),
                       ],
                     ),
                   ),
@@ -337,7 +343,8 @@ class GeneralFunction {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => FacilitiesHome()),
+                        MaterialPageRoute(
+                            builder: (context) => FacilitiesHome()),
                       );
                       // Navigator.push(
                       //   context,
@@ -355,27 +362,27 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          'FACILITIES',
-                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
-                        ),
+                        Text('FACILITIES',
+                            style: AppTextStyle
+                                .font16penSansExtraboldRedTextStyle),
                       ],
                     ),
                   ),
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                     // _showBottomSheet(context);   // EmergencyHome
+                      // _showBottomSheet(context);   // EmergencyHome
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => EmergencyHome()),
+                        MaterialPageRoute(
+                            builder: (context) => EmergencyHome()),
                       );
-                     //  Navigator.push(
-                     //    context,
-                     //    MaterialPageRoute(
-                     //      builder: (context) => const EmergencyHome(),
-                     //    ),
-                     //  );
-                   },
+                      //  Navigator.push(
+                      //    context,
+                      //    MaterialPageRoute(
+                      //      builder: (context) => const EmergencyHome(),
+                      //    ),
+                      //  );
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -385,10 +392,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          'EMERGENCY',
-                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
-                        ),
+                        Text('EMERGENCY',
+                            style: AppTextStyle
+                                .font16penSansExtraboldRedTextStyle),
                       ],
                     ),
                   ),
@@ -405,7 +411,7 @@ class GeneralFunction {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => HowToReach()),
                       );
-                      },
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -415,10 +421,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                         Text(
-                          'HOW TO REACH',
-                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
-                        ),
+                        Text('HOW TO REACH',
+                            style: AppTextStyle
+                                .font16penSansExtraboldRedTextStyle),
                       ],
                     ),
                   ),
@@ -439,22 +444,15 @@ class GeneralFunction {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Image.asset(
-                          'assets/images/back.png',
-                          width: 25,
-                          height: 25,
-                          color: Colors.red
-                        ),
+                        Image.asset('assets/images/back.png',
+                            width: 25, height: 25, color: Colors.red),
                         const SizedBox(width: 10),
-                        Text(
-                            'HOME',
-                            style: AppTextStyle.font16penSansExtraboldRedTextStyle
-                        ),
+                        Text('HOME',
+                            style: AppTextStyle
+                                .font16penSansExtraboldRedTextStyle),
                       ],
                     ),
                   ),
-
-
                 ],
               ),
             ),
@@ -463,16 +461,19 @@ class GeneralFunction {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 5.0,left: 15),
+                padding: EdgeInsets.only(bottom: 5.0, left: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    const Text('Synergy Telmatics Pvt.Ltd.',style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Color(0xffF37339),//#F37339
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                    ),),
+                    const Text(
+                      'Synergy Telmatics Pvt.Ltd.',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        color: Color(0xffF37339), //#F37339
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     // const SizedBox(width: 0),
                     // Padding(
                     //   padding: EdgeInsets.only(right: AppSize.s10),
@@ -496,6 +497,7 @@ class GeneralFunction {
       ),
     );
   }
+
   // ShowBottomSheet
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -604,7 +606,7 @@ class GeneralFunction {
     );
   }
 
-  void displayToastlogout(){
+  void displayToastlogout() {
     Fluttertoast.showToast(
         msg: "Someone else has been login with your number.",
         toastLength: Toast.LENGTH_SHORT,
@@ -612,24 +614,20 @@ class GeneralFunction {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
 
-   Future<void> launchGoogleMaps(double laititude,double longitude) async {
-     double destinationLatitude= laititude;
-     double destinationLongitude = longitude;
+  Future<void> launchGoogleMaps(double laititude, double longitude) async {
+    double destinationLatitude = laititude;
+    double destinationLongitude = longitude;
     final uri = Uri(
         scheme: "google.navigation",
         // host: '"0,0"',  {here we can put host}
-        queryParameters: {
-          'q': '$destinationLatitude, $destinationLongitude'
-        });
+        queryParameters: {'q': '$destinationLatitude, $destinationLongitude'});
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
       debugPrint('An error occurred');
     }
   }
-
 }

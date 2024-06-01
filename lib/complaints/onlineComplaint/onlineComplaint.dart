@@ -28,6 +28,63 @@ class _TemplesHomeState extends State<OnlineComplaint> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: getAppBarBack('${widget.name}'),
+      // appBar: AppBar(
+      //     backgroundColor: Colors.red,
+      //     elevation: 10,
+      //     shadowColor: Colors.orange,
+      //     toolbarOpacity: 0.5,
+      //     leading: Builder(
+      //       builder: (BuildContext context) {
+      //         return InkWell(
+      //           onTap: () {
+      //           },
+      //           child: InkWell(
+      //             onTap: (){
+      //               print('------75---');
+      //               Navigator.pop(context);
+      //               //Navigator.pop(context);
+      //             },
+      //             child: Padding(
+      //               padding: const EdgeInsets.only(left: 16.0),
+      //               // Adjust the left margin as needed
+      //               child: Transform.scale(
+      //                 scale: 0.6,
+      //                 // Adjust the scale factor as needed to reduce the image size
+      //                 child: Container(
+      //                   height: 25,
+      //                   width: 25,
+      //                   child: Image.asset("assets/images/back.png"),
+      //                 ),
+      //               ),
+      //             ),
+      //           ),
+      //         );
+      //       },
+      //     ),
+      //     title: Row(
+      //       mainAxisAlignment: MainAxisAlignment.start,
+      //       children: <Widget>[
+      //         Image.asset(
+      //           "assets/images/header_line1.png",
+      //           width: 80,
+      //           height: 15,
+      //         ),
+      //         SizedBox(width: 10),
+      //         Text(
+      //             'Online Complaint',
+      //             style: AppTextStyle
+      //                 .font16penSansExtraboldWhiteTextStyle
+      //         ),
+      //         SizedBox(width: 10),
+      //         Image.asset(
+      //           "assets/images/header_line2.png",
+      //           width: 75,
+      //           height: 10,
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(

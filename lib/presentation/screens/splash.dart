@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _goNextPage();
   }
   _goNextPage(){
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 1), () {
       // SchedulerBinding.instance?.addPostFrameCallback((_)
       // {
       // //  _appPreferences.setIsUserLoggedIn();
@@ -56,9 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.bottomRight,
           children: [
-            Opacity(
-              opacity: 0.8,
-              child: Container(
+            Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(ImageAssets.templepuri4), // Replace 'background_image.jpg' with your image path
@@ -66,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-            ),
             Container(
               child: Stack(
                 alignment: Alignment.center,
