@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/resources/app_strings.dart';
 import 'package:puri/resources/assets_manager.dart';
+import '../complaints/complaintHomePage.dart';
 import '../resources/app_text_style.dart';
 import '../resources/routes_managements.dart';
 import '../temples/templehome.dart';
@@ -138,7 +139,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         right: 15,
                         child: InkWell(
                             onTap: (){
-                              print('----122------');
+                              //print('----122------');
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (context) => ComplaintHomePage()));
+
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),

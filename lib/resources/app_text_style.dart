@@ -87,6 +87,22 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
+  // green
+  static TextStyle font14penSansExtraboldGreenTextStyle = GoogleFonts.openSans(
+    color: AppColors.green,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
+  // orange
+  static TextStyle font14penSansExtraboldOrangeTextStyle = GoogleFonts.openSans(
+    color: AppColors.orange,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
   static TextStyle font10penSansExtraboldRedTextStyle = GoogleFonts.openSans(
     color: AppColors.red,
     fontSize: 10,
@@ -94,6 +110,8 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
+  // black
+
   // silverColore
   static TextStyle font16penSansExtraboldBlack45TextStyle = GoogleFonts.openSans(
     //color: Color(0xFFC0C0C0),// silver

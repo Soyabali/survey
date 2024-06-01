@@ -2,21 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'cookie_detail.dart';
 
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CookiePage(),
-    );
-  }
-}
-
 class CookiePage extends StatelessWidget {
   const CookiePage({Key? key}) : super(key: key);
 
@@ -39,12 +24,9 @@ class CookiePage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cookie Page'),
-      ),
       backgroundColor: Color(0xFFFCFAF8),
       body: Padding(
-        padding: const EdgeInsets.only(left: 10,right: 10,bottom: 100),
+        padding: const EdgeInsets.only(left: 10,right: 10,bottom: 280),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // Number of columns in the grid
@@ -125,25 +107,3 @@ class ImageCard extends StatelessWidget {
     );
   }
 }
-
-
-// class ImageCard extends StatelessWidget {
-//   final String imagePath;
-//   const ImageCard({required this.imagePath});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       elevation: 5,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(10),
-//           image: DecorationImage(
-//             image: AssetImage(imagePath),
-//             fit: BoxFit.cover,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
