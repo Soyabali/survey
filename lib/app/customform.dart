@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../resources/app_text_style.dart';
 import '../resources/custom_elevated_button.dart';
 
 class GrievanceForm extends StatefulWidget {
@@ -23,7 +24,6 @@ class _GrievanceFormState extends State<GrievanceForm> {
         color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -31,118 +31,391 @@ class _GrievanceFormState extends State<GrievanceForm> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Category',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Card(
+                  elevation: 8,
+                  shadowColor: Colors.orange, // Set the shadow color
+                color: Colors.white,
+                  child: Container(
+                    height: 45,
+                    child: TextFormField(
+                      style: const TextStyle(color: Colors.blue), // Set text color
+                      decoration: InputDecoration(
+                        labelText: 'Enter your text', // Set label text
+                        labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle,    // Set label text color
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange), // Set outline color
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                         // borderSide: BorderSide(color: Colors.orange), // Set outline color when focused
+                        ),
+                      ),
                     ),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a category';
-                    }
-                    return null;
-                  },
+                    // child:TextFormField(
+                    //     decoration: InputDecoration(
+                    //       labelText: 'Category',
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(5.0),
+                    //       ),
+                    //     ),
+                    //     validator: (value) {
+                    //       if (value!.isEmpty) {
+                    //         return 'Please enter a category';
+                    //       }
+                    //       return null;
+                    //     },
+                    //   ),
+                    ),
                 ),
                 SizedBox(height: 16.0),
-                DropdownButtonFormField<String>(
-                  value: _selectedSubCategory,
-                  decoration: InputDecoration(
-                    labelText: 'Sub Category',
-                    border: OutlineInputBorder(
+                Card(
+                  elevation: 8,
+                  shadowColor: Colors.orange, // Set the shadow color
+                  color: Colors.white,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.orange, width: 1.0), // Set the border color and width
                       borderRadius: BorderRadius.circular(10.0),
                     ),
+                    child: Container(
+                      height: 45,
+                      child: DropdownButtonFormField<String>(
+                        value: _selectedSubCategory,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10), // Adjust padding
+                          labelText: 'Sub Category',
+                          labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle, // Set label color
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(color: Colors.transparent), // Make the Input border transparent
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(color: Colors.transparent), // Make the Input border transparent
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(color: Colors.transparent), // Make the Input border transparent
+                          ),
+                        ),
+                        style: TextStyle(color: Colors.black), // Set selected value color
+                        dropdownColor: Colors.orange, // Set dropdown background color
+                        items: ['Sub Category 1', 'Sub Category 2']
+                            .map((label) => DropdownMenuItem(
+                          child: Center(child: Text(label)), // Center the dropdown items
+                          value: label,
+                        ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedSubCategory = value;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select a sub category';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
                   ),
-                  items: ['Sub Category 1', 'Sub Category 2']
-                      .map((label) => DropdownMenuItem(
-                    child: Text(label),
-                    value: label,
-                  ))
-                      .toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedSubCategory = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Please select a sub category';
-                    }
-                    return null;
-                  },
+                ),
+
+
+                // Card(
+                //   elevation: 8,
+                //   shadowColor: Colors.orange, // Set the shadow color
+                //   color: Colors.white,
+                //   child: Container(
+                //     height: 45,
+                //     child: DropdownButtonFormField<String>(
+                //      // isExpanded: true,
+                //       value: _selectedSubCategory,
+                //       decoration: InputDecoration(
+                //         contentPadding: EdgeInsets.symmetric(horizontal: 10), // Adjust padding
+                //         labelText: 'Sub Category',
+                //         labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle, // Set label color
+                //         border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(10.0),
+                //           borderSide: BorderSide(color: Colors.orange), // Outline color
+                //         ),
+                //       ),
+                //       style: TextStyle(color: Colors.black), // Set selected value color
+                //       dropdownColor: Colors.orange, // Set dropdown background color
+                //       items: ['Sub Category 1', 'Sub Category 2']
+                //           .map((label) => DropdownMenuItem(
+                //         child: Center(child: Text(label)), // Center the dropdown items
+                //         value: label,
+                //       ))
+                //           .toList(),
+                //       onChanged: (value) {
+                //         setState(() {
+                //           _selectedSubCategory = value;
+                //         });
+                //       },
+                //       validator: (value) {
+                //         if (value == null) {
+                //           return 'Please select a sub category';
+                //         }
+                //         return null;
+                //       },
+                //     ),
+                //   ),
+                // ),
+
+                // Card(
+                //   elevation: 8,
+                //   shadowColor: Colors.orange, // Set the shadow color
+                //   color: Colors.white,
+                //   child: Container(
+                //     height: 55,
+                //     child: DropdownButtonFormField<String>(
+                //       value: _selectedSubCategory,
+                //       decoration: InputDecoration(
+                //         labelText: 'Sub Category',
+                //         border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(10.0),
+                //           borderSide: BorderSide(color: Colors.orange), // Outline color
+                //         ),
+                //       ),
+                //       style: TextStyle(color: Colors.black45,fontSize: 14), // Set selected value color
+                //       dropdownColor: Colors.orange, // Set dropdown background color
+                //       items: ['Sub Category 1', 'Sub Category 2']
+                //           .map((label) => DropdownMenuItem(
+                //         child: Center(child: Text(label)), // Center the dropdown items
+                //         value: label,
+                //       ))
+                //           .toList(),
+                //       onChanged: (value) {
+                //         setState(() {
+                //           _selectedSubCategory = value;
+                //         });
+                //       },
+                //       validator: (value) {
+                //         if (value == null) {
+                //           return 'Please select a sub category';
+                //         }
+                //         return null;
+                //       },
+                //     ),
+                //   ),
+                // ),
+                // Container(
+                //   height: 40,
+                //   child: DropdownButtonFormField<String>(
+                //     value: _selectedSubCategory,
+                //     decoration: InputDecoration(
+                //       labelText: 'Sub Category',
+                //       border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(10.0),
+                //       ),
+                //     ),
+                //     items: ['Sub Category 1', 'Sub Category 2']
+                //         .map((label) => DropdownMenuItem(
+                //       child: Text(label),
+                //       value: label,
+                //     ))
+                //         .toList(),
+                //     onChanged: (value) {
+                //       setState(() {
+                //         _selectedSubCategory = value;
+                //       });
+                //     },
+                //     validator: (value) {
+                //       if (value == null) {
+                //         return 'Please select a sub category';
+                //       }
+                //       return null;
+                //     },
+                //   ),
+                // ),
+                SizedBox(height: 16.0),
+                Card(
+                  elevation: 8,
+                  shadowColor: Colors.orange, // Set the shadow color
+                  color: Colors.white,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.orange, width: 1.0), // Set the border color and width
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Container(
+                      height: 45,
+                      child: DropdownButtonFormField<String>(
+                        value: _selectedSubCategory,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10), // Adjust padding
+                          labelText: 'Sub Category',
+                          labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle, // Set label color
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(color: Colors.transparent), // Make the Input border transparent
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(color: Colors.transparent), // Make the Input border transparent
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(color: Colors.transparent), // Make the Input border transparent
+                          ),
+                        ),
+                        style: TextStyle(color: Colors.black), // Set selected value color
+                        dropdownColor: Colors.orange, // Set dropdown background color
+                        items: ['Sub Category 1', 'Sub Category 2']
+                            .map((label) => DropdownMenuItem(
+                          child: Center(child: Text(label)), // Center the dropdown items
+                          value: label,
+                        ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedSubCategory = value;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select a sub category';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                // DropdownButtonFormField<String>(
+                //   value: _selectedWard,
+                //   decoration: InputDecoration(
+                //     labelText: 'Ward',
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(10.0),
+                //     ),
+                //   ),
+                //   items: ['Ward 1', 'Ward 2']
+                //       .map((label) => DropdownMenuItem(
+                //     child: Text(label),
+                //     value: label,
+                //   ))
+                //       .toList(),
+                //   onChanged: (value) {
+                //     setState(() {
+                //       _selectedWard = value;
+                //     });
+                //   },
+                //   validator: (value) {
+                //     if (value == null) {
+                //       return 'Please select a ward';
+                //     }
+                //     return null;
+                //   },
+                // ),
+                SizedBox(height: 16.0),
+                Card(
+                  elevation: 8,
+                  shadowColor: Colors.orange, // Set the shadow color
+                  color: Colors.white,
+                  child: Container(
+                    height: 45,
+                    child: TextFormField(
+                      style: const TextStyle(color: Colors.blue), // Set text color
+                      decoration: InputDecoration(
+                        labelText: 'Enter your text', // Set label text
+                        labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle,    // Set label text color
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange), // Set outline color
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange), // Set outline color when focused
+                        ),
+                      ),
+                    ),
+                    // child:TextFormField(
+                    //     decoration: InputDecoration(
+                    //       labelText: 'Category',
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(5.0),
+                    //       ),
+                    //     ),
+                    //     validator: (value) {
+                    //       if (value!.isEmpty) {
+                    //         return 'Please enter a category';
+                    //       }
+                    //       return null;
+                    //     },
+                    //   ),
+                  ),
                 ),
                 SizedBox(height: 16.0),
-                DropdownButtonFormField<String>(
-                  value: _selectedWard,
-                  decoration: InputDecoration(
-                    labelText: 'Ward',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Card(
+                  elevation: 8,
+                  shadowColor: Colors.orange, // Set the shadow color
+                  color: Colors.white,
+                  child: Container(
+                    height: 45,
+                    child: TextFormField(
+                      style: const TextStyle(color: Colors.blue), // Set text color
+                      decoration: InputDecoration(
+                        labelText: 'Enter your text', // Set label text
+                        labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle,    // Set label text color
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange), // Set outline color
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange), // Set outline color when focused
+                        ),
+                      ),
                     ),
+                    // child:TextFormField(
+                    //     decoration: InputDecoration(
+                    //       labelText: 'Category',
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(5.0),
+                    //       ),
+                    //     ),
+                    //     validator: (value) {
+                    //       if (value!.isEmpty) {
+                    //         return 'Please enter a category';
+                    //       }
+                    //       return null;
+                    //     },
+                    //   ),
                   ),
-                  items: ['Ward 1', 'Ward 2']
-                      .map((label) => DropdownMenuItem(
-                    child: Text(label),
-                    value: label,
-                  ))
-                      .toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedWard = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Please select a ward';
-                    }
-                    return null;
-                  },
                 ),
                 SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Address',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Card(
+                  elevation: 8,
+                  shadowColor: Colors.orange, // Set the shadow color
+                  color: Colors.white,
+                  child: Container(
+                    height: 45,
+                    child: TextFormField(
+                      style: const TextStyle(color: Colors.blue), // Set text color
+                      decoration: InputDecoration(
+                        labelText: 'Enter your text', // Set label text
+                        labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle,    // Set label text color
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange), // Set outline color
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange), // Set outline color when focused
+                        ),
+                      ),
                     ),
+                    // child:TextFormField(
+                    //     decoration: InputDecoration(
+                    //       labelText: 'Category',
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(5.0),
+                    //       ),
+                    //     ),
+                    //     validator: (value) {
+                    //       if (value!.isEmpty) {
+                    //         return 'Please enter a category';
+                    //       }
+                    //       return null;
+                    //     },
+                    //   ),
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter an address';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Landmark',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a landmark';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Mention your concerns here',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please mention your concerns';
-                    }
-                    return null;
-                  },
                 ),
                 SizedBox(height: 16.0),
                 Card(
