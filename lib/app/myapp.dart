@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 class _MyAppState extends State<MyApp> {
- // AppPreferences _appPreferences = instance<AppPreferences>();
+
   @override
   void didChangeDependencies() {
    // _appPreferences.getLocal().then((local) => {context.setLocale(local)});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:puri/complaints/onlineComplaint/onlineComplaintForm.dart';
+import 'package:puri/complaints/raiseGrievance/onlineComplaintForm.dart';
 import '../../app/generalFunction.dart';
 import '../../resources/app_text_style.dart';
 import '../../resources/custom_elevated_button.dart';
@@ -105,12 +105,13 @@ class _TemplesHomeState extends State<OnlineComplaint> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        // Add your onTap functionality here
-                        var complaintName = 'Online Complaint $index';
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>  OnlineComplaintForm(complaintName:complaintName)),
+                          MaterialPageRoute(builder: (context) => OnlineComplaintForm(complaintName:"Online Complaint")),
                         );
+                        // Add your onTap functionality here
+                      //  var complaintName = 'Online Complaint $index';
+
                       },
                       splashColor: Colors.red.withAlpha(30),
                       borderRadius: BorderRadius.circular(10.0),

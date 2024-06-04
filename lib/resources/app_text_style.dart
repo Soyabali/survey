@@ -14,6 +14,14 @@ class AppTextStyle {
    // textStyle: Theme.of(context).textTheme.titleSmall,
 
   );
+  static TextStyle font140penSansExtraboldWhiteTextStyle = GoogleFonts.openSans(
+    color: AppColors.white,
+    fontSize: 14,
+    //fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
   static TextStyle font18penSansExtraboldWhiteTextStyle = GoogleFonts.openSans(
     color: AppColors.white,
     fontSize: 18,
@@ -50,7 +58,7 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
-  // Black
+  // Black 45
   static TextStyle font14penSansExtraboldBlack45TextStyle = GoogleFonts.openSans(
     color: Colors.black45,
     fontSize: 14,
@@ -58,6 +66,19 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
 
+  );
+  static TextStyle font14penSansExtraboldBlack26TextStyle = GoogleFonts.openSans(
+    color: Colors.black26,
+    fontSize:14,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+  // pendindg TextView Style
+  static TextStyle font14penSansExtraboldRedTextStyle = GoogleFonts.openSans(
+    color: Colors.red,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
   );
   // red
   static TextStyle font18penSansExtraboldRedTextStyle = GoogleFonts.openSans(
@@ -80,13 +101,13 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
-  static TextStyle font14penSansExtraboldRedTextStyle = GoogleFonts.openSans(
-    color: AppColors.red,
-    fontSize: 14,
-    fontWeight: FontWeight.w600,
-    fontStyle: FontStyle.normal,
-    // textStyle: Theme.of(context).textTheme.titleSmall,
-  );
+  // static TextStyle font14penSansExtraboldRedTextStyle = GoogleFonts.openSans(
+  //   color: AppColors.red,
+  //   fontSize: 14,
+  //   fontWeight: FontWeight.w600,
+  //   fontStyle: FontStyle.normal,
+  //   // textStyle: Theme.of(context).textTheme.titleSmall,
+  // );
   // green
   static TextStyle font14penSansExtraboldGreenTextStyle = GoogleFonts.openSans(
     color: AppColors.green,
