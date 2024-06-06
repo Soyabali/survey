@@ -1,8 +1,11 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/temples/facilities/taxi/taxiStand.dart';
 import 'package:puri/temples/facilities/taxi/taxihome.dart';
+
+import '../../../app/navigationUtils.dart';
 
 class Taxi extends StatefulWidget {
   const Taxi({super.key});
@@ -26,7 +29,20 @@ class _FacilitiesHomeState extends State<Taxi> with SingleTickerProviderStateMix
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
+    BackButtonInterceptor.add(myInterceptor);
   }
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

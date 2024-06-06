@@ -1,13 +1,16 @@
+import 'dart:io';
+
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/resources/app_strings.dart';
 import 'package:puri/resources/assets_manager.dart';
+import '../app/navigationUtils.dart';
 import '../complaints/complaintHomePage.dart';
 import '../presentation/helpline_feedback/helplinefeedback.dart';
 import '../presentation/toilet_locator/toilet_locator.dart';
 import '../resources/app_text_style.dart';
-import '../resources/routes_managements.dart';
 import '../temples/nearbyplace/nearbyplace.dart';
 import '../temples/templehome.dart';
 
@@ -31,39 +34,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to exit the app?'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Yes'),
-          ),
-        ],
-      ),
-    )) ??
-        false;
-  }
-
   bool isTextVisible2 = false;
   bool isTextVisible = true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    BackButtonInterceptor.add(myInterceptor);
   }
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         body:Stack(
           fit: StackFit.expand,
@@ -257,8 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         )
-      ),
-    );
+      );
   }
 }
 

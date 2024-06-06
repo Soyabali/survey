@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +15,32 @@ import '../temples/facilities/facilities.dart';
 import '../temples/howToReach/howToReach.dart';
 import '../temples/templehome.dart';
 import '../temples/weather/weather.dart';
+
+
+// backbutton dialog
+Future<bool> _onWillPop(BuildContext context) async {
+  return (await showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Are you sure?'),
+      content: Text('Do you want to exit the app?'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text('No'),
+        ),
+        TextButton(
+          onPressed: () {
+            exit(0);
+            //Navigator.of(context).pop(true);
+          },
+          child: Text('Yes'),
+        ),
+      ],
+    ),
+  )) ??
+      false;
+}
 
 // readmoreTemple
 readmore(String templeDetails) {

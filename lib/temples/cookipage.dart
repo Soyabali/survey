@@ -23,6 +23,7 @@ class CookiePage extends StatelessWidget {
       'assets/images/temple_4.png',
     ];
 
+
     return Scaffold(
       backgroundColor: Color(0xFFFCFAF8),
       body: Padding(

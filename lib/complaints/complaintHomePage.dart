@@ -1,8 +1,10 @@
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:puri/complaints/raiseGrievance/onlineComplaint.dart';
 import '../app/generalFunction.dart';
+import '../app/navigationUtils.dart';
 import '../presentation/aboutpuri/aboutpuri.dart';
 import '../presentation/birth_death/birthanddeath.dart';
 import '../presentation/bookAdvertisement/bookAdvertisement.dart';
@@ -25,26 +27,21 @@ class ComplaintHomePage extends StatefulWidget {
 class _MyHomePageState extends State<ComplaintHomePage> {
   GeneralFunction generalFunction = GeneralFunction();
 
-  Future<bool> _onWillPop() async {
-    // Show a confirmation dialog
-    final shouldPop = await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to exit the app?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Yes'),
-          ),
-        ],
-      ),
-    );
-    return shouldPop ?? false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
   }
 
   @override

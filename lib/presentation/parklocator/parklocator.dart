@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../app/generalFunction.dart';
+import '../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 class ParkLocator extends StatefulWidget {
 
@@ -23,6 +24,17 @@ class _KnowYourWardState extends State<ParkLocator> {
   void initState() {
     print('-----27--${widget.name}');
     super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
   }
 
   @override

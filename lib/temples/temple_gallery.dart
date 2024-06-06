@@ -1,10 +1,10 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:readmore/readmore.dart';
 import '../app/generalFunction.dart';
+import '../app/navigationUtils.dart';
 import '../resources/app_text_style.dart';
-import '../resources/assets_manager.dart';
 import 'cookipage.dart';
 
 class TempleGallery extends StatefulWidget {
@@ -23,6 +23,17 @@ class _TemplesHomeState extends State<TempleGallery> with SingleTickerProviderSt
     print('-----27--${widget.templeName}');
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
   }
 
   @override

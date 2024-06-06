@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
+import '../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 import '../../resources/custom_elevated_button.dart';
 import '../../resources/values_manager.dart';
@@ -210,6 +212,18 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
   void initState() {
     print('-----27--${widget.complaintName}');
     super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
   }
 
   @override

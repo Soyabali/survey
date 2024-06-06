@@ -1,8 +1,11 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:puri/temples/templedetail.dart';
+
+import '../../app/navigationUtils.dart';
 
 class WeatherHome extends StatefulWidget {
   const WeatherHome({super.key});
@@ -22,6 +25,24 @@ class _TemplesHomeState extends State<WeatherHome> {
     {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
     {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {

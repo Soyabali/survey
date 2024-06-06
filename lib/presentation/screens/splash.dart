@@ -1,8 +1,10 @@
 
 import 'dart:async';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:puri/homepage/homepage.dart';
+import '../../app/navigationUtils.dart';
 import '../../resources/app_strings.dart';
 import '../../resources/app_text_style.dart';
 import '../../resources/assets_manager.dart';
@@ -33,7 +35,19 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     _goNextPage();
+    BackButtonInterceptor.add(myInterceptor);
   }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
+  }
+
   _goNextPage(){
     Future.delayed(Duration(seconds: 1), () {
       // SchedulerBinding.instance?.addPostFrameCallback((_)
