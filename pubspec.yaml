@@ -43,6 +43,8 @@ dependencies:
   readmore: ^3.0.0
   double_back_to_close_app: ^2.1.0
   image_picker: ^1.1.2
+  intl: ^0.19.0
+  webview_flutter: ^4.8.0
 
 dev_dependencies:
   flutter_test:
