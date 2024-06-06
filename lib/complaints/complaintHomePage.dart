@@ -1,18 +1,19 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:puri/complaints/raiseGrievance/onlineComplaint.dart';
 import '../app/generalFunction.dart';
+import '../presentation/aboutpuri/aboutpuri.dart';
+import '../presentation/birth_death/birthanddeath.dart';
 import '../presentation/bookAdvertisement/bookAdvertisement.dart';
+import '../presentation/emergencyContact/emergencyContact.dart';
 import '../presentation/eventsAndNewsletter/eventsAndNewsletter.dart';
 import '../presentation/knowyourward/KnowYourWard.dart';
 import '../presentation/marriageCertificate/marriageCertificate.dart';
+import '../presentation/parklocator/parklocator.dart';
 import '../resources/app_text_style.dart';
-
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-
 import 'grievanceStatus/grievanceStatus.dart';
+
 
 class ComplaintHomePage extends StatefulWidget {
   const ComplaintHomePage({super.key});
@@ -200,7 +201,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         //color: Colors.green
                                         color: Color(0xFFD3D3D3),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                           child: Image(
                                         image: AssetImage(
                                             'assets/images/complaint_status.png'),
@@ -450,7 +451,14 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       InkWell(
                         onTap: () {
                           // Add your onTap functionality here
-                          print('-----353------');
+                          //print('-----353------');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BirthAndDeathCertificate(
+                                    name: "Birth & Death Cert")),
+                          );
+
                         },
                         child: Container(
                           height: 100,
@@ -519,7 +527,14 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       InkWell(
                         onTap: () {
                           // Add your onTap functionality here
+                          // ParkLocator
                           print('-----414------');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ParkLocator(
+                                    name: "Park Locator'")),
+                          );
                         },
                         child: Container(
                           height: 100,
@@ -562,7 +577,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         //color: Colors.green
                                         color: Color(0xFFD3D3D3),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                           child: Image(
                                         image: AssetImage(
                                             'assets/images/complaint_status.png'),
@@ -583,6 +598,14 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                         onTap: () {
                           // Add your onTap functionality here
                           print('-----470------');
+                          // EmergencyContacts
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EmergencyContacts(
+                                    name: "Emergency Contacts")),
+                          );
+
                         },
                         child: Container(
                           height: 100,
@@ -624,7 +647,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         //color: Colors.green
                                         color: Color(0xFFD3D3D3),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                           child: Image(
                                         image: AssetImage(
                                             'assets/images/complaint_status.png'),
@@ -700,7 +723,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         //color: Colors.green
                                         color: Color(0xFFD3D3D3),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                           child: Image(
                                         image: AssetImage(
                                             'assets/images/complaint_status.png'),
@@ -720,7 +743,12 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       InkWell(
                         onTap: () {
                           // Add your onTap functionality here
-                          print('-----586------');
+                          //print('-----586------');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AboutPuri()),
+                          );
                         },
                         child: Container(
                           height: 100,
@@ -745,7 +773,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                               elevation: 10,
                               shadowColor: Colors.orange,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(
+                                side: const BorderSide(
                                     color: Colors.orange, width: 0.5),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -762,7 +790,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         //color: Colors.green
                                         color: Color(0xFFD3D3D3),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                           child: Image(
                                         image: AssetImage(
                                             'assets/images/complaint_status.png'),

@@ -4,8 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:puri/resources/app_strings.dart';
 import 'package:puri/resources/assets_manager.dart';
 import '../complaints/complaintHomePage.dart';
+import '../presentation/helpline_feedback/helplinefeedback.dart';
+import '../presentation/toilet_locator/toilet_locator.dart';
 import '../resources/app_text_style.dart';
 import '../resources/routes_managements.dart';
+import '../temples/nearbyplace/nearbyplace.dart';
 import '../temples/templehome.dart';
 
 class HomePage extends StatelessWidget {
@@ -153,7 +156,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           left: containerSize * 0.07,
                           child: InkWell(
                             onTap: () {
-                              print('-----114-----');
+                              print('-----114-----'); // HelpLineFeedBack
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line")),
+                              );
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -199,6 +207,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: () {
                               print('----130------');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
+                              );
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -218,6 +230,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: () {
                               print('----138------');
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ToiletLocator(name:"Toilet Locator")),
+                              );
+
                             },
                             child: Container(
                               width: containerSize * 0.2,
