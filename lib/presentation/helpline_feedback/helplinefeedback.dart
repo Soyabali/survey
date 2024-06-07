@@ -70,55 +70,27 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
       appBar: getAppBarBack('Help Line'),
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body: ListView(
-        children: <Widget>[
-          Stack(
+      body: SingleChildScrollView(
+        child: Column(
             children: <Widget>[
-              Container(
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                child: Image.network(
-                    'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg',
-                    fit: BoxFit.cover),
+              Stack(
+                children: <Widget>[
+                  Container(
+                    height: 200,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.network(
+                        'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg',
+                        fit: BoxFit.cover),
+                  ),
+                ],
               ),
-              // Positioned(
-              //   top: 155,
-              //   left: 0,
-              //   right: 0,
-              //   child: Align(
-              //     alignment: Alignment.bottomCenter,
-              //     child: Container(
-              //       height: 35,
-              //       decoration: BoxDecoration(
-              //         color: Colors.red,
-              //         // Background color of the container
-              //         borderRadius: BorderRadius.circular(17.0),
-              //         // Circular border radius
-              //         border: Border.all(
-              //           color: Colors.yellow, // Border color
-              //           width: 0.5, // Border width
-              //         ),
-              //       ),
-              //       child: CustomElevatedButton(
-              //         text: 'VIEW GALLERY',
-              //         onTap: () {
-              //           Navigator.of(context).push(MaterialPageRoute(
-              //               builder: (_) =>
-              //                   TempleGallery(templeName: '${widget.name}')));
-              //         },
-              //       ),
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
-          SizedBox(height: 5),
-          middleHeader(context, '${widget.name}'),
-          Padding(
-            padding: const EdgeInsets.only(left: 5, right: 5, bottom: 50),
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
+              SizedBox(height: 5),
+              middleHeader(context, '${widget.name}'),
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5, bottom: 50),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -149,9 +121,9 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                         padding: EdgeInsets.only(left: 10),
                                         child: Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Text('Puri City Address',
                                                 style: AppTextStyle
@@ -175,10 +147,10 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      child: Icon(Icons.location_on,
+                                      child: const Icon(Icons.location_on,
                                           color: Colors.red,
                                           size:
-                                              22), //Image.asset('assets/images/callicon.png',
+                                          22), //Image.asset('assets/images/callicon.png',
                                     )),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 5),
@@ -265,8 +237,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Image.asset('assets/images/callicon.png',
-                                         height:12,
-                                         width: 12,
+                                        height:12,
+                                        width: 12,
                                       ),
                                       // child: Icon(Icons.location_on,
                                       //     color: Colors.red,
@@ -504,7 +476,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                               height:40,
                               width: 40,
                             ),
-
+        
                             SizedBox(width: 10),
                             Image.asset('assets/images/twitter.png',
                               height:40,
@@ -524,11 +496,12 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                         ),
                       ),
                     ],
+                  ),
+                ),
               ),
-            ),
-          )
-        ],
+            ],
+          ),
       ),
-    );
+      );
   }
 }

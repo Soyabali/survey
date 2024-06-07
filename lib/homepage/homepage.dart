@@ -170,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Positioned(
                           top: containerSize * 0.35,
                           right: containerSize * 0.06,
-                          left: containerSize * 0.65,
+                          left: containerSize * 0.70,
                           child: InkWell(
                             onTap: () {
                               Navigator.push(
