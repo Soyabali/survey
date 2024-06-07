@@ -11,6 +11,7 @@ import '../complaints/complaintHomePage.dart';
 import '../presentation/helpline_feedback/helplinefeedback.dart';
 import '../presentation/toilet_locator/toilet_locator.dart';
 import '../resources/app_text_style.dart';
+import '../resources/values_manager.dart';
 import '../temples/nearbyplace/nearbyplace.dart';
 import '../temples/templehome.dart';
 
@@ -112,18 +113,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         Positioned(
                           top: containerSize * 0.47,
-                          left: containerSize * 0.38,
+                          left: containerSize * 0.45,
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Text(
-                              "SELECT PLACE",
+                              "SELECT",
                               style: AppTextStyle.font10penSansExtraboldWhiteTextStyle,
                             ),
                           ),
                         ),
                         Positioned(
                           top: containerSize * 0.09,
-                          left: containerSize * 0.40,
+                          left: containerSize * 0.46,
                           child: InkWell(
                             onTap: () {
                               print("-----105----");
@@ -136,9 +137,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: containerSize * 0.2,
                               color: Colors.transparent,
                               alignment: Alignment.center,
-                              child: Text(
-                                'Temples',
-                                style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                              child: Center(
+                                child: Text(
+                                  'About Puri',
+                                  style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                ),
                               ),
                             ),
                           ),
@@ -152,8 +155,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line")),
+                                MaterialPageRoute(builder: (context) => ToiletLocator(name:"Toilet Locator")),
                               );
+
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line")),
+                              // );
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -161,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.transparent,
                               alignment: Alignment.center,
                               child: Text(
-                                'Help Line',
+                                'Utility Locator',
                                 style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                               ),
                             ),
@@ -170,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Positioned(
                           top: containerSize * 0.35,
                           right: containerSize * 0.06,
-                          left: containerSize * 0.70,
+                          left: containerSize * 0.75,
                           child: InkWell(
                             onTap: () {
                               Navigator.push(
@@ -187,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.transparent,
                               alignment: Alignment.center,
                               child: Text(
-                                'Grievance',
+                                'Citizen Services',
                                 style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                               ),
                             ),
@@ -199,10 +208,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: () {
                               print('----130------');
+
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
+                                MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line", image: '',)),
                               );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
+                              // );
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -210,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.transparent,
                               alignment: Alignment.center,
                               child: Text(
-                                'Near by Place',
+                                'Help Line',
                                 style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                               ),
                             ),
@@ -225,8 +239,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => ToiletLocator(name:"Toilet Locator")),
+                                MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
                               );
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => ToiletLocator(name:"Toilet Locator")),
+                              // );
 
                             },
                             child: Container(
@@ -235,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.transparent,
                               alignment: Alignment.center,
                               child: Text(
-                                'Toilet Locator ',
+                                'Near by Place ',
                                 style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                               ),
                             ),
@@ -246,7 +265,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
               ),
-            )
+            ),
+            // Expanded(
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Padding(
+            //       padding: EdgeInsets.only(bottom: 5.0, left: 15),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: <Widget>
+            //         [
+            //           Text(
+            //             'Synergy Telmatics Pvt.Ltd.',
+            //             style: AppTextStyle.font18penSansExtraboldWhiteTextStyle,
+            //           ),
+            //           SizedBox(width: 10),
+            //           Padding(
+            //             padding: EdgeInsets.only(right: AppSize.s10),
+            //             child: SizedBox(
+            //               width: 30,
+            //               height: 30,
+            //               child: Image.asset(
+            //                 'assets/images/favicon.png',
+            //                 width: 30,
+            //                 height: 30,
+            //                 fit: BoxFit.fill, // Changed BoxFit to fill
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         )
       );

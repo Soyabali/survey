@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../homepage/homepage.dart';
 import '../resources/app_text_style.dart';
+import '../resources/assets_manager.dart';
+import '../resources/values_manager.dart';
 import '../temples/cityhistory/cityhistory.dart';
 import '../temples/emergency/emergencyhome.dart';
 import '../temples/facilities/facilities.dart';
@@ -255,8 +257,8 @@ class GeneralFunction {
     //       (route) => false, // Pop all routes until this page
     // );
   }
-
   // drawerFunction
+
   drawerFunction(BuildContext context, String sName, String sContactNo) {
     return Drawer(
       child: Column(
@@ -281,15 +283,29 @@ class GeneralFunction {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Image.asset('assets/images/home.png',
+                            width: 25,
+                            height: 25),
+                           // color: Colors.red),
+                        const SizedBox(width: 10),
+                        Text('HOME',
+                            style: AppTextStyle
+                                .font16penSansExtraboldRedTextStyle),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => TemplesHome()),
                       );
-
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const TemplesHome(),
-                      //   ),
-                      // );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -455,45 +471,21 @@ class GeneralFunction {
                       ],
                     ),
                   ),
-                  SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: () {
-                      //_showBottomSheet(context);  //  HowToReach
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>  HowToReach(),
-                      //   ),
-                      // );
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.asset('assets/images/back.png',
-                            width: 25, height: 25, color: Colors.red),
-                        const SizedBox(width: 10),
-                        Text('HOME',
-                            style: AppTextStyle
-                                .font16penSansExtraboldRedTextStyle),
-                      ],
-                    ),
-                  ),
+                 // SizedBox(height: 15),
                 ],
               ),
             ),
           ),
-          Expanded(
+           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 5.0, left: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
+                  children: <Widget>
+                  [
+                    Text(
                       'Synergy Telmatics Pvt.Ltd.',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
@@ -502,20 +494,20 @@ class GeneralFunction {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    // const SizedBox(width: 0),
-                    // Padding(
-                    //   padding: EdgeInsets.only(right: AppSize.s10),
-                    //   child: Container(
-                    //     margin: EdgeInsets.all(AppSize.s10),
-                    //     child: Image.asset(
-                    //       ImageAssets.favicon,
-                    //       //width: AppSize.s50,
-                    //       width: 20,
-                    //       height: 20,
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    // ),
+                    SizedBox(width: 10),
+                     Padding(
+                        padding: EdgeInsets.only(right: AppSize.s10),
+                        child: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: Image.asset(
+                            'assets/images/favicon.png',
+                            width: 25,
+                            height: 25,
+                            fit: BoxFit.fill, // Changed BoxFit to fill
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),
