@@ -158,11 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 MaterialPageRoute(builder: (context) => ToiletLocator(name:"Toilet Locator")),
                               );
 
-
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line")),
-                              // );
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -186,9 +181,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 context,
                                 MaterialPageRoute(builder: (context) => ComplaintHomePage()),
                               );
-                              // Navigator.of(context).pushReplacement(
-                              //   MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                              // );
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -261,43 +253,46 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ],
+
                     ),
+
                   );
                 },
               ),
             ),
-            // Expanded(
-            //   child: Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: Padding(
-            //       padding: EdgeInsets.only(bottom: 5.0, left: 15),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         children: <Widget>
-            //         [
-            //           Text(
-            //             'Synergy Telmatics Pvt.Ltd.',
-            //             style: AppTextStyle.font18penSansExtraboldWhiteTextStyle,
-            //           ),
-            //           SizedBox(width: 10),
-            //           Padding(
-            //             padding: EdgeInsets.only(right: AppSize.s10),
-            //             child: SizedBox(
-            //               width: 30,
-            //               height: 30,
-            //               child: Image.asset(
-            //                 'assets/images/favicon.png',
-            //                 width: 30,
-            //                 height: 30,
-            //                 fit: BoxFit.fill, // Changed BoxFit to fill
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 5.0, left: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>
+                    [
+                      Text(
+                        'Synergy Telmatics Pvt.Ltd.',
+                        style: AppTextStyle.font18penSansExtraboldWhiteTextStyle,
+                      ),
+                      SizedBox(width: 10),
+                      Padding(
+                        padding: EdgeInsets.only(right: AppSize.s10),
+                        child: SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            'assets/images/favicon.png',
+                            width: 30,
+                            height: 30,
+                            fit: BoxFit.fill, // Changed BoxFit to fill
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         )
       );

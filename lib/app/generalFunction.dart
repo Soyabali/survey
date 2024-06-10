@@ -153,7 +153,7 @@ getAppBar(String title) {
       children: <Widget>[
         Image.asset(
           "assets/images/header_line1.png",
-          width: 80,
+          width: 50,
           height: 15,
         ),
         SizedBox(width: 10),
@@ -161,7 +161,7 @@ getAppBar(String title) {
         SizedBox(width: 10),
         Image.asset(
           "assets/images/header_line2.png",
-          width: 75,
+          width: 50,
           height: 10,
         ),
       ],

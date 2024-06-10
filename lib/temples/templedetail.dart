@@ -43,7 +43,7 @@ class _TemplesHomeState extends State<TemplesDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('TEMPLES'),
+      appBar: getAppBarBack('${widget.templeName}'),
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
