@@ -49,24 +49,23 @@ class _MyHomePageState extends State<ComplaintHomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: getAppBarBack("Citizen Services"),
-      drawer:
-          generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+      drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Stack(
         fit: StackFit.expand, // Make the stack fill the entire screen
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Icon(Icons.invert_colors_on_sharp, size: 20),
-              SizedBox(width: 5),
-              Text('Functional Activities',
-                  style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: <Widget>[
+          //     Icon(Icons.invert_colors_on_sharp, size: 20),
+          //     SizedBox(width: 5),
+          //     Text('Functional Activities',
+          //         style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
+          //   ],
+          // ),
           Padding(
             padding:
-                const EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 10),
+                const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 10),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

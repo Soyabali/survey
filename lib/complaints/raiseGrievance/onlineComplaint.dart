@@ -104,7 +104,7 @@ class _TemplesHomeState extends State<OnlineComplaint> {
           middleHeader(context,'${widget.name}'),
           Image.asset('assets/images/templelement2.png',
               // Replace with your first image path
-              height: 30.0,
+              height: 18.0,
               width: MediaQuery.of(context).size.width),
           SizedBox(height: 10),
           Container(

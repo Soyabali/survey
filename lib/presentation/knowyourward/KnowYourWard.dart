@@ -210,7 +210,7 @@ class _KnowYourWardState extends State<KnowYourWard> {
           Card(
             // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
             elevation: 8,
-            color: Colors.orange,
+            color: Colors.redAccent,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8)),
             child: Container(

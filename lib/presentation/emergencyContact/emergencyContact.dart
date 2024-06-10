@@ -53,7 +53,7 @@ class _EmergencyContactsState extends State<EmergencyContacts> {
         children: <Widget>[
           middleHeader(context,'${widget.name}'),
           Image.asset('assets/images/templelement2.png',
-              height: 30.0,
+              height: 20.0,
               width: MediaQuery.of(context).size.width),
           const SizedBox(height: 10),
           Container(
@@ -102,7 +102,7 @@ class _EmergencyContactsState extends State<EmergencyContacts> {
           const SizedBox(height: 10),
 
           Image.asset('assets/images/templeelement3.png',
-              height: 30.0,
+              height: 20.0,
               width: MediaQuery.of(context).size.width),
 
         ],

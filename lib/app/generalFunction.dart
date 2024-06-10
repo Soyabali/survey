@@ -67,7 +67,7 @@ middleHeader(BuildContext context, String templeName) {
   return Stack(
     children: <Widget>[
       Container(
-        height: 120,
+        height: 100,
         width: double.infinity,
         color: Colors.white,
         child: Stack(
@@ -103,7 +103,7 @@ middleHeader(BuildContext context, String templeName) {
                   width: MediaQuery.of(context).size.width),
             ),
             Positioned(
-                top: 70,
+                top: 55,
                 left: 0,
                 right: 0,
                 child: Center(

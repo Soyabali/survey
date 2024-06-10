@@ -236,15 +236,18 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
       body: ListView(
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Icon(Icons.invert_colors_on_sharp, size: 20),
-              SizedBox(width: 5),
-              Text('Fill the below details',
-                  style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Icon(Icons.invert_colors_on_sharp, size: 20),
+                SizedBox(width: 5),
+                Text('Fill the below details',
+                    style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
+              ],
+            ),
           ),
           SizedBox(height: 12),
           Padding(
@@ -473,7 +476,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                                           }
                                         },
                                         child: Container(
-                                          height: 50,
+                                          height: 70,
                                           //color: Colors.blue,
                                           decoration: const BoxDecoration(
                                             color: Colors.blueGrey,
@@ -486,17 +489,28 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.only(left: 10,top: 5),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text('Form Date',
-                                                    style: AppTextStyle
-                                                        .font140penSansExtraboldWhiteTextStyle),
-                                                Text(_fromDate,
-                                                    style: AppTextStyle
-                                                        .font140penSansExtraboldWhiteTextStyle)
-                                              ],
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Center(
+                                                    child: Image(
+                                                        image: AssetImage('assets/images/calendar.png'),
+                                                        width: 30.0,
+                                                        height: 30.0,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  Center(
+                                                    child: Text(_fromDate,
+                                                        style: AppTextStyle
+                                                            .font140penSansExtraboldWhiteTextStyle),
+                                                  )
+                                                 // Icon(Icons.calendar_month,size: 25),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -523,7 +537,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                                         }
                                       },
                                       child: Container(
-                                        height: 50,
+                                        height: 70,
                                         //color: Colors.blue,
                                         decoration: const BoxDecoration(
                                           color: Colors.red,
@@ -540,12 +554,23 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('To Date',
+                                              const Center(
+                                                child: Image(
+                                                  image: AssetImage('assets/images/calendar.png'),
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10),
+                                              // Text('To Date',
+                                              //     style: AppTextStyle
+                                              //         .font140penSansExtraboldWhiteTextStyle),
+                                              Center(
+                                                child: Text(_toDate,
                                                   style: AppTextStyle
                                                       .font140penSansExtraboldWhiteTextStyle),
-                                              Text(_toDate,
-                                                style: AppTextStyle
-                                                    .font140penSansExtraboldWhiteTextStyle)
+                                              )
                                             ],
                                           ),
                                         ),
