@@ -123,25 +123,31 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         Positioned(
-                          top: containerSize * 0.09,
-                          left: containerSize * 0.46,
+                             top: containerSize * 0.09,
+                            left: containerSize * 0.40,
                           child: InkWell(
                             onTap: () {
-                              print("-----105----");
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) => TemplesHome()),
-                              );
+                              print('-----114-----'); // HelpLineFeedBack
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (context) => TemplesHome()));
                             },
                             child: Container(
                               width: containerSize * 0.2,
                               height: containerSize * 0.2,
                               color: Colors.transparent,
                               alignment: Alignment.center,
-                              child: Center(
-                                child: Text(
-                                  'About Puri',
-                                  style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'About',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                  Text(
+                                    'Puri',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -155,41 +161,58 @@ class _MyHomePageState extends State<MyHomePage> {
 
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => ToiletLocator(name:"Toilet Locator")),
+                                MaterialPageRoute(builder: (context) => ToiletLocator(name: "Toilet Locator")),
                               );
-
                             },
                             child: Container(
                               width: containerSize * 0.2,
                               height: containerSize * 0.2,
                               color: Colors.transparent,
                               alignment: Alignment.center,
-                              child: Text(
-                                'Utility Locator',
-                                style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Utility',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                  Text(
+                                    'Locator',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
                         Positioned(
-                          top: containerSize * 0.35,
-                          right: containerSize * 0.06,
-                          left: containerSize * 0.75,
+                            top: containerSize * 0.35,
+                            right: containerSize * 0.06,
+                            left: containerSize * 0.75,
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                              );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                                    );
                             },
                             child: Container(
                               width: containerSize * 0.2,
                               height: containerSize * 0.2,
                               color: Colors.transparent,
                               alignment: Alignment.center,
-                              child: Text(
-                                'Citizen Services',
-                                style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Citizen',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                  Text(
+                                    'Services',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -223,31 +246,32 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         Positioned(
-                          bottom: containerSize * 0.12,
-                          left: containerSize * 0.20,
+                            bottom: containerSize * 0.12,
+                            left: containerSize * 0.20,
                           child: InkWell(
                             onTap: () {
-                              print('----138------');
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
-                              );
-
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => ToiletLocator(name:"Toilet Locator")),
-                              // );
-
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
+                                    );
                             },
                             child: Container(
                               width: containerSize * 0.2,
                               height: containerSize * 0.2,
                               color: Colors.transparent,
                               alignment: Alignment.center,
-                              child: Text(
-                                'Near by Place ',
-                                style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Near by',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                  Text(
+                                    'Place',
+                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -260,39 +284,67 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
-
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 5.0, left: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>
-                    [
-                      Text(
-                        'Synergy Telmatics Pvt.Ltd.',
-                        style: AppTextStyle.font18penSansExtraboldWhiteTextStyle,
-                      ),
-                      SizedBox(width: 10),
-                      Padding(
-                        padding: EdgeInsets.only(right: AppSize.s10),
-                        child: SizedBox(
+            Positioned(
+              bottom: 5.0,
+              left: 15.0,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text(
+                      'Synergy Telmatics Pvt.Ltd.',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    SizedBox(width: 10),
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Image.asset(
+                          'assets/images/favicon.png',
                           width: 30,
                           height: 30,
-                          child: Image.asset(
-                            'assets/images/favicon.png',
-                            width: 30,
-                            height: 30,
-                            fit: BoxFit.fill, // Changed BoxFit to fill
-                          ),
+                          fit: BoxFit.fill,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
+            // Expanded(
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Padding(
+            //       padding: EdgeInsets.only(bottom: 5.0, left: 15),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: <Widget>
+            //         [
+            //           Text(
+            //             'Synergy Telmatics Pvt.Ltd.',
+            //             style: AppTextStyle.font18penSansExtraboldWhiteTextStyle,
+            //           ),
+            //           SizedBox(width: 10),
+            //           Padding(
+            //             padding: EdgeInsets.only(right: AppSize.s10),
+            //             child: SizedBox(
+            //               width: 30,
+            //               height: 30,
+            //               child: Image.asset(
+            //                 'assets/images/favicon.png',
+            //                 width: 30,
+            //                 height: 30,
+            //                 fit: BoxFit.fill, // Changed BoxFit to fill
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         )
       );
