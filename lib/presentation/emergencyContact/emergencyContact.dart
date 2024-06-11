@@ -8,6 +8,7 @@ import 'fireemergency/fireemergency.dart';
 
 
 class EmergencyContacts extends StatefulWidget {
+
   final name;
   EmergencyContacts({super.key, this.name});
 
@@ -16,7 +17,9 @@ class EmergencyContacts extends StatefulWidget {
 }
 
 class _EmergencyContactsState extends State<EmergencyContacts> {
+
   GeneralFunction generalFunction = GeneralFunction();
+
   final List<String> items = [
     'Fire Emergency',
     'Police',
@@ -46,7 +49,7 @@ class _EmergencyContactsState extends State<EmergencyContacts> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('${widget.name}'),
+      appBar: getAppBarBack(context,'${widget.name}'),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(

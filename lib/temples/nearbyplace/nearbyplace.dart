@@ -48,7 +48,7 @@ class _TemplesHomeState extends State<NearByPlace> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: getAppBarBack('Near by Place'),
+        appBar: getAppBarBack(context,'Near by Place'),
         drawer:
         generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         // appBar

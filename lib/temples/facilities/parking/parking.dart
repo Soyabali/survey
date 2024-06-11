@@ -128,15 +128,22 @@ class _TemplesHomeState extends State<Parking> {
 
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Icon(Icons.location_on,size: 16,color: Colors.red),
-                                                    SizedBox(width: 5),
-                                                    Text('Holi Gate-Tank Choraha Road,Mathura',
-                                                        style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                                InkWell(
+                                                  onTap: (){
+                                                    double lat = 19.817743;
+                                                    double long = 85.859839;
+                                                    launchGoogleMaps(lat,long);
+                                                  },
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Icon(Icons.location_on,size: 16,color: Colors.red),
+                                                      SizedBox(width: 5),
+                                                      Text('Holi Gate-Tank Choraha Road,Mathura',
+                                                          style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
 
-                                                  ],
+                                                    ],
+                                                  ),
                                                 )
 
                                               ],
@@ -161,20 +168,27 @@ class _TemplesHomeState extends State<Parking> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: Container(
-                                          height: 12,
-                                          width: 12,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
-
-                                          ),
-                                          child: Image.asset('assets/images/arrow.png',
+                                    InkWell(
+                                      onTap: (){
+                                        double lat = 19.817743;
+                                        double long = 85.859839;
+                                        launchGoogleMaps(lat,long);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Container(
                                             height: 12,
                                             width: 12,
-                                          )
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(5),
 
+                                            ),
+                                            child: Image.asset('assets/images/arrow.png',
+                                              height: 12,
+                                              width: 12,
+                                            )
+
+                                        ),
                                       ),
                                     ),
                                     Padding(

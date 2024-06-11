@@ -68,7 +68,7 @@ class _TemplesHomeState extends State<HowToReach> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: getAppBar("HOW TO REACH"),
+        appBar: getAppBar("How To Reach"),
         drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
 
         body: Padding(

@@ -51,7 +51,7 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
     return Scaffold(
         backgroundColor: Colors.white,
         // appBar
-        appBar: getAppBar("EMERGENCY"),
+        appBar: getAppBar("Emergency"),
         drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
         body: Padding(
           padding: const EdgeInsets.only(bottom: 50),

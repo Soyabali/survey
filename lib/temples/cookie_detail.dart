@@ -10,7 +10,7 @@ class CookieDetail extends StatelessWidget {
   Widget build(BuildContext context) {
      var title ="Title";
     return Scaffold(
-      appBar: getAppBarBack('IMAGES'),
+      appBar: getAppBarBack(context,'IMAGES'),
       body: Padding(
         padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
         child: Stack(

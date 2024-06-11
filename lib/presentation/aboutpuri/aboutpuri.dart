@@ -43,7 +43,7 @@ class _TemplesHomeState extends State<AboutPuri> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-     appBar: getAppBarBack("Puri City"),
+     appBar: getAppBarBack(context,"Puri City"),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
@@ -87,6 +87,7 @@ class _TemplesHomeState extends State<AboutPuri> {
           ),
           SizedBox(height: 5),
           middleHeader(context,'Puri City'),
+
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: Container(
@@ -99,7 +100,9 @@ class _TemplesHomeState extends State<AboutPuri> {
                      padding: const EdgeInsets.all(5.0),
                      child: Text(
                       '''Puri has been known by several names since ancient times, and was locally known as "Sri Kshetra" and the Jagannath temple is known as "Badadeula". Puri and the Jagannath Temple were invaded 18 times by Muslim rulers, from the 7th century AD until the early 19th century with the objective of looting the treasures of the temple. Odisha, including Puri and its temple, were part of British India from 1803 until India attained independence in August 1947. Even though princely states do not exist in India today, the heirs of the House of Gajapati still perform the ritual duties of the temple. The temple town has many Hindu religious mathas or monasteries.''',
-                         style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                         style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+                         textAlign: TextAlign.justify
+                     ),
                    ),
                 ],
               ),

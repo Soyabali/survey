@@ -2,6 +2,7 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:puri/complaints/raiseGrievance/onlineComplaint.dart';
 import '../app/generalFunction.dart';
 import '../app/navigationUtils.dart';
@@ -48,11 +49,23 @@ class _MyHomePageState extends State<ComplaintHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack("Citizen Services"),
+      appBar: getAppBarBack(context,"Citizen Services"),
+
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Stack(
         fit: StackFit.expand, // Make the stack fill the entire screen
         children: [
+          middleHeader(context,'Citizen Services'),
+
+          Positioned(
+            top: 90,
+            left: 15,
+            right: 15,
+            child: Image.asset('assets/images/templelement2.png',
+                  height: 30.0,
+                  width: MediaQuery.of(context).size.width),
+            ),
+          SizedBox(height: 10),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.start,
           //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +78,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
           // ),
           Padding(
             padding:
-                const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 10),
+                const EdgeInsets.only(top: 120, left: 10, right: 10, bottom: 10),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -127,7 +140,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         //color: Colors.green
                                         color: Color(0xFFD3D3D3),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                           child: Image(
                                         image: AssetImage(
                                             'assets/images/complaint_status.png'),
@@ -676,8 +689,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                 builder: (context) => EventsAndNewSletter(
                                     name: "Events / Newsletter")),
                           );
-
-                        },
+                          },
                         child: Container(
                           height: 100,
                           width: MediaQuery.of(context).size.width / 2 - 14,
@@ -804,6 +816,10 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       ),
                     ],
                   ),
+                  SizedBox(height:15),
+                  Image.asset('assets/images/templeelement3.png',
+                        height: 30.0,
+                        width: MediaQuery.of(context).size.width),
                 ],
               ),
             ),

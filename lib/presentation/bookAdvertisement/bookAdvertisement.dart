@@ -230,7 +230,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('${widget.complaintName}'),
+      appBar: getAppBarBack(context,'${widget.complaintName}'),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(

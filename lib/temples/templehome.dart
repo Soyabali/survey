@@ -9,6 +9,8 @@ import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
 
 class TemplesHome extends StatefulWidget {
+
+
   const TemplesHome({super.key});
 
   @override
@@ -21,6 +23,7 @@ class _TemplesHomeState extends State<TemplesHome> {
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     BackButtonInterceptor.add(myInterceptor);
   }
@@ -89,15 +92,14 @@ class _TemplesHomeState extends State<TemplesHome> {
     },
   ];
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBar("TEMPLES"),
-      drawer:
-          generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body: SingleChildScrollView(
-        child: Column(
+      appBar: getAppBar("Temples"),
+      drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+      body:  Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
@@ -128,118 +130,112 @@ class _TemplesHomeState extends State<TemplesHome> {
               ],
             ),
             SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                // Prevent scrolling in the inner ListView
-                shrinkWrap: true,
-                // Shrink the inner ListView to fit its content
-                itemCount: itemList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 2.0, horizontal: 2.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.orange, // Set the golden border color
-                          width: 1.0, // Set the width of the border
-                        ),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          var templeName = "${itemList[index]['temple']}";
-                          var image = "${itemList[index]['image']}";
-                          print('-----165---$templeName');
-                          print('-----166---$image');
-                          // navigator
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => TemplesDetail(
-                                  templeName: templeName, image: image)));
-                          // Navigator.of(context).pushReplacement(
-                          //   MaterialPageRoute(builder: (context) => TemplesDetail(templeName:templeName,image:image)),
-                          // );
-                        },
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Container(
-                                height: 90,
-                                width: 90,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  child: Image.network(
-                                    '${itemList[index]['image']}',
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(itemList.length, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.orange, // Set the golden border color
+                              width: 1.0, // Set the width of the border
+                            ),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              var templeName = "${itemList[index]['temple']}";
+                              var image = "${itemList[index]['image']}";
+                              print('-----165---$templeName');
+                              print('-----166---$image');
+                              // navigator
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) =>
+                                      TemplesDetail(templeName: templeName, image: image)));
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Container(
                                     height: 90,
                                     width: 90,
-                                    fit: BoxFit.cover,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      child: Image.network(
+                                        '${itemList[index]['image']}',
+                                        height: 90,
+                                        width: 90,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 100,
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 20),
-                                  child: ListTile(
-                                      title: Text(
-                                        "${itemList[index]['temple']}",
-                                        style: const TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 14,
+                                Expanded(
+                                  child: Container(
+                                    height: 100,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 20),
+                                      child: ListTile(
+                                          title: Text(
+                                            "${itemList[index]['temple']}",
+                                            style: const TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          trailing: Image.asset(
+                                            'assets/images/arrow.png',
+                                            height: 12,
+                                            width: 12,
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: Image.asset(
+                                          "assets/images/listelementtop.png",
+                                          height: 25,
+                                          width: 25,
                                         ),
                                       ),
-                                      trailing: Image.asset(
-                                        'assets/images/arrow.png',
-                                        height: 12,
-                                        width: 12,
-                                      )),
+                                      SizedBox(height: 35),
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Image.asset(
+                                          "assets/images/listelementbottom.png",
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Image.asset(
-                                      "assets/images/listelementtop.png",
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                  ),
-                                  SizedBox(height: 35),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Image.asset(
-                                      "assets/images/listelementbottom.png",
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                },
+                      );
+                    }),
+                  ),
+                ),
               ),
-            ),
+            )
           ],
         ),
-      ),
-    );
+      );
   }
 }

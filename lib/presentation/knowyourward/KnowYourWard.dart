@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../app/generalFunction.dart';
 import '../../app/navigationUtils.dart';
-import '../../resources/app_colors.dart';
-import '../../resources/app_strings.dart';
 import '../../resources/app_text_style.dart';
 
 class KnowYourWard extends StatefulWidget {
@@ -198,7 +196,7 @@ class _KnowYourWardState extends State<KnowYourWard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('${widget.name}'),
+      appBar: getAppBarBack(context,'${widget.name}'),
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 

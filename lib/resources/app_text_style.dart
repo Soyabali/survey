@@ -47,7 +47,7 @@ class AppTextStyle {
   static TextStyle font16penSansExtraboldWhiteTextStyle = GoogleFonts.openSans(
     color: AppColors.white,
     fontSize: 16,
-   // fontWeight: FontWeight.w600,
+     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );

@@ -107,14 +107,21 @@ class _TemplesHomeState extends State<TaxiStand> {
                                           children: [
                                             Text('Army Taxi Stand',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 40),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Icon(Icons.location_on,size: 16,color: Colors.red),
-                                                SizedBox(width: 5),
-                                                Text('Holi Gate-Tank Choraha Road,Mathura',
-                                                    style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
-                                              ],
+                                            InkWell(
+                                              onTap: (){
+                                                double lat = 19.817743;
+                                                double long = 85.859839;
+                                                launchGoogleMaps(lat,long);
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(Icons.location_on,size: 16,color: Colors.red),
+                                                  SizedBox(width: 5),
+                                                  Text('Holi Gate-Tank Choraha Road,Mathura',
+                                                      style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                                ],
+                                              ),
                                             )
                                           ],
                                         ),

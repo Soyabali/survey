@@ -63,7 +63,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('Help Line'),
+      appBar: getAppBarBack(context,'Help Line'),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
         children: <Widget>[

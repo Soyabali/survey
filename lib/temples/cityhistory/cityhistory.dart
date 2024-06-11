@@ -9,6 +9,7 @@ import '../../resources/app_text_style.dart';
 import '../../resources/custom_elevated_button.dart';
 import '../temple_gallery.dart';
 import 'citygallery.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class CityHistory extends StatefulWidget {
@@ -74,7 +75,7 @@ class _TemplesHomeState extends State<CityHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBar("CITY HISTORY"),
+      appBar: getAppBar("City History"),
       drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
 
       body: ListView(
@@ -118,80 +119,6 @@ class _TemplesHomeState extends State<CityHistory> {
           ),
           SizedBox(height: 5),
           middleHeader(context,'Puri'),
-          // SizedBox(height: 5),
-          // Stack(
-          //   children: <Widget>[
-          //     Container(
-          //       height: 120,
-          //       width: double.infinity,
-          //       color: Colors.white,
-          //       child: Stack(
-          //         children: <Widget>[
-          //           Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Image.asset(
-          //                 'assets/images/cityelementone.png',
-          //                 // Replace with your first image path
-          //                 height: 50.0,
-          //                 width: 50.0,
-          //               ),
-          //               Spacer(),
-          //               Image.asset(
-          //                 'assets/images/listelementtop.png',
-          //                 // Replace with your second image path
-          //                 height: 50.0,
-          //                 width: 50.0,
-          //               ),
-          //             ],
-          //           ),
-          //           Positioned(
-          //             top: 20,
-          //             child: Image.asset('assets/images/templeelement1.png',
-          //                 // Replace with your first image path
-          //                 height: 50.0,
-          //                 width: MediaQuery.of(context).size.width),
-          //           ),
-          //           Positioned(
-          //               top: 40,
-          //               left: 0,
-          //               right: 0,
-          //               child: Center(
-          //                 child: Text('${widget.templeName}',
-          //                     style: AppTextStyle
-          //                         .font18penSansExtraboldRedTextStyle),
-          //               ))
-          //         ],
-          //       ),
-          //     )
-          //   ],
-          // ),
-          //
-          // Center(
-          //   child: Text('PURI',
-          //       style: AppTextStyle
-          //           .font18penSansExtraboldRedTextStyle),
-          // ),
-
-//           Padding(
-//             padding: const EdgeInsets.only(left: 10,right: 10),
-//             child: ReadMoreText(
-//               '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
-//
-// Daily Rituals:''',
-//               trimLines: 1,
-//               colorClickableText: Colors.red,
-//               trimMode: TrimMode.Line,
-//               trimCollapsedText: 'Show more',
-//               trimExpandedText: 'Show less',
-//               style: TextStyle(color: Colors.black, fontSize: 18),
-//               moreStyle: TextStyle(
-//                   fontSize: 15,
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.red),
-//               textAlign: TextAlign.justify, // Justify text alignment
-//             ),
-//           ),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: readmore('readmore'),
@@ -218,33 +145,18 @@ class _TemplesHomeState extends State<CityHistory> {
               child: CustomElevatedButton(
                 text: 'CITY MAP',
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => TempleGallery(templeName:'${widget.templeName}')));
+                  double lat = 19.817743;
+                  double long = 85.859839;
+                  launchGoogleMaps(lat,long);
+                  //
+                  // Navigator.of(context).push(
+                  //     MaterialPageRoute(builder: (_) => TempleGallery(templeName:'${widget.templeName}')));
+                  //
+
                 },
               ),
             ),
             // child: Container(
-            //   height: 56.0,
-            //   width: MediaQuery.of(context).size.width-50,
-            //   decoration: BoxDecoration(
-            //     color: Colors.red,
-            //     // Background color of the container
-            //     borderRadius: BorderRadius.circular(28.0),
-            //     // Circular border radius
-            //     border: Border.all(
-            //       color: Colors.yellow, // Border color
-            //       width: 2.0, // Border width
-            //     ),
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text('CITY MAP',
-            //           style: AppTextStyle
-            //               .font18penSansExtraboldWhiteTextStyle),
-            //     ],
-            //   ),
-            // ),
           ),
           SizedBox(height: 15),
         ],

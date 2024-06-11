@@ -8,6 +8,7 @@ import '../app/navigationUtils.dart';
 import '../resources/app_text_style.dart';
 import '../resources/custom_elevated_button.dart';
 
+
 class TemplesDetail extends StatefulWidget {
   final templeName;
   final image;
@@ -43,7 +44,7 @@ class _TemplesHomeState extends State<TemplesDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('${widget.templeName}'),
+      appBar: getAppBarBack(context,'${widget.templeName}'),
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
@@ -259,6 +260,11 @@ class _TemplesHomeState extends State<TemplesDetail> {
               child: CustomElevatedButton(
                 text: 'CLICK ON MAP TO NAVIGATE',
                 onTap: () {
+                  // navigate to googlemap
+                  double lat = 28.644800;
+                  double long = 77.216721;
+
+                  launchGoogleMaps(lat,long);
                   print('---Live Darshan-----');
                   // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
                   //)));

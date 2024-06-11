@@ -78,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
                          Image.asset(ImageAssets.cityname,
                              height: 180),
                                  Positioned(
-                                   top: 65,
-                                   left: 100,
+                                   top: 68,
+                                   left: 85,
                                    child: Text(AppStrings.puriOne,
                                      style: AppTextStyle.font30penSansExtraboldWhiteTextStyle
                                    )
@@ -113,17 +113,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         Positioned(
                           top: containerSize * 0.47,
-                          left: containerSize * 0.45,
+                          left: containerSize * 0.43,
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Text(
                               "SELECT",
-                              style: AppTextStyle.font10penSansExtraboldWhiteTextStyle,
+                              style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                             ),
                           ),
                         ),
                         Positioned(
-                             top: containerSize * 0.09,
+                             top: containerSize * 0.10,
                             left: containerSize * 0.40,
                           child: InkWell(
                             onTap: () {
@@ -140,11 +140,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'About',
+                                    'Temples',
                                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                                   ),
                                   Text(
-                                    'Puri',
+                                    '',
                                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                                   ),
                                 ],
@@ -268,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                                   ),
                                   Text(
-                                    'Place',
+                                    'Places',
                                     style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
                                   ),
                                 ],
@@ -284,67 +284,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
-            Positioned(
-              bottom: 5.0,
-              left: 15.0,
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      'Synergy Telmatics Pvt.Ltd.',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                    SizedBox(width: 10),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: Image.asset(
-                          'assets/images/favicon.png',
-                          width: 30,
-                          height: 30,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Expanded(
-            //   child: Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: Padding(
-            //       padding: EdgeInsets.only(bottom: 5.0, left: 15),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         children: <Widget>
-            //         [
-            //           Text(
-            //             'Synergy Telmatics Pvt.Ltd.',
-            //             style: AppTextStyle.font18penSansExtraboldWhiteTextStyle,
-            //           ),
-            //           SizedBox(width: 10),
-            //           Padding(
-            //             padding: EdgeInsets.only(right: AppSize.s10),
-            //             child: SizedBox(
-            //               width: 30,
-            //               height: 30,
-            //               child: Image.asset(
-            //                 'assets/images/favicon.png',
-            //                 width: 30,
-            //                 height: 30,
-            //                 fit: BoxFit.fill, // Changed BoxFit to fill
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ],
         )
       );

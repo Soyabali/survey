@@ -23,7 +23,6 @@ class _EmergencyContactsState extends State<ToiletLocator> {
   GeneralFunction generalFunction = GeneralFunction();
   final List<String> items = [
     'Toilet Locator',
-    'Library Locator',
   ];
 
   @override
@@ -47,7 +46,7 @@ class _EmergencyContactsState extends State<ToiletLocator> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('${widget.name}'),
+      appBar: getAppBarBack(context,'${widget.name}'),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
@@ -58,7 +57,7 @@ class _EmergencyContactsState extends State<ToiletLocator> {
               width: MediaQuery.of(context).size.width),
           const SizedBox(height: 10),
           Container(
-            height: 450,
+            height: 80,
             child: ListView.builder(
               itemCount: items.length, // Set the number of items in the list
               itemBuilder: (context, index) {

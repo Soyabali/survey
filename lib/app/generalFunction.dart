@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../homepage/homepage.dart';
 import '../resources/app_text_style.dart';
-import '../resources/assets_manager.dart';
 import '../resources/values_manager.dart';
 import '../temples/cityhistory/cityhistory.dart';
 import '../temples/emergency/emergencyhome.dart';
@@ -17,7 +16,40 @@ import '../temples/facilities/facilities.dart';
 import '../temples/howToReach/howToReach.dart';
 import '../temples/templehome.dart';
 import '../temples/weather/weather.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+ // navigateToGoogleMap
+
+Future<void> launchGoogleMaps(double latitude, double longitude) async {
+  final uri = Uri(
+    scheme: 'geo',
+    path: '$latitude,$longitude',
+    queryParameters: {
+      'q': '$latitude,$longitude',
+    },
+  );
+
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
+  } else {
+    debugPrint('An error occurred');
+  }
+}
+// Future<void> launchGoogleMaps(double laititude,double longitude) async {
+//   double destinationLatitude= laititude;
+//   double destinationLongitude = longitude;
+//   final uri = Uri(
+//       scheme: "google.navigation",
+//       // host: '"0,0"',  {here we can put host}
+//       queryParameters: {
+//         'q': '$destinationLatitude, $destinationLongitude'
+//       });
+//   if (await canLaunchUrl(uri)) {
+//     await launchUrl(uri);
+//   } else {
+//     debugPrint('An error occurred');
+//   }
+// }
 
 // backbutton dialog
 Future<bool> _onWillPop(BuildContext context) async {
@@ -148,90 +180,114 @@ getAppBar(String title) {
         );
       },
     ),
-    title: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Image.asset(
-          "assets/images/header_line1.png",
-          width: 50,
-          height: 15,
-        ),
-        SizedBox(width: 10),
-        Text(title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
-        SizedBox(width: 10),
-        Image.asset(
-          "assets/images/header_line2.png",
-          width: 50,
-          height: 10,
-        ),
-      ],
-    ),
+    title: Text(title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
+    centerTitle: true,
+    // title: Row(
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: <Widget>[
+    //     Image.asset(
+    //       "assets/images/header_line1.png",
+    //       width: 50,
+    //       height: 15,
+    //     ),
+    //     SizedBox(width: 10),
+    //     Text(title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
+    //     SizedBox(width: 10),
+    //     Image.asset(
+    //       "assets/images/header_line2.png",
+    //       width: 50,
+    //       height: 10,
+    //     ),
+    //   ],
+    // ),
   );
 }
 
 // appbar with backbutton
-getAppBarBack(String title) {
+getAppBarBack(BuildContext context ,String title) {
   return AppBar(
     backgroundColor: Colors.red,
     elevation: 10,
     shadowColor: Colors.orange,
     toolbarOpacity: 0.5,
-    leading: Builder(
-      builder: (BuildContext context) {
-        return InkWell(
-          onTap: () {
-            print('Leading icon tapped');
-            Navigator.pop(context);
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Transform.scale(
-              scale: 0.6,
-              child: Container(
-                height: 20,
-                width: 20,
-                child: Image.asset("assets/images/back.png"),
-              ),
-            ),
-          ),
-        );
+    leading: InkWell(
+      onTap: (){
+        Navigator.pop(context);
       },
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          height: 10,
+          width: 10,
+          child: Image.asset("assets/images/back.png", fit: BoxFit.fill),
+        ),
+      ),
     ),
-    title: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Flexible(
-          flex: 2,
-          child: Image.asset(
-            "assets/images/header_line1.png",
-            fit: BoxFit.contain,
-          ),
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          flex: 3,
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        SizedBox(width: 10),
-        Flexible(
-          flex: 2,
-          child: Image.asset(
-            "assets/images/header_line2.png",
-            fit: BoxFit.contain,
-          ),
-        ),
-      ],
-    ),
+    title: Text(title,
+        style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
+    centerTitle: true,
   );
 }
+
+
+    // leading: Builder(
+    //   builder: (BuildContext context) {
+    //     return InkWell(
+    //       onTap: () {
+    //       //  print('Leading icon tapped');
+    //         Navigator.pop(context);
+    //       },
+    //       child: Padding(
+    //         padding: const EdgeInsets.only(left: 16.0),
+    //         child: Transform.scale(
+    //           scale: 0.6,
+    //           child: Container(
+    //             height: 15,
+    //             width: 15,
+    //             child: Image.asset("assets/images/back.png"),
+    //           ),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // ),
+   // centerTitle: true,
+//     title: Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: <Widget>[
+//           Center(child: Text(title,style: AppTextStyle.font16penSansExtraboldWhiteTextStyle))
+//         // Flexible(
+//         //   flex: 2,
+//         //   child: Image.asset(
+//         //     "assets/images/header_line1.png",
+//         //     fit: BoxFit.contain,
+//         //   ),
+//         // ),
+//         // SizedBox(width: 10),
+//         // Expanded(
+//         //   flex: 3,
+//         //   child: Text(
+//         //     title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle
+//         //     // style: TextStyle(
+//         //     //   fontSize: 16,
+//         //     //   fontWeight: FontWeight.bold,
+//         //     //   color: Colors.white,
+//         //     // ),
+//         //     // overflow: TextOverflow.ellipsis,
+//         //   ),
+//         // ),
+//         // SizedBox(width: 10),
+//         // Flexible(
+//         //   flex: 2,
+//         //   child: Image.asset(
+//         //     "assets/images/header_line2.png",
+//         //     fit: BoxFit.contain,
+//         //   ),
+//         // ),
+//
+// }
+
+
 
 class GeneralFunction {
   void logout(BuildContext context) async {
@@ -294,7 +350,7 @@ class GeneralFunction {
                             height: 25),
                            // color: Colors.red),
                         const SizedBox(width: 10),
-                        Text('HOME',
+                        Text('Home',
                             style: AppTextStyle
                                 .font16penSansExtraboldRedTextStyle),
                       ],
@@ -316,7 +372,7 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('TEMPLES',
+                        Text('Temples',
                             style: AppTextStyle
                                 .font16penSansExtraboldRedTextStyle),
                       ],
@@ -347,7 +403,7 @@ class GeneralFunction {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'CITY HISTORY',
+                          'City History',
                           style:
                               AppTextStyle.font16penSansExtraboldRedTextStyle,
                         ),
@@ -377,7 +433,7 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('WEATHER',
+                        Text('Weather',
                             style: AppTextStyle
                                 .font16penSansExtraboldRedTextStyle),
                       ],
@@ -406,7 +462,7 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('FACILITIES',
+                        Text('Facilities',
                             style: AppTextStyle
                                 .font16penSansExtraboldRedTextStyle),
                       ],
@@ -436,7 +492,7 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('EMERGENCY',
+                        Text('Emergency',
                             style: AppTextStyle
                                 .font16penSansExtraboldRedTextStyle),
                       ],
@@ -465,7 +521,7 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('HOW TO REACH',
+                        Text('How To Reach',
                             style: AppTextStyle
                                 .font16penSansExtraboldRedTextStyle),
                       ],

@@ -37,7 +37,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('${widget.name}'),
+      appBar: getAppBarBack(context,'${widget.name}'),
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Padding(

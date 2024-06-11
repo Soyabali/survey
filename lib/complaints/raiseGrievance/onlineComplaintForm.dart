@@ -221,21 +221,24 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack('${widget.complaintName}'),
+      appBar: getAppBarBack(context,'${widget.complaintName}'),
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Icon(Icons.invert_colors_on_sharp, size: 20),
-              SizedBox(width: 5),
-              Text('Fill the below details',
-                  style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Icon(Icons.invert_colors_on_sharp, size: 20),
+                SizedBox(width: 5),
+                Text('Fill the below details',
+                    style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
+              ],
+            ),
           ),
           SizedBox(height: 12),
           Padding(
@@ -638,26 +641,29 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                         .font14penSansExtraboldRedTextStyle),
                           ]),
                       SizedBox(height: 5),
-                      Center(
-                        child: Container(
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            // Background color of the container
-                            borderRadius: BorderRadius.circular(28.0),
-                            // Circular border radius
-                            border: Border.all(
-                              color: Colors.yellow, // Border color
-                              width: 0.5, // Border width
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Center(
+                          child: Container(
+                            height: 45,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              // Background color of the container
+                              borderRadius: BorderRadius.circular(28.0),
+                              // Circular border radius
+                              border: Border.all(
+                                color: Colors.yellow, // Border color
+                                width: 0.5, // Border width
+                              ),
                             ),
-                          ),
-                          child: CustomElevatedButton(
-                            text: 'Post Grievance',
-                            onTap: () {
-                              print('---Live Darshan-----');
-                              // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                              //)));
-                            },
+                            child: CustomElevatedButton(
+                              text: 'Post Grievance',
+                              onTap: () {
+                                print('---Live Darshan-----');
+                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
+                                //)));
+                              },
+                            ),
                           ),
                         ),
                       ),

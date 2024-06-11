@@ -40,7 +40,7 @@ class _TemplesHomeState extends State<TempleGallery> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack("GALLERY"),
+      appBar: getAppBarBack(context,"GALLERY"),
       body: Padding(
         padding: const EdgeInsets.only(left: 5,right: 5,top: 5),
         child: ListView(

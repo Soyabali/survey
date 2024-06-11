@@ -49,7 +49,7 @@ class _TemplesHomeState extends State<WeatherHome> {
     return Scaffold(
         backgroundColor: Colors.white,
         // appBar
-        appBar: getAppBar("WEATHER"),
+        appBar: getAppBar("Weather"),
         // drawer
         drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
         body: ListView(
