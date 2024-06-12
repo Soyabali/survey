@@ -118,7 +118,7 @@ class _TemplesHomeState extends State<CityHistory> {
             ],
           ),
           SizedBox(height: 5),
-          middleHeader(context,'Puri'),
+          middleHeader(context,'City History'),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: readmore('readmore'),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../../resources/app_text_style.dart';
 import '../../app/navigationUtils.dart';
 
@@ -108,15 +109,23 @@ class _TemplesHomeState extends State<Hospital> {
                                             SizedBox(height: 5),
                                             Text('05652565565',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
                                             SizedBox(height: 5),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Icon(Icons.location_on,size: 16,color: Colors.red),
-                                                SizedBox(width: 5),
-                                                Text('Masani Link Road,Bypass',
-                                                    style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                            InkWell(
+                                              onTap: (){
+                                                /// TODO CHANGE LAT AND LOGNG IN A FUTURE
+                                                double lat = 19.817743;
+                                                double long = 85.859839;
+                                                launchGoogleMaps(lat,long);
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(Icons.location_on,size: 16,color: Colors.red),
+                                                  SizedBox(width: 5),
+                                                  Text('Masani Link Road,Bypass',
+                                                      style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
 
-                                              ],
+                                                ],
+                                              ),
                                             )
 
                                           ],
@@ -125,20 +134,25 @@ class _TemplesHomeState extends State<Hospital> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
+                                InkWell(
+                                  onTap: (){
+                                    ///TODO CHANGE YOUR NUMBER AS YOUR API
+                                    launchUrlString("tel://9871950000");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: Image.asset('assets/images/callicon.png',
+                                          height: 12,
+                                          width: 12,
+                                        )
 
-                                      ),
-                                      child: Image.asset('assets/images/callicon.png',
-                                        height: 12,
-                                        width: 12,
-                                      )
-
+                                    ),
                                   ),
                                 ),
                                 Padding(

@@ -2,10 +2,21 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:puri/presentation/helpline_feedback/twitte_page.dart';
+import 'package:puri/presentation/helpline_feedback/website.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../app/generalFunction.dart';
 import 'package:flutter/widgets.dart';
 import '../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+
+import '../marriageCertificate/marriageCertificate.dart';
+import 'facebook.dart';
+import 'feedbackBottomSheet.dart';
+import 'instagrampage.dart';
+
 
 class HelpLineFeedBack extends StatefulWidget {
   final String name;
@@ -59,6 +70,13 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
     return true;
   }
 
+  _launchURLWeb() async {
+    final Uri url = Uri.parse('https://flutter.dev');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +96,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
           ),
           SizedBox(height: 5),
           middleHeader(context, '${widget.name}'),
+
           Padding(
             padding: const EdgeInsets.all(5),
             child: Column(
@@ -128,19 +147,27 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                               ),
                             ),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: const Icon(Icons.location_on,
-                                    color: Colors.red,
-                                    size:
-                                    22), //Image.asset('assets/images/callicon.png',
-                              )),
+                          InkWell(
+                            onTap: (){
+                             // launchUrlString("tel://7520014455");
+                              double lat = 19.817743;
+                              double long = 85.859839;
+                              launchGoogleMaps(lat,long);
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: const Icon(Icons.location_on,
+                                      color: Colors.red,
+                                      size:
+                                      22), //Image.asset('assets/images/callicon.png',
+                                )),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(right: 5),
                             child: Column(
@@ -217,19 +244,24 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                               ),
                             ),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: const Icon(Icons.phone,
-                                    color: Colors.red,
-                                    size:
-                                    22), //Image.asset('assets/images/callicon.png',
-                              )),
+                          InkWell(
+                            onTap: (){
+                              launchUrlString("tel://7520014455");
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: const Icon(Icons.phone,
+                                      color: Colors.red,
+                                      size:
+                                      22), //Image.asset('assets/images/callicon.png',
+                                )),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(right: 5),
                             child: Column(
@@ -306,19 +338,25 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                               ),
                             ),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: const Icon(Icons.email,
-                                    color: Colors.red,
-                                    size:
-                                    22), //Image.asset('assets/images/callicon.png',
-                              )),
+                          InkWell(
+                            onTap: (){
+                              /// TODO CHANGE EMAIL IN A FUTURE
+                              UrlLauncher.launch('mailto:${'puri@gmail.com'}');
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: const Icon(Icons.email,
+                                      color: Colors.red,
+                                      size:
+                                      22), //Image.asset('assets/images/callicon.png',
+                                )),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(right: 5),
                             child: Column(
@@ -395,19 +433,34 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                               ),
                             ),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: const Icon(Icons.email,
-                                    color: Colors.red,
-                                    size:
-                                    22), //Image.asset('assets/images/callicon.png',
-                              )),
+                          InkWell(
+                            onTap: (){
+                              /// TODO OPEN WEBURL
+                              ///
+                             // WebSitePage();
+                              //_launchURLWeb();
+                              //MarriageCertificate();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WebSitePage()),
+                              );
+
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: const Icon(Icons.web,
+                                      color: Colors.red,
+                                      size:
+                                      22), //Image.asset('assets/images/callicon.png',
+                                )),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(right: 5),
                             child: Column(
@@ -511,10 +564,64 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset('assets/images/facebook.png', height: 40, width: 40),
-                Image.asset('assets/images/twitter.png', height: 40, width: 40),
-                Image.asset('assets/images/instagram.png', height: 40, width: 40),
-                Image.asset('assets/images/feedback.png', height: 40, width: 40),
+                InkWell(
+                  onTap: (){
+                    print('--facebook---');
+                   // FacebookPage();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FacebookPage(name: "Facebook",)),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset('assets/images/facebook.png', height: 40, width: 40),
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    print('--twitter---');
+                  //  TwitterPage();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TwitterPage(name: "Twitter",)),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset('assets/images/twitter.png', height: 40, width: 40),
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    print('--instagram---');
+                    //InstagramPage();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InstagramPage(name: "Instagram",)),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset('assets/images/instagram.png', height: 40, width: 40),
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    print('--feedback---');
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => FeedbackBottomSheet(),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset('assets/images/feedback.png', height: 40, width: 40),
+                  ),
+                ),
               ],
             ),
           ),

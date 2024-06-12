@@ -111,8 +111,7 @@ class _TemplesHomeState extends State<TemplesHome> {
                       image: DecorationImage(
                         image: AssetImage(ImageAssets.templepuri4),
                         // Provide the path to your image asset
-                        fit: BoxFit
-                            .cover, // Adjust how the image fits into the container
+                        fit: BoxFit.cover, // Adjust how the image fits into the container
                       ),
                     ),
                   ),

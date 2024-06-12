@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../../app/navigationUtils.dart';
 import '../../../resources/app_text_style.dart';
 
@@ -39,6 +41,19 @@ class _TemplesHomeState extends State<TaxiStand> {
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     NavigationUtils.onWillPop(context);
     return true;
+  }
+  // code to connect call
+  void _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    if (await canLaunch(launchUri.toString())) {
+      await launch(launchUri.toString());
+    } else {
+      // Handle the case where the phone call could not be initiated
+      print('Could not launch $launchUri');
+    }
   }
 
   @override
@@ -116,12 +131,18 @@ class _TemplesHomeState extends State<TaxiStand> {
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  Icon(Icons.location_on,size: 16,color: Colors.red),
+                                                  Icon(Icons.location_on, size: 16, color: Colors.red),
                                                   SizedBox(width: 5),
-                                                  Text('Holi Gate-Tank Choraha Road,Mathura',
-                                                      style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                                  Expanded(
+                                                    child: Text(
+                                                      'Holi Gate-Tank Choraha Road, Mathura',
+                                                      style: AppTextStyle.font10penSansExtraboldBlack45TextStyle,
+                                                      overflow: TextOverflow.ellipsis, // This will add ellipsis (...) if the text overflows
+                                                    ),
+                                                  ),
                                                 ],
-                                              ),
+                                              )
+
                                             )
                                           ],
                                         ),
@@ -129,20 +150,27 @@ class _TemplesHomeState extends State<TaxiStand> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Image.asset('assets/images/callicon.png',
-                                        height: 25,
-                                        width: 25,
-                                        fit: BoxFit.cover,
-                                      )
+                                InkWell(
+                                  onTap: (){
+                                    print('---calling ----to number---');
+                                    /// Todo here you should change a number as a your api
+                                    _makePhoneCall('9871950000');
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: Image.asset('assets/images/callicon.png',
+                                          height: 25,
+                                          width: 25,
+                                          fit: BoxFit.cover,
+                                        )
 
+                                    ),
                                   ),
                                 ),
                                 Padding(
