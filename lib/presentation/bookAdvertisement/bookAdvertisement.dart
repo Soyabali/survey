@@ -453,133 +453,253 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       /// TODO pick date and as a ui TO Date and FromDATE
-                       Row(
-                                  children: [
-                                  // First Container
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: ()async {
-                                          DateTime? pickedDate = await showDatePicker(
-                                            context: context,
-                                            initialDate: DateTime.now(),
-                                            firstDate: DateTime(2000),
-                                            lastDate: DateTime(2101),
-                                          );
+                    Row(
+                      children: [
+                        // First Container
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2101),
+                              );
 
-                                          if (pickedDate != null) {
-                                            String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
-                                            setState(() {
-                                              _fromDate = formattedDate;
-                                            });
-                                          }
-                                        },
-                                        child: Container(
-                                          height: 70,
-                                          //color: Colors.blue,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.blueGrey,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(5),
-                                              topRight: Radius.circular(5),
-                                              bottomLeft: Radius.circular(5),
-                                              bottomRight: Radius.circular(5),
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 10,top: 5),
-                                            child: Center(
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  const Center(
-                                                    child: Image(
-                                                        image: AssetImage('assets/images/calendar.png'),
-                                                        width: 30.0,
-                                                        height: 30.0,
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                  ),
-                                                  SizedBox(height: 10),
-                                                  Center(
-                                                    child: Text(_fromDate,
-                                                        style: AppTextStyle
-                                                            .font140penSansExtraboldWhiteTextStyle),
-                                                  )
-                                                 // Icon(Icons.calendar_month,size: 25),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  SizedBox(width: 5),
-                                  // Second Container
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: ()async {
-                                        print('--To Date---');
-                                        DateTime? pickedDate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(2000),
-                                          lastDate: DateTime(2101),
-                                        );
-
-                                        if (pickedDate != null) {
-                                          String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
-                                          setState(() {
-                                            _toDate = formattedDate;
-                                          });
-                                        }
-                                      },
-                                      child: Container(
-                                        height: 70,
-                                        //color: Colors.blue,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(5),
-                                            topRight: Radius.circular(5),
-                                            bottomLeft: Radius.circular(5),
-                                            bottomRight: Radius.circular(5),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 10,top: 5),
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              const Center(
-                                                child: Image(
-                                                  image: AssetImage('assets/images/calendar.png'),
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-                                              // Text('To Date',
-                                              //     style: AppTextStyle
-                                              //         .font140penSansExtraboldWhiteTextStyle),
-                                              Center(
-                                                child: Text(_toDate,
-                                                  style: AppTextStyle
-                                                      .font140penSansExtraboldWhiteTextStyle),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                              if (pickedDate != null) {
+                                String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
+                                setState(() {
+                                  _fromDate = formattedDate;
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(2, 2),
                                   ),
                                 ],
                               ),
-                      SizedBox(height: 10),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Image(
+                                      image: AssetImage('assets/images/calendar.png'),
+                                      width: 30.0,
+                                      height: 30.0,
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      _fromDate,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        // Second Container
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2101),
+                              );
+
+                              if (pickedDate != null) {
+                                String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
+                                setState(() {
+                                  _toDate = formattedDate;
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(2, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Image(
+                                      image: AssetImage('assets/images/calendar.png'),
+                                      width: 30.0,
+                                      height: 30.0,
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      _toDate,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                      //  Row(
+                      //             children: [
+                      //             // First Container
+                      //               Expanded(
+                      //                 child: GestureDetector(
+                      //                   onTap: ()async {
+                      //                     DateTime? pickedDate = await showDatePicker(
+                      //                       context: context,
+                      //                       initialDate: DateTime.now(),
+                      //                       firstDate: DateTime(2000),
+                      //                       lastDate: DateTime(2101),
+                      //                     );
+                      //
+                      //                     if (pickedDate != null) {
+                      //                       String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
+                      //                       setState(() {
+                      //                         _fromDate = formattedDate;
+                      //                       });
+                      //                     }
+                      //                   },
+                      //                   child: Container(
+                      //                     height: 70,
+                      //                     //color: Colors.blue,
+                      //                     decoration: const BoxDecoration(
+                      //                       color: Colors.blueGrey,
+                      //                       borderRadius: BorderRadius.only(
+                      //                         topLeft: Radius.circular(5),
+                      //                         topRight: Radius.circular(5),
+                      //                         bottomLeft: Radius.circular(5),
+                      //                         bottomRight: Radius.circular(5),
+                      //                       ),
+                      //                     ),
+                      //                     child: Padding(
+                      //                       padding: const EdgeInsets.only(left: 10,top: 5),
+                      //                       child: Center(
+                      //                         child: Column(
+                      //                           mainAxisAlignment: MainAxisAlignment.start,
+                      //                           crossAxisAlignment: CrossAxisAlignment.start,
+                      //                           children: [
+                      //                             const Center(
+                      //                               child: Image(
+                      //                                   image: AssetImage('assets/images/calendar.png'),
+                      //                                   width: 30.0,
+                      //                                   height: 30.0,
+                      //                                   fit: BoxFit.fill,
+                      //                                 ),
+                      //                             ),
+                      //                             SizedBox(height: 10),
+                      //                             Center(
+                      //                               child: Text(_fromDate,
+                      //                                   style: AppTextStyle
+                      //                                       .font140penSansExtraboldWhiteTextStyle),
+                      //                             )
+                      //                            // Icon(Icons.calendar_month,size: 25),
+                      //                           ],
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             SizedBox(width: 5),
+                      //             // Second Container
+                      //             Expanded(
+                      //               child: GestureDetector(
+                      //                 onTap: ()async {
+                      //                   print('--To Date---');
+                      //                   DateTime? pickedDate = await showDatePicker(
+                      //                     context: context,
+                      //                     initialDate: DateTime.now(),
+                      //                     firstDate: DateTime(2000),
+                      //                     lastDate: DateTime(2101),
+                      //                   );
+                      //
+                      //                   if (pickedDate != null) {
+                      //                     String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
+                      //                     setState(() {
+                      //                       _toDate = formattedDate;
+                      //                     });
+                      //                   }
+                      //                 },
+                      //                 child: Container(
+                      //                   height: 70,
+                      //                   //color: Colors.blue,
+                      //                   decoration: const BoxDecoration(
+                      //                     color: Colors.red,
+                      //                     borderRadius: BorderRadius.only(
+                      //                       topLeft: Radius.circular(5),
+                      //                       topRight: Radius.circular(5),
+                      //                       bottomLeft: Radius.circular(5),
+                      //                       bottomRight: Radius.circular(5),
+                      //                     ),
+                      //                   ),
+                      //                   child: Padding(
+                      //                     padding: const EdgeInsets.only(left: 10,top: 5),
+                      //                     child: Column(
+                      //                       mainAxisAlignment: MainAxisAlignment.start,
+                      //                       crossAxisAlignment: CrossAxisAlignment.start,
+                      //                       children: [
+                      //                         const Center(
+                      //                           child: Image(
+                      //                             image: AssetImage('assets/images/calendar.png'),
+                      //                             width: 30.0,
+                      //                             height: 30.0,
+                      //                             fit: BoxFit.fill,
+                      //                           ),
+                      //                         ),
+                      //                         SizedBox(height: 10),
+                      //                         // Text('To Date',
+                      //                         //     style: AppTextStyle
+                      //                         //         .font140penSansExtraboldWhiteTextStyle),
+                      //                         Center(
+                      //                           child: Text(_toDate,
+                      //                             style: AppTextStyle
+                      //                                 .font140penSansExtraboldWhiteTextStyle),
+                      //                         )
+                      //                       ],
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      SizedBox(height: 15),
                       Center(
                         child: Container(
                           height: 45,

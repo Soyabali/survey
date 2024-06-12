@@ -101,7 +101,6 @@ class _TemplesHomeState extends State<OnlineComplaint> {
               height: 18.0,
               width: MediaQuery.of(context).size.width),
           SizedBox(height: 10),
-
           Container(
             height: 450,
             child: ListView.builder(
@@ -144,11 +143,15 @@ class _TemplesHomeState extends State<OnlineComplaint> {
               },
             ),
           ),
-          SizedBox(height: 10),
-          Image.asset('assets/images/templeelement3.png',
-              // Replace with your first image path
-              height: 30.0,
-              width: MediaQuery.of(context).size.width),
+          SizedBox(height: 20),
+
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Image.asset('assets/images/templeelement3.png',
+                // Replace with your first image path
+                height: 30.0,
+                width: MediaQuery.of(context).size.width),
+          ),
 
         ],
       ),

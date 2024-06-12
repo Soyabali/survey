@@ -98,7 +98,7 @@ middleHeader(BuildContext context, String templeName) {
   return Stack(
     children: <Widget>[
       Container(
-        height: 100,
+        height: 35,
         width: double.infinity,
         color: Colors.white,
         child: Stack(
@@ -126,21 +126,21 @@ middleHeader(BuildContext context, String templeName) {
                 ],
               ),
             ),
-            Positioned(
-              top: 20,
-              child: Image.asset('assets/images/templeelement1.png',
-                  // Replace with your first image path
-                  height: 30.0,
-                  width: MediaQuery.of(context).size.width),
-            ),
-            Positioned(
-                top: 55,
-                left: 0,
-                right: 0,
-                child: Center(
-                  child: Text(templeName,
-                      style: AppTextStyle.font16penSansExtraboldRedTextStyle),
-                ))
+            // Positioned(
+            //   top: 20,
+            //   child: Image.asset('assets/images/templeelement1.png',
+            //       // Replace with your first image path
+            //       height: 30.0,
+            //       width: MediaQuery.of(context).size.width),
+            // ),
+            // Positioned(
+            //     top: 55,
+            //     left: 0,
+            //     right: 0,
+            //     child: Center(
+            //       child: Text(templeName,
+            //           style: AppTextStyle.font16penSansExtraboldRedTextStyle),
+            //     ))
           ],
         ),
       )

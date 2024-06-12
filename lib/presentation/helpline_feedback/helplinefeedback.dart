@@ -115,6 +115,9 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                     ),
                     child: InkWell(
                       onTap: () {
+                        double lat = 19.817743;
+                        double long = 85.859839;
+                        launchGoogleMaps(lat,long);
                       },
                       child: Row(
                         children: [
@@ -212,6 +215,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                     ),
                     child: InkWell(
                       onTap: () {
+                        launchUrlString("tel://7520014455");
                       },
                       child: Row(
                         children: [
@@ -306,6 +310,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                     ),
                     child: InkWell(
                       onTap: () {
+                        UrlLauncher.launch('mailto:${'puri@gmail.com'}');
                       },
                       child: Row(
                         children: [
@@ -401,6 +406,12 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                     ),
                     child: InkWell(
                       onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WebSitePage()),
+                        );
                       },
                       child: Row(
                         children: [
@@ -434,10 +445,6 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                           InkWell(
                             onTap: (){
                               /// TODO OPEN WEBURL
-                              ///
-                             // WebSitePage();
-                              //_launchURLWeb();
-                              //MarriageCertificate();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

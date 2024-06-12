@@ -2,11 +2,13 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:puri/presentation/complaints/grievanceStatus/searchBar.dart';
 import '../../../app/generalFunction.dart';
 import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 
 class GrievanceStatus extends StatefulWidget {
+
   final name;
   GrievanceStatus({super.key, this.name});
 
@@ -15,6 +17,7 @@ class GrievanceStatus extends StatefulWidget {
 }
 
 class _TemplesHomeState extends State<GrievanceStatus> {
+
   GeneralFunction generalFunction = GeneralFunction();
 
   @override
@@ -47,38 +50,62 @@ class _TemplesHomeState extends State<GrievanceStatus> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 5),
-            Container(
-              height: 45,
-              child: Card(
-                elevation: 5,
-                shadowColor: Colors.grey.withOpacity(0.5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(
-                    color: Colors.grey, // Border color
-                    width: 1,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8,right: 8,top: 8),
-                  child: Row(
-                    children: [
-                      Icon(Icons.search, color: Colors.grey),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Enter Keywords',
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(vertical: 8),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+             Padding(
+              padding: EdgeInsets.all(16.0),
+              child: SearchBar2(),
             ),
+            // Container(
+            //   height: 65,
+            //   child: Card(
+            //     elevation: 5,
+            //     shadowColor: Colors.grey.withOpacity(0.5),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //       side: const BorderSide(
+            //         color: Colors.grey, // Border color
+            //         width: 1,
+            //       ),
+            //     ),
+            //     child: const Padding(
+            //       padding: EdgeInsets.only(left: 16,right: 16,top: 16,bottom: 16),
+            //       child: SearchBar(),
+            //       // child: Row(
+            //       //   children: [
+            //       //     Icon(Icons.search, color: Colors.grey),
+            //       //     SizedBox(width: 10),
+            //       //     Expanded(
+            //       //       child: Padding(
+            //       //         padding: const EdgeInsets.only(top: 12),
+            //       //         child: TextFormField(
+            //       //           textAlign: TextAlign.start,
+            //       //           decoration: const InputDecoration(
+            //       //             hintText: 'Enter Keywords',
+            //       //             border: InputBorder.none,
+            //       //             contentPadding: EdgeInsets.symmetric(vertical: 15), // Adjust vertical padding
+            //       //           ),
+            //       //         ),
+            //       //       ),
+            //       //     ),
+            //       //   ],
+            //       // ),
+            //       // child: Row(
+            //       //   children: [
+            //       //     Icon(Icons.search, color: Colors.grey),
+            //       //     SizedBox(width: 10),
+            //       //     Expanded(
+            //       //       child: TextFormField(
+            //       //         decoration: const InputDecoration(
+            //       //           hintText: 'Enter Keywords',
+            //       //           border: InputBorder.none,
+            //       //           contentPadding: EdgeInsets.symmetric(vertical: 8),
+            //       //         ),
+            //       //       ),
+            //       //     ),
+            //       //   ],
+            //       // ),
+            //     ),
+            //   ),
+            // ),
             SingleChildScrollView(
               child: Card(
                 elevation: 8,

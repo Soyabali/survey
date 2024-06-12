@@ -56,16 +56,15 @@ class _MyHomePageState extends State<ComplaintHomePage> {
         fit: StackFit.expand, // Make the stack fill the entire screen
         children: [
           middleHeader(context,'Citizen Services'),
-
-          Positioned(
-            top: 90,
-            left: 15,
-            right: 15,
-            child: Image.asset('assets/images/templelement2.png',
-                  height: 30.0,
-                  width: MediaQuery.of(context).size.width),
-            ),
-          SizedBox(height: 10),
+          // Positioned(
+          //   top: 20,
+          //   left: 15,
+          //   right: 15,
+          //   child: Image.asset('assets/images/templelement2.png',
+          //         height: 30.0,
+          //         width: MediaQuery.of(context).size.width),
+          //   ),
+          SizedBox(height: 0),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.start,
           //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +77,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
           // ),
           Padding(
             padding:
-                const EdgeInsets.only(top: 120, left: 10, right: 10, bottom: 10),
+                const EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 10),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -816,10 +815,10 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       ),
                     ],
                   ),
-                  SizedBox(height:15),
-                  Image.asset('assets/images/templeelement3.png',
-                        height: 30.0,
-                        width: MediaQuery.of(context).size.width),
+                  // SizedBox(height:15),
+                  // Image.asset('assets/images/templeelement3.png',
+                  //       height: 30.0,
+                  //       width: MediaQuery.of(context).size.width),
                 ],
               ),
             ),
