@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
-import 'package:puri/temples/facilities/parking/parking.dart';
-import 'package:puri/temples/facilities/restaurant/restaurant.dart';
-import 'package:puri/temples/facilities/taxi/taxi.dart';
-import '../../app/navigationUtils.dart';
+import 'package:puri/presentation/temples/facilities/parking/parking.dart';
+import 'package:puri/presentation/temples/facilities/restaurant/restaurant.dart';
+import 'package:puri/presentation/temples/facilities/taxi/taxi.dart';
+import '../../../app/navigationUtils.dart';
 import 'hotel/hotel.dart';
 
 class FacilitiesHome extends StatefulWidget {

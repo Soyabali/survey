@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:rest_api_provider/services/todo_services.dart';
 
 import '../model/todo.dart';
+import '../services/todo_services.dart';
 // this is a provider class
 class TodoProvider extends ChangeNotifier {
   // create  a instance of service class

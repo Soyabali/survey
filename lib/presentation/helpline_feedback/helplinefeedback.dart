@@ -9,10 +9,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../app/generalFunction.dart';
 import 'package:flutter/widgets.dart';
 import '../../app/navigationUtils.dart';
-import '../../resources/app_text_style.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-
-import '../marriageCertificate/marriageCertificate.dart';
+import '../resources/app_text_style.dart';
 import 'facebook.dart';
 import 'feedbackBottomSheet.dart';
 import 'instagrampage.dart';

@@ -4,8 +4,9 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../app/generalFunction.dart';
-import '../../app/navigationUtils.dart';
+
+import '../../../app/generalFunction.dart';
+import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 import '../../resources/custom_elevated_button.dart';
 import '../../resources/values_manager.dart';

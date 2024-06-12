@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../app/generalFunction.dart';
 import '../../app/navigationUtils.dart';
-import '../../resources/app_text_style.dart';
-import '../../resources/custom_elevated_button.dart';
-import '../../temples/temple_gallery.dart';
+import '../resources/app_text_style.dart';
+import '../resources/custom_elevated_button.dart';
+import '../temples/temple_gallery.dart';
 
 
 class AboutPuri extends StatefulWidget {

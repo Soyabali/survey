@@ -3,12 +3,11 @@ import 'dart:async';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:puri/homepage/homepage.dart';
 import '../../app/navigationUtils.dart';
-import '../../resources/app_strings.dart';
-import '../../resources/app_text_style.dart';
-import '../../resources/assets_manager.dart';
-import '../../resources/routes_managements.dart';
+import '../homepage/homepage.dart';
+import '../resources/app_strings.dart';
+import '../resources/app_text_style.dart';
+import '../resources/assets_manager.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});

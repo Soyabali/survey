@@ -1,7 +1,7 @@
 import 'dart:convert';
-
-import 'package:rest_api_provider/model/todo.dart';
 import 'package:http/http.dart' as http;
+
+import '../model/todo.dart';
 
  class TodoService {
   Future<List<Todo>> getAll() async {

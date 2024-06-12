@@ -9,9 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../app/navigationUtils.dart';
-import '../../resources/app_text_style.dart';
-import '../../resources/custom_elevated_button.dart';
-import '../../resources/values_manager.dart';
+import '../resources/app_text_style.dart';
+import '../resources/custom_elevated_button.dart';
+import '../resources/values_manager.dart';
 
 class BookAdvertisement extends StatefulWidget {
   final complaintName;

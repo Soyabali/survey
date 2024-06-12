@@ -1,11 +1,11 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:puri/complaints/raiseGrievance/onlineComplaintForm.dart';
-import '../../app/generalFunction.dart';
-import '../../app/navigationUtils.dart';
-import '../../resources/app_text_style.dart';
 
+import '../../../app/generalFunction.dart';
+import '../../../app/navigationUtils.dart';
+import '../../resources/app_text_style.dart';
+import 'onlineComplaintForm.dart';
 
 
 class OnlineComplaint extends StatefulWidget {

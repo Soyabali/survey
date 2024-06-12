@@ -7,18 +7,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../homepage/homepage.dart';
-import '../resources/app_text_style.dart';
-import '../resources/values_manager.dart';
-import '../temples/cityhistory/cityhistory.dart';
-import '../temples/emergency/emergencyhome.dart';
-import '../temples/facilities/facilities.dart';
-import '../temples/howToReach/howToReach.dart';
-import '../temples/templehome.dart';
-import '../temples/weather/weather.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../presentation/homepage/homepage.dart';
+import '../presentation/resources/app_text_style.dart';
+import '../presentation/resources/values_manager.dart';
+import '../presentation/temples/cityhistory/cityhistory.dart';
+import '../presentation/temples/emergency/emergencyhome.dart';
+import '../presentation/temples/facilities/facilities.dart';
+import '../presentation/temples/howToReach/howToReach.dart';
+import '../presentation/temples/templehome.dart';
+import '../presentation/temples/weather/weather.dart';
 
- // navigateToGoogleMap
+// navigateToGoogleMap
 
 Future<void> launchGoogleMaps(double latitude, double longitude) async {
   final uri = Uri(

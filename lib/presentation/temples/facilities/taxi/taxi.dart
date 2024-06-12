@@ -2,10 +2,11 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:puri/temples/facilities/taxi/taxiStand.dart';
-import 'package:puri/temples/facilities/taxi/taxihome.dart';
+import 'package:puri/presentation/temples/facilities/taxi/taxiStand.dart';
+import 'package:puri/presentation/temples/facilities/taxi/taxihome.dart';
 
-import '../../../app/navigationUtils.dart';
+import '../../../../app/navigationUtils.dart';
+
 
 class Taxi extends StatefulWidget {
   const Taxi({super.key});

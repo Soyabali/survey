@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../resources/custom_elevated_button.dart';
+import '../resources/custom_elevated_button.dart';
+
 
 class FeedbackBottomSheet extends StatelessWidget {
 

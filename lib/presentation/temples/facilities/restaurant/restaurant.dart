@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
-import '../../../app/navigationUtils.dart';
+import '../../../../app/navigationUtils.dart';
 import '../../../resources/app_text_style.dart';
+
 
 class Restaurant extends StatefulWidget {
   const Restaurant({super.key});
@@ -113,7 +114,7 @@ class _TemplesHomeState extends State<Restaurant> {
 
                                               ],
                                             ),
-                                            Row(
+                                            const Row(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: <Widget>[
                                                 Icon(Icons.star,size: 15,color: Colors.orange,),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../app/generalFunction.dart';
+
+import '../../app/generalFunction.dart';
 
 class CookieDetail extends StatelessWidget {
 

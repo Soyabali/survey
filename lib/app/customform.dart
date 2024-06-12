@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../resources/app_text_style.dart';
-import '../resources/custom_elevated_button.dart';
+import '../presentation/resources/app_text_style.dart';
+import '../presentation/resources/custom_elevated_button.dart';
 
 class GrievanceForm extends StatefulWidget {
   @override

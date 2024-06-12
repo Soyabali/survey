@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:puri/presentation/toilet_locator/toilet_locator_details.dart';
 import '../../app/generalFunction.dart';
 import '../../app/navigationUtils.dart';
-import '../../resources/app_text_style.dart';
+import '../resources/app_text_style.dart';
 import 'library_locator.dart';
 
 

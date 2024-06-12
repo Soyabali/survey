@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
-import 'package:puri/temples/emergency/policeStation.dart';
-import '../../app/navigationUtils.dart';
+import 'package:puri/presentation/temples/emergency/policeStation.dart';
+import '../../../app/navigationUtils.dart';
 import 'administration.dart';
 import 'hospital.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:puri/resources/styles_manager.dart';
-import 'package:puri/resources/values_manager.dart';
+import 'package:puri/presentation/resources/styles_manager.dart';
+import 'package:puri/presentation/resources/values_manager.dart';
 import 'color_manager.dart';
 import 'font_manager.dart';
 

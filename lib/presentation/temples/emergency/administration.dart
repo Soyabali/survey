@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../../../resources/app_text_style.dart';
-import '../../app/navigationUtils.dart';
+import '../../../app/navigationUtils.dart';
+import '../../resources/app_text_style.dart';
 
 
 class Administration extends StatefulWidget {

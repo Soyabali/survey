@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../resources/routes_managements.dart';
-import '../resources/theme_manager.dart';
+
+import '../presentation/resources/routes_managements.dart';
+import '../presentation/resources/theme_manager.dart';
 
 
 class MyApp extends StatefulWidget {
