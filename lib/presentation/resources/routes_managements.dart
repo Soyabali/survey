@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:puri/homepage/homepage.dart';
 import 'package:puri/presentation/screens/splash.dart';
+import '../presentation/homepage/homepage.dart';
+import '../presentation/temples/templehome.dart';
 
-import '../temples/templehome.dart';
 
 class Routes {
   static const String splashRoute = "/";

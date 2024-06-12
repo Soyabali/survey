@@ -9,11 +9,11 @@ import 'package:puri/resources/assets_manager.dart';
 import '../app/navigationUtils.dart';
 import '../complaints/complaintHomePage.dart';
 import '../presentation/helpline_feedback/helplinefeedback.dart';
+import '../presentation/temples/nearbyplace/nearbyplace.dart';
+import '../presentation/temples/templehome.dart';
 import '../presentation/toilet_locator/toilet_locator.dart';
 import '../resources/app_text_style.dart';
-import '../resources/values_manager.dart';
-import '../temples/nearbyplace/nearbyplace.dart';
-import '../temples/templehome.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
