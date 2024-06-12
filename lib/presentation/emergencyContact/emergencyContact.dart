@@ -52,33 +52,35 @@ class _EmergencyContactsState extends State<EmergencyContacts> {
       appBar: getAppBarBack(context,'${widget.name}'),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body: ListView(
-        children: <Widget>[
-          middleHeader(context,'${widget.name}'),
-          Image.asset('assets/images/templelement2.png',
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            middleHeader(context, '${widget.name}'),
+            Image.asset(
+              'assets/images/templelement2.png',
               height: 20.0,
-              width: MediaQuery.of(context).size.width),
-          const SizedBox(height: 10),
-          Container(
-            height: 450,
-            child: ListView.builder(
-              itemCount: items.length, // Set the number of items in the list
+              width: MediaQuery.of(context).size.width,
+            ),
+            SizedBox(height: 10),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: items.length,
               itemBuilder: (context, index) {
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                         var name = '${items[index]}';
-                         print('---59--$name');
+                        var name = '${items[index]}';
+                        print('---59--$name');
 
-                         Navigator.push(
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>
-                              FireEmergency(name:name)),
+                          MaterialPageRoute(builder: (context) => FireEmergency(name: name)),
                         );
-
-                        },
+                      },
                       splashColor: Colors.red.withAlpha(30),
                       borderRadius: BorderRadius.circular(10.0),
                       child: Card(
@@ -87,13 +89,16 @@ class _EmergencyContactsState extends State<EmergencyContacts> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: ListTile(
-                            leading: Icon(Icons.info, color: Colors.orange),
-                            title: Text('${items[index]}', style: AppTextStyle.font16penSansExtraboldRedTextStyle), // Example title with index
-                            trailing: Image.asset(
-                              'assets/images/arrow.png',
-                              height: 12,
-                              width: 12,
-                            )
+                          leading: Icon(Icons.info, color: Colors.orange),
+                          title: Text(
+                            '${items[index]}',
+                            style: AppTextStyle.font16penSansExtraboldRedTextStyle,
+                          ),
+                          trailing: Image.asset(
+                            'assets/images/arrow.png',
+                            height: 12,
+                            width: 12,
+                          ),
                         ),
                       ),
                     ),
@@ -101,14 +106,14 @@ class _EmergencyContactsState extends State<EmergencyContacts> {
                 );
               },
             ),
-          ),
-          const SizedBox(height: 10),
-
-          Image.asset('assets/images/templeelement3.png',
+            SizedBox(height: 10),
+            Image.asset(
+              'assets/images/templeelement3.png',
               height: 20.0,
-              width: MediaQuery.of(context).size.width),
-
-        ],
+              width: MediaQuery.of(context).size.width,
+            ),
+          ],
+        ),
       ),
     );
   }

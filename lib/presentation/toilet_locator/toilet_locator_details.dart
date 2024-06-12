@@ -53,8 +53,8 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                   children: [
                     Card(
                       elevation: 8,
-                      //color: Colors.greenAccent,
-                      color: Color(0xFFF0F8FF),
+                      color: Colors.white,
+                     // color: Color(0xFFF0F8FF),
                      // color: Color(0xFFD3D3D3),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),

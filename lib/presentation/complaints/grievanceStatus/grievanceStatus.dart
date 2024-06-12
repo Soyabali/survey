@@ -44,68 +44,17 @@ class _TemplesHomeState extends State<GrievanceStatus> {
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 0),
+        padding: const EdgeInsets.only(left: 5, right: 10, bottom: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 5),
              Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.only(left: 5,right: 5,top: 5),
               child: SearchBar2(),
             ),
-            // Container(
-            //   height: 65,
-            //   child: Card(
-            //     elevation: 5,
-            //     shadowColor: Colors.grey.withOpacity(0.5),
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(10),
-            //       side: const BorderSide(
-            //         color: Colors.grey, // Border color
-            //         width: 1,
-            //       ),
-            //     ),
-            //     child: const Padding(
-            //       padding: EdgeInsets.only(left: 16,right: 16,top: 16,bottom: 16),
-            //       child: SearchBar(),
-            //       // child: Row(
-            //       //   children: [
-            //       //     Icon(Icons.search, color: Colors.grey),
-            //       //     SizedBox(width: 10),
-            //       //     Expanded(
-            //       //       child: Padding(
-            //       //         padding: const EdgeInsets.only(top: 12),
-            //       //         child: TextFormField(
-            //       //           textAlign: TextAlign.start,
-            //       //           decoration: const InputDecoration(
-            //       //             hintText: 'Enter Keywords',
-            //       //             border: InputBorder.none,
-            //       //             contentPadding: EdgeInsets.symmetric(vertical: 15), // Adjust vertical padding
-            //       //           ),
-            //       //         ),
-            //       //       ),
-            //       //     ),
-            //       //   ],
-            //       // ),
-            //       // child: Row(
-            //       //   children: [
-            //       //     Icon(Icons.search, color: Colors.grey),
-            //       //     SizedBox(width: 10),
-            //       //     Expanded(
-            //       //       child: TextFormField(
-            //       //         decoration: const InputDecoration(
-            //       //           hintText: 'Enter Keywords',
-            //       //           border: InputBorder.none,
-            //       //           contentPadding: EdgeInsets.symmetric(vertical: 8),
-            //       //         ),
-            //       //       ),
-            //       //     ),
-            //       //   ],
-            //       // ),
-            //     ),
-            //   ),
-            // ),
+
             SingleChildScrollView(
               child: Card(
                 elevation: 8,
@@ -123,9 +72,10 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                         child: Stack(
                           children: [
                             Container(
-                                color :Color(0xFFfFcccb),
-                                //color: Colors.blueGrey,
-                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+                                  color :Color(0xFFfFcccb),
+                                ),
                                 child: ListTile(
                                   leading: Container(
                                     width: 35,
@@ -145,9 +95,10 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                     ),
                                     child: Center(
                                       child: Image.asset(
-                                        'assets/images/ic_camera.PNG',
+                                        'assets/images/nameicon.png',
                                         height: 25,
                                         width: 25,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
