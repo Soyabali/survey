@@ -1,9 +1,9 @@
-
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
+import 'package:puri/model/todo.dart';
 import 'package:puri/presentation/temples/templedetail.dart';
 import '../../app/navigationUtils.dart';
 import '../../provider/todo_provider.dart';
@@ -12,23 +12,19 @@ import '../resources/assets_manager.dart';
 import 'package:provider/provider.dart';
 
 class TemplesHome extends StatefulWidget {
-
   const TemplesHome({super.key});
 
   @override
   State<TemplesHome> createState() => _TemplesHomeState();
-   }
+}
 
 class _TemplesHomeState extends State<TemplesHome> {
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp)
-    {
-      Provider.of<TodoProvider>(context, listen: false).getAllTodos();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<TempleProvider>(context, listen: false).getAllTodos();
     });
     BackButtonInterceptor.add(myInterceptor);
   }
@@ -46,15 +42,16 @@ class _TemplesHomeState extends State<TemplesHome> {
 
   // GeneralFunction? generalFunction;
   GeneralFunction generalFunction = GeneralFunction();
+
   final List<Map<String, String>> itemList = [
     {
       'image':
-          'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
+      'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
       'temple': 'Jagannath Temple'
     },
     {
       'image':
-          'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
+      'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
       'temple': 'PanchaTirtha'
     },
     {
@@ -63,22 +60,22 @@ class _TemplesHomeState extends State<TemplesHome> {
     },
     {
       'image':
-          'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
+      'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
       'temple': 'Vimala Temple'
     },
     {
       'image':
-          'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
+      'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
       'temple': 'Varahi Temple'
     },
     {
       'image':
-          'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
+      'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
       'temple': 'Jagannath Temple'
     },
     {
       'image':
-          'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
+      'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
       'temple': 'PanchaTirtha'
     },
     {
@@ -87,160 +84,287 @@ class _TemplesHomeState extends State<TemplesHome> {
     },
     {
       'image':
-          'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
+      'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
       'temple': 'Vimala Temple'
     },
     {
       'image':
-          'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
+      'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
       'temple': 'Varahi Temple'
     },
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: getAppBar("Temples"),
-      drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Opacity(
-                opacity: 0.7,
-                child: Container(
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(ImageAssets.templepuri4),
-                      // Provide the path to your image asset
-                      fit: BoxFit.cover, // Adjust how the image fits into the container
+        backgroundColor: Colors.white,
+        appBar: getAppBar("Temples"),
+        drawer:
+        generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+        body: Consumer<TempleProvider>(builder: (context, value, child) {
+          if (value.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          final todos = value.todos;
+          print('---113---L--xx-${todos.length}');
+         // print('Home page api response  37....xxx $todos');
+          return Column(
+            children: [
+              Stack(
+                children: <Widget>[
+                  Opacity(
+                    opacity: 0.7,
+                    child: Container(
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(ImageAssets.templepuri4),
+                          // Provide the path to your image asset
+                          fit: BoxFit
+                              .cover, // Adjust how the image fits into the container
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Positioned(
+                      top: 50,
+                      left: 20,
+                      child: Image.asset(ImageAssets.cityname, height: 100)),
+                  Positioned(
+                      top: 75,
+                      left: 40,
+                      child: Text("TEMPLES",
+                          style: AppTextStyle
+                              .font30penSansExtraboldWhiteTextStyle))
+                ],
               ),
-              Positioned(
-                  top: 50,
-                  left: 20,
-                  child: Image.asset(ImageAssets.cityname, height: 100)),
-              Positioned(
-                  top: 75,
-                  left: 40,
-                  child: Text("TEMPLES",
-                      style:
-                      AppTextStyle.font30penSansExtraboldWhiteTextStyle))
+              SizedBox(height: 5),
+             // getList(todos),
+              getList(),
             ],
-          ),
-          SizedBox(height: 5),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    itemList.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.orange, // Set the golden border color
-                            width: 1.0, // Set the width of the border
+          );
+        }));
+  }
+
+  Widget getList() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: SingleChildScrollView(
+          child: Column(
+            children: List.generate(itemList.length, (index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 2.0, horizontal: 2.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.orange, // Set the golden border color
+                      width: 1.0, // Set the width of the border
+                    ),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      var templeName = '${itemList[index]['temple']}';
+                      var image = itemList[index]['image'];
+                      print('-----165---$templeName');
+                      print('-----166---$image');
+                      // navigator
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) =>
+                              TemplesDetail(
+                                  templeName: templeName, image: image)));
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Container(
+                            height: 90,
+                            width: 90,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: Image.network(
+                                '${itemList[index]['image']}',
+                                height: 90,
+                                width: 90,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
-                        child: InkWell(
-                          onTap: () {
-                            var templeName = "${itemList[index]['temple']}";
-                            var image = "${itemList[index]['image']}";
-                            print('-----165---$templeName');
-                            print('-----166---$image');
-                            // navigator
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) =>
-                                    TemplesDetail(templeName: templeName, image: image)));
-                          },
-                          child: Row(
+                        Expanded(
+                          child: Container(
+                            height: 100,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: ListTile(
+                                title: Text(
+                                  '${itemList[index]['temple']}',
+                                  style: const TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                trailing: Image.asset(
+                                  'assets/images/arrow.png',
+                                  height: 12,
+                                  width: 12,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Container(
-                                  height: 90,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    child: Image.network(
-                                      '${itemList[index]['image']}',
-                                      height: 90,
-                                      width: 90,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Image.asset(
+                                  "assets/images/listelementtop.png",
+                                  height: 25,
+                                  width: 25,
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  height: 100,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                    child: ListTile(
-                                        title: Text(
-                                          "${itemList[index]['temple']}",
-                                          style: const TextStyle(
-                                            color: Colors.red,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        trailing: Image.asset(
-                                          'assets/images/arrow.png',
-                                          height: 12,
-                                          width: 12,
-                                        )),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: Image.asset(
-                                        "assets/images/listelementtop.png",
-                                        height: 25,
-                                        width: 25,
-                                      ),
-                                    ),
-                                    SizedBox(height: 35),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Image.asset(
-                                        "assets/images/listelementbottom.png",
-                                        height: 25,
-                                        width: 25,
-                                      ),
-                                    ),
-                                  ],
+                              SizedBox(height: 35),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Image.asset(
+                                  "assets/images/listelementbottom.png",
+                                  height: 25,
+                                  width: 25,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    );
-                  }),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          )
-        ],
+              );
+            }),
+          ),
+        ),
       ),
-      );
+    );
   }
+  // Widget getList(List<TempleModel> todos) {
+  //   return Expanded(
+  //     child: Padding(
+  //       padding: const EdgeInsets.only(bottom: 15),
+  //       child: SingleChildScrollView(
+  //         child: Column(
+  //           children: List.generate(todos.length, (index) {
+  //             return Padding(
+  //               padding: const EdgeInsets.symmetric(
+  //                   vertical: 2.0, horizontal: 2.0),
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                   border: Border.all(
+  //                     color: Colors.orange, // Set the golden border color
+  //                     width: 1.0, // Set the width of the border
+  //                   ),
+  //                 ),
+  //                 child: InkWell(
+  //                   onTap: () {
+  //                     // var templeName = todos[index].temple;
+  //                     // var image = todos[index].image;
+  //                     // print('-----165---$templeName');
+  //                     // print('-----166---$image');
+  //                     // // navigator
+  //                     // Navigator.of(context).push(MaterialPageRoute(
+  //                     //     builder: (_) =>
+  //                     //         TemplesDetail(
+  //                     //             templeName: templeName, image: image)));
+  //                   },
+  //                   child: Row(
+  //                     children: [
+  //                       Padding(
+  //                         padding: const EdgeInsets.only(left: 5),
+  //                         child: Container(
+  //                           height: 90,
+  //                           width: 90,
+  //                           decoration: BoxDecoration(
+  //                             borderRadius: BorderRadius.circular(5),
+  //                           ),
+  //                           child: ClipRRect(
+  //                             borderRadius: BorderRadius.circular(5.0),
+  //                             child: Image.network(
+  //                               'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
+  //                               height: 90,
+  //                               width: 90,
+  //                               fit: BoxFit.cover,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       Expanded(
+  //                         child: Container(
+  //                           height: 100,
+  //                           child: Padding(
+  //                             padding: EdgeInsets.only(top: 20),
+  //                             child: ListTile(
+  //                               title: Text(
+  //                                 todos[index].title,
+  //                                 style: const TextStyle(
+  //                                   color: Colors.red,
+  //                                   fontSize: 14,
+  //                                 ),
+  //                               ),
+  //                               trailing: Image.asset(
+  //                                 'assets/images/arrow.png',
+  //                                 height: 12,
+  //                                 width: 12,
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       Padding(
+  //                         padding: const EdgeInsets.only(right: 5),
+  //                         child: Column(
+  //                           mainAxisAlignment: MainAxisAlignment.end,
+  //                           crossAxisAlignment: CrossAxisAlignment.end,
+  //                           children: [
+  //                             Align(
+  //                               alignment: Alignment.topRight,
+  //                               child: Image.asset(
+  //                                 "assets/images/listelementtop.png",
+  //                                 height: 25,
+  //                                 width: 25,
+  //                               ),
+  //                             ),
+  //                             SizedBox(height: 35),
+  //                             Align(
+  //                               alignment: Alignment.bottomRight,
+  //                               child: Image.asset(
+  //                                 "assets/images/listelementbottom.png",
+  //                                 height: 25,
+  //                                 width: 25,
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             );
+  //           }),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

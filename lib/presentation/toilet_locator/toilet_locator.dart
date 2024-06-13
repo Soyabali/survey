@@ -52,10 +52,10 @@ class _EmergencyContactsState extends State<ToiletLocator> {
       body: ListView(
         children: <Widget>[
           middleHeader(context,'${widget.name}'),
-          Image.asset('assets/images/templelement2.png',
-              height: 30.0,
-              width: MediaQuery.of(context).size.width),
-          const SizedBox(height: 10),
+          // Image.asset('assets/images/templelement2.png',
+          //     height: 30.0,
+          //     width: MediaQuery.of(context).size.width),
+          // const SizedBox(height: 10),
           Container(
             height: 80,
             child: ListView.builder(
@@ -112,10 +112,10 @@ class _EmergencyContactsState extends State<ToiletLocator> {
               },
             ),
           ),
-          const SizedBox(height: 10),
-          Image.asset('assets/images/templeelement3.png',
-              height: 30.0,
-              width: MediaQuery.of(context).size.width),
+          // const SizedBox(height: 10),
+          // Image.asset('assets/images/templeelement3.png',
+          //     height: 30.0,
+          //     width: MediaQuery.of(context).size.width),
 
         ],
       ),

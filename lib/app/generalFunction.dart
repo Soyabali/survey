@@ -322,7 +322,8 @@ class GeneralFunction {
           DrawerHeader(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/puriOned.png',
+                 image: AssetImage('assets/images/puriOned.png',
+                 //image: AssetImage('assets/images/applogo.png',
                 ),
                 // Replace with your asset image path
                 fit: BoxFit.cover,

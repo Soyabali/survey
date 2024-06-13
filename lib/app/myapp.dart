@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
     return activeConnection
         ? MultiProvider(
       providers: [
-        ListenableProvider<TodoProvider>(create: (_) => TodoProvider()),
+        ListenableProvider<TempleProvider>(create: (_) => TempleProvider()),
         // ChangeNotifierProvider<ParamsProvider>(
         //     create: (_) => ParamsProvider()),
         // ListenableProvider<PendingPhotoProvider>(

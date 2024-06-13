@@ -1,11 +1,11 @@
 /// this is a model class
 
-class Todo {
+class TempleModel {
   final int id;
   final int userId;
   final String title;
   final bool completed;
-  Todo({
+  TempleModel({
     required this.id,
     required this.userId,
     required this.title,

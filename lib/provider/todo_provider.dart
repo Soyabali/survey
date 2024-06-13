@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 import '../model/todo.dart';
 import '../services/todo_services.dart';
 // this is a provider class
-class TodoProvider extends ChangeNotifier {
+class TempleProvider extends ChangeNotifier {
   // create  a instance of service class
-  final _service = TodoService();
+  final _service = TempleService();
   bool isLoading=false;
-  List<Todo> _todos=[];
-  List<Todo> get todos => _todos;
+  List<TempleModel> _todos=[];
+  List<TempleModel> get todos => _todos;
   // bind provider to service
   Future<void> getAllTodos() async {
     isLoading = true;
