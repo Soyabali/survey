@@ -139,7 +139,8 @@ class _TemplesHomeState extends State<TemplesHome> {
               padding: const EdgeInsets.only(bottom: 15),
               child: SingleChildScrollView(
                 child: Column(
-                  children: List.generate(itemList.length, (index) {
+                  children: List.generate(
+                    itemList.length, (index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
                       child: Container(

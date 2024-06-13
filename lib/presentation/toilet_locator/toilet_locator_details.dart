@@ -61,6 +61,7 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                       child: Container(
                         // color: AppColors.appGrey,
                         // width: _width! * 90,
+                        color: Colors.white,
                           padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
