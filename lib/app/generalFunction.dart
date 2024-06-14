@@ -81,7 +81,7 @@ readmore(String templeDetails) {
     '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
 
 Daily Rituals:''',
-    trimLines: 1,
+    trimLines: 10,
     colorClickableText: Colors.red,
     trimMode: TrimMode.Line,
     trimCollapsedText: 'Show more',
@@ -210,22 +210,46 @@ getAppBarBack(BuildContext context ,String title) {
     shadowColor: Colors.orange,
     toolbarOpacity: 0.5,
     leading: InkWell(
-      onTap: (){
+      onTap: () {
         Navigator.pop(context);
       },
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          height: 10,
-          width: 10,
-          child: Image.asset("assets/images/back.png", fit: BoxFit.fill),
+        padding: const EdgeInsets.all(16.0), // Adjust padding if necessary
+        child: Image.asset(
+          "assets/images/back.png",
+          fit: BoxFit.contain, // BoxFit.contain ensures the image is not distorted
         ),
       ),
     ),
-    title: Text(title,
-        style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
+    title: Text(
+      title,
+      style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
+    ),
     centerTitle: true,
   );
+
+  // return AppBar(
+  //   backgroundColor: Colors.red,
+  //   elevation: 10,
+  //   shadowColor: Colors.orange,
+  //   toolbarOpacity: 0.5,
+  //   leading: InkWell(
+  //     onTap: (){
+  //       Navigator.pop(context);
+  //     },
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(10.0),
+  //       child: Container(
+  //         height: 10,
+  //         width: 10,
+  //         child: Image.asset("assets/images/back.png", fit: BoxFit.cover),
+  //       ),
+  //     ),
+  //   ),
+  //   title: Text(title,
+  //       style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
+  //   centerTitle: true,
+  // );
 }
 
 

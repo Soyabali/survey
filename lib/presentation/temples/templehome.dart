@@ -26,19 +26,19 @@ class _TemplesHomeState extends State<TemplesHome> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TempleProvider>(context, listen: false).getAllTodos();
     });
-    BackButtonInterceptor.add(myInterceptor);
+    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   // GeneralFunction? generalFunction;
   GeneralFunction generalFunction = GeneralFunction();
@@ -180,25 +180,31 @@ class _TemplesHomeState extends State<TemplesHome> {
                     },
                     child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Container(
-                            height: 90,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5.0),
-                              child: Image.network(
-                                '${itemList[index]['image']}',
+                         Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: InkWell(
+                              onTap: (){
+                                print('--Images--');
+                              },
+                              child: Container(
                                 height: 90,
                                 width: 90,
-                                fit: BoxFit.cover,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: Image.network(
+                                    '${itemList[index]['image']}',
+                                    height: 90,
+                                    width: 90,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+
                         Expanded(
                           child: Container(
                             height: 100,

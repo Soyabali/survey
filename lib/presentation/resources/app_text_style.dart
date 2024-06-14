@@ -75,9 +75,15 @@ class AppTextStyle {
   );
   // pendindg TextView Style
   static TextStyle font14penSansExtraboldRedTextStyle = GoogleFonts.openSans(
-    color: Colors.red,
+    color: AppColors.red,
     fontSize: 14,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+  static TextStyle font12penSansExtraboldRedTextStyle = GoogleFonts.openSans(
+    color: AppColors.red,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
   );
   // red

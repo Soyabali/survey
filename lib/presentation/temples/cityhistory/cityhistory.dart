@@ -6,6 +6,7 @@ import '../../../app/generalFunction.dart';
 import '../../../app/navigationUtils.dart';
 import '../../resources/custom_elevated_button.dart';
 import '../temple_gallery.dart';
+import 'citymap.dart';
 
 
 
@@ -142,15 +143,15 @@ class _TemplesHomeState extends State<CityHistory> {
               child: CustomElevatedButton(
                 text: 'CITY MAP',
                 onTap: () {
-                  double lat = 19.817743;
-                  double long = 85.859839;
-                  launchGoogleMaps(lat,long);
-                  //
-                  // Navigator.of(context).push(
-                  //     MaterialPageRoute(builder: (_) => TempleGallery(templeName:'${widget.templeName}')));
-                  //
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CityMap()),
+                  );
+                  // double lat = 19.817743;
+                  // double long = 85.859839;
+                  // launchGoogleMaps(lat,long);
 
-                },
+                  },
               ),
             ),
             // child: Container(

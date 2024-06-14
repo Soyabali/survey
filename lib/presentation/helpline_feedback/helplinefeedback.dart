@@ -81,12 +81,12 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
       backgroundColor: Colors.white,
       appBar: getAppBarBack(context,'Help Line'),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           Stack(
             children: <Widget>[
               Container(
-                height: 200,
+                height: 150,
                 width: MediaQuery.of(context).size.width,
                 child: Image.network('https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg', fit: BoxFit.cover),
               ),

@@ -13,6 +13,7 @@ import '../resources/assets_manager.dart';
 import '../temples/nearbyplace/nearbyplace.dart';
 import '../temples/templehome.dart';
 import '../toilet_locator/toilet_locator.dart';
+import '../toilet_locator/toilet_locator_details.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -158,10 +159,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: () {
                               print('-----114-----'); // HelpLineFeedBack
-
+                              // LoiletLocatorDetails
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => ToiletLocator(name: "Toilet Locator")),
+                              // );
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => ToiletLocator(name: "Toilet Locator")),
+                                MaterialPageRoute(builder: (context) => LoiletLocatorDetails(name: "Toilet Locator")),
                               );
                             },
                             child: Container(

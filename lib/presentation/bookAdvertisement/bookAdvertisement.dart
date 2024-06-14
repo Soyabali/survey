@@ -236,19 +236,19 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
       body: ListView(
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Icon(Icons.invert_colors_on_sharp, size: 20),
-                SizedBox(width: 5),
-                Text('Fill the below details',
-                    style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 15),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: <Widget>[
+          //       Icon(Icons.invert_colors_on_sharp, size: 20),
+          //       SizedBox(width: 5),
+          //       Text('Fill the below details',
+          //           style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
+          //     ],
+          //   ),
+          // ),
           SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
@@ -299,13 +299,15 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0, right: 2, bottom: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
+
                             Text('Advertisement Place Type',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -319,13 +321,14 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0, right: 2, bottom: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
                             Text('Advertisement Place',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -339,13 +342,14 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0, right: 2, bottom: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
                             Text('Advertisement Plan',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -359,13 +363,14 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0, right: 2, bottom: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
                             Text('Content Type',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -409,13 +414,14 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0, right: 2, bottom: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
                             Text('Content Description',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),

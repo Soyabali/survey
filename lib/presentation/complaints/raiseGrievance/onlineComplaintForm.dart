@@ -228,20 +228,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
       body: ListView(
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Icon(Icons.invert_colors_on_sharp, size: 20),
-                SizedBox(width: 5),
-                Text('Fill the below details',
-                    style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
-              ],
-            ),
-          ),
-          SizedBox(height: 12),
+
+          SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
             child: Container(
@@ -291,13 +279,22 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0, right: 2, bottom: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            // Container(
+                            //     margin: const EdgeInsets.only(
+                            //         left: 0, right: 2, bottom: 2),
+                            //     child: const Icon(
+                            //       Icons.forward_sharp,
+                            //       size: 12,
+                            //       color: Colors.black54,
+                            //     )),
                             Text('Category',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -321,6 +318,9 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                               decoration: const InputDecoration(
                                 // labelText: AppStrings.txtMobile,
                                 // border: OutlineInputBorder(),
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: AppPadding.p10),
                               ),
@@ -343,12 +343,21 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: EdgeInsets.only(left: 0, right: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            // Container(
+                            //     margin: EdgeInsets.only(left: 0, right: 2),
+                            //     child: const Icon(
+                            //       Icons.forward_sharp,
+                            //       size: 12,
+                            //       color: Colors.black54,
+                            //     )),
                             Text('Sub Category',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -362,12 +371,21 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: EdgeInsets.only(left: 0, right: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            // Container(
+                            //     margin: EdgeInsets.only(left: 0, right: 2),
+                            //     child: const Icon(
+                            //       Icons.forward_sharp,
+                            //       size: 12,
+                            //       color: Colors.black54,
+                            //     )),
                             Text('Ward',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -381,12 +399,21 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: EdgeInsets.only(left: 0, right: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            // Container(
+                            //     margin: EdgeInsets.only(left: 0, right: 2),
+                            //     child: const Icon(
+                            //       Icons.forward_sharp,
+                            //       size: 12,
+                            //       color: Colors.black54,
+                            //     )),
                             Text('Address',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -407,6 +434,9 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
                               decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
                                 // labelText: AppStrings.txtMobile,
                                 // border: OutlineInputBorder(),
                                 contentPadding: EdgeInsets.symmetric(
@@ -430,12 +460,21 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: EdgeInsets.only(left: 0, right: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            // Container(
+                            //     margin: EdgeInsets.only(left: 0, right: 2),
+                            //     child: const Icon(
+                            //       Icons.forward_sharp,
+                            //       size: 12,
+                            //       color: Colors.black54,
+                            //     )),
                             Text('Landmark',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -457,6 +496,9 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
                               decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
                                 // labelText: AppStrings.txtMobile,
                                 //  border: OutlineInputBorder(),
                                 contentPadding: EdgeInsets.symmetric(
@@ -481,12 +523,21 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                margin: EdgeInsets.only(left: 0, right: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            // Container(
+                            //     margin: EdgeInsets.only(left: 0, right: 2),
+                            //     child: const Icon(
+                            //       Icons.forward_sharp,
+                            //       size: 12,
+                            //       color: Colors.black54,
+                            //     )),
                             Text('Mention your concerns here',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack45TextStyle),
@@ -508,6 +559,9 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
                               decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
                                 // labelText: AppStrings.txtMobile,
                                 //  border: OutlineInputBorder(),
                                 contentPadding: EdgeInsets.symmetric(
@@ -526,25 +580,35 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5, top: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                                margin: EdgeInsets.only(left: 0, right: 2),
-                                child: const Icon(
-                                  Icons.forward_sharp,
-                                  size: 12,
-                                  color: Colors.black54,
-                                )),
-                            Text('Upload Photo',
-                                style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(bottom: 5, top: 5),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     children: <Widget>[
+                      //       Container(
+                      //         width: 8,
+                      //         height: 8,
+                      //         decoration: const BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             color: Colors.black54
+                      //         ),
+                      //       ),
+                      //       SizedBox(width: 5),
+                      //       // Container(
+                      //       //     margin: EdgeInsets.only(left: 0, right: 2),
+                      //       //     child: const Icon(
+                      //       //       Icons.forward_sharp,
+                      //       //       size: 12,
+                      //       //       color: Colors.black54,
+                      //       //     )),
+                      //       // Text('Upload Photo',
+                      //       //     style: AppTextStyle
+                      //       //         .font14penSansExtraboldBlack45TextStyle),
+                      //     ],
+                      //   ),
+                      // ),
                       //ContainerWithRow(),
+                      SizedBox(height: 10),
                       Container(
                         decoration: BoxDecoration(
                           color: Color(0xFFf2f3f5),
@@ -562,9 +626,9 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                     Padding(
                                       padding: EdgeInsets.only(left: 10),
                                       child: Text(
-                                        'Click Photo',
+                                        'Please click here to take a photo ->',
                                         style: AppTextStyle
-                                            .font14penSansExtraboldBlack45TextStyle,
+                                            .font10penSansExtraboldRedTextStyle,
                                       ),
                                     ),
                                   ],
@@ -637,11 +701,11 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                           ))
                                     ],
                                   )
-                                : Text("Photo is required.",
+                                : Text("",
                                     style: AppTextStyle
                                         .font14penSansExtraboldRedTextStyle),
                           ]),
-                      SizedBox(height: 5),
+                      SizedBox(height: 0),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Center(

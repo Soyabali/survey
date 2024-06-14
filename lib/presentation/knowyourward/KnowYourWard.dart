@@ -208,7 +208,8 @@ class _KnowYourWardState extends State<KnowYourWard> {
           Card(
             // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
             elevation: 8,
-            color: Colors.redAccent,
+           // color: Colors(#FFF5F5F5),
+            color: Color(0xFFF5F5F5),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8)),
             child: Container(
@@ -219,73 +220,76 @@ class _KnowYourWardState extends State<KnowYourWard> {
                 children: [
                   _bindSubCategory(),
                    SizedBox(height: 10),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${"BHANU SENAPATI"}: ",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"Contact No"}: ",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"Agency Name"}: ",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"Description Of Ward"}: ",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"Address"}: ",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0,right: 2),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${"BHANU SENAPATI"}: ",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"Contact No"}: ",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"Agency Name"}: ",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"Description Of Ward"}: ",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"Address"}: ",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
 
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
-                          Text(
-                            "${"Party Name :-INC"}",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"8847875092"}",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"Not Specified"}",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"Bidansi, Kumbharasahi"}",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
-                          Text(
-                            "${"Not Specified"}",
-                            style: AppTextStyle
-                                .font14OpenSansRegularWhiteTextStyle,
-                          ),
+                            Text(
+                              "${"Party Name :-INC"}",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"8847875092"}",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"Not Specified"}",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"Bidansi, Kumbharasahi"}",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
+                            Text(
+                              "${"Not Specified"}",
+                              style: AppTextStyle
+                                  .font14OpenSansRegularBlackTextStyle,
+                            ),
 
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               )

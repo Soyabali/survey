@@ -66,6 +66,27 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                           Container(
+                                 height:65,
+                                 color: Color(0xFFF5F5F5),
+                                child: ListTile(
+                                  leading: Image.asset(
+                                    'assets/images/toilet.png',
+                                    width: 30, // Set the width of the image
+                                    height: 30,
+                                    fit: BoxFit.cover,
+                                    // Set the height of the image
+                                  ),
+                                  title: Text('Name',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                  subtitle: Text('SBM Toilet',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                  trailing: Container(
+                                    child: Text('Free',style: AppTextStyle.font16OpenSansRegularRedTextStyle),
+                                  ),
+                                  onTap: () {
+                                    // Handle the tap event here
+                                  },
+                                ),
+                              ),
                             Text(
                                 "Male",
                                 style: AppTextStyle.font16OpenSansRegularRedTextStyle,
@@ -580,15 +601,30 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                 ),
                               ),
                               SizedBox(height: 5),
-                              Text(
-                                "Address",
-                                style: AppTextStyle.font16OpenSansRegularRedTextStyle,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // This aligns the children widgets to the left and right ends
+                                  children: <Widget>[
+                                    Text(
+                                      'Address',
+                                      style: AppTextStyle.font16OpenSansRegularRedTextStyle),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: Icon(Icons.location_on,size: 25,color: Colors.red,),
+                                    )
+                                  ],
+                                ),
                               ),
-                              SizedBox(height: 2),
+                              // Text(
+                              //   "Address",
+                              //   style: AppTextStyle.font16OpenSansRegularRedTextStyle,
+                              // ),
+                              SizedBox(height: 5),
                               Text(
                                 "Badambadi,Cuttack,Odisha 753012",
                                   style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                              SizedBox(height: 2),
+                              SizedBox(height: 5),
                               Row(
                                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
@@ -623,11 +659,6 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                     ],
                                   ),
                                 ],
-                              ),
-                              SizedBox(height: 10),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.location_on,size: 25,color: Colors.red,),
                               ),
                             ],
                           )

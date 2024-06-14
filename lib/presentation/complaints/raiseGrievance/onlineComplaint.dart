@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,6 +72,24 @@ class _TemplesHomeState extends State<OnlineComplaint> {
     },
   ];
 
+  final List<Color> borderColors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
+    Colors.cyan,
+    Colors.amber,
+  ];
+
+  Color getRandomBorderColor() {
+    final random = Random();
+    return borderColors[random.nextInt(borderColors.length)];
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -96,7 +116,7 @@ class _TemplesHomeState extends State<OnlineComplaint> {
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Padding(
-        padding: const EdgeInsets.only(bottom: 50),
+        padding: const EdgeInsets.only(bottom: 5),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -108,39 +128,48 @@ class _TemplesHomeState extends State<OnlineComplaint> {
                 width: MediaQuery.of(context).size.width,
               ),
               SizedBox(height: 10),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: itemList.length,
-                  itemBuilder: (context, index) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                          onTap: () {
-                            var name = '${itemList[index]['temple']}';
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      OnlineComplaintForm(complaintName: name)),
-                            );
-                          },
-                          splashColor: Colors.red.withAlpha(30),
-                          borderRadius: BorderRadius.circular(10.0),
+
+             Container(
+              height: MediaQuery.of(context).size.height,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: itemList.length,
+                itemBuilder: (context, index) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {
+                          var name = '${itemList[index]['temple']}';
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OnlineComplaintForm(complaintName: name)),
+                          );
+                        },
+                        splashColor: Colors.red.withAlpha(30),
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                               left: BorderSide(
+                                color: getRandomBorderColor(),
+                                width: 3.0,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                           child: Card(
                             elevation: 8,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: ListTile(
-                              leading: Icon(Icons.info, color: Colors.orange),
                               title: Text(
                                 '${itemList[index]['temple']}',
-                                style: AppTextStyle
-                                    .font16penSansExtraboldRedTextStyle,
+                                style: AppTextStyle.font14penSansExtraboldRedTextStyle,
                               ),
                               trailing: Image.asset(
                                 'assets/images/arrow.png',
@@ -151,10 +180,11 @@ class _TemplesHomeState extends State<OnlineComplaint> {
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
+            ),
               SizedBox(height: 10),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -168,69 +198,7 @@ class _TemplesHomeState extends State<OnlineComplaint> {
           ),
         ),
       ),
-      // body: Padding(
-      //   padding: const EdgeInsets.only(bottom: 50),
-      //   child: ListView(
-      //     children: <Widget>[
-      //       middleHeader(context,'${widget.name}'),
-      //       Image.asset('assets/images/templelement2.png',
-      //           // Replace with your first image path
-      //           height: 18.0,
-      //           width: MediaQuery.of(context).size.width),
-      //       SizedBox(height: 10),
-      //       Container(
-      //        // height: 450,
-      //         height: MediaQuery.of(context).size.height,
-      //         child: ListView.builder(
-      //           itemCount: itemList.length, // Set the number of items in the list
-      //           itemBuilder: (context, index) {
-      //             return Center(
-      //               child: Padding(
-      //                 padding: const EdgeInsets.all(8.0),
-      //                 child: InkWell(
-      //                   onTap: () {
-      //                      var name = '${itemList[index]['temple']}';
-      //                     Navigator.push(
-      //                       context,
-      //                       MaterialPageRoute(builder: (context) => OnlineComplaintForm(complaintName:name)),
-      //                     );
-      //
-      //                   },
-      //                   splashColor: Colors.red.withAlpha(30),
-      //                   borderRadius: BorderRadius.circular(10.0),
-      //                   child: Card(
-      //                     elevation: 8,
-      //                     shape: RoundedRectangleBorder(
-      //                       borderRadius: BorderRadius.circular(10.0),
-      //                     ),
-      //                     child: ListTile(
-      //                       leading: Icon(Icons.info, color: Colors.orange),
-      //                       title: Text('${itemList[index]['temple']}', style: AppTextStyle.font16penSansExtraboldRedTextStyle), // Example title with index
-      //                         trailing: Image.asset(
-      //                           'assets/images/arrow.png',
-      //                           height: 12,
-      //                           width: 12,
-      //                         )
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             );
-      //           },
-      //         ),
-      //       ),
-      //       SizedBox(height: 10),
-      //       Align(
-      //         alignment: Alignment.bottomCenter,
-      //         child: Image.asset('assets/images/templeelement3.png',
-      //             // Replace with your first image path
-      //             height: 30.0,
-      //             width: MediaQuery.of(context).size.width),
-      //       ),
-      //
-      //     ],
-      //   ),
-      // ),
+
     );
   }
 }
