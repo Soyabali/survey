@@ -62,31 +62,44 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                         // color: AppColors.appGrey,
                         // width: _width! * 90,
                         color: Colors.white,
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(0),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
+
                             children: [
                            Container(
-                                 height:65,
-                                 color: Color(0xFFF5F5F5),
-                                child: ListTile(
-                                  leading: Image.asset(
-                                    'assets/images/toilet.png',
-                                    width: 30, // Set the width of the image
-                                    height: 30,
-                                    fit: BoxFit.cover,
-                                    // Set the height of the image
-                                  ),
-                                  title: Text('Name',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                  subtitle: Text('SBM Toilet',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                  trailing: Container(
-                                    child: Text('Free',style: AppTextStyle.font16OpenSansRegularRedTextStyle),
-                                  ),
-                                  onTap: () {
-                                    // Handle the tap event here
-                                  },
+                                 height:55,
+                                 //color: Color(0xFFF5F5F5),
+                              decoration: BoxDecoration(
+                               //color: Colors.blue, // Background color
+                               color: Color(0xFFF5F5F5),
+                               borderRadius: BorderRadius.circular(5), // Border radius
+                             ),
+
+                             child: Padding(
+                               padding: const EdgeInsets.only(bottom: 15),
+                               child: ListTile(
+                                      leading: Image.asset(
+                                        'assets/images/toilet.png',
+                                        width: 30, // Set the width of the image
+                                        height: 30,
+                                        fit: BoxFit.fill,
+                                        // Set the height of the image
+                                      ),
+                                      title: Text('Name',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                      subtitle: Text('SBM Toilet',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                      trailing: Container(
+                                        child: Text('Free',style: AppTextStyle.font16OpenSansRegularRedTextStyle),
+                                      ),
+                                      onTap: () {
+                                        // Handle the tap event here
+                                      },
+                                    ),
+                             ),
                                 ),
-                              ),
+
+                            SizedBox(height: 5),
                             Text(
                                 "Male",
                                 style: AppTextStyle.font16OpenSansRegularRedTextStyle,
@@ -611,7 +624,12 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                       style: AppTextStyle.font16OpenSansRegularRedTextStyle),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.location_on,size: 25,color: Colors.red,),
+                                      child: Image.asset(
+                                        'assets/images/map2.png', // Replace with your actual path
+                                        width: 18, // Adjust as needed
+                                        height: 18, // Adjust as needed
+                                        fit: BoxFit.fill, // Adjust as needed
+                                      ),
                                     )
                                   ],
                                 ),

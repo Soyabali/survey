@@ -612,6 +612,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                       Container(
                         decoration: BoxDecoration(
                           color: Color(0xFFf2f3f5),
+                          //color: Colors.blueGrey,
                           borderRadius:
                               BorderRadius.circular(10.0), // Border radius
                         ),
@@ -624,11 +625,11 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(left: 10),
+                                      padding: EdgeInsets.only(left: 10,top: 10),
                                       child: Text(
-                                        'Please click here to take a photo ->',
+                                        'Please click here to take a photo',
                                         style: AppTextStyle
-                                            .font10penSansExtraboldRedTextStyle,
+                                            .font12penSansExtraboldRedTextStyle,
                                       ),
                                     ),
                                   ],

@@ -83,7 +83,7 @@ class _TemplesHomeState extends State<HowToReach> {
                   Container(
                     height: 200,
                     width: MediaQuery.of(context).size.width,
-                    child: Image.asset("assets/images/puribanner.jpeg",fit:BoxFit.cover),
+                    child: Image.asset("assets/images/puribanner.jpeg",fit:BoxFit.fill),
                   ),
                   Positioned(
                     top: 155,

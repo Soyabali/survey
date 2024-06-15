@@ -99,7 +99,7 @@ class _EmergencyContactsState extends State<EmergencyContacts> {
       drawer:
           generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Padding(
-        padding: const EdgeInsets.only(bottom: 50),
+        padding: const EdgeInsets.only(bottom: 10),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

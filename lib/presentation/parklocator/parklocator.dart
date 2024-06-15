@@ -161,7 +161,7 @@ class _KnowYourWardState extends State<ParkLocator> {
                                               Text('5 km',
                                                   style: AppTextStyle
                                                       .font12penSansExtraboldBlack45TextStyle),
-                                              SizedBox(width: 125),
+                                              SizedBox(width: 100),
                                               InkWell(
                                                 onTap: () {
                                                   print('---Map--');
