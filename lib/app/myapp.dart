@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
   factory MyApp() => instance; // factory for the class instance
   @override
   _MyAppState createState() => _MyAppState();
+
 }
 
 class _MyAppState extends State<MyApp> {
@@ -53,6 +54,35 @@ class _MyAppState extends State<MyApp> {
    // _appPreferences.getLocal().then((local) => {context.setLocale(local)});
     super.didChangeDependencies();
   }
+  void configLoading() {
+
+    EasyLoading.instance
+
+      ..displayDuration = const Duration(milliseconds: 2000)
+
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+
+      ..loadingStyle = EasyLoadingStyle.custom
+
+      ..indicatorSize = 45.0
+
+      ..radius = 10.0
+
+      ..progressColor = Colors.white
+
+      ..backgroundColor = Colors.black
+
+      ..indicatorColor = Colors.white
+
+      ..textColor = Colors.white
+
+      ..maskColor = Colors.blue.withOpacity(0.5)
+
+      ..userInteractions = false
+
+      ..dismissOnTap = false;
+
+  }
   @override
   Widget build(BuildContext context) {
     return activeConnection
@@ -83,8 +113,9 @@ class _MyAppState extends State<MyApp> {
         //   primarySwatch: Colors.blue,
         // ),
         initialRoute: Routes.splashRoute,
-        onGenerateRoute: RouteGenerator.getRoute,
         builder: EasyLoading.init(),
+        onGenerateRoute: RouteGenerator.getRoute,
+
       ),
     )
         : MaterialApp(
@@ -93,7 +124,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: NoInternet(),
-      builder: EasyLoading.init(),
+     // builder: EasyLoading.init(),
       // initialRoute: AppStrings.routeToSplash,
       // onGenerateRoute: generateRoute,
     );

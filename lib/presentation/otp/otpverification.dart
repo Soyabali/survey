@@ -2,7 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
+import '../../services/verifyCitizenOTP.dart';
+import '../complaints/complaintHomePage.dart';
+import '../homepage/homepage.dart';
+import '../resources/app_text_style.dart';
 import '../resources/values_manager.dart';
 
 
@@ -15,33 +21,29 @@ class OtpPage extends StatefulWidget {
 }
 class _MyHomePageState extends State<OtpPage> {
 
-  TextEditingController _newPasswordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   List<TextEditingController>? controllers;
   List<FocusNode>? focusNodes;
-  bool _isObscured = true;
-  bool _isObscurednewpassword = true;
-  FocusNode _newPasswordfocus = FocusNode();
+  FocusNode _contactNofocus = FocusNode();
   FocusNode _confirmpasswordfoucs = FocusNode();
   var otpverificationResponse;
   var result ;
   var msg ;
+  var verifyCitizenOtpMap;
 
 
   void clearText() {
-    _newPasswordController.clear();
-    _confirmPasswordController.clear();
+    _nameController.clear();
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('------71----${widget.phone}');
-    _newPasswordfocus = FocusNode();
-    _confirmpasswordfoucs = FocusNode();
+    print('------45----${widget.phone}');
+    _contactNofocus = FocusNode();
     controllers = List.generate(4, (_) => TextEditingController());
     focusNodes = List.generate(4, (_) => FocusNode());
     focusNodes?[0].requestFocus();
@@ -52,8 +54,7 @@ class _MyHomePageState extends State<OtpPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _newPasswordfocus.dispose();
-    _confirmpasswordfoucs.dispose();
+    _contactNofocus.dispose();
     for (var controller in controllers!) {
       controller.dispose();
     }
@@ -62,18 +63,6 @@ class _MyHomePageState extends State<OtpPage> {
     }
     super.dispose();
   }
-  // Toast msg
-  // void displayToast(String msg) {
-  //   Fluttertoast.showToast(
-  //       msg: msg,
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.CENTER,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0
-  //   );
-  // }
 
   final TextEditingController _phoneNumberController = TextEditingController();
 
@@ -81,7 +70,38 @@ class _MyHomePageState extends State<OtpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack(context,"OTP Verification"),
+      //appBar: getAppBarBack(context,"OTP Verification"),
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        elevation: 10,
+        shadowColor: Colors.orange,
+        toolbarOpacity: 0.5,
+        leading: InkWell(
+          onTap: () {
+            //  HomePage
+
+            //Navigator.pop(context);
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0), // Adjust padding if necessary
+            child: Image.asset(
+              "assets/images/back.png",
+              fit: BoxFit.contain, // BoxFit.contain ensures the image is not distorted
+            ),
+          ),
+        ),
+        title: Text(
+          'OTP Verification',
+          style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
+        ),
+        centerTitle: true,
+      ),
 
       // drawer
       body: SingleChildScrollView(
@@ -218,108 +238,47 @@ class _MyHomePageState extends State<OtpPage> {
                                         child: SingleChildScrollView(
                                           child: Column(
                                             children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: AppPadding.p15,
-                                                    right: AppPadding.p15),
-                                                // passWord TextFormField
-                                                child: TextFormField(
-                                                  focusNode: _newPasswordfocus,
-                                                  obscureText: _isObscurednewpassword,
-                                                  controller: _newPasswordController,
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  onEditingComplete: () =>
-                                                      FocusScope.of(context)
-                                                          .nextFocus(),
-                                                  decoration: InputDecoration(
-                                                    labelText: "New Password",
-                                                    labelStyle: const TextStyle(
-                                                        color: Color(0xFFd97c51)),
-                                                    border:
-                                                        const OutlineInputBorder(),
-                                                    contentPadding:
-                                                        const EdgeInsets.symmetric(
-                                                            vertical:
-                                                            AppPadding.p10),
-                                                    prefixIcon: const Icon(
-                                                        Icons.lock,
-                                                        color: Color(0xFF255899)),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(_isObscurednewpassword
-                                                          ? Icons.visibility
-                                                          : Icons.visibility_off),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _isObscurednewpassword =
-                                                              !_isObscurednewpassword;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                  autovalidateMode: AutovalidateMode
-                                                      .onUserInteraction,
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'New password';
-                                                    }
-                                                    if (value.length < 1) {
-                                                      return 'Please enter New password';
-                                                    }
-                                                    return null;
-                                                  },
-                                                ),
-                                              ),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: AppPadding.p15, right: AppPadding.p15),
+                                              //   // PHONE NUMBER TextField
+                                              //   child: TextFormField(
+                                              //     focusNode: _contactNofocus,
+                                              //     controller: _nameController,
+                                              //     textInputAction: TextInputAction.next,
+                                              //     onEditingComplete: () =>
+                                              //         FocusScope.of(context).nextFocus(),
+                                              //     keyboardType: TextInputType.phone,
+                                              //     inputFormatters: [
+                                              //       LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                              //       //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                              //     ],
+                                              //     decoration: const InputDecoration(
+                                              //       labelText: 'User Name',
+                                              //       border: OutlineInputBorder(),
+                                              //       contentPadding: EdgeInsets.symmetric(
+                                              //           vertical: AppPadding.p10),
+                                              //       prefixIcon: Icon(
+                                              //         Icons.account_box,
+                                              //         color: Color(0xFF255899),
+                                              //       ),
+                                              //     ),
+                                              //     autovalidateMode:
+                                              //     AutovalidateMode.onUserInteraction,
+                                              //     validator: (value) {
+                                              //       if (value!.isEmpty) {
+                                              //         return 'Enter user number';
+                                              //       }
+                                              //       if (value.length > 1 && value.length < 10) {
+                                              //         return 'Enter user number';
+                                              //       }
+                                              //       return null;
+                                              //     },
+                                              //   ),
+                                              // ),
+
                                               SizedBox(height: 10),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: AppPadding.p15,
-                                                    right: AppPadding.p15),
-                                                // passWord TextFormField
-                                                child: TextFormField(
-                                                  focusNode: _confirmpasswordfoucs,
-                                                  obscureText: _isObscured,
-                                                  controller:
-                                                      _confirmPasswordController,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Confirm Password",
-                                                    labelStyle: const TextStyle(
-                                                        color: Color(0xFFd97c51)),
-                                                    border:
-                                                        const OutlineInputBorder(),
-                                                    contentPadding:
-                                                        const EdgeInsets.symmetric(
-                                                            vertical:
-                                                                AppPadding.p10),
-                                                    prefixIcon: const Icon(
-                                                        Icons.lock,
-                                                        color: Color(0xFF255899)),
-                                                    suffixIcon: IconButton(
-                                                      icon: Icon(_isObscured
-                                                          ? Icons.visibility
-                                                          : Icons.visibility_off),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _isObscured =
-                                                              !_isObscured;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                  autovalidateMode: AutovalidateMode
-                                                      .onUserInteraction,
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Enter Confirm Password';
-                                                    }
-                                                    if (value.length < 1) {
-                                                      return 'Please enter Confirm Password';
-                                                    }
-                                                    return null;
-                                                  },
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
+
                                               InkWell(
                                                 onTap: () async {
 
@@ -329,51 +288,60 @@ class _MyHomePageState extends State<OtpPage> {
                                                     otp += controller.text;
                                                   }
                                                   // Now you have the OTP value in the 'otp' variable
-                                                  print('OTP---319: $otp');
+                                                  print('OTP---260: $otp');
 
-                                                  var newpassword = _newPasswordController.text;
-                                                  var confirmpassword = _confirmPasswordController.text;
+                                                  var contactNo = _nameController.text;
 
-                                                  if (_formKey.currentState!
-                                                          .validate() &&
-                                                      otp != null &&
-                                                      newpassword != null &&
-                                                      confirmpassword != null)
-                                                  {
-                                                    if(newpassword!=confirmpassword){
-                                                     // displayToast("Password does not match");
-                                                     // toastInfo(context,"Password does not match");
-                                                    }else{
 
-                                                      // otpverificationResponse = await OtpVerificationRepo().otpverification(
-                                                      //     context,
-                                                      //     '${widget.phone}',
-                                                      //     otp!,
-                                                      //     confirmpassword);
+                                                  if (_formKey.currentState!.validate() &&
+                                                      otp != null && contactNo != null)
+                                                    {
+                                                      print('----otp----276---$otp');
+                                                      print('----contactNo----269---$contactNo');
 
-                                                      print('---428----$otpverificationResponse');
-                                                      result = "${otpverificationResponse['Result']}";
-                                                      msg = "${otpverificationResponse['Msg']}";
-                                                      print('---431----$result');
-                                                      print('---432----$msg');
+                                                      verifyCitizenOtpMap = await VerifyCitizenOtpRepo()
+                                                          .verifyCitizenOtp(context, otp!, '${widget.phone}');
+                                                      print('-----verifyCityzen----283---$verifyCitizenOtpMap');
+                                                          result = "${verifyCitizenOtpMap['Result']}";
+                                                          msg = "${verifyCitizenOtpMap['Msg']}";
+                                                          print('---410----$result');
+
                                                     }
-                                                   }else{
-                                                    if(_newPasswordController.text.isEmpty){
-                                                      _newPasswordfocus.requestFocus();
-                                                    }else if(_confirmPasswordController.text.isEmpty){
-                                                      _confirmpasswordfoucs.requestFocus();
+                                                   else{
+                                                    if(_nameController.text.isEmpty){
+                                                      _contactNofocus.requestFocus();
                                                     }
                                                   }// condition to fetch response and take a action behafe of action
                                                   if(result=="1"){
-                                                    // Navigator.push(
-                                                    //       context,
-                                                    //       MaterialPageRoute(
-                                                    //           builder: (context) =>
-                                                    //               const LoginScreen_2()),
-                                                    //     );
+
+                                                        var iCitizenCode = "${verifyCitizenOtpMap['Data'][0]['iCitizenCode']}";
+                                                        var sContactNo =
+                                                            "${verifyCitizenOtpMap['Data'][0]['sContactNo']}";
+                                                        var sCitizenName =
+                                                            "${verifyCitizenOtpMap['Data'][0]['sCitizenName']}";
+                                                        var sToken =
+                                                            "${verifyCitizenOtpMap['Data'][0]['sToken']}";
+                                                        // to store the value in local dataBase
+
+                                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                        prefs.setString('iCitizenCode',iCitizenCode);
+                                                        prefs.setString('sContactNo',sContactNo);
+                                                        prefs.setString('sCitizenName',sCitizenName);
+                                                        prefs.setString('sToken',sToken);
+                                                        String? citizenName = prefs.getString('sCitizenName');
+                                                        print('---321---$citizenName');
+                                                        // navigate to mainPage
+                                                        // Navigator.pushReplacement(
+                                                        //      context,
+                                                        //      MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                                                        //    );
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(builder: (context) => const ComplaintHomePage()),
+                                                        );
+
                                                   }else{
-                                                   // displayToast(msg);
-                                                    //toastError(context, msg);
+                                                    _showToast(context,msg);
                                                   }
                                                   },
 
@@ -420,6 +388,15 @@ class _MyHomePageState extends State<OtpPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+  void _showToast(BuildContext context,String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content:  Text('$msg'),
+        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

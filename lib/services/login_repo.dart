@@ -1,47 +1,44 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:noidaone/screens/generalFunction.dart';
-import '../Helpers/loader_helper.dart';
+import '../app/generalFunction.dart';
+import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
 
-class LoginRepo1 {
+class RegistrationRepo {
 
   // this is a loginApi call functin
   GeneralFunction generalFunction = GeneralFunction();
 
-  Future authenticate(BuildContext context, String number, String pass) async {
+  Future authenticate(BuildContext context, String number, String name) async {
 
     try {
-      print('----Number---$number');
-      print('----PassWord---$pass');
+      print('----Number-----17--$number');
+      print('----name------18-$name');
 
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "AppLogin/AppLogin";
-      var loginApi = "$baseURL$endPoint";
-      print('------------17---loginAPI---$loginApi');
+      var endPoint = "CitizenRegistration/CitizenRegistration";
+      var registrationApi = "$baseURL$endPoint";
+      print('------------17---registrationApi---$registrationApi');
 
       showLoader();
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
           'POST',
-          Uri.parse('$loginApi'));
-      request.body = json.encode({"sContactNo": number, "sPassword": pass,"sAppVersion":1});
+          Uri.parse('$registrationApi'));
+      request.body = json.encode({"sContactNo": number, "sCitizenName": name});
       request.headers.addAll(headers);
-
       http.StreamedResponse response = await request.send();
       var map;
       var data = await response.stream.bytesToString();
       map = json.decode(data);
       print('----------20---LOGINaPI RESPONSE----$map');
 
-
       if (response.statusCode == 200) {
         // create an instance of auth class
         print('----44-${response.statusCode}');
         hideLoader();
-
         print('----------22-----$map');
         return map;
       } else {
