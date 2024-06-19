@@ -205,16 +205,16 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+   // BackButtonInterceptor.add(myInterceptor);
   }
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 

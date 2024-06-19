@@ -24,16 +24,16 @@ class _TemplesHomeState extends State<GrievanceStatus> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+    //BackButtonInterceptor.add(myInterceptor);
   }
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
+    //NavigationUtils.onWillPop(context);
     return true;
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
   @override
@@ -61,18 +61,10 @@ class _TemplesHomeState extends State<GrievanceStatus> {
               SizedBox(height: 5),
               SingleChildScrollView(
                 child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
-                    color :Color(0xFFF5F5F5),
-                    border: Border.all(
-                      color: Colors.grey, // Border color
-                      width: 1, // Border width
-                    ),
-
-                  ),
+                  color: Colors.white,
                   child: Card(
-                    elevation: 8,
-                    shadowColor: Colors.grey,
+                    elevation: 4,
+                    shadowColor: Colors.white,
                     child: Container(
                       color: Colors.white,
                       child: Column(
@@ -84,7 +76,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                             padding: const EdgeInsets.only(left: 2,right: 2),
                             child: Container(
                                height: 50,
-                              decoration: BoxDecoration(
+                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
                                 color :Colors.white,
                                 border: Border.all(
@@ -313,14 +305,14 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                   child: Container(
                                     height: 50,
                                     //color: Colors.blue,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.blueGrey,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(5),
-                                        topRight: Radius.circular(5),
-                                        bottomLeft: Radius.circular(5),
-                                        bottomRight: Radius.circular(5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      gradient: const LinearGradient(
+                                        colors: [Colors.red, Colors.orange],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
                                       ),
+
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 10, top: 5),
@@ -347,13 +339,12 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                     child: Container(
                                       height: 50,
                                       //color: Colors.blue,
-                                      decoration: const BoxDecoration(
-                                        color :Color(0xFF000000),
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(5),
-                                          topRight: Radius.circular(5),
-                                          bottomLeft: Radius.circular(5),
-                                          bottomRight: Radius.circular(5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        gradient: const LinearGradient(
+                                          colors: [Colors.red, Colors.orange],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
                                         ),
                                       ),
                                       child: Padding(
@@ -383,8 +374,6 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                   ),
                 ),
               ),
-
-              // Second item
 
             ],
           ),

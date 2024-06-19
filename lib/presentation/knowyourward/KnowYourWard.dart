@@ -39,9 +39,16 @@ class _KnowYourWardState extends State<KnowYourWard> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
-        width: MediaQuery.of(context).size.width - 50,
+        width: MediaQuery.of(context).size.width - 25,
         height: 42,
-        color: Color(0xFFf2f3f5),
+        //color: Color(0xFFf2f3f5),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey, // Set the outline color
+            width: 1.0, // Set the outline width
+          ),
+        ),
+
         child: DropdownButtonHideUnderline(
           child: ButtonTheme(
             alignedDropdown: true,
@@ -104,93 +111,23 @@ class _KnowYourWardState extends State<KnowYourWard> {
     );
   }
 
-  // bindi ward
-  Widget _bindWard() {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10.0),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 50,
-        height: 42,
-        color: Color(0xFFf2f3f5),
-        child: DropdownButtonHideUnderline(
-          child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButton(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
-              hint: RichText(
-                text: TextSpan(
-                  text: "Select Ward",
-                  style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: '',
-                        style: AppTextStyle
-                            .font14penSansExtraboldBlack45TextStyle),
-                  ],
-                ),
-              ),
-              // Not necessary for Option 1
-              value: _dropDownValueMarkLocation,
-              // key: distDropdownFocus,
-              onChanged: (newValue) {
-                setState(() {
-                  _dropDownValueMarkLocation = newValue;
-                  print('---333-------$_dropDownValueMarkLocation');
-                  //  _isShowChosenDistError = false;
-                  // Iterate the List
-                  marklocationList.forEach((element) {
-                    if (element["sPointTypeName"] ==
-                        _dropDownValueMarkLocation) {
-                      setState(() {
-                        _selectedPointId = element['iPointTypeCode'];
-                        print('----341------$_selectedPointId');
-                      });
-                      print('-----Point id----241---$_selectedPointId');
-                      if (_selectedPointId != null) {
-                        // updatedBlock();
-                        print('-----Point id----244---$_selectedPointId');
-                      } else {
-                        print('-------');
-                      }
-                      // print("Distic Id value xxxxx.... $_selectedDisticId");
-                      print("Distic Name xxxxxxx.... $_dropDownValueDistric");
-                      print("Block list Ali xxxxxxxxx.... $blockList");
-                    }
-                  });
-                });
-              },
-              items: marklocationList.map((dynamic item) {
-                return DropdownMenuItem(
-                  child: Text(item['sPointTypeName'].toString()),
-                  value: item["sPointTypeName"].toString(),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   void initState() {
     print('-----27--${widget.name}');
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+    //BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -205,279 +142,97 @@ class _KnowYourWardState extends State<KnowYourWard> {
            middleHeader(context, '${widget.name}'),
       Column(
         children: [
-          Card(
-            // margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-            elevation: 8,
-           // color: Colors(#FFF5F5F5),
-            color: Color(0xFFF5F5F5),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8)),
-            child: Container(
-              // color: AppColors.appGrey,
-              // width: _width! * 90,
-              padding: const EdgeInsets.all(10),
-                child: Column(
-                children: [
-                  _bindSubCategory(),
-                   SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 0,right: 2),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${"BHANU SENAPATI"}: ",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"Contact No"}: ",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"Agency Name"}: ",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"Description Of Ward"}: ",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"Address"}: ",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
+          Padding(
+            padding: const EdgeInsets.only(left: 5,right: 5),
+            child: Card(
+              elevation: 4,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                  child: Column(
+                  children: [
+                    _bindSubCategory(),
 
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                     SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0,right: 2),
+                      child: Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${"BHANU SENAPATI"}: ",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"Contact No"}: ",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"Agency Name"}: ",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"Description Of Ward"}: ",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"Address"}: ",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
 
-                            Text(
-                              "${"Party Name :-INC"}",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"8847875092"}",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"Not Specified"}",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"Bidansi, Kumbharasahi"}",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
-                            Text(
-                              "${"Not Specified"}",
-                              style: AppTextStyle
-                                  .font14OpenSansRegularBlackTextStyle,
-                            ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
 
-                          ],
-                        ),
-                      ],
+                              Text(
+                                "${"Party Name :-INC"}",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"8847875092"}",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"Not Specified"}",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"Bidansi, Kumbharasahi"}",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+                              Text(
+                                "${"Not Specified"}",
+                                style: AppTextStyle
+                                    .font14OpenSansRegularBlackTextStyle,
+                              ),
+
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )
+                  ],
+                )
+              ),
             ),
           ),
          ],
        ),
-
-      // body: ListView(
-      //   children: <Widget>[
-      //     middleHeader(context, '${widget.name}'),
-      //     Padding(
-      //       padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
-      //       child: Container(
-      //         width: MediaQuery.of(context).size.width - 30,
-      //         decoration: BoxDecoration(
-      //             color: Colors.white, // Background color of the container
-      //             borderRadius: BorderRadius.circular(20),
-      //             boxShadow: [
-      //               BoxShadow(
-      //                 color:
-      //                     Colors.grey.withOpacity(0.5), // Color of the shadow
-      //                 spreadRadius: 5, // Spread radius
-      //                 blurRadius: 7, // Blur radius
-      //                 offset: Offset(0, 3), // Offset of the shadow
-      //               ),
-      //             ]),
-      //         child: Padding(
-      //           padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
-      //           child: Form(
-      //             key: _formKey,
-      //             child: Column(
-      //               mainAxisAlignment: MainAxisAlignment.start,
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: <Widget>[
-      //                 SizedBox(height: 5),
-      //                 _bindSubCategory(),
-      //                 SizedBox(height: 5),
-      //                 Container(
-      //                   color: Colors.white,
-      //                   height: 75,
-      //                   width: MediaQuery.of(context).size.width,
-      //                   child: Card(
-      //                     elevation: 3,
-      //                     child: Padding(
-      //                       padding: EdgeInsets.only(top: 5, left: 5),
-      //                       child: Column(
-      //                         mainAxisAlignment: MainAxisAlignment.start,
-      //                         crossAxisAlignment: CrossAxisAlignment.start,
-      //                         children: [
-      //                           Text('BHANU SENAPATI',
-      //                               style: AppTextStyle
-      //                                   .font14penSansExtraboldBlack45TextStyle),
-      //                           SizedBox(height: 5),
-      //                           Row(
-      //                             children: [
-      //                               Text('Party Name :-',
-      //                                   style: AppTextStyle
-      //                                       .font14penSansExtraboldBlack26TextStyle),
-      //                               SizedBox(width: 5),
-      //                               Text('INC',
-      //                                   style: AppTextStyle
-      //                                       .font14penSansExtraboldBlack26TextStyle),
-      //                             ],
-      //                           )
-      //                         ],
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(bottom: 5, top: 10),
-      //                   child: Row(
-      //                     mainAxisAlignment: MainAxisAlignment.start,
-      //                     children: <Widget>[
-      //                       Container(
-      //                           margin: const EdgeInsets.only(
-      //                               left: 0, right: 2, bottom: 2),
-      //                           child: const Icon(
-      //                             Icons.forward_sharp,
-      //                             size: 12,
-      //                             color: Colors.black54,
-      //                           )),
-      //                       Text('Contact No',
-      //                           style: AppTextStyle
-      //                               .font14penSansExtraboldBlack45TextStyle),
-      //                     ],
-      //                   ),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(left: 12),
-      //                   child: Text('8847875092',
-      //                       style: AppTextStyle
-      //                           .font14penSansExtraboldBlack26TextStyle),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(bottom: 5, top: 10),
-      //                   child: Row(
-      //                     mainAxisAlignment: MainAxisAlignment.start,
-      //                     children: <Widget>[
-      //                       Container(
-      //                           margin: const EdgeInsets.only(
-      //                               left: 0, right: 2, bottom: 2),
-      //                           child: const Icon(
-      //                             Icons.forward_sharp,
-      //                             size: 12,
-      //                             color: Colors.black54,
-      //                           )),
-      //                       Row(
-      //                         mainAxisAlignment: MainAxisAlignment.start,
-      //                         children: [
-      //                           Text('Agency Name',
-      //                               style: AppTextStyle
-      //                                   .font14penSansExtraboldBlack45TextStyle),
-      //                            SizedBox(width: 50),
-      //                           Text('Ward NO - 1',
-      //                               style: AppTextStyle
-      //                                   .font14penSansExtraboldBlack45TextStyle),
-      //                         ],
-      //                       )
-      //                     ],
-      //                   ),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(left: 12),
-      //                   child: Text('Not Specified',
-      //                       style: AppTextStyle
-      //                           .font14penSansExtraboldBlack26TextStyle),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(bottom: 5, top: 10),
-      //                   child: Row(
-      //                     mainAxisAlignment: MainAxisAlignment.start,
-      //                     children: <Widget>[
-      //                       Container(
-      //                           margin: const EdgeInsets.only(
-      //                               left: 0, right: 2, bottom: 2),
-      //                           child: const Icon(
-      //                             Icons.forward_sharp,
-      //                             size: 12,
-      //                             color: Colors.black54,
-      //                           )),
-      //                       Text('Description Of Ward',
-      //                           style: AppTextStyle
-      //                               .font14penSansExtraboldBlack45TextStyle),
-      //                     ],
-      //                   ),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(left: 12),
-      //                   child: Text(
-      //                       'Bidansi,Kumbharasahi,Gopalsahi(P), Harijan Sahi,Tareni Vihar, Laxmi Vihar, Jyoti Vihar, Satabdi Vihar, Krushak Bazar(P)',
-      //                       style: AppTextStyle
-      //                           .font14penSansExtraboldBlack26TextStyle),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(bottom: 5, top: 10),
-      //                   child: Row(
-      //                     mainAxisAlignment: MainAxisAlignment.start,
-      //                     children: <Widget>[
-      //                       Container(
-      //                           margin: const EdgeInsets.only(
-      //                               left: 0, right: 2, bottom: 2),
-      //                           child: const Icon(
-      //                             Icons.forward_sharp,
-      //                             size: 12,
-      //                             color: Colors.black54,
-      //                           )),
-      //                       Text('Address',
-      //                           style: AppTextStyle
-      //                               .font14penSansExtraboldBlack45TextStyle),
-      //                     ],
-      //                   ),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(left: 12),
-      //                   child: Text('Not Specified',
-      //                       style: AppTextStyle
-      //                           .font14penSansExtraboldBlack26TextStyle),
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
      ]
     )
     );

@@ -25,25 +25,25 @@ class _TemplesHomeState extends State<AboutPuri> {
   @override
   void initState() {
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-     appBar: getAppBarBack(context,"Puri City"),
+      appBar: getAppBarBack(context,"About Puri"),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Column(
@@ -86,7 +86,9 @@ class _TemplesHomeState extends State<AboutPuri> {
             ],
           ),
           SizedBox(height: 5),
-          middleHeader(context,'Puri City'),
+
+          middleHeaderPuri(context,'Puri City'),
+
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: Container(
@@ -97,7 +99,7 @@ class _TemplesHomeState extends State<AboutPuri> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.only(left: 5,right: 5,bottom: 5,top:10),
                       child: Text(
                         '''Puri has been known by several names since ancient times, and was locally known as "Sri Kshetra" and the Jagannath temple is known as "Badadeula". Puri and the Jagannath Temple were invaded 18 times by Muslim rulers, from the 7th century AD until the early 19th century with the objective of looting the treasures of the temple. Odisha, including Puri and its temple, were part of British India from 1803 until India attained independence in August 1947. Even though princely states do not exist in India today, the heirs of the House of Gajapati still perform the ritual duties of the temple. The temple town has many Hindu religious mathas or monasteries.''',
                         style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
@@ -109,7 +111,6 @@ class _TemplesHomeState extends State<AboutPuri> {
               ),
             ),
           ),
-
         ],
       ),
     );

@@ -80,7 +80,7 @@ readmore(String templeDetails) {
   return ReadMoreText(
     '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
 
-Daily Rituals:''',
+Puri City:''',
     trimLines: 10,
     colorClickableText: Colors.red,
     trimMode: TrimMode.Line,
@@ -141,6 +141,59 @@ middleHeader(BuildContext context, String templeName) {
             //       child: Text(templeName,
             //           style: AppTextStyle.font16penSansExtraboldRedTextStyle),
             //     ))
+          ],
+        ),
+      )
+    ],
+  );
+}
+middleHeaderPuri(BuildContext context, String templeName) {
+  return Stack(
+    children: <Widget>[
+      Container(
+        height: 50,
+        width: double.infinity,
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              left: 5,
+              top: 5,
+              right: 5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/images/cityelementone.png',
+                    // Replace with your first image path
+                    height: 25.0,
+                    width: 25.0,
+                  ),
+                  Spacer(),
+                  Image.asset(
+                    'assets/images/listelementtop.png',
+                    // Replace with your second image path
+                    height: 25.0,
+                    width: 25.0,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 20,
+              child: Image.asset('assets/images/templeelement1.png',
+                  // Replace with your first image path
+                  height: 30.0,
+                  width: MediaQuery.of(context).size.width),
+            ),
+            Positioned(
+                top: 55,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Text(templeName,
+                      style: AppTextStyle.font16penSansExtraboldRedTextStyle),
+                ))
           ],
         ),
       )
@@ -557,43 +610,43 @@ class GeneralFunction {
               ),
             ),
           ),
-           Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 5.0, left: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>
-                  [
-                    Text(
-                      'Synergy Telmatics Pvt.Ltd.',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        color: Color(0xffF37339), //#F37339
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                     Padding(
-                        padding: EdgeInsets.only(right: AppSize.s10),
-                        child: SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: Image.asset(
-                            'assets/images/favicon.png',
-                            width: 25,
-                            height: 25,
-                            fit: BoxFit.fill, // Changed BoxFit to fill
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          //  Expanded(
+          //   child: Align(
+          //     alignment: Alignment.bottomCenter,
+          //     child: Padding(
+          //       padding: EdgeInsets.only(bottom: 5.0, left: 15),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: <Widget>
+          //         [
+          //           Text(
+          //             'Synergy Telmatics Pvt.Ltd.',
+          //             style: TextStyle(
+          //               fontFamily: 'Montserrat',
+          //               color: Color(0xffF37339), //#F37339
+          //               fontSize: 14.0,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //           SizedBox(width: 10),
+          //            Padding(
+          //               padding: EdgeInsets.only(right: AppSize.s10),
+          //               child: SizedBox(
+          //                 width: 25,
+          //                 height: 25,
+          //                 child: Image.asset(
+          //                   'assets/images/favicon.png',
+          //                   width: 25,
+          //                   height: 25,
+          //                   fit: BoxFit.fill, // Changed BoxFit to fill
+          //                 ),
+          //               ),
+          //             ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

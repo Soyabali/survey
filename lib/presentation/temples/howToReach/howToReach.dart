@@ -49,19 +49,19 @@ class _TemplesHomeState extends State<HowToReach> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+  //  BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
 
   @override

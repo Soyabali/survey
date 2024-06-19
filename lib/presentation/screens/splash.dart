@@ -34,18 +34,18 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     _goNextPage();
-    BackButtonInterceptor.add(myInterceptor);
+   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   _goNextPage(){
     Future.delayed(Duration(seconds: 1), () {

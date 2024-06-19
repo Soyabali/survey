@@ -4,18 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:noidaone/screens/PendingInternalComplaintV2.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Controllers/login_repo.dart';
+import '../../app/generalFunction.dart';
+import '../registration/registration.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
+import '../resources/custom_elevated_button.dart';
 import '../resources/values_manager.dart';
-import 'forgotpassword.dart';
-import 'generalFunction.dart';
-import 'homeScreen.dart';
 
 class LoginScreen_2 extends StatelessWidget {
   const LoginScreen_2({super.key});
@@ -57,30 +53,30 @@ class _LoginPageState extends State<LoginPage> {
   double? lat, long;
   GeneralFunction generalFunction = GeneralFunction();
 
-  void getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    lat = position.latitude;
-    long = position.longitude;
-
-  }
+  // void getLocation() async {
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     return Future.error('Location services are disabled.');
+  //   }
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       return Future.error('Location permissions are denied');
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     return Future.error(
+  //         'Location permissions are permanently denied, we cannot request permissions.');
+  //   }
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   lat = position.latitude;
+  //   long = position.longitude;
+  //
+  // }
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -112,26 +108,12 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
  // getLocation();
    Future.delayed(const Duration(milliseconds: 100), () {
-     requestLocationPermission();
+    // requestLocationPermission();
      setState(() {
        // Here you can write your code for open new view
      });
 
    });
-  }
-  // location Permission
-  Future<void> requestLocationPermission() async {
-
-    final status = await Permission.locationWhenInUse.request();
-
-    if (status == PermissionStatus.granted) {
-      print('Permission Granted');
-    } else if (status == PermissionStatus.denied) {
-      print('Permission denied');
-    } else if (status == PermissionStatus.permanentlyDenied) {
-      print('Permission Permanently Denied');
-      await openAppSettings();
-    }
   }
   @override
   void dispose() {
@@ -188,11 +170,11 @@ class _LoginPageState extends State<LoginPage> {
                     Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                          builder: (context) =>
-                      const ForgotPassword()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //     builder: (context) =>
+                      // const ForgotPassword()));
 
                     },
                     style: ElevatedButton.styleFrom(
@@ -227,74 +209,28 @@ class _LoginPageState extends State<LoginPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
           backgroundColor: Colors.white,
+          appBar: getAppBarBack(context,"Login"),
+          drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+
           body: Padding(
               padding: const EdgeInsets.only(top: 25),
               child: SingleChildScrollView(
                 child:  Column(
                   children: <Widget>[
-                    // mention all widget here
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.all(AppMargin.m10),
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(ImageAssets
-                                  .roundcircle), // Replace with your image asset path
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          width: AppSize.s50,
-                          height: AppSize.s50,
-                          child: Image.asset(
-                            ImageAssets
-                                .noidaauthoritylogo, // Replace with your image asset path
-                            width: AppSize.s50,
-                            height: AppSize.s50,
-                          ),
-                        ),
-                        Expanded(child: Container()),
-                        Container(
-                          margin: EdgeInsets.only(right: 5),
-                          child: Image.asset(
-                            ImageAssets
-                                .favicon, // Replace with your image asset path
-                            width: AppSize.s50,
-                            height: AppSize.s50,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
+                    middleHeaderPuri(context,'Citizen Services'),
                     Container(
                       height: AppSize.s145,
-                      width: AppSize.s145,
+                      width: MediaQuery.of(context).size.width-50,
                       margin: const EdgeInsets.all(AppMargin.m20),
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage(
-                            ImageAssets.roundcircle,
+                            'assets/images/temple_3.png',
                           ),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(AppMargin.m16),
-                        child: Image.asset(
-                          ImageAssets
-                              .loginIcon, // Replace with your image asset path
-                          width: AppSize.s145,
-                          height: AppSize.s145,
-                          fit: BoxFit.contain, // Adjust as needed
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: AppPadding.p15),
-                      child: Text(AppStrings.txtLogin,
-                          style:
-                              AppTextStyle.font18OpenSansboldAppBasicTextStyle),
+                      child: Container()
                     ),
                     /// Todo here we mention main code for a login ui.
                     GestureDetector(
@@ -345,198 +281,139 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             SizedBox(height: 10),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: AppPadding.p15, right: AppPadding.p15),
-                              // passWord TextFormField
-                              child: TextFormField(
-                                obscureText: _isObscured,
-                                controller: passwordController,
-                                decoration: InputDecoration(
-                                  labelText: AppStrings.txtpassword,
-                                  border: const OutlineInputBorder(),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: AppPadding.p10),
-                                  prefixIcon: const Icon(Icons.lock,
-                                      color: Color(0xFF255899)),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(_isObscured
-                                        ? Icons.visibility
-                                        : Icons.visibility_off),
-                                    onPressed: () {
-                                      setState(() {
-                                        _isObscured = !_isObscured;
-                                      });
-                                    },
+                            /// LoginButton code and onclik Operation
+                            Center(
+                              child: Container(
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  // Background color of the container
+                                  borderRadius: BorderRadius.circular(28.0),
+                                  // Circular border radius
+                                  border: Border.all(
+                                    color: Colors.yellow, // Border color
+                                    width: 0.5, // Border width
                                   ),
                                 ),
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter password';
-                                  }
-                                  if (value.length < 1) {
-                                    return 'Please enter Valid Name';
-                                  }
-                                  return null;
-                                },
+                                child: CustomElevatedButton(
+                                  text: 'Login',
+                                  onTap: () async {
+                                      //  getLocation();
+                                         var phone = _phoneNumberController.text;
+                                         var password = passwordController.text;
+                                         if(_formKey.currentState!.validate() && phone != null && password != null){
+                                           // Call Api
+                                           //      loginMap = await LoginRepo1()
+                                           //        .authenticate(context, phone!, password!);
+
+                                                   print('---358----$loginMap');
+                                                   result = "${loginMap['Result']}";
+                                                   msg = "${loginMap['Msg']}";
+                                                   print('---361----$result');
+                                                   print('---362----$msg');
+                                         }else{
+                                           if(_phoneNumberController.text.isEmpty){
+                                             phoneNumberfocus.requestFocus();
+                                           }else if(passwordController.text.isEmpty){
+                                             passWordfocus.requestFocus();
+                                           }
+                                         } // condition to fetch a response form a api
+                                        if(result=="1"){
+                                            var iUserId = "${loginMap['Data'][0]['iUserId']}";
+                                            var sName =
+                                                "${loginMap['Data'][0]['sName']}";
+                                            var sContactNo =
+                                                "${loginMap['Data'][0]['sContactNo']}";
+                                            var sDesgName =
+                                                "${loginMap['Data'][0]['sDesgName']}";
+                                            var iDesgCode =
+                                                "${loginMap['Data'][0]['iDesgCode']}";
+                                            var iDeptCode =
+                                                "${loginMap['Data'][0]['iDeptCode']}";
+                                            var iUserTypeCode =
+                                                "${loginMap['Data'][0]['iUserTypeCode']}";
+                                            var sToken =
+                                                "${loginMap['Data'][0]['sToken']}";
+                                            var dLastLoginAt =
+                                                "${loginMap['Data'][0]['dLastLoginAt']}";  // iAgencyCode
+                                            var iAgencyCode =
+                                                "${loginMap['Data'][0]['iAgencyCode']}";
+
+                                            // To store value in  a SharedPreference
+
+                                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                                            prefs.setString('iUserId',iUserId);
+                                            prefs.setString('sName',sName);
+                                            prefs.setString('sContactNo',sContactNo);
+                                            prefs.setString('sDesgName',sDesgName);
+                                            prefs.setString('iDesgCode',iDesgCode);
+                                            prefs.setString('iDeptCode',iDeptCode);
+                                            prefs.setString('iUserTypeCode',iUserTypeCode);
+                                            prefs.setString('sToken',sToken);
+                                            prefs.setString('dLastLoginAt',dLastLoginAt);
+                                            String? stringName = prefs.getString('sName');
+                                            String? stringContact = prefs.getString('sContactNo');
+                                            print('---464-----stringContact--$stringName');
+                                            print('---465----stringContact----$stringContact');
+                                            print('---xxxxxxx-----');
+                                            if(iAgencyCode=="1"){
+
+                                           //   toastSuccess(context,msg);
+
+                                              //
+                                            }else{
+                                             // toastSuccess(context,msg);
+
+                                              // PendingInternalComplaintV2
+                                              // Navigator.pushReplacement(
+                                              //   context,
+                                              //   MaterialPageRoute(builder: (context) => PendingInternalComplaintV2()),
+                                              // );
+                                             print('----create a new Screen CompaintSTatus new---');
+                                            }
+                                        }else{
+                                          //toastError(context,msg);
+                                          print('----373---To display error msg---');
+                                          //displayToast(msg);
+                                        }
+                                        },
+
+                                ),
                               ),
                             ),
                             SizedBox(height: 10),
-                            /// LoginButton code and onclik Operation
-                            InkWell(
-                              onTap: () async {
-                                getLocation();
-                                 var phone = _phoneNumberController.text;
-                                 var password = passwordController.text;
-                                 if(_formKey.currentState!.validate() && phone != null && password != null){
-                                   // Call Api
-                                        loginMap = await LoginRepo1()
-                                          .authenticate(context, phone!, password!);
 
-                                           print('---358----$loginMap');
-                                           result = "${loginMap['Result']}";
-                                           msg = "${loginMap['Msg']}";
-                                           print('---361----$result');
-                                           print('---362----$msg');
-                                 }else{
-                                   if(_phoneNumberController.text.isEmpty){
-                                     phoneNumberfocus.requestFocus();
-                                   }else if(passwordController.text.isEmpty){
-                                     passWordfocus.requestFocus();
-                                   }
-                                 } // condition to fetch a response form a api
-                                if(result=="1"){
-                                    var iUserId = "${loginMap['Data'][0]['iUserId']}";
-                                    var sName =
-                                        "${loginMap['Data'][0]['sName']}";
-                                    var sContactNo =
-                                        "${loginMap['Data'][0]['sContactNo']}";
-                                    var sDesgName =
-                                        "${loginMap['Data'][0]['sDesgName']}";
-                                    var iDesgCode =
-                                        "${loginMap['Data'][0]['iDesgCode']}";
-                                    var iDeptCode =
-                                        "${loginMap['Data'][0]['iDeptCode']}";
-                                    var iUserTypeCode =
-                                        "${loginMap['Data'][0]['iUserTypeCode']}";
-                                    var sToken =
-                                        "${loginMap['Data'][0]['sToken']}";
-                                    var dLastLoginAt =
-                                        "${loginMap['Data'][0]['dLastLoginAt']}";  // iAgencyCode
-                                    var iAgencyCode =
-                                        "${loginMap['Data'][0]['iAgencyCode']}";
-
-                                    // To store value in  a SharedPreference
-
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('iUserId',iUserId);
-                                    prefs.setString('sName',sName);
-                                    prefs.setString('sContactNo',sContactNo);
-                                    prefs.setString('sDesgName',sDesgName);
-                                    prefs.setString('iDesgCode',iDesgCode);
-                                    prefs.setString('iDeptCode',iDeptCode);
-                                    prefs.setString('iUserTypeCode',iUserTypeCode);
-                                    prefs.setString('sToken',sToken);
-                                    prefs.setString('dLastLoginAt',dLastLoginAt);
-                                    String? stringName = prefs.getString('sName');
-                                    String? stringContact = prefs.getString('sContactNo');
-                                    print('---464-----stringContact--$stringName');
-                                    print('---465----stringContact----$stringContact');
-                                    print('---xxxxxxx-----');
-                                    if(iAgencyCode=="1"){
-                                      toastSuccess(context,msg);
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => HomePage()),
-                                      );
-                                    }else{
-                                      toastSuccess(context,msg);
-                                      // PendingInternalComplaintV2
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => PendingInternalComplaintV2()),
-                                      );
-                                     print('----create a new Screen CompaintSTatus new---');
-                                    }
-                                }else{
-                                  toastError(context,msg);
-                                  print('----373---To display error msg---');
-                                  //displayToast(msg);
-                                }
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15,right: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'If you are a new user?',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(width: 8), // Add some spacing between the texts
+                              GestureDetector(
+                                onTap: () {
+                                  //Handle the click event
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Registration()),
+                                  );
                                 },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15, right: 10),
-                                child: Container(
-                                  width: double
-                                      .infinity, // Make container fill the width of its parent
-                                  height: AppSize.s45,
-                                  padding: EdgeInsets.all(AppPadding.p5),
-                                  decoration: BoxDecoration(
-                                    color: Color(
-                                        0xFF255899), // Background color using HEX value
-                                    borderRadius: BorderRadius.circular(
-                                        AppMargin.m10), // Rounded corners
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      AppStrings.txtLogin,
-                                      style: TextStyle(
-                                          fontSize: AppSize.s16,
-                                          color: Colors.white),
-                                    ),
+                                child: const Text(
+                                  'Register Here',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
                                   ),
                                 ),
                               ),
-                            ),
-
-                            GestureDetector(
-                              onTap: () {
-                                _showBottomSheet(context);
-                              },
-                              child: const ListTile(
-                                title: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    AppStrings.txtForgetPassword,
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF255899),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Opacity(
-                              opacity: AppSize.s0_5,
-                              child: Container(
-                                width: double.infinity, // Set width as needed
-                                height: 168, // Set height as needed
-                                decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                    image: AssetImage(ImageAssets
-                                        .loginBottomnw), // Replace with your asset image path
-                                    fit: BoxFit
-                                        .cover, // You can adjust the fit as needed
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      AppPadding.p10), // Optional: border radius
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(
-                                          AppSize.s0_5), // Shadow color
-                                      spreadRadius: AppSize.s5, // Spread radius
-                                      blurRadius: AppSize.s7, // Blur radius
-                                      offset: Offset(0, 3), // Offset
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
+                        ),
+                        ],
                         ),
                       ),
                     ),

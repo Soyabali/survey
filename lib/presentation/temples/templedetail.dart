@@ -200,30 +200,7 @@ class _TemplesHomeState extends State<TemplesDetail> {
               ),
             ),
           ),
-          SizedBox(height: 10),
-          Center(
-            child: Container(
-              height: 35,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                // Background color of the container
-                borderRadius: BorderRadius.circular(28.0),
-                // Circular border radius
-                border: Border.all(
-                  color: Colors.yellow, // Border color
-                  width: 0.5, // Border width
-                ),
-              ),
-              child: CustomElevatedButton(
-                text: 'LIVE DARSHAN',
-                onTap: () {
-                  print('---Live Darshan-----');
-                  // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                  //)));
-                },
-              ),
-            ),
-          ),
+
           SizedBox(height: 10),
           Image.asset('assets/images/templelement2.png',
               // Replace with your first image path

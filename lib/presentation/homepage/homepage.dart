@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import '../../app/navigationUtils.dart';
 import '../complaints/complaintHomePage.dart';
 import '../helpline_feedback/helplinefeedback.dart';
+import '../login/loginScreen_2.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
@@ -42,16 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+    //BackButtonInterceptor.add(myInterceptor);
   }
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+  //  BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
@@ -196,10 +197,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             left: containerSize * 0.75,
                           child: InkWell(
                             onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                                    );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                              );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                                    // );
                             },
                             child: Container(
                               width: containerSize * 0.2,

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import '../model/todo.dart';
 
  class TempleService {
+
   Future<List<TempleModel>> getAll() async {
 
   const url="https://jsonplaceholder.typicode.com/todos";

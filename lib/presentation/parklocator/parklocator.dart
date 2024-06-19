@@ -55,19 +55,19 @@ class _KnowYourWardState extends State<ParkLocator> {
   void initState() {
     print('-----27--${widget.name}');
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+  //  BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -146,9 +146,22 @@ class _KnowYourWardState extends State<ParkLocator> {
                                               style: AppTextStyle
                                                   .font14penSansExtraboldRedTextStyle),
                                           SizedBox(height: 2),
-                                          Text('Ward No -3',
-                                              style: AppTextStyle
-                                                  .font12penSansExtraboldRedTextStyle),
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            children: [
+                                              Text('Ward No :',
+                                                  style: AppTextStyle
+                                                      .font14penSansExtraboldRedTextStyle),
+                                              SizedBox(width: 5),
+                                              Text('3',
+                                                  style: AppTextStyle
+                                                      .font14penSansExtraboldBlack45TextStyle),
+                                            ],
+                                          ),
+                                          // Text('Ward No -3',
+                                          //     style: AppTextStyle
+                                          //         .font12penSansExtraboldRedTextStyle),
                                           SizedBox(height: 0),
                                           Row(
                                             mainAxisAlignment:

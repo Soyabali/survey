@@ -26,32 +26,32 @@ class SearchBar2 extends StatelessWidget {
               alignment: Alignment.centerLeft,
               children: [
                 TextFormField(
+                  maxLength: 20,  // Sets the maximum length to 30
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
-                  //  hintText: 'Search...',
-                    hintStyle: TextStyle(
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                    counterText: '',
+                    hintStyle: const TextStyle(
                       color: Colors.grey,
                       fontStyle: FontStyle.italic,
                     ),
+
                     labelText: 'Search',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       color: Colors.grey, // Label color
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
+
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide: BorderSide.none,
                     ),
+
                     filled: true,
                     fillColor: Color(0xFFF5F5F5), // Light gray background color
                   ),
                 ),
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     hintText: 'Search...',
-                //     border: InputBorder.none,
-                //   ),
-                // ),
               ],
             ),
           ),

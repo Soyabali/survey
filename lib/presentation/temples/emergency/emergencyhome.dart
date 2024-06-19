@@ -33,18 +33,18 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   Widget build(BuildContext context) {

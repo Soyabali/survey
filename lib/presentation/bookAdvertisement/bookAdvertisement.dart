@@ -212,19 +212,19 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
   void initState() {
     print('-----27--${widget.complaintName}');
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -391,13 +391,13 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
                               decoration: const InputDecoration(
+                                border: InputBorder.none,
                                 // labelText: AppStrings.txtMobile,
                                 // border: OutlineInputBorder(),
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: AppPadding.p10),
                               ),
-                              autovalidateMode:
-                              AutovalidateMode.onUserInteraction,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               // validator: (value) {
                               //   if (value!.isEmpty) {
                               //     return 'Enter location';
@@ -442,6 +442,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
                               decoration: const InputDecoration(
+                                border: InputBorder.none,
                                 // labelText: AppStrings.txtMobile,
                                 // border: OutlineInputBorder(),
                                 contentPadding: EdgeInsets.symmetric(

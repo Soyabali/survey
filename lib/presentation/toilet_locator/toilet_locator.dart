@@ -29,18 +29,18 @@ class _EmergencyContactsState extends State<ToiletLocator> {
   void initState() {
     print('-----27--${widget.name}');
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
+    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
+    //BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    NavigationUtils.onWillPop(context);
-    return true;
-  }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   NavigationUtils.onWillPop(context);
+  //   return true;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +82,8 @@ class _EmergencyContactsState extends State<ToiletLocator> {
                                 LoiletLocatorDetails(name:name)),
                           );
                         }
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) =>
-                        //       LoiletLocatorDetails(name:name)),
-                        // );
 
-                      },
+                        },
                       splashColor: Colors.red.withAlpha(30),
                       borderRadius: BorderRadius.circular(10.0),
                       child: Card(

@@ -6,8 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:puri/provider/todo_provider.dart';
-
-import '../presentation/resources/app_strings.dart';
 import '../presentation/resources/noInternet.dart';
 import '../presentation/resources/routes_managements.dart';
 import '../presentation/resources/theme_manager.dart';

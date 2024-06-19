@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:noidaone/screens/generalFunction.dart';
-import 'package:noidaone/screens/loginScreen_2.dart';
-import '../Controllers/otpverificationrepo.dart';
+import '../../app/generalFunction.dart';
 import '../resources/values_manager.dart';
 
 
@@ -31,6 +28,7 @@ class _MyHomePageState extends State<OtpPage> {
   var otpverificationResponse;
   var result ;
   var msg ;
+
 
   void clearText() {
     _newPasswordController.clear();
@@ -82,33 +80,9 @@ class _MyHomePageState extends State<OtpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      // Forgot Password
-      appBar: AppBar(
-        backgroundColor: Color(0xFF255899),
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-              onTap: () {
-                // Navigator.of(context).pop();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen_2()));
-                print('----81----');
-              },
-              child: Icon(Icons.arrow_back_ios)),
-        ),
-        // OTP Verification
-        title: const Text(
-          'OTP Verification',
-          style: TextStyle(
-              fontFamily: 'Montserrat',
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
+      backgroundColor: Colors.white,
+      appBar: getAppBarBack(context,"OTP Verification"),
+
       // drawer
       body: SingleChildScrollView(
         child: GestureDetector(
@@ -186,7 +160,8 @@ class _MyHomePageState extends State<OtpPage> {
                                           child: const Icon(
                                             Icons.phone,
                                             size: 35,
-                                            color: Color(0xFF255899),
+                                            //color: Color(0xFF255899),
+                                            color: Colors.red,
                                           ),
                                         ),
                                       ),
@@ -367,13 +342,15 @@ class _MyHomePageState extends State<OtpPage> {
                                                   {
                                                     if(newpassword!=confirmpassword){
                                                      // displayToast("Password does not match");
-                                                      toastInfo(context,"Password does not match");
+                                                     // toastInfo(context,"Password does not match");
                                                     }else{
-                                                      otpverificationResponse = await OtpVerificationRepo().otpverification(
-                                                          context,
-                                                          '${widget.phone}',
-                                                          otp!,
-                                                          confirmpassword);
+
+                                                      // otpverificationResponse = await OtpVerificationRepo().otpverification(
+                                                      //     context,
+                                                      //     '${widget.phone}',
+                                                      //     otp!,
+                                                      //     confirmpassword);
+
                                                       print('---428----$otpverificationResponse');
                                                       result = "${otpverificationResponse['Result']}";
                                                       msg = "${otpverificationResponse['Msg']}";
@@ -388,15 +365,15 @@ class _MyHomePageState extends State<OtpPage> {
                                                     }
                                                   }// condition to fetch response and take a action behafe of action
                                                   if(result=="1"){
-                                                    Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const LoginScreen_2()),
-                                                        );
+                                                    // Navigator.push(
+                                                    //       context,
+                                                    //       MaterialPageRoute(
+                                                    //           builder: (context) =>
+                                                    //               const LoginScreen_2()),
+                                                    //     );
                                                   }else{
                                                    // displayToast(msg);
-                                                    toastError(context, msg);
+                                                    //toastError(context, msg);
                                                   }
                                                   },
 
