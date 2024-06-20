@@ -137,7 +137,7 @@ class _TemplesHomeState extends State<Parking> {
                                                     children: [
                                                       Icon(Icons.location_on,size: 16,color: Colors.red),
                                                       SizedBox(width: 5),
-                                                      Text('Holi Gate-Tank Choraha Road,Mathura',
+                                                      Text('Odisha 752002, Road, Badasirei',
                                                           style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
 
                                                     ],

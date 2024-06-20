@@ -135,8 +135,9 @@ class _TemplesHomeState extends State<HowToReach> {
                     children: <Widget>[
                       SizedBox(height: 15),
                       Text(''' 
-                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                         remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                      Look for bus operators that provide services from Delhi to Puri. Some well-known operators include Odisha State Road Transport Corporation (OSRTC), private operators like RedBus, and other interstate bus services.
+                      Online Booking: Websites like RedBus, MakeMyTrip, and AbhiBus allow you to search for and book bus tickets online. You can compare prices, read reviews, and select your preferred bus type (AC, non-AC, sleeper, etc.).
+ 
                        ''',textAlign: TextAlign.justify,
                           style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
                     ],
@@ -196,9 +197,12 @@ class _TemplesHomeState extends State<HowToReach> {
                     children: <Widget>[
                       SizedBox(height: 15),
                       Text(''' 
-                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                         remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                       ''',textAlign: TextAlign.justify,
+                      Train Operators: Indian Railways operates several trains to Puri from various cities across India.
+Online Booking: Use the IRCTC website or app for booking. Other platforms like MakeMyTrip, Cleartrip, and Paytm also offer train booking services.
+From Delhi: Purushottam Express (12802), Nandan Kanan Express (12816), Neelachal Express (12876)
+From Kolkata: Puri Express (12837), Dhauli Express (12821)
+From Mumbai: Konark Express (11019)
+                                      ''',textAlign: TextAlign.justify,
                           style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
                     ],
                   ),
@@ -256,8 +260,10 @@ class _TemplesHomeState extends State<HowToReach> {
                     children: <Widget>[
                       SizedBox(height: 15),
                       Text(''' 
-                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                         remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        Nearest Airport: The closest airport to Puri is Biju Patnaik International Airport (BBI) in Bhubaneswar, located about 60 kilometers away.
+Airlines: Major Indian airlines like Air India, IndiGo, Vistara, SpiceJet, and GoAir operate flights to Bhubaneswar from various cities.
+Online Booking: Use flight booking platforms such as MakeMyTrip, Cleartrip, Yatra, and the airlines' own websites to book your tickets.
+                      Delhi to Bhubaneswar: Multiple daily flights with an approximate flight duration of 2-2.5 hours.
                        ''',textAlign: TextAlign.justify,
                           style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
                     ],

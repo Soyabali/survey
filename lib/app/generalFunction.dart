@@ -69,8 +69,7 @@ Future<bool> _onWillPop(BuildContext context) async {
 readmore(String templeDetails) {
   return ReadMoreText(
     '''Jagannatha is regarded as the supreme god and the sovereign monarch of the Odishan empire. The entire ritual pattern of Jagannatha has been conceived keeping such twin aspects in view. The ritual system of the temple is very elaborate and complex involving a multitude of functionaries above one thousand spread over one hundred categories. The rituals of Jagannatha can broadly be divided into three parts - the daily , the occasional and the festive. In Jagannatha temple these rituals assume the term 'niti'.
-
-Puri City:''',
+ ''',
     trimLines: 10,
     colorClickableText: Colors.red,
     trimMode: TrimMode.Line,

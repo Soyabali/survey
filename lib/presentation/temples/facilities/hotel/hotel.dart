@@ -141,7 +141,7 @@ class _TemplesHomeState extends State<Hotel> {
                                                   children: [
                                                     Icon(Icons.location_on,size: 16,color: Colors.red),
                                                     SizedBox(width: 2),
-                                                    Text('Masani Link Road,Bypass,Mathura',
+                                                    Text('Masani Link Road, Bypass',
                                                         style:AppTextStyle.font10penSansExtraboldBlack45TextStyle,
                                                       overflow: TextOverflow.ellipsis,
                                                       maxLines: 1,

@@ -19,11 +19,11 @@ class _TemplesHomeState extends State<PoliceStation> {
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','policeStation': 'Sadar Police Station','address': "RR4M+568, VIP Rd"},
+    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','policeStation': 'Town Police Station, Puri','address':"RR5F+C4W, Grand Rd"},
+    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','policeStation': 'Sea Beach Police','address':"QRWG+R88, Bhanumati Rd"},
+    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','policeStation': 'Kumbharapada Police','address':"NH-203"},
+    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','policeStation': 'Baliapanda Police Station','address':"RR25+F2C, Manisha Rd"},
   ];
   @override
   void initState() {
@@ -62,9 +62,9 @@ class _TemplesHomeState extends State<PoliceStation> {
                           ),
                           child: InkWell(
                             onTap: (){
-                              var templeName = "${itemList[index]['temple']}";
+                              var policeStation = "${itemList[index]['policeStation']}";
                               var image  =  "${itemList[index]['image']}";
-                              print('-----165---$templeName');
+                              print('-----165---$policeStation');
                               print('-----166---$image');
                               },
                             child: Row(
@@ -94,7 +94,7 @@ class _TemplesHomeState extends State<PoliceStation> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Kosi Kalan Police Station',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                            Text('${itemList[index]['policeStation']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 8),
                                             Text('05662233233',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
                                             SizedBox(height: 8),
@@ -111,9 +111,8 @@ class _TemplesHomeState extends State<PoliceStation> {
                                                 children: [
                                                   Icon(Icons.location_on,size: 16,color: Colors.red),
                                                   SizedBox(width: 5),
-                                                  Text('SH 44,Kosi Kalan,Uttar Pradesh',
+                                                  Text('${itemList[index]['address']}',
                                                       style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
-
                                                 ],
                                               ),
                                             )

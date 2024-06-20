@@ -95,7 +95,7 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
                             Image(image: AssetImage("assets/images/parkingfade.png"),height: 25,width: 25,
                             fit: BoxFit.cover,),
                             SizedBox(height: 2),
-                            Text('PARING',style: TextStyle(fontSize: 12),)
+                            Text('PARKING',style: TextStyle(fontSize: 12),)
                           ],
                         ),
                       ),

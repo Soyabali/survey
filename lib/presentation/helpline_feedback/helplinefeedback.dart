@@ -499,7 +499,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                           style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 15),
                        Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

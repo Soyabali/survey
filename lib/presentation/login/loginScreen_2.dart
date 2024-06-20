@@ -9,7 +9,6 @@ import '../../services/sendOTPForCitizenLogin.dart';
 import '../homepage/homepage.dart';
 import '../otp/otpverification.dart';
 import '../registration/registration.dart';
-import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/custom_elevated_button.dart';
 import '../resources/values_manager.dart';
@@ -318,54 +317,55 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                     ),
-                    Spacer(),
-                    Padding(
-                     padding: const EdgeInsets.only(left: 80),
-                     child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: 5.0, left: 15),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 80),
-                                  child: Text('Powered by :',style: AppTextStyle.font14OpenSansRegularBlackTextStyle),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>
-                                  [
-                                    const Text(
-                                      'Synergy Telmatics Pvt.Ltd.',
-                                      style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xffF37339), //#F37339
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Padding(
-                                      padding: EdgeInsets.only(right: AppSize.s10),
-                                      child: SizedBox(
-                                        width: 25,
-                                        height: 25,
-                                        child: Image.asset(
-                                          'assets/images/favicon.png',
-                                          width: 25,
-                                          height: 25,
-                                          fit: BoxFit.fill, // Changed BoxFit to fill
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ),
-                        ),
-                   ),
+                   //  Spacer(),
+                   //  Padding(
+                   //   padding: const EdgeInsets.only(left: 80),
+                   //   child: Align(
+                   //        alignment: Alignment.bottomCenter,
+                   //        child: Padding(
+                   //          padding: EdgeInsets.only(bottom: 5.0, left: 15),
+                   //          child: Column(
+                   //            mainAxisAlignment: MainAxisAlignment.start,
+                   //            children: [
+                   //              Padding(
+                   //                padding: const EdgeInsets.only(right: 80),
+                   //                child: Text('Powered by :',style: AppTextStyle.font14OpenSansRegularBlackTextStyle),
+                   //              ),
+                   //              Row(
+                   //                mainAxisAlignment: MainAxisAlignment.start,
+                   //                children: <Widget>
+                   //                [
+                   //                  const Text(
+                   //                    'Synergy Telmatics Pvt.Ltd.',
+                   //                    style: TextStyle(
+                   //                      fontFamily: 'Montserrat',
+                   //                      color: Color(0xffF37339), //#F37339
+                   //                      fontSize: 14.0,
+                   //                      fontWeight: FontWeight.bold,
+                   //                    ),
+                   //                  ),
+                   //                  SizedBox(width: 10),
+                   //                  Padding(
+                   //                    padding: EdgeInsets.only(right: AppSize.s10),
+                   //                    child: SizedBox(
+                   //                      width: 25,
+                   //                      height: 25,
+                   //                      child: Image.asset(
+                   //                        'assets/images/favicon.png',
+                   //                        width: 25,
+                   //                        height: 25,
+                   //                        fit: BoxFit.fill, // Changed BoxFit to fill
+                   //                      ),
+                   //                    ),
+                   //                  ),
+                   //                ],
+                   //              ),
+                   //            ],
+                   //          )
+                   //        ),
+                   //      ),
+                   // ),
+                   //  SizedBox(height: 20),
                   ],
                 ),
               ))

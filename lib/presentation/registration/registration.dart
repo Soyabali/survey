@@ -34,7 +34,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -46,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode namefocus = FocusNode();
 
   bool passwordVisible = false;
+
   // Visible and Unvisble value
   int selectedId = 0;
   var msg;
@@ -56,26 +56,31 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<bool> _onWillPop() async {
     return (await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?',style: AppTextStyle
-            .font14OpenSansRegularBlackTextStyle,),
-        content: new Text('Do you want to exit app',style: AppTextStyle
-            .font14OpenSansRegularBlackTextStyle,),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false), //<-- SEE HERE
-            child: Text('No'),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Are you sure?',
+              style: AppTextStyle.font14OpenSansRegularBlackTextStyle,
+            ),
+            content: new Text(
+              'Do you want to exit app',
+              style: AppTextStyle.font14OpenSansRegularBlackTextStyle,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                //<-- SEE HERE
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  exit(0);
+                }, //Navigator.of(context).pop(true), // <-- SEE HERE
+                child: Text('Yes'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              exit(0);
-            }, //Navigator.of(context).pop(true), // <-- SEE HERE
-            child: Text('Yes'),
-          ),
-        ],
-      ),
-    )) ??
+        )) ??
         false;
   }
 
@@ -89,23 +94,9 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         // Here you can write your code for open new view
       });
-
     });
   }
-  // location Permission
-  // Future<void> requestLocationPermission() async {
-  //
-  //   final status = await Permission.locationWhenInUse.request();
-  //
-  //   if (status == PermissionStatus.granted) {
-  //     print('Permission Granted');
-  //   } else if (status == PermissionStatus.denied) {
-  //     print('Permission denied');
-  //   } else if (status == PermissionStatus.permanentlyDenied) {
-  //     print('Permission Permanently Denied');
-  //     await openAppSettings();
-  //   }
-  // }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -113,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
     nameController.dispose();
     super.dispose();
   }
+
   void clearText() {
     _phoneNumberController.clear();
     nameController.clear();
@@ -121,47 +113,44 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.red,
-            elevation: 10,
-            shadowColor: Colors.orange,
-            toolbarOpacity: 0.5,
-            leading: InkWell(
-              onTap: () {
-                //  HomePage
-
-                //Navigator.pop(context);
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                );
-
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(16.0), // Adjust padding if necessary
-                child: Image.asset(
-                  "assets/images/back.png",
-                  fit: BoxFit.contain, // BoxFit.contain ensures the image is not distorted
+        onWillPop: _onWillPop,
+        child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: Colors.red,
+              elevation: 10,
+              shadowColor: Colors.orange,
+              toolbarOpacity: 0.5,
+              leading: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  // Adjust padding if necessary
+                  child: Image.asset(
+                    "assets/images/back.png",
+                    fit: BoxFit
+                        .contain, // BoxFit.contain ensures the image is not distorted
+                  ),
                 ),
               ),
+              title: Text(
+                'Registration',
+                style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
+              ),
+              centerTitle: true,
             ),
-            title: Text(
-              'Registration',
-              style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
-            ),
-            centerTitle: true,
-          ),
-          drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-
-          body: Padding(
+            drawer: generalFunction.drawerFunction(
+                context, 'Suaib Ali', '9871950881'),
+            body: Padding(
               padding: const EdgeInsets.only(top: 25),
-              child: Column(
+              child:Column(
                   children: <Widget>[
-                    middleHeaderPuri(context,'Citizen Services'),
+                    middleHeaderPuri(context, 'Citizen Services'),
                     Container(
                         height: AppSize.s145,
                         width: MediaQuery.of(context).size.width - 50,
@@ -176,10 +165,14 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         child: Container()),
-                    Form(
+                    GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                      },
+                      child: Form(
                         key: _formKey,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(height: 20),
                             Padding(
@@ -192,15 +185,11 @@ class _LoginPageState extends State<LoginPage> {
                                 textInputAction: TextInputAction.next,
                                 onEditingComplete: () =>
                                     FocusScope.of(context).nextFocus(),
-                                //keyboardType: TextInputType.phone,
-                                // inputFormatters: [
-                                //   LengthLimitingTextInputFormatter(10), // Limit to 10 digits
-                                //   //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                // ],
                                 decoration: const InputDecoration(
                                   // labelText: 'Mobile',
                                   label: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0), // Padding for the label
                                     child: Text('User Name'),
                                   ),
                                   border: OutlineInputBorder(),
@@ -210,19 +199,17 @@ class _LoginPageState extends State<LoginPage> {
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.orange),
                                   ),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0),
                                   prefixIcon: Icon(
                                     Icons.account_box,
                                     color: Colors.orange,
                                   ),
                                 ),
                                 autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Enter user number';
-                                  }
-                                  if (value.length > 1 && value.length < 10) {
                                     return 'Enter user number';
                                   }
                                   return null;
@@ -242,13 +229,15 @@ class _LoginPageState extends State<LoginPage> {
                                     FocusScope.of(context).nextFocus(),
                                 keyboardType: TextInputType.phone,
                                 inputFormatters: [
-                                  LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                  LengthLimitingTextInputFormatter(10),
+                                  // Limit to 10 digits
                                   //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
                                 ],
                                 decoration: const InputDecoration(
                                   // labelText: 'Mobile',
                                   label: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0), // Padding for the label
                                     child: Text('Mobile No'),
                                   ),
                                   border: OutlineInputBorder(),
@@ -258,14 +247,15 @@ class _LoginPageState extends State<LoginPage> {
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.orange),
                                   ),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0),
                                   prefixIcon: Icon(
                                     Icons.call,
                                     color: Colors.orange,
                                   ),
                                 ),
                                 autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Enter mobile number';
@@ -278,83 +268,80 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             SizedBox(height: 10),
-                            /// LoginButton code and onclik Operation
-                            Center(
-                              child: Container(
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  // Background color of the container
-                                  borderRadius: BorderRadius.circular(28.0),
-                                  // Circular border radius
-                                  border: Border.all(
-                                    color: Colors.yellow, // Border color
-                                    width: 0.5, // Border width
-                                  ),
-                                ),
-                                child: CustomElevatedButton(
-                                  text: 'SIGNUP',
-                                  onTap: () async {
-                                  //  getLocation();
-                                    var phone = _phoneNumberController.text;
-                                    var name = nameController.text;
-                                    print('----440---$phone');
-                                    print('----441---$name');
-                                    print('------363----To hit Api---');
-                                    if(_formKey.currentState!.validate() && phone!=null
-                                        && name!=null){
-                                      print('------362----To hit Api---');
-                                      loginMap = await RegistrationRepo()
-                                                 .authenticate(context, phone!, name!);
-                                      print('-----366---$loginMap');
-                                           result = "${loginMap['Result']}";
-                                           msg = "${loginMap['Msg']}";
-                                           print('----311---msg--$msg');
 
-                                    }else{
-                                          if(_phoneNumberController.text.isEmpty){
-                                            phoneNumberfocus.requestFocus();
-                                          }else if(nameController.text.isEmpty){
-                                            namefocus.requestFocus();
-                                          }
+                            ElevatedButton(
+                              child: Text('SIGNUP'),
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.red,
+                                shadowColor: Colors.red, // Custom shadow color
+                                elevation: 5, // Text color
+                              ).copyWith(
+                                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                                      (Set<MaterialState> states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return Colors.yellow; // Splash color when pressed
                                     }
-                                    if(result=="1"){
-                                      print('----Success---');
-                                     // displayToast(msg);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => const OtpPage(phone: "",)),
-                                      );
-                                      Fluttertoast.showToast(
-                                             msg: msg,
-                                             toastLength: Toast.LENGTH_SHORT,
-                                             gravity: ToastGravity.CENTER,
-                                             timeInSecForIosWeb: 1,
-                                             textColor: Colors.white,
-                                             fontSize: 16.0
-                                         );
-
-                                    }else{
-                                      print('----Failed---');
-                                      Fluttertoast.showToast(
-                                          msg: msg,
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 1,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0
-                                      );
-                                      //_showToast(context,msg);
-                                     // displayToast(msg);
-                                    }
-                                   },
-
-                                ),
-                              ),
+                                    return null; // Default splash color
+                                  },
+                                )),
+                              onPressed: () async {
+                                var phone = _phoneNumberController.text;
+                                var name = nameController.text;
+                                if (_formKey.currentState!.validate() &&
+                                    name != null &&
+                                    name != null) {
+                                  print('----name---$name');
+                                  print('----phone---$phone');
+                                  print('---call Api---');
+                
+                                  loginMap = await RegistrationRepo()
+                                      .authenticate(context, phone!, name!);
+                                  print('-----280---$loginMap');
+                                  result = "${loginMap['Result']}";
+                                  msg = "${loginMap['Msg']}";
+                                  print('----283---msg--$msg');
+                                } else {
+                                  if (nameController.text.isEmpty) {
+                                    namefocus.requestFocus();
+                                  } else if (_phoneNumberController
+                                      .text.isEmpty) {
+                                    phoneNumberfocus.requestFocus();
+                                  }
+                                }
+                                if(result=="1"){
+                                            print('----Success---');
+                                           // displayToast(msg);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => OtpPage(phone: phone)),
+                                            );
+                                            Fluttertoast.showToast(
+                                                   msg: msg,
+                                                   toastLength: Toast.LENGTH_SHORT,
+                                                   gravity: ToastGravity.CENTER,
+                                                   timeInSecForIosWeb: 1,
+                                                   textColor: Colors.white,
+                                                   fontSize: 16.0
+                                               );
+                                }else{
+                                  Fluttertoast.showToast(
+                                      msg: msg,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0
+                                  );
+                                }
+                              },
                             ),
+
+
+
                             SizedBox(height: 10),
                             Padding(
-                              padding: const EdgeInsets.only(left: 15,right: 15),
+                              padding: const EdgeInsets.only(left: 15, right: 15),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -362,13 +349,16 @@ class _LoginPageState extends State<LoginPage> {
                                     'Already a user ?',
                                     style: TextStyle(fontSize: 16),
                                   ),
-                                  SizedBox(width: 8), // Add some spacing between the texts
+                                  SizedBox(width: 8),
+                                  // Add some spacing between the texts
                                   GestureDetector(
                                     onTap: () {
                                       //Handle the click event
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen_2()),
                                       );
                                     },
                                     child: const Text(
@@ -383,75 +373,80 @@ class _LoginPageState extends State<LoginPage> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10),
-
+                           // SizedBox(height: 10),
                           ],
                         ),
                       ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 80),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                            padding: EdgeInsets.only(bottom: 5.0, left: 15),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 80),
-                                  child: Text('Powered by :',style: AppTextStyle.font14OpenSansRegularBlackTextStyle),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>
-                                  [
-                                    const Text(
-                                      'Synergy Telmatics Pvt.Ltd.',
-                                      style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xffF37339), //#F37339
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Padding(
-                                      padding: EdgeInsets.only(right: AppSize.s10),
-                                      child: SizedBox(
-                                        width: 25,
-                                        height: 25,
-                                        child: Image.asset(
-                                          'assets/images/favicon.png',
-                                          width: 25,
-                                          height: 25,
-                                          fit: BoxFit.fill, // Changed BoxFit to fill
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                        ),
-                      ),
                     ),
-
+                    // Spacer(),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 80),
+                    //   child: Align(
+                    //     alignment: Alignment.bottomCenter,
+                    //     child: Padding(
+                    //         padding: EdgeInsets.only(bottom: 5.0, left: 15),
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             Padding(
+                    //               padding: const EdgeInsets.only(right: 80),
+                    //               child: Text('Powered by :',
+                    //                   style: AppTextStyle
+                    //                       .font14OpenSansRegularBlackTextStyle),
+                    //             ),
+                    //             Row(
+                    //               mainAxisAlignment: MainAxisAlignment.start,
+                    //               children: <Widget>[
+                    //                 const Text(
+                    //                   'Synergy Telmatics Pvt.Ltd.',
+                    //                   style: TextStyle(
+                    //                     fontFamily: 'Montserrat',
+                    //                     color: Color(0xffF37339), //#F37339
+                    //                     fontSize: 14.0,
+                    //                     fontWeight: FontWeight.bold,
+                    //                   ),
+                    //                 ),
+                    //                 SizedBox(width: 10),
+                    //                 Padding(
+                    //                   padding:
+                    //                       EdgeInsets.only(right: AppSize.s10),
+                    //                   child: SizedBox(
+                    //                     width: 25,
+                    //                     height: 25,
+                    //                     child: Image.asset(
+                    //                       'assets/images/favicon.png',
+                    //                       width: 25,
+                    //                       height: 25,
+                    //                       fit: BoxFit
+                    //                           .fill, // Changed BoxFit to fill
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ],
+                    //         )),
+                    //   ),
+                    // ),
                   ],
                 ),
-              )));
+              ),
+            ));
   }
-  void _showToast(BuildContext context,String msg) {
+
+  void _showToast(BuildContext context, String msg) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        content:  Text('$msg'),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        content: Text('$msg'),
+        action: SnackBarAction(
+            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
+
   // toast code
-  void displayToast(String msg){
+  void displayToast(String msg) {
     Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
@@ -461,5 +456,4 @@ class _LoginPageState extends State<LoginPage> {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 }

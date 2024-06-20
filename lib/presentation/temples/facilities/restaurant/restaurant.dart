@@ -139,7 +139,7 @@ class _TemplesHomeState extends State<Restaurant> {
                                                   children: [
                                                     Icon(Icons.location_on,size: 16,color: Colors.red),
                                                     SizedBox(width: 5),
-                                                    Text('Bhuteshwar Road,Krishna Nagar',
+                                                    Text('Beach Area VIP Rd, Puri',
                                                         style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
 
                                                   ],
