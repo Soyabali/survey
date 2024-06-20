@@ -310,66 +310,6 @@ getAppBarBack(BuildContext context ,String title) {
   // );
 }
 
-
-    // leading: Builder(
-    //   builder: (BuildContext context) {
-    //     return InkWell(
-    //       onTap: () {
-    //       //  print('Leading icon tapped');
-    //         Navigator.pop(context);
-    //       },
-    //       child: Padding(
-    //         padding: const EdgeInsets.only(left: 16.0),
-    //         child: Transform.scale(
-    //           scale: 0.6,
-    //           child: Container(
-    //             height: 15,
-    //             width: 15,
-    //             child: Image.asset("assets/images/back.png"),
-    //           ),
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // ),
-   // centerTitle: true,
-//     title: Row(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: <Widget>[
-//           Center(child: Text(title,style: AppTextStyle.font16penSansExtraboldWhiteTextStyle))
-//         // Flexible(
-//         //   flex: 2,
-//         //   child: Image.asset(
-//         //     "assets/images/header_line1.png",
-//         //     fit: BoxFit.contain,
-//         //   ),
-//         // ),
-//         // SizedBox(width: 10),
-//         // Expanded(
-//         //   flex: 3,
-//         //   child: Text(
-//         //     title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle
-//         //     // style: TextStyle(
-//         //     //   fontSize: 16,
-//         //     //   fontWeight: FontWeight.bold,
-//         //     //   color: Colors.white,
-//         //     // ),
-//         //     // overflow: TextOverflow.ellipsis,
-//         //   ),
-//         // ),
-//         // SizedBox(width: 10),
-//         // Flexible(
-//         //   flex: 2,
-//         //   child: Image.asset(
-//         //     "assets/images/header_line2.png",
-//         //     fit: BoxFit.contain,
-//         //   ),
-//         // ),
-//
-// }
-
-
-
 class GeneralFunction {
   void logout(BuildContext context) async {
     /// TODO LOGOUT CODE

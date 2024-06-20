@@ -1,4 +1,3 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,7 +5,6 @@ import 'package:puri/app/generalFunction.dart';
 import 'package:puri/presentation/temples/facilities/parking/parking.dart';
 import 'package:puri/presentation/temples/facilities/restaurant/restaurant.dart';
 import 'package:puri/presentation/temples/facilities/taxi/taxi.dart';
-import '../../../app/navigationUtils.dart';
 import 'hotel/hotel.dart';
 
 class FacilitiesHome extends StatefulWidget {
@@ -19,7 +17,6 @@ class FacilitiesHome extends StatefulWidget {
 class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProviderStateMixin {
 
   TabController? _tabController;
-  // GeneralFunction? generalFunction;
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
@@ -28,24 +25,21 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
     {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
     {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
     {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
+    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
+    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
+
   ];
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {

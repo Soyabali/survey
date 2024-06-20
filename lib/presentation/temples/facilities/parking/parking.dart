@@ -1,12 +1,9 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
-import '../../../../app/navigationUtils.dart';
 import '../../../resources/app_text_style.dart';
-
-
 
 class Parking extends StatefulWidget {
   const Parking({super.key});
@@ -29,18 +26,12 @@ class _TemplesHomeState extends State<Parking> {
   @override
   void initState() {
     super.initState();
-    //BackButtonInterceptor.add(myInterceptor);
   }
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +41,7 @@ class _TemplesHomeState extends State<Parking> {
         body: Container(
           child: ListView(
                 children: <Widget>[
-                  Padding(
+                     Padding(
                     padding: const EdgeInsets.only(left: 5,right: 5,bottom: 10),
                     child: Container(
                       height: MediaQuery.of(context).size.height,
@@ -58,8 +49,8 @@ class _TemplesHomeState extends State<Parking> {
                         itemCount: itemList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
-                            // padding: EdgeInsets.only(left: 5,right: 5),
-                            padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                            padding: const EdgeInsets.symmetric(
+                            vertical: 2.0, horizontal: 2.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 //color: Colors.red,
@@ -78,7 +69,6 @@ class _TemplesHomeState extends State<Parking> {
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
                                   //     templeName:templeName,image:image)));
                                 },
-
                                 child: Row(
                                   children: [
                                     Padding(
@@ -91,15 +81,18 @@ class _TemplesHomeState extends State<Parking> {
                                         ),
                                         child: ClipRRect(
                                             borderRadius: BorderRadius.circular(5.0),
-                                            child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
+                                            child: Image.network('${itemList[index]['image']}',
+                                              height: 90,
+                                              width: 90,
+                                              fit: BoxFit.cover,)),
 
                                       ),
                                     ),
                                     Expanded(
                                       child: Container(
-                                        height: 110,
+                                        height: 100,
                                         child: Padding(
-                                          padding: EdgeInsets.only(top: 20),
+                                          padding: EdgeInsets.only(top: 8),
                                           child: Padding(
                                             padding: EdgeInsets.only(left: 10),
                                             child: Column(
@@ -119,16 +112,19 @@ class _TemplesHomeState extends State<Parking> {
                                                   ],
                                                 ),
                                                 SizedBox(height: 5),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Text('-',style:AppTextStyle.font14penSansExtraboldBlack45TextStyle
-                                                    ),
-                                                    SizedBox(width: 70),
-                                                    Text('-',style:AppTextStyle.font14penSansExtraboldBlack45TextStyle
-                                                    ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left: 5,bottom: 5),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Text('-',style:AppTextStyle.font10penSansExtraboldBlack45TextStyle
+                                                      ),
+                                                      SizedBox(width: 70),
+                                                      Text('-',style:AppTextStyle.font10penSansExtraboldBlack45TextStyle
+                                                      ),
 
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                                 InkWell(
                                                   onTap: (){

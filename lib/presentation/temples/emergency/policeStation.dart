@@ -1,10 +1,9 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 
 
@@ -29,18 +28,13 @@ class _TemplesHomeState extends State<PoliceStation> {
   @override
   void initState() {
     super.initState();
-    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    //BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,11 +66,7 @@ class _TemplesHomeState extends State<PoliceStation> {
                               var image  =  "${itemList[index]['image']}";
                               print('-----165---$templeName');
                               print('-----166---$image');
-                              // navigator
-                              // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
-                              //     templeName:templeName,image:image)));
-                            },
-
+                              },
                             child: Row(
                               children: [
                                 Padding(
@@ -95,9 +85,9 @@ class _TemplesHomeState extends State<PoliceStation> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    height: 110,
+                                    height: 100,
                                     child: Padding(
-                                      padding: EdgeInsets.only(top: 20),
+                                      padding: EdgeInsets.only(top: 10),
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 10),
                                         child: Column(
@@ -105,9 +95,9 @@ class _TemplesHomeState extends State<PoliceStation> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text('Kosi Kalan Police Station',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
-                                            SizedBox(height: 5),
+                                            SizedBox(height: 8),
                                             Text('05662233233',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                            SizedBox(height: 5),
+                                            SizedBox(height: 8),
                                             InkWell(
                                               onTap: (){
                                                 /// TODO CHANGE LAT AND LONG

@@ -31,18 +31,11 @@ class _TemplesHomeState extends State<TaxiStand> {
   @override
   void initState() {
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
   @override
   void dispose() {
-  //  BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
   // code to connect call
   void _makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
@@ -112,9 +105,9 @@ class _TemplesHomeState extends State<TaxiStand> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    height: 110,
+                                    height: 100,
                                     child: Padding(
-                                      padding: EdgeInsets.only(top: 20),
+                                      padding: EdgeInsets.only(top: 10),
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 10),
                                         child: Column(

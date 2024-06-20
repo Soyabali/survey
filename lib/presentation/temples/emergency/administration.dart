@@ -1,14 +1,14 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 
 
 class Administration extends StatefulWidget {
+
   const Administration({super.key});
 
   @override
@@ -16,6 +16,7 @@ class Administration extends StatefulWidget {
 }
 
 class _TemplesHomeState extends State<Administration> {
+
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
@@ -29,18 +30,11 @@ class _TemplesHomeState extends State<Administration> {
   @override
   void initState() {
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -80,21 +74,6 @@ class _TemplesHomeState extends State<Administration> {
 
                             child: Row(
                               children: [
-                                // Padding(
-                                //   padding: const EdgeInsets.only(left: 5),
-                                //   child: Container(
-                                //     height: 90,
-                                //     width: 90,
-                                //     decoration: BoxDecoration(
-                                //       borderRadius: BorderRadius.circular(5),
-                                //     ),
-                                //     child: ClipRRect(
-                                //         borderRadius: BorderRadius.circular(5.0),
-                                //         child:
-                                //         Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
-                                //
-                                //   ),
-                                // ),
                                 Expanded(
                                   child: Container(
                                     height: 90,
@@ -107,10 +86,8 @@ class _TemplesHomeState extends State<Administration> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text('District Magistrate',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
-                                            SizedBox(height: 5),
+                                            SizedBox(height: 10),
                                             Text('0566676464',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                            SizedBox(height: 5),
-
                                           ],
                                         ),
                                       ),

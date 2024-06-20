@@ -1,10 +1,10 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../app/generalFunction.dart';
-import '../../app/navigationUtils.dart';
 import '../resources/app_text_style.dart';
+
 
 class LoiletLocatorDetails extends StatefulWidget {
 
@@ -23,19 +23,12 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
   void initState() {
     print('-----27--${widget.name}');
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +39,48 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
         body: ListView(
             children: [
               middleHeader(context,'${widget.name}'),
+              SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.only(left: 10,right: 10),
+                child: Container(
+                  height:65,
+                  //color: Color(0xFFF5F5F5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.orange, // Orange border color
+                      width: 1.0, // Border width
+                    ),
+                    //color: Colors.blue, // Background color
+                   // color: Color(0xFFF5F5F5),
+                    //color: Colors.orange,
+                    borderRadius: BorderRadius.circular(5), // Border radius
+                  ),
+                  child: ListTile(
+                      leading: Image.asset(
+                        'assets/images/toilet.png',
+                        width: 30, // Set the width of the image
+                        height: 30,
+                        fit: BoxFit.fill,
+                        // Set the height of the image
+                      ),
+                      title: Text('Name',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                      subtitle: Text('SBM Toilet',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                      trailing: Container(
+                        child: Text('Free',style: AppTextStyle.font16OpenSansRegularRedTextStyle),
+                      ),
+                      onTap: () {
+                        // Handle the tap event here
+                      },
+                    ),
+                  ),
+              ),
+
+
+
               Column(
                   children: [
                     Card(
-                      elevation: 8,
+                       elevation: 8,
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
@@ -62,36 +93,37 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                              Container(
-                                   height:55,
-                                   //color: Color(0xFFF5F5F5),
-                                decoration: BoxDecoration(
-                                 //color: Colors.blue, // Background color
-                                 color: Color(0xFFF5F5F5),
-                                 borderRadius: BorderRadius.circular(5), // Border radius
-                               ),
 
-                               child: Padding(
-                                 padding: const EdgeInsets.only(bottom: 15),
-                                 child: ListTile(
-                                        leading: Image.asset(
-                                          'assets/images/toilet.png',
-                                          width: 30, // Set the width of the image
-                                          height: 30,
-                                          fit: BoxFit.fill,
-                                          // Set the height of the image
-                                        ),
-                                        title: Text('Name',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                        subtitle: Text('SBM Toilet',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                        trailing: Container(
-                                          child: Text('Free',style: AppTextStyle.font16OpenSansRegularRedTextStyle),
-                                        ),
-                                        onTap: () {
-                                          // Handle the tap event here
-                                        },
-                                      ),
-                               ),
-                                  ),
+                              // Container(
+                              //      height:55,
+                              //      //color: Color(0xFFF5F5F5),
+                              //   decoration: BoxDecoration(
+                              //    //color: Colors.blue, // Background color
+                              //    color: Color(0xFFF5F5F5),
+                              //    borderRadius: BorderRadius.circular(5), // Border radius
+                              //  ),
+                              //   child: Padding(
+                              //    padding: const EdgeInsets.only(bottom: 15),
+                              //    child: ListTile(
+                              //           leading: Image.asset(
+                              //             'assets/images/toilet.png',
+                              //             width: 30, // Set the width of the image
+                              //             height: 30,
+                              //             fit: BoxFit.fill,
+                              //             // Set the height of the image
+                              //           ),
+                              //           title: Text('Name',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                              //           subtitle: Text('SBM Toilet',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                              //           trailing: Container(
+                              //             child: Text('Free',style: AppTextStyle.font16OpenSansRegularRedTextStyle),
+                              //           ),
+                              //           onTap: () {
+                              //             // Handle the tap event here
+                              //           },
+                              //         ),
+                              //  ),
+                              // ),
+
                               SizedBox(height: 5),
                               Text(
                                   "Male",
@@ -303,7 +335,7 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                   style: AppTextStyle.font16OpenSansRegularRedTextStyle,
                                 ),
                               SizedBox(height: 5),
-                                Container(
+                              Container(
                                   height: 40,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -401,8 +433,8 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 5),
-                                Container(
+                              SizedBox(height: 5),
+                              Container(
                                   height: 40,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -501,13 +533,13 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 5),
-                                Text(
+                              SizedBox(height: 5),
+                              Text(
                                   "Handicap",
                                   style: AppTextStyle.font16OpenSansRegularRedTextStyle,
                                 ),
-                                SizedBox(height: 5),
-                                Container(
+                              SizedBox(height: 5),
+                              Container(
                                   height: 40,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -606,8 +638,8 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 5),
-                                Padding(
+                              SizedBox(height: 5),
+                              Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween, // This aligns the children widgets to the left and right ends
@@ -627,12 +659,12 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 5),
-                                Text(
-                                  "Badambadi,Cuttack,Odisha 753012",
+                              SizedBox(height: 5),
+                              Text(
+                                  "RR49+8VJ, Puri, Odisha 752001",
                                     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                SizedBox(height: 5),
-                                Row(
+                              SizedBox(height: 5),
+                              Row(
                                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
                                      Padding(
@@ -641,7 +673,7 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Distance :",
+                                            "Distance : ",
                                             style: AppTextStyle.font16OpenSansRegularRedTextStyle,
                                           ),
                                         ],
@@ -656,7 +688,7 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                  "1272.82 km",
+                                                  " 5.80 km",
                                                   style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
 
 

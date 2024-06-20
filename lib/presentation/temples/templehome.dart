@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
+import 'package:puri/presentation/temples/templedetail.dart';
 import '../../app/navigationUtils.dart';
 import '../../provider/todo_provider.dart';
 import '../resources/app_text_style.dart';
@@ -164,16 +165,16 @@ class _TemplesHomeState extends State<TemplesHome> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    // var templeName =
-                                    //     '${itemList[index]['temple']}';
-                                    // var image = itemList[index]['image'];
-                                    // print('-----165---$templeName');
-                                    // print('-----166---$image');
-                                    // // navigator
-                                    // Navigator.of(context).push(MaterialPageRoute(
-                                    //     builder: (_) => TemplesDetail(
-                                    //         templeName: templeName,
-                                    //         image: image)));
+                                    var templeName =
+                                        '${itemList[index]['temple']}';
+                                    var image = itemList[index]['image'];
+                                    print('-----165---$templeName');
+                                    print('-----166---$image');
+                                    // navigator
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (_) => TemplesDetail(
+                                            templeName: templeName,
+                                            image: image)));
                                   },
                                   child: Row(
                                     children: [

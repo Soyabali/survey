@@ -6,6 +6,7 @@ import 'package:puri/presentation/screens/splash.dart';
 import 'app/myapp.dart';
 
 void main() {
+
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());

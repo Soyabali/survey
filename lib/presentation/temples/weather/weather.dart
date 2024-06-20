@@ -57,19 +57,12 @@ class _TemplesHomeState extends State<WeatherHome> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +71,7 @@ class _TemplesHomeState extends State<WeatherHome> {
         // appBar
         appBar: getAppBar("Weather"),
         // drawer
-        drawer:
-            generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+        drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         body: Column(children: <Widget>[
           Stack(
             children: <Widget>[
@@ -116,7 +108,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                       children: <Widget>[
                         Text(
                           'Today',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                         SizedBox(height: 5),
                         Row(
@@ -124,7 +116,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                             Text(
                               '46.22 C',
                               style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                                  TextStyle(fontSize: 16, color: Colors.white),
                             ),
                             SizedBox(width: 15),
                             Text(
@@ -137,7 +129,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                         SizedBox(height: 5),
                         Text(
                           'Sky is Clear',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                         SizedBox(height: 5),
                         Row(
@@ -145,28 +137,28 @@ class _TemplesHomeState extends State<WeatherHome> {
                             Text(
                               'Humidity :',
                               style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                                  TextStyle(fontSize: 16, color: Colors.white),
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(width: 2),
                             Text(
                               '6%',
                               style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                                  TextStyle(fontSize: 12, color: Colors.white),
                             ),
                             //Spacer(),
-                            SizedBox(width: 10),
+                            SizedBox(width: 4),
                             Row(
                               children: <Widget>[
                                 Text(
                                   'Wind:',
                                   style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
+                                      fontSize: 16, color: Colors.white),
                                 ),
-                                SizedBox(width: 15),
+                                SizedBox(width: 4),
                                 Text(
                                   '5.49 km/h',
                                   style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
+                                      fontSize: 12, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -178,6 +170,7 @@ class _TemplesHomeState extends State<WeatherHome> {
             ],
           ),
           SizedBox(height: 5),
+
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 15),
@@ -240,8 +233,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                                 fontSize: 16),
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
                                               Text(
                                                 '44.57 C',

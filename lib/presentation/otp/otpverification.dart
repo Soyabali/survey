@@ -2,18 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../app/generalFunction.dart';
 import '../../services/verifyCitizenOTP.dart';
 import '../complaints/complaintHomePage.dart';
-import '../homepage/homepage.dart';
 import '../login/loginScreen_2.dart';
 import '../resources/app_text_style.dart';
-import '../resources/values_manager.dart';
 
 
 class OtpPage extends StatefulWidget {
+
   final phone;
   const OtpPage({super.key,required this.phone});
 
@@ -33,7 +30,6 @@ class _MyHomePageState extends State<OtpPage> {
   var result ;
   var msg ;
   var verifyCitizenOtpMap;
-
 
   void clearText() {
     _nameController.clear();
@@ -102,7 +98,6 @@ class _MyHomePageState extends State<OtpPage> {
         ),
         centerTitle: true,
       ),
-
       // drawer
       body: SingleChildScrollView(
         child: GestureDetector(
@@ -328,13 +323,9 @@ class _MyHomePageState extends State<OtpPage> {
                                                         prefs.setString('sContactNo',sContactNo);
                                                         prefs.setString('sCitizenName',sCitizenName);
                                                         prefs.setString('sToken',sToken);
-                                                        String? citizenName = prefs.getString('sCitizenName');
-                                                        print('---321---$citizenName');
-                                                        // navigate to mainPage
-                                                        // Navigator.pushReplacement(
-                                                        //      context,
-                                                        //      MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                                                        //    );
+                                                        String? token = prefs.getString('sToken');
+                                                        print('---321-----token---$token');
+
                                                         Navigator.push(
                                                           context,
                                                           MaterialPageRoute(builder: (context) => const ComplaintHomePage()),

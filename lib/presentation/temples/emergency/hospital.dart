@@ -1,10 +1,8 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 
 
@@ -29,18 +27,12 @@ class _TemplesHomeState extends State<Hospital> {
   @override
   void initState() {
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +88,9 @@ class _TemplesHomeState extends State<Hospital> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    height: 110,
+                                    height: 100,
                                     child: Padding(
-                                      padding: EdgeInsets.only(top: 20),
+                                      padding: EdgeInsets.only(top: 10),
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 10),
                                         child: Column(
@@ -106,9 +98,9 @@ class _TemplesHomeState extends State<Hospital> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text('Nayati Multi Super Specialty',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
-                                            SizedBox(height: 5),
+                                            SizedBox(height: 4),
                                             Text('05652565565',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                            SizedBox(height: 5),
+                                            SizedBox(height: 4),
                                             InkWell(
                                               onTap: (){
                                                 /// TODO CHANGE LAT AND LOGNG IN A FUTURE
@@ -120,7 +112,7 @@ class _TemplesHomeState extends State<Hospital> {
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Icon(Icons.location_on,size: 16,color: Colors.red),
-                                                  SizedBox(width: 5),
+                                                  SizedBox(width: 4),
                                                   Text('Masani Link Road,Bypass',
                                                       style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
 
