@@ -1,10 +1,9 @@
+
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
-import 'package:puri/model/todo.dart';
-import 'package:puri/presentation/temples/templedetail.dart';
 import '../../app/navigationUtils.dart';
 import '../../provider/todo_provider.dart';
 import '../resources/app_text_style.dart';
@@ -28,19 +27,18 @@ class _TemplesHomeState extends State<TemplesHome> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TempleProvider>(context, listen: false).getAllTodos();
     });
-    //BackButtonInterceptor.add(myInterceptor);
+    BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    // BackButtonInterceptor.remove(myInterceptor);
+     BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    NavigationUtils.onWillPop(context);
+    return true;
+  }
 
   // GeneralFunction? generalFunction;
   GeneralFunction generalFunction = GeneralFunction();
@@ -99,176 +97,176 @@ class _TemplesHomeState extends State<TemplesHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: getAppBar("Temples"),
-        drawer:
-            generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-        body: Consumer<TempleProvider>(builder: (context, value, child) {
-          if (value.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final todos = value.todos;
-          print('---113---L--xx-${todos.length}');
-          // print('Home page api response  37....xxx $todos');
-          return Column(
-            children: [
-              Stack(
-                children: <Widget>[
-                  Opacity(
-                    opacity: 0.7,
-                    child: Container(
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(ImageAssets.templepuri4),
-                          // Provide the path to your image asset
-                          fit: BoxFit
-                              .cover, // Adjust how the image fits into the container
+          backgroundColor: Colors.white,
+          appBar: getAppBar("Temples"),
+          drawer:
+              generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+          body: Consumer<TempleProvider>(builder: (context, value, child) {
+            if (value.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final todos = value.todos;
+            print('---113---L--xx-${todos.length}');
+            // print('Home page api response  37....xxx $todos');
+            return Column(
+              children: [
+                Stack(
+                  children: <Widget>[
+                    Opacity(
+                      opacity: 0.7,
+                      child: Container(
+                        height: 200,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(ImageAssets.templepuri4),
+                            // Provide the path to your image asset
+                            fit: BoxFit
+                                .cover, // Adjust how the image fits into the container
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                        top: 50,
+                        left: 20,
+                        child: Image.asset(ImageAssets.cityname, height: 100)),
+                    Positioned(
+                        top: 75,
+                        left: 40,
+                        child: Text("TEMPLES",
+                            style: AppTextStyle
+                                .font30penSansExtraboldWhiteTextStyle))
+                  ],
+                ),
+                SizedBox(height: 5),
+                // getList(todos),
+                //getList(),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 15),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5, right: 5),
+                        child: Column(
+                          children: List.generate(itemList.length, (index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 1.0, horizontal: 1.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.orange,
+                                    // Set the golden border color
+                                    width: 1.0, // Set the width of the border
+                                  ),
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    // var templeName =
+                                    //     '${itemList[index]['temple']}';
+                                    // var image = itemList[index]['image'];
+                                    // print('-----165---$templeName');
+                                    // print('-----166---$image');
+                                    // // navigator
+                                    // Navigator.of(context).push(MaterialPageRoute(
+                                    //     builder: (_) => TemplesDetail(
+                                    //         templeName: templeName,
+                                    //         image: image)));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: InkWell(
+                                          onTap: () {
+                                            print('--Images--');
+                                          },
+                                          child: Container(
+                                            height: 75,
+                                            width: 75,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              child: Image.network(
+                                                '${itemList[index]['image']}',
+                                                height: 56,
+                                                width: 56,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          height: 56,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: ListTile(
+                                              title: Text(
+                                                '${itemList[index]['temple']}',
+                                                style: const TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                              trailing: Image.asset(
+                                                'assets/images/arrow.png',
+                                                height: 12,
+                                                width: 12,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 5),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: Image.asset(
+                                                "assets/images/listelementtop.png",
+                                                height: 25,
+                                                width: 25,
+                                              ),
+                                            ),
+                                            SizedBox(height: 35),
+                                            Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Image.asset(
+                                                "assets/images/listelementbottom.png",
+                                                height: 25,
+                                                width: 25,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
                         ),
                       ),
                     ),
                   ),
-                  Positioned(
-                      top: 50,
-                      left: 20,
-                      child: Image.asset(ImageAssets.cityname, height: 100)),
-                  Positioned(
-                      top: 75,
-                      left: 40,
-                      child: Text("TEMPLES",
-                          style: AppTextStyle
-                              .font30penSansExtraboldWhiteTextStyle))
-                ],
-              ),
-              SizedBox(height: 5),
-              // getList(todos),
-              //getList(),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 15),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5, right: 5),
-                      child: Column(
-                        children: List.generate(todos.length, (index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 1.0, horizontal: 1.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.orange,
-                                  // Set the golden border color
-                                  width: 1.0, // Set the width of the border
-                                ),
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  // var templeName =
-                                  //     '${itemList[index]['temple']}';
-                                  // var image = itemList[index]['image'];
-                                  // print('-----165---$templeName');
-                                  // print('-----166---$image');
-                                  // // navigator
-                                  // Navigator.of(context).push(MaterialPageRoute(
-                                  //     builder: (_) => TemplesDetail(
-                                  //         templeName: templeName,
-                                  //         image: image)));
-                                },
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: InkWell(
-                                        onTap: () {
-                                          print('--Images--');
-                                        },
-                                        child: Container(
-                                          height: 75,
-                                          width: 75,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            child: Image.network(
-                                              '${itemList[index]['image']}',
-                                              height: 56,
-                                              width: 56,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        height: 56,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(top: 0),
-                                          child: ListTile(
-                                            title: Text(
-                                              '${itemList[index]['title']}',
-                                              style: const TextStyle(
-                                                color: Colors.red,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            trailing: Image.asset(
-                                              'assets/images/arrow.png',
-                                              height: 12,
-                                              width: 12,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 5),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: Image.asset(
-                                              "assets/images/listelementtop.png",
-                                              height: 25,
-                                              width: 25,
-                                            ),
-                                          ),
-                                          SizedBox(height: 35),
-                                          Align(
-                                            alignment: Alignment.bottomRight,
-                                            child: Image.asset(
-                                              "assets/images/listelementbottom.png",
-                                              height: 25,
-                                              width: 25,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          );
-        }));
+                )
+              ],
+            );
+          }));
   }
 
   // Widget getList() {

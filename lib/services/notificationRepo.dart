@@ -2,9 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import '../Helpers/loader_helper.dart';
 import 'package:http/http.dart' as http;
-import '../screens/generalFunction.dart';
+import '../app/generalFunction.dart';
+import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
 class NotificationRepo {
@@ -12,10 +12,10 @@ class NotificationRepo {
   Future<List<Map<String, dynamic>>?> notification(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
-    String? iUserId = prefs.getString('iUserId');
+    String? iCitizenCode = prefs.getString('iCitizenCode');
 
     print('-----16---$sToken');
-    print('-----17---$iUserId');
+    print('-----17---$iCitizenCode');
 
     try {
       var baseURL = BaseRepo().baseurl;
@@ -29,7 +29,7 @@ class NotificationRepo {
       };
       var request = http.Request('POST', Uri.parse('$notificationApi'));
       request.body = json.encode({
-        "iUserId": "$iUserId",
+        "iCitizenCode": "$iCitizenCode",
         "iPage": "1",
         "iPageSize": "10"
       });

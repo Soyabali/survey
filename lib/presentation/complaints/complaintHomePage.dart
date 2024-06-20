@@ -14,6 +14,7 @@ import '../emergencyContact/emergencyContact.dart';
 import '../eventsAndNewsletter/eventsAndNewsletter.dart';
 import '../knowyourward/KnowYourWard.dart';
 import '../marriageCertificate/marriageCertificate.dart';
+import '../notification/notification.dart';
 import '../parklocator/parklocator.dart';
 import '../resources/app_text_style.dart';
 import 'grievanceStatus/grievanceStatus.dart';
@@ -50,7 +51,43 @@ class _MyHomePageState extends State<ComplaintHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack(context,"Citizen Services"),
+     // appBar: getAppBarBack(context,"Citizen Services"),
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        elevation: 10,
+        shadowColor: Colors.orange,
+        toolbarOpacity: 0.5,
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0), // Adjust padding if necessary
+            child: Image.asset(
+              "assets/images/back.png",
+              fit: BoxFit.contain, // BoxFit.contain ensures the image is not distorted
+            ),
+          ),
+        ),
+        title: Text(
+          "Citizen Services",
+          style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.info),
+              onPressed: () {
+               //
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NotificationPage()),
+                );
+              },
+            ),
+        ],
+        centerTitle: true,
+      ),
+
 
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Stack(

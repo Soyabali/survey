@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:noidaone/Controllers/notificationRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'generalFunction.dart';
-import 'loginScreen_2.dart';
+import '../../app/generalFunction.dart';
+import '../../services/notificationRepo.dart';
+import '../otp/otpverification.dart';
+import '../resources/app_text_style.dart';
+
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -33,7 +35,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   List<Map<String, dynamic>>? notificationList;
+
   String? sName, sContactNo;
   GeneralFunction generalFunction = GeneralFunction();
   getnotificationResponse() async {
@@ -63,19 +67,35 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Color(0xFF255899),
-          title: const Text(
-            'Notification',
-            style: TextStyle(
-                fontFamily: 'Montserrat',
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold),
+          backgroundColor: Colors.red,
+          elevation: 10,
+          shadowColor: Colors.orange,
+          toolbarOpacity: 0.5,
+          leading: InkWell(
+            onTap: () {
+             // Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const OtpPage(phone:"")),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0), // Adjust padding if necessary
+              child: Image.asset(
+                "assets/images/back.png",
+                fit: BoxFit.contain, // BoxFit.contain ensures the image is not distorted
+              ),
+            ),
           ),
+          title: Text(
+            "Notification",
+            style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
+          ),
+          centerTitle: true,
         ),
-        // drawer
         drawer: generalFunction.drawerFunction(context,'$sName','$sContactNo'),
 
         body: Container(
@@ -86,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 15),
                 child: Container(
                   height: MediaQuery.of(context).size.height,
-            
+
                   child: ListView.separated(
                       itemCount: notificationList != null ? notificationList!.length : 0,
                       separatorBuilder: (BuildContext context, int index) {
@@ -105,8 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 padding: const EdgeInsets.only(top: 15),
                                 child: Container(
                                   child: const Icon(
-                                    Icons.notification_important, size: 30, color: Color(
-                                      0xFF255899),),
+                                    Icons.notification_important, size: 25, color: Colors.white),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -167,6 +186,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         )
+
+
     );
 
   }

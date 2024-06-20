@@ -8,6 +8,7 @@ import '../../app/generalFunction.dart';
 import '../../services/verifyCitizenOTP.dart';
 import '../complaints/complaintHomePage.dart';
 import '../homepage/homepage.dart';
+import '../login/loginScreen_2.dart';
 import '../resources/app_text_style.dart';
 import '../resources/values_manager.dart';
 
@@ -79,12 +80,11 @@ class _MyHomePageState extends State<OtpPage> {
         leading: InkWell(
           onTap: () {
             //  HomePage
-
             //Navigator.pop(context);
 
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
+              MaterialPageRoute(builder: (context) => const LoginScreen_2()),
             );
 
           },

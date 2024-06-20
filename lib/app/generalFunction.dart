@@ -8,6 +8,7 @@ import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../presentation/homepage/homepage.dart';
+import '../presentation/login/loginScreen_2.dart';
 import '../presentation/resources/app_text_style.dart';
 import '../presentation/resources/values_manager.dart';
 import '../presentation/temples/cityhistory/cityhistory.dart';
@@ -373,25 +374,20 @@ class GeneralFunction {
   void logout(BuildContext context) async {
     /// TODO LOGOUT CODE
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("iUserId");
-    prefs.remove("sName");
+    prefs.remove("iCitizenCode");
     prefs.remove("sContactNo");
-    prefs.remove("sDesgName");
-    prefs.remove("iDesgCode");
-    prefs.remove("iDeptCode");
-    prefs.remove("iUserTypeCode");
+    prefs.remove("sCitizenName");
     prefs.remove("sToken");
-    prefs.remove("dLastLoginAt");
     //displayToastlogout();
     goNext(context);
   }
 
   goNext(BuildContext context) {
-    // Navigator.pushAndRemoveUntil(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => LoginScreen_2()),
-    //       (route) => false, // Pop all routes until this page
-    // );
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen_2()),
+          (route) => false, // Pop all routes until this page
+    );
   }
   // drawerFunction
 
