@@ -29,7 +29,8 @@ class NoInternetState extends State<NoInternet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+     // backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Colors.orangeAccent,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +40,7 @@ class NoInternetState extends State<NoInternet> {
               height: 150,
               width: 150,
               child: Image.asset(
-                "assets/images/hmel_logo.png",
+                "assets/images/puriOned.png",
                 // color: Colors.transparent,
               ),
             ),
@@ -74,7 +75,7 @@ class NoInternetState extends State<NoInternet> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(AppStrings.txtCopyright,
+              child: Text('Puri One',
                   style: AppTextStyle.font12OpenSansRegularBlackTextStyle),
             ),
           ],

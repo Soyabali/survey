@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-
 import '../presentation/homepage/homepage.dart';
 import '../presentation/resources/custom_elevated_button.dart';
-import '../presentation/temples/templehome.dart';
 
 class NavigationUtils {
   static Future<bool> onWillPop(BuildContext context) async {

@@ -39,21 +39,6 @@ Future<void> launchGoogleMaps(double latitude, double longitude) async {
     debugPrint('An error occurred');
   }
 }
-// Future<void> launchGoogleMaps(double laititude,double longitude) async {
-//   double destinationLatitude= laititude;
-//   double destinationLongitude = longitude;
-//   final uri = Uri(
-//       scheme: "google.navigation",
-//       // host: '"0,0"',  {here we can put host}
-//       queryParameters: {
-//         'q': '$destinationLatitude, $destinationLongitude'
-//       });
-//   if (await canLaunchUrl(uri)) {
-//     await launchUrl(uri);
-//   } else {
-//     debugPrint('An error occurred');
-//   }
-// }
 
 // backbutton dialog
 Future<bool> _onWillPop(BuildContext context) async {
@@ -239,24 +224,6 @@ getAppBar(String title) {
     ),
     title: Text(title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
     centerTitle: true,
-    // title: Row(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: <Widget>[
-    //     Image.asset(
-    //       "assets/images/header_line1.png",
-    //       width: 50,
-    //       height: 15,
-    //     ),
-    //     SizedBox(width: 10),
-    //     Text(title, style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
-    //     SizedBox(width: 10),
-    //     Image.asset(
-    //       "assets/images/header_line2.png",
-    //       width: 50,
-    //       height: 10,
-    //     ),
-    //   ],
-    // ),
   );
 }
 
@@ -285,29 +252,6 @@ getAppBarBack(BuildContext context ,String title) {
     ),
     centerTitle: true,
   );
-
-  // return AppBar(
-  //   backgroundColor: Colors.red,
-  //   elevation: 10,
-  //   shadowColor: Colors.orange,
-  //   toolbarOpacity: 0.5,
-  //   leading: InkWell(
-  //     onTap: (){
-  //       Navigator.pop(context);
-  //     },
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(10.0),
-  //       child: Container(
-  //         height: 10,
-  //         width: 10,
-  //         child: Image.asset("assets/images/back.png", fit: BoxFit.cover),
-  //       ),
-  //     ),
-  //   ),
-  //   title: Text(title,
-  //       style: AppTextStyle.font16penSansExtraboldWhiteTextStyle),
-  //   centerTitle: true,
-  // );
 }
 
 class GeneralFunction {
@@ -404,12 +348,6 @@ class GeneralFunction {
                             builder: (context) =>
                                 CityHistory(templeName: "", image: "")),
                       );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => CityHistory(templeName:"",image:""),
-                      //   ),
-                      // );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -434,13 +372,6 @@ class GeneralFunction {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => WeatherHome()),
                       );
-
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const WeatherHome(),
-                      //   ),
-                      // );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -494,12 +425,6 @@ class GeneralFunction {
                         MaterialPageRoute(
                             builder: (context) => EmergencyHome()),
                       );
-                      //  Navigator.push(
-                      //    context,
-                      //    MaterialPageRoute(
-                      //      builder: (context) => const EmergencyHome(),
-                      //    ),
-                      //  );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -519,13 +444,6 @@ class GeneralFunction {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      //_showBottomSheet(context);  //  HowToReach
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>  HowToReach(),
-                      //   ),
-                      // );
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => HowToReach()),
                       );

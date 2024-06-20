@@ -1,13 +1,13 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../app/generalFunction.dart';
-import '../../app/navigationUtils.dart';
 import '../resources/app_text_style.dart';
 import 'cookipage.dart';
 
 class TempleGallery extends StatefulWidget {
+
   final templeName;
   TempleGallery({super.key, required this.templeName,});
 
@@ -16,6 +16,7 @@ class TempleGallery extends StatefulWidget {
 }
 
 class _TemplesHomeState extends State<TempleGallery> with SingleTickerProviderStateMixin{
+
   TabController? _tabController;
 
   @override
@@ -23,18 +24,11 @@ class _TemplesHomeState extends State<TempleGallery> with SingleTickerProviderSt
     print('-----27--${widget.templeName}');
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  //
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +67,7 @@ class _TemplesHomeState extends State<TempleGallery> with SingleTickerProviderSt
                 height: 35.0,
                 width: MediaQuery.of(context).size.width),
             Container(
-              height: MediaQuery.of(context).size.height - 50.0,
+              height: MediaQuery.of(context).size.height,
               width:  double.infinity,
               child: TabBarView(
                 controller: _tabController,

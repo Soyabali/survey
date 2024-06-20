@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'cookie_detail.dart';
 
 class CookiePage extends StatelessWidget {
+
   const CookiePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     var imagePath;
+
     final List<String> imagePaths = [
       'assets/images/temples.png',
       'assets/images/temple_0.png',
@@ -27,7 +30,7 @@ class CookiePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFFCFAF8),
       body: Padding(
-        padding: const EdgeInsets.only(left: 10,right: 10,bottom: 280),
+        padding: const EdgeInsets.only(left: 10,right: 10,bottom: 190),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // Number of columns in the grid

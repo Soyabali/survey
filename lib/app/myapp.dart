@@ -12,6 +12,7 @@ import '../presentation/resources/theme_manager.dart';
 
 
 class MyApp extends StatefulWidget {
+
   MyApp._internal(); // private named constructor
   int appState = 0;
   static final MyApp instance =
@@ -109,9 +110,6 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: getApplicationTheme(),
-        // theme: ThemeData(
-        //   primarySwatch: Colors.blue,
-        // ),
         initialRoute: Routes.splashRoute,
         builder: EasyLoading.init(),
         onGenerateRoute: RouteGenerator.getRoute,
@@ -124,18 +122,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: NoInternet(),
-     // builder: EasyLoading.init(),
-      // initialRoute: AppStrings.routeToSplash,
-      // onGenerateRoute: generateRoute,
     );
   }
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   onGenerateRoute: RouteGenerator.getRoute,
-    //   initialRoute: Routes.splashRoute,
-    //   builder: EasyLoading.init(),
-    //   theme: getApplicationTheme(),
-    // );
+
   }
 
 

@@ -331,6 +331,9 @@ class _MyHomePageState extends State<OtpPage> {
                                                           MaterialPageRoute(builder: (context) => const ComplaintHomePage()),
                                                         );
 
+                                                        controllers?.clear();
+
+
                                                   }else{
                                                     _showToast(context,msg);
                                                   }

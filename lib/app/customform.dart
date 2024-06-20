@@ -50,20 +50,6 @@ class _GrievanceFormState extends State<GrievanceForm> {
                         ),
                       ),
                     ),
-                    // child:TextFormField(
-                    //     decoration: InputDecoration(
-                    //       labelText: 'Category',
-                    //       border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(5.0),
-                    //       ),
-                    //     ),
-                    //     validator: (value) {
-                    //       if (value!.isEmpty) {
-                    //         return 'Please enter a category';
-                    //       }
-                    //       return null;
-                    //     },
-                    //   ),
                     ),
                 ),
                 SizedBox(height: 16.0),
@@ -120,115 +106,6 @@ class _GrievanceFormState extends State<GrievanceForm> {
                     ),
                   ),
                 ),
-
-
-                // Card(
-                //   elevation: 8,
-                //   shadowColor: Colors.orange, // Set the shadow color
-                //   color: Colors.white,
-                //   child: Container(
-                //     height: 45,
-                //     child: DropdownButtonFormField<String>(
-                //      // isExpanded: true,
-                //       value: _selectedSubCategory,
-                //       decoration: InputDecoration(
-                //         contentPadding: EdgeInsets.symmetric(horizontal: 10), // Adjust padding
-                //         labelText: 'Sub Category',
-                //         labelStyle: AppTextStyle.font14penSansExtraboldBlack45TextStyle, // Set label color
-                //         border: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10.0),
-                //           borderSide: BorderSide(color: Colors.orange), // Outline color
-                //         ),
-                //       ),
-                //       style: TextStyle(color: Colors.black), // Set selected value color
-                //       dropdownColor: Colors.orange, // Set dropdown background color
-                //       items: ['Sub Category 1', 'Sub Category 2']
-                //           .map((label) => DropdownMenuItem(
-                //         child: Center(child: Text(label)), // Center the dropdown items
-                //         value: label,
-                //       ))
-                //           .toList(),
-                //       onChanged: (value) {
-                //         setState(() {
-                //           _selectedSubCategory = value;
-                //         });
-                //       },
-                //       validator: (value) {
-                //         if (value == null) {
-                //           return 'Please select a sub category';
-                //         }
-                //         return null;
-                //       },
-                //     ),
-                //   ),
-                // ),
-
-                // Card(
-                //   elevation: 8,
-                //   shadowColor: Colors.orange, // Set the shadow color
-                //   color: Colors.white,
-                //   child: Container(
-                //     height: 55,
-                //     child: DropdownButtonFormField<String>(
-                //       value: _selectedSubCategory,
-                //       decoration: InputDecoration(
-                //         labelText: 'Sub Category',
-                //         border: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10.0),
-                //           borderSide: BorderSide(color: Colors.orange), // Outline color
-                //         ),
-                //       ),
-                //       style: TextStyle(color: Colors.black45,fontSize: 14), // Set selected value color
-                //       dropdownColor: Colors.orange, // Set dropdown background color
-                //       items: ['Sub Category 1', 'Sub Category 2']
-                //           .map((label) => DropdownMenuItem(
-                //         child: Center(child: Text(label)), // Center the dropdown items
-                //         value: label,
-                //       ))
-                //           .toList(),
-                //       onChanged: (value) {
-                //         setState(() {
-                //           _selectedSubCategory = value;
-                //         });
-                //       },
-                //       validator: (value) {
-                //         if (value == null) {
-                //           return 'Please select a sub category';
-                //         }
-                //         return null;
-                //       },
-                //     ),
-                //   ),
-                // ),
-                // Container(
-                //   height: 40,
-                //   child: DropdownButtonFormField<String>(
-                //     value: _selectedSubCategory,
-                //     decoration: InputDecoration(
-                //       labelText: 'Sub Category',
-                //       border: OutlineInputBorder(
-                //         borderRadius: BorderRadius.circular(10.0),
-                //       ),
-                //     ),
-                //     items: ['Sub Category 1', 'Sub Category 2']
-                //         .map((label) => DropdownMenuItem(
-                //       child: Text(label),
-                //       value: label,
-                //     ))
-                //         .toList(),
-                //     onChanged: (value) {
-                //       setState(() {
-                //         _selectedSubCategory = value;
-                //       });
-                //     },
-                //     validator: (value) {
-                //       if (value == null) {
-                //         return 'Please select a sub category';
-                //       }
-                //       return null;
-                //     },
-                //   ),
-                // ),
                 SizedBox(height: 16.0),
                 Card(
                   elevation: 8,
@@ -283,32 +160,6 @@ class _GrievanceFormState extends State<GrievanceForm> {
                     ),
                   ),
                 ),
-                // DropdownButtonFormField<String>(
-                //   value: _selectedWard,
-                //   decoration: InputDecoration(
-                //     labelText: 'Ward',
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.circular(10.0),
-                //     ),
-                //   ),
-                //   items: ['Ward 1', 'Ward 2']
-                //       .map((label) => DropdownMenuItem(
-                //     child: Text(label),
-                //     value: label,
-                //   ))
-                //       .toList(),
-                //   onChanged: (value) {
-                //     setState(() {
-                //       _selectedWard = value;
-                //     });
-                //   },
-                //   validator: (value) {
-                //     if (value == null) {
-                //       return 'Please select a ward';
-                //     }
-                //     return null;
-                //   },
-                // ),
                 SizedBox(height: 16.0),
                 Card(
                   elevation: 8,
@@ -329,20 +180,6 @@ class _GrievanceFormState extends State<GrievanceForm> {
                         ),
                       ),
                     ),
-                    // child:TextFormField(
-                    //     decoration: InputDecoration(
-                    //       labelText: 'Category',
-                    //       border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(5.0),
-                    //       ),
-                    //     ),
-                    //     validator: (value) {
-                    //       if (value!.isEmpty) {
-                    //         return 'Please enter a category';
-                    //       }
-                    //       return null;
-                    //     },
-                    //   ),
                   ),
                 ),
                 SizedBox(height: 16.0),
@@ -365,20 +202,6 @@ class _GrievanceFormState extends State<GrievanceForm> {
                         ),
                       ),
                     ),
-                    // child:TextFormField(
-                    //     decoration: InputDecoration(
-                    //       labelText: 'Category',
-                    //       border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(5.0),
-                    //       ),
-                    //     ),
-                    //     validator: (value) {
-                    //       if (value!.isEmpty) {
-                    //         return 'Please enter a category';
-                    //       }
-                    //       return null;
-                    //     },
-                    //   ),
                   ),
                 ),
                 SizedBox(height: 16.0),
@@ -401,20 +224,6 @@ class _GrievanceFormState extends State<GrievanceForm> {
                         ),
                       ),
                     ),
-                    // child:TextFormField(
-                    //     decoration: InputDecoration(
-                    //       labelText: 'Category',
-                    //       border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(5.0),
-                    //       ),
-                    //     ),
-                    //     validator: (value) {
-                    //       if (value!.isEmpty) {
-                    //         return 'Please enter a category';
-                    //       }
-                    //       return null;
-                    //     },
-                    //   ),
                   ),
                 ),
                 SizedBox(height: 16.0),

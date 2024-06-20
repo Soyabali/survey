@@ -74,16 +74,19 @@ class _MyHomePageState extends State<ComplaintHomePage> {
           style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
         ),
         actions: [
-          IconButton(
-              icon: Icon(Icons.info),
-              onPressed: () {
-               //
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const NotificationPage()),
-                );
-              },
-            ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+                icon: Icon(Icons.notification_add,color: Colors.white,size: 25,),
+                onPressed: () {
+                 //
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const NotificationPage()),
+                  );
+                },
+              ),
+          ),
         ],
         centerTitle: true,
       ),

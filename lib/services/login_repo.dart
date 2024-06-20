@@ -11,11 +11,11 @@ class RegistrationRepo {
   // this is a loginApi call functin
   GeneralFunction generalFunction = GeneralFunction();
 
-  Future authenticate(BuildContext context, String number, String name) async {
+  Future authenticate(BuildContext context, String phone, String name) async {
 
     try {
-      print('----Number-----17--$number');
-      print('----name------18-$name');
+      print('----phone-----17--$phone');
+      print('----password------18-$name');
 
       var baseURL = BaseRepo().baseurl;
       var endPoint = "CitizenRegistration/CitizenRegistration";
@@ -27,7 +27,7 @@ class RegistrationRepo {
       var request = http.Request(
           'POST',
           Uri.parse('$registrationApi'));
-      request.body = json.encode({"sContactNo": number, "sCitizenName": name});
+      request.body = json.encode({"sContactNo": phone, "sCitizenName": name});
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       var map;

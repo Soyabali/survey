@@ -9,6 +9,7 @@ import '../../app/generalFunction.dart';
 import '../../services/login_repo.dart';
 import '../homepage/homepage.dart';
 import '../login/loginScreen_2.dart';
+import '../otp/otpverification.dart';
 import '../resources/app_text_style.dart';
 import '../resources/custom_elevated_button.dart';
 import '../resources/values_manager.dart';
@@ -191,11 +192,11 @@ class _LoginPageState extends State<LoginPage> {
                                 textInputAction: TextInputAction.next,
                                 onEditingComplete: () =>
                                     FocusScope.of(context).nextFocus(),
-                                keyboardType: TextInputType.phone,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(10), // Limit to 10 digits
-                                  //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                ],
+                                //keyboardType: TextInputType.phone,
+                                // inputFormatters: [
+                                //   LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                //   //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                // ],
                                 decoration: const InputDecoration(
                                   // labelText: 'Mobile',
                                   label: Padding(
@@ -296,18 +297,19 @@ class _LoginPageState extends State<LoginPage> {
                                   onTap: () async {
                                   //  getLocation();
                                     var phone = _phoneNumberController.text;
-                                    var password = nameController.text;
+                                    var name = nameController.text;
                                     print('----440---$phone');
-                                    print('----441---$password');
+                                    print('----441---$name');
                                     print('------363----To hit Api---');
-                                    if(_formKey.currentState!.validate() && phone!=null || phone.isNotEmpty
-                                        && password!=null || password.isNotEmpty){
+                                    if(_formKey.currentState!.validate() && phone!=null
+                                        && name!=null){
                                       print('------362----To hit Api---');
                                       loginMap = await RegistrationRepo()
-                                                 .authenticate(context, phone!, password!);
+                                                 .authenticate(context, phone!, name!);
                                       print('-----366---$loginMap');
                                            result = "${loginMap['Result']}";
                                            msg = "${loginMap['Msg']}";
+                                           print('----311---msg--$msg');
 
                                     }else{
                                           if(_phoneNumberController.text.isEmpty){
@@ -317,11 +319,14 @@ class _LoginPageState extends State<LoginPage> {
                                           }
                                     }
                                     if(result=="1"){
-
-                                         print('----Success---');
-
-                                         Fluttertoast.showToast(
-                                             msg: "This is a Toast message",
+                                      print('----Success---');
+                                     // displayToast(msg);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const OtpPage(phone: "",)),
+                                      );
+                                      Fluttertoast.showToast(
+                                             msg: msg,
                                              toastLength: Toast.LENGTH_SHORT,
                                              gravity: ToastGravity.CENTER,
                                              timeInSecForIosWeb: 1,
@@ -331,7 +336,16 @@ class _LoginPageState extends State<LoginPage> {
 
                                     }else{
                                       print('----Failed---');
-                                      _showToast(context,msg);
+                                      Fluttertoast.showToast(
+                                          msg: msg,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIosWeb: 1,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0
+                                      );
+                                      //_showToast(context,msg);
+                                     // displayToast(msg);
                                     }
                                    },
 
@@ -436,4 +450,16 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  // toast code
+  void displayToast(String msg){
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
 }
