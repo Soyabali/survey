@@ -36,7 +36,7 @@ class _EventsWebViewState extends State<EventsWebViewStack> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)  // Enable JavaScript
       ..loadRequest(
-        Uri.parse('https://cmcswm.com/News/details.html'),
+        Uri.parse('https://www.tourmyindia.com/states/odisha/puri-beach-festival.html'),
       );
   }
 

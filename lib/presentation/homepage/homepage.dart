@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../complaints/complaintHomePage.dart';
 import '../helpline_feedback/helplinefeedback.dart';
 import '../login/loginScreen_2.dart';
 import '../resources/app_strings.dart';
@@ -192,11 +194,32 @@ class _MyHomePageState extends State<MyHomePage> {
                             right: containerSize * 0.06,
                             left: containerSize * 0.75,
                           child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => LoginScreen_2()),
-                              );
+                            onTap: ()async {
+
+                              print('---complaintHomePage---');
+
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              String? token = prefs.getString('sToken');
+                              print('----TOKEN---87---$token');
+                              if(token!=null ){
+                                print('-----89---HomeScreen');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                                );
+                              }else{
+                                print('-----91----LoginScreen');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                                );
+                              }
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                              // );
+
                               },
                             child: Container(
                               width: containerSize * 0.2,

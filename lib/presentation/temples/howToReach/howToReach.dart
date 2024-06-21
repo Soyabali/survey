@@ -179,7 +179,7 @@ class _TemplesHomeState extends State<HowToReach> {
               ),
               SizedBox(height: 15),
               Center(
-                child: Text('BY TRAIN',
+                child: Text('By Train',
                     style: AppTextStyle
                         .font18penSansExtraboldRedTextStyle),
               ),
@@ -242,7 +242,7 @@ From Mumbai: Konark Express (11019)
               ),
               SizedBox(height: 10),
               Center(
-                child: Text('BY Air',
+                child: Text('By Air',
                     style: AppTextStyle
                         .font18penSansExtraboldRedTextStyle),
               ),

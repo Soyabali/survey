@@ -1,11 +1,9 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:puri/presentation/temples/emergency/policeStation.dart';
-import '../../../app/navigationUtils.dart';
-import 'administration.dart';
 import 'hospital.dart';
 
 class EmergencyHome extends StatefulWidget {
@@ -29,22 +27,17 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
     {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
   ];
 
+
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +59,8 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
                         indicatorColor: Colors.transparent,
                         labelColor: Colors.red,
                         isScrollable:true,
-                        labelPadding: EdgeInsets.only(right: 45.0),
+                        //labelPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                        labelPadding: EdgeInsets.only(left: 20,right: 40),
                         unselectedLabelColor: Colors.black45,
 
                         tabs: const [
@@ -75,7 +69,9 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image(image: AssetImage("assets/images/facilities.png"),height: 25,width: 25,
+                                Image(image: AssetImage("assets/images/facilities.png"),
+                                  height: 25,
+                                  width: 25,
                                   fit: BoxFit.cover,
                                 ),
                                 SizedBox(height: 2),
@@ -96,18 +92,18 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
                               ],
                             ),
                           ),
-                          Tab(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image(image: AssetImage("assets/images/administrationfade.png"),height: 25,width: 25,
-                                  fit: BoxFit.cover,),
-                                SizedBox(height: 2),
-                                Text('ADMINISTRATION',style: TextStyle(fontSize: 12),)
-                              ],
-                            ),
-                          ),
+                          // Tab(
+                          //   child: Column(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     children: [
+                          //       Image(image: AssetImage("assets/images/administrationfade.png"),height: 25,width: 25,
+                          //         fit: BoxFit.cover,),
+                          //       SizedBox(height: 2),
+                          //       Text('ADMINISTRATION',style: TextStyle(fontSize: 12),)
+                          //     ],
+                          //   ),
+                          // ),
 
 
                         ]),
@@ -123,7 +119,7 @@ class _FacilitiesHomeState extends State<EmergencyHome> with SingleTickerProvide
                         // CookiePage(),
                         Hospital(),
                         PoliceStation(),
-                        Administration(),
+                       // Administration(),
                       ],
                     ),
                   ),

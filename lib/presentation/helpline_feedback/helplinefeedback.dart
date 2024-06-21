@@ -54,21 +54,12 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
     super.initState();
     print('-----27--${widget.name}');
     print('-----28--${widget.image}');
-    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    //BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -325,7 +316,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
-                                            Text('puri@gmial.com',
+                                            Text('puri@gmail.com',
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldBlack45TextStyle),
                                             SizedBox(height: 5),

@@ -57,7 +57,8 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
                     indicatorColor: Colors.transparent,
                     labelColor: Colors.red,
                     isScrollable:true,
-                    labelPadding: EdgeInsets.only(right: 45.0),
+                   // labelPadding: EdgeInsets.only(right: 45.0),
+                    labelPadding: EdgeInsets.only(left: 0,right: 30),
                     unselectedLabelColor: Colors.black45,
 
                     tabs: const [

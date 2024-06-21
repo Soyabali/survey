@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../app/navigationUtils.dart';
 import '../../services/verifyAppVersion.dart';
+import '../complaints/complaintHomePage.dart';
 import '../homepage/homepage.dart';
 import '../login/loginScreen_2.dart';
 import '../resources/app_strings.dart';
@@ -82,7 +83,24 @@ class _SplaceState extends State<SplashView> {
    // getlocalDataBaseValue();
     super.initState();
   }
-
+  getlocalDataBaseValue() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('sToken');
+    print('----TOKEN---87---$token');
+    if(token!=null ){
+      print('-----89---HomeScreen');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+      );
+    }else{
+      print('-----91----LoginScreen');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen_2()),
+      );
+    }
+  }
   versionAliCall() async{
     /// TODO HERE YOU SHOULD CHANGE APP VERSION FLUTTER VERSION MIN 3 DIGIT SUCH AS 1.0.0
     /// HERE YOU PASS variable _appVersion

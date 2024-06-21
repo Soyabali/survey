@@ -2,6 +2,7 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/presentation/complaints/raiseGrievance/onlineComplaint.dart';
 import 'package:puri/presentation/complaints/raiseGrievance/onlineComplaint_2.dart';
@@ -12,6 +13,7 @@ import '../birth_death/birthanddeath.dart';
 import '../bookAdvertisement/bookAdvertisement.dart';
 import '../emergencyContact/emergencyContact.dart';
 import '../eventsAndNewsletter/eventsAndNewsletter.dart';
+import '../homepage/homepage.dart';
 import '../knowyourward/KnowYourWard.dart';
 import '../marriageCertificate/marriageCertificate.dart';
 import '../notification/notification.dart';
@@ -59,7 +61,16 @@ class _MyHomePageState extends State<ComplaintHomePage> {
         toolbarOpacity: 0.5,
         leading: InkWell(
           onTap: () {
-            Navigator.pop(context);
+          //  Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  HomePage()),
+            );
+          //   if (Navigator.canPop(context)) {
+          //     Navigator.pop(context);
+          //   } else {
+          //     SystemNavigator.pop();
+          //   }
           },
           child: Padding(
             padding: const EdgeInsets.all(16.0), // Adjust padding if necessary

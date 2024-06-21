@@ -145,13 +145,18 @@ class _TemplesHomeState extends State<NearByPlace> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  Icon(Icons.location_on,size: 16,color: Colors.red),
+                                                  Icon(Icons.location_on, size: 16, color: Colors.red),
                                                   SizedBox(width: 5),
-                                                  Text('Masani Link Road Bypass Mathur',
-                                                      style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
-
+                                                  Expanded(
+                                                    child: Text(
+                                                      '3.6 km drive to Shree Jagannath Temple',
+                                                      style: AppTextStyle.font10penSansExtraboldBlack45TextStyle,
+                                                      overflow: TextOverflow.ellipsis, // Optional: Adds "..." at the end if text is too long
+                                                    ),
+                                                  ),
                                                 ],
                                               )
+
 
                                             ],
 
