@@ -1,11 +1,9 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/presentation/temples/facilities/taxi/taxiStand.dart';
 import 'package:puri/presentation/temples/facilities/taxi/taxihome.dart';
-
-import '../../../../app/navigationUtils.dart';
 
 
 class Taxi extends StatefulWidget {
@@ -19,11 +17,11 @@ class _FacilitiesHomeState extends State<Taxi> with SingleTickerProviderStateMix
 
   TabController? _tabController;
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'image': 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201804/ola_1.jpeg','texi': 'Ola Cabs'},
+    {'image': 'https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F72721ab5-fb03-40f9-bfa6-332d5c02e2c7.jpg?source=next-article&fit=scale-down&quality=highest&width=700&dpr=1','texi': 'Uber'},
+    {'image': 'https://play-lh.googleusercontent.com/JfA0mDgT-llt2A7R848ooAIfvu00eSgE1GKNs6hybN8SU-lgwcRnqtJL8nIUt178s8I','texi': 'Savaari Car Rentals'},
+    {'image': ' https://content.jdmagicbox.com/comp/bhubaneshwar/u4/0674px674.x674.220914102230.u2u4/catalogue/sadashiv-travels-budheshwari-colony-bhubaneshwar-taxi-services-xj9oivsf08.jpg','texi': 'Odisha Taxi'},
+    {'image': 'https://i.pinimg.com/236x/1d/b2/ae/1db2ae9b0700f5911e74208d713882ce.jpg','texi': 'Puri Taxi Service'},
   ];
 
   @override

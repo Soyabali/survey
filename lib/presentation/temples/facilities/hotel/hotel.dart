@@ -16,11 +16,11 @@ class _TemplesHomeState extends State<Hotel> {
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'hotel': 'https://img.directhotels.com/in/puri/pipul-hotels-and-resorts/1.jpg','hotelName': 'La Platina Premium Suites'},
+    {'hotel': 'https://pix10.agoda.net/hotelImages/111023/0/2b6a5105eb42667cf2f7e94626246798.jpeg?s=414x232','hotelName': 'Hotel Shakti International'},
+    {'hotel': 'https://r2imghtlak.ibcdn.com/r2-mmt-htl-image/htl-imgs/202312061230018069-c842d3e9-97b0-40d1-b33a-aba4afa111a9.jpg?downsize=634:357','hotelName': 'Regenta Central'},
+    {'hotel': 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/349221608.jpg?k=b945f104ca614fd5d9d289ac72ff8c4aa598252b3c131da702eb5e20ec61be9c&o=&hp=1','hotelName': 'The Hans Coco Palms'},
+    {'hotel': 'https://images.hichee.com/eyJidWNrZXQiOiJoYy1pbWFnZXMtcHJvZCIsImVkaXRzIjp7InJlc2l6ZSI6eyJoZWlnaHQiOjMzMCwid2lkdGgiOjc2N30sInRvRm9ybWF0Ijoid2VicCJ9LCJrZXkiOiJodHRwczovL3QtY2YuYnN0YXRpYy5jb20veGRhdGEvaW1hZ2VzL2hvdGVsL21heDEwMjR4NzY4LzQxNTYyNDI2Ny5qcGc/az1mYjY1OWIzMmI2N2E1Yjc5M2EzOTgzMWE0NDI4NWFjNjNkYmYyYTAwOGViOTk1YzhjNWY5Njg1OWZhYTY2MzZlJm89In0=?signature=4ec1e65339ba4ca027841a2cf17509b0aabd3c085323c8cd69c2cd4c60483979','hotelName': 'The Yellow Hotel'},
   ];
 
   @override
@@ -59,8 +59,8 @@ class _TemplesHomeState extends State<Hotel> {
                             ),
                             child: InkWell(
                               onTap: (){
-                                var templeName = "${itemList[index]['temple']}";
-                                var image  =  "${itemList[index]['image']}";
+                                var templeName = "${itemList[index]['hotelName']}";
+                                var image  =  "${itemList[index]['hotel']}";
                                 print('-----165---$templeName');
                                 print('-----166---$image');
                                 // navigator
@@ -80,7 +80,7 @@ class _TemplesHomeState extends State<Hotel> {
                                       ),
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(5.0),
-                                          child: Image.network('${itemList[index]['image']}',
+                                          child: Image.network('${itemList[index]['hotel']}',
                                             height: 90,
                                             width: 90,
                                             fit: BoxFit.cover,)),
@@ -98,7 +98,7 @@ class _TemplesHomeState extends State<Hotel> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('Brijwasi Lands Inn',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                              Text('${itemList[index]['hotelName']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                               //   style: TextStyle(
                                               //     color: Colors.red,fontSize: 16
                                               // ),),
@@ -154,20 +154,6 @@ class _TemplesHomeState extends State<Hotel> {
                                           ),
 
                                         ),
-
-                                        // child: ListTile(
-                                        //     title: Text(
-                                        //       "${itemList[index]['temple']}",
-                                        //       style: TextStyle(
-                                        //         color: Colors.red,
-                                        //         fontSize: 14,
-                                        //       ),
-                                        //     ),
-                                        //     trailing: Image.asset('assets/images/arrow.png',
-                                        //       height: 12,
-                                        //       width: 12,
-                                        //     )
-                                        // ),
                                       ),
                                     ),
                                   ),

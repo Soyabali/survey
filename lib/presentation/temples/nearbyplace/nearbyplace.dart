@@ -1,9 +1,7 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
-import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 
 
@@ -19,11 +17,11 @@ class _TemplesHomeState extends State<NearByPlace> {
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'image': "https://media2.thrillophilia.com/images/photos/000/191/420/original/1581338298_A-kettle-elegantly-painted-using-Odisha'-traditional-art-forms..jpg?w=753&h=450&dpr=1.0",'nearbyPlace': 'Raghurajpur','distance':'10.0 Km'},
+    {'image': "https://media2.thrillophilia.com/images/photos/000/191/431/original/1581339067_Konark_Surya_Temple.jpg?w=753&h=450&dpr=1.0",'nearbyPlace': 'Konark','distance':'35.8 Km'},
+    {'image': "https://media2.thrillophilia.com/images/photos/000/191/432/original/1581339281_1*q4MrUIdwiuVg13iZ71wjTw.jpeg?w=753&h=450&dpr=1.0",'nearbyPlace': 'Chilika Lake','distance':'37.0 Km'},
+    {'image': "https://media2.thrillophilia.com/images/photos/000/191/429/original/1581338781_fixedw_large_4x.jpg?w=753&h=450&dpr=1.0",'nearbyPlace': 'Pipili','distance':'37.2 Km'},
+    {'image': "https://media2.thrillophilia.com/images/photos/000/191/436/original/1581339706_Chandipur_Bearch_2B2.jpg?w=753&h=450&dpr=1.0",'nearbyPlace': 'Astaranga Beach','distance':'60.8 Km'},
   ];
 
   @override
@@ -35,14 +33,8 @@ class _TemplesHomeState extends State<NearByPlace> {
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +68,7 @@ class _TemplesHomeState extends State<NearByPlace> {
                             ),
                             child: InkWell(
                               onTap: (){
-                                var templeName = "${itemList[index]['temple']}";
+                                var templeName = "${itemList[index]['nearbyPlace']}";
                                 var image  =  "${itemList[index]['image']}";
                                 print('-----165---$templeName');
                                 print('-----166---$image');
@@ -97,7 +89,10 @@ class _TemplesHomeState extends State<NearByPlace> {
                                       ),
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(5.0),
-                                          child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
+                                          child: Image.network('${itemList[index]['image']}',
+                                            height: 90,
+                                            width: 90,
+                                            fit: BoxFit.fill)),
 
                                     ),
                                   ),
@@ -112,7 +107,7 @@ class _TemplesHomeState extends State<NearByPlace> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('Brijwasi Lands Inn',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                              Text('${itemList[index]['nearbyPlace']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                               //   style: TextStyle(
                                               //     color: Colors.red,fontSize: 16
                                               // ),),
@@ -149,7 +144,7 @@ class _TemplesHomeState extends State<NearByPlace> {
                                                   SizedBox(width: 5),
                                                   Expanded(
                                                     child: Text(
-                                                      '3.6 km drive to Shree Jagannath Temple',
+                                                      '${itemList[index]['distance']}',
                                                       style: AppTextStyle.font10penSansExtraboldBlack45TextStyle,
                                                       overflow: TextOverflow.ellipsis, // Optional: Adds "..." at the end if text is too long
                                                     ),

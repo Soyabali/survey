@@ -19,11 +19,11 @@ class _TemplesHomeState extends State<PoliceStation> {
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','policeStation': 'Sadar Police Station','address': "RR4M+568, VIP Rd"},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','policeStation': 'Town Police Station, Puri','address':"RR5F+C4W, Grand Rd"},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','policeStation': 'Sea Beach Police','address':"QRWG+R88, Bhanumati Rd"},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','policeStation': 'Kumbharapada Police','address':"NH-203"},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','policeStation': 'Baliapanda Police Station','address':"RR25+F2C, Manisha Rd"},
+    {'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo4hFVUQ1RFn01P3PMpMuFO5SvdwbPTeLBFg&s','policeStation': 'Sadar Police Station','address': "RR4M+568, VIP Rd"},
+    {'image': 'https://cawach.odisha.gov.in/wp-content/uploads/2022/11/1-13.jpg','policeStation': 'Town Police Station, Puri','address':"RR5F+C4W, Grand Rd"},
+    {'image': 'https://odishabytes.com/wp-content/uploads/2023/04/WhatsApp-Image-2023-04-08-at-3.23.09-PM-1200x900.jpeg','policeStation': 'Sea Beach Police','address':"QRWG+R88, Bhanumati Rd"},
+    {'image': 'https://odishabytes.com/wp-content/uploads/2023/08/Kumbharapada-PS-1200x680.jpg','policeStation': 'Kumbharapada Police','address':"NH-203"},
+    {'image': 'https://pbs.twimg.com/profile_images/1429833527332200449/qhi9b5jb_400x400.jpg','policeStation': 'Baliapanda Police Station','address':"RR25+F2C, Manisha Rd"},
   ];
   @override
   void initState() {

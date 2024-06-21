@@ -19,28 +19,21 @@ class _TemplesHomeState extends State<Restaurant> {
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'image': 'https://media-cdn.tripadvisor.com/media/photo-s/03/f9/73/21/cozy-corner.jpg','resturant': 'Wildgrass Restaurant'},
+    {'image': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/78/dc/00/img-20161030-185218-largejpg.jpg?w=1200&h=-1&s=1','resturant': 'Honey Bee Bakery'},
+    {'image': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/b3/a6/10/the-swimming-breakfast.jpg?w=1200&h=-1&s=1','resturant': 'Pink House'},
+    {'image': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/03/5f/b7/f6/the-muesli-is-a-fruity.jpg?w=1200&h=-1&s=1','resturant': 'Peace Restaurant'},
+    {'image': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/ee/46/a1/chung-wah-restaurant.jpg?w=1200&h=-1&s=1','resturant': 'Chung Wah'},
   ];
 
   @override
   void initState() {
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
   @override
   void dispose() {
-    //BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +64,7 @@ class _TemplesHomeState extends State<Restaurant> {
                             ),
                             child: InkWell(
                               onTap: (){
-                                var templeName = "${itemList[index]['temple']}";
+                                var templeName = "${itemList[index]['resturant']}";
                                 var image  =  "${itemList[index]['image']}";
                                 print('-----165---$templeName');
                                 print('-----166---$image');
@@ -106,7 +99,7 @@ class _TemplesHomeState extends State<Restaurant> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('Bansal Foods Restaurant',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                              Text('${itemList[index]['resturant']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [

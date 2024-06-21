@@ -1,12 +1,10 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../app/navigationUtils.dart';
 import '../../../resources/app_text_style.dart';
-
 
 
 class TaxiStand extends StatefulWidget {
@@ -21,11 +19,11 @@ class _TemplesHomeState extends State<TaxiStand> {
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQElHdWqGYhJz_ufGreO5sEm5LQ-2j-6sNurw&s','taxiStand': 'Shree Jagannath Tour'},
+    {'image': 'https://content.jdmagicbox.com/comp/puri/f5/9999p6752.6752.171209103543.e4f5/catalogue/modern-travels-puri-travel-agents-u8uooi1hn0.jpg','taxiStand': 'Modern Travels'},
+    {'image': 'https://content3.jdmagicbox.com/comp/puri/j3/9999p6752.6752.150730112701.k5j3/catalogue/falana-tours-and-travel-pvt-ltd-puri-station-road-puri-travel-agents-xgpiyvawy9.jpg','taxiStand': 'Falana Tours & Travel Pvt'},
+    {'image': 'https://content3.jdmagicbox.com/comp/puri/e6/9999p6752.6752.190916223804.a5e6/catalogue/flowers-tours-and-travels-puri-main-road-puri-travel-agents-xn7hsx419r.jpg','taxiStand': 'Flowers Tours and Travels'},
+    {'image': 'https://media-cdn.tripadvisor.com/media/photo-s/1c/00/56/81/bbsrtaxi-provides-cab.jpg','taxiStand': 'Jagannath Taxi Service'},
   ];
 
   @override
@@ -78,7 +76,7 @@ class _TemplesHomeState extends State<TaxiStand> {
                           ),
                           child: InkWell(
                             onTap: (){
-                              var templeName = "${itemList[index]['temple']}";
+                              var templeName = "${itemList[index]['taxiStand']}";
                               var image  =  "${itemList[index]['image']}";
                               print('-----165---$templeName');
                               print('-----166---$image');
@@ -99,7 +97,7 @@ class _TemplesHomeState extends State<TaxiStand> {
                                     ),
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5.0),
-                                        child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
+                                        child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.fill,)),
 
                                   ),
                                 ),
@@ -114,7 +112,7 @@ class _TemplesHomeState extends State<TaxiStand> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Army Taxi Stand',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                            Text('${itemList[index]['taxiStand']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 40),
                                             InkWell(
                                               onTap: (){

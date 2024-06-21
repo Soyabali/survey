@@ -19,11 +19,11 @@ class _TemplesHomeState extends State<TaxiHome> {
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
-    {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Jagannath Temple'},
-    {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'PanchaTirtha'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Lokanath Temple'},
-    {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Vimala Temple'},
-    {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Varahi Temple'},
+    {'image': 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201804/ola_1.jpeg','texi': 'Ola Cabs'},
+    {'image': 'https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F72721ab5-fb03-40f9-bfa6-332d5c02e2c7.jpg?source=next-article&fit=scale-down&quality=highest&width=700&dpr=1','texi': 'Uber'},
+    {'image': 'https://play-lh.googleusercontent.com/JfA0mDgT-llt2A7R848ooAIfvu00eSgE1GKNs6hybN8SU-lgwcRnqtJL8nIUt178s8I','texi': 'Savaari Car Rentals'},
+    {'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTwIuRZQqZu2Ww9lfkGrB_AIL5CRHpd0FLlA&s','texi': 'Odisha Taxi'},
+    {'image': 'https://i.pinimg.com/236x/1d/b2/ae/1db2ae9b0700f5911e74208d713882ce.jpg','texi': 'Puri Taxi Service'},
   ];
 
 
@@ -34,14 +34,8 @@ class _TemplesHomeState extends State<TaxiHome> {
   }
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -49,133 +43,134 @@ class _TemplesHomeState extends State<TaxiHome> {
       backgroundColor: Colors.white,
       // appBar
       body: Container(
-        child: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 5,right: 5,bottom: 10),
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: ListView.builder(
-                    itemCount: itemList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        // padding: EdgeInsets.only(left: 5,right: 5),
-                        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            //color: Colors.red,
-                            border: Border.all(
-                              color: Colors.orange, // Set the golden border color
-                              width: 1.0, // Set the width of the border
+          child: ListView(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 5,right: 5,bottom: 10),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: ListView.builder(
+                      itemCount: itemList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          // padding: EdgeInsets.only(left: 5,right: 5),
+                          padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              //color: Colors.red,
+                              border: Border.all(
+                                color: Colors.orange, // Set the golden border color
+                                width: 1.0, // Set the width of the border
+                              ),
                             ),
-                          ),
-                          child: InkWell(
-                            onTap: (){
-                              var templeName = "${itemList[index]['temple']}";
-                              var image  =  "${itemList[index]['image']}";
-                              print('-----165---$templeName');
-                              print('-----166---$image');
-                              // navigator
-                              // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
-                              //     templeName:templeName,image:image)));
-                            },
+                            child: InkWell(
+                              onTap: (){
+                                var templeName = "${itemList[index]['texi']}";
+                                var image  =  "${itemList[index]['image']}";
+                                print('-----165---$templeName');
+                                print('-----166---$image');
+                                // navigator
+                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
+                                //     templeName:templeName,image:image)));
+                              },
 
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                    height: 90,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Container(
+                                      height: 90,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          child: Image.network('${itemList[index]['image']}',
+                                            height: 90,
+                                            width: 90, fit: BoxFit.fill,)),
+
                                     ),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
-
                                   ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 110,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(top: 20),
+                                  Expanded(
+                                    child: Container(
+                                      height: 110,
                                       child: Padding(
-                                        padding: EdgeInsets.only(left: 10),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text('Tata Indigo (AC)',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
-                                            SizedBox(height: 5),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Text('Seats:',
-                                                    style:AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                        padding: EdgeInsets.only(top: 20),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 10),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text('${itemList[index]['texi']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                              SizedBox(height: 5),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Text('Seats:',
+                                                      style:AppTextStyle.font14penSansExtraboldRedTextStyle),
 
-                                                SizedBox(width: 5),
-                                                Text('4+1',
-                                                    style:AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                              ],
-                                            ),
-                                            SizedBox(height: 5),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Text('Fare:',
-                                                    style:AppTextStyle.font14penSansExtraboldRedTextStyle),
-                                                SizedBox(width: 5),
-                                                Text('₹12.0 per km',
-                                                    style:AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                                              ],
-                                            ),
-                                          ],
+                                                  SizedBox(width: 5),
+                                                  Text('4+1',
+                                                      style:AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                                ],
+                                              ),
+                                              SizedBox(height: 5),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Text('Fare:',
+                                                      style:AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                                  SizedBox(width: 5),
+                                                  Text('₹12.0 per km',
+                                                      style:AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topRight,
-                                        child: Image.asset(
-                                          "assets/images/listelementtop.png",
-                                          height: 25,
-                                          width: 25,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: Image.asset(
+                                            "assets/images/listelementtop.png",
+                                            height: 25,
+                                            width: 25,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 35),
-                                      Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Image.asset(
-                                          "assets/images/listelementbottom.png",
-                                          height: 25,
-                                          width: 25,
+                                        SizedBox(height: 35),
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Image.asset(
+                                            "assets/images/listelementbottom.png",
+                                            height: 25,
+                                            width: 25,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-              )
-            ]
+                )
+              ]
+          ),
         ),
-      ),
-      // ],
-    );
+      );
   }
 }
