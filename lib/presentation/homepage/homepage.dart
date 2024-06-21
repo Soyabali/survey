@@ -197,11 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 context,
                                 MaterialPageRoute(builder: (context) => LoginScreen_2()),
                               );
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                                    // );
-                            },
+                              },
                             child: Container(
                               width: containerSize * 0.2,
                               height: containerSize * 0.2,

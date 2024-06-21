@@ -5,10 +5,12 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../app/navigationUtils.dart';
 import '../../services/verifyAppVersion.dart';
 import '../homepage/homepage.dart';
+import '../login/loginScreen_2.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
@@ -77,9 +79,10 @@ class _SplaceState extends State<SplashView> {
     // TODO: implement initState
     checkUserConnection();
     // versionAliCall();
-
+   // getlocalDataBaseValue();
     super.initState();
   }
+
   versionAliCall() async{
     /// TODO HERE YOU SHOULD CHANGE APP VERSION FLUTTER VERSION MIN 3 DIGIT SUCH AS 1.0.0
     /// HERE YOU PASS variable _appVersion

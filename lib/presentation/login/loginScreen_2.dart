@@ -139,184 +139,209 @@ class _LoginPageState extends State<LoginPage> {
               context, 'Suaib Ali', '9871950881'),
           body: Padding(
               padding: const EdgeInsets.only(top: 25),
-              child: Column(
-                  children: <Widget>[
-                    middleHeaderPuri(context, 'Citizen Services'),
-                    Container(
-                        height: AppSize.s145,
-                        width: MediaQuery.of(context).size.width - 50,
-                        margin: const EdgeInsets.all(AppMargin.m20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          image: const DecorationImage(
-                            image: AssetImage(
-                              'assets/images/temple_3.png',
-                            ),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        child: Container()),
-                    GestureDetector(
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
-                      },
-                      child: Form(
+              // child: Column(
+              //     children: <Widget>[
+              //       middleHeaderPuri(context, 'Citizen Services'),
+              //       Container(
+              //           height: AppSize.s145,
+              //           width: MediaQuery.of(context).size.width - 50,
+              //           margin: const EdgeInsets.all(AppMargin.m20),
+              //           decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.circular(8.0),
+              //             image: const DecorationImage(
+              //               image: AssetImage(
+              //                 'assets/images/temple_3.png',
+              //               ),
+              //               fit: BoxFit.fill,
+              //             ),
+              //           ),
+              //           child: Container()),
+                  child:Form(
                         key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(height: 20),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: AppPadding.p15, right: AppPadding.p15),
-
-                              child: TextFormField(
-                                focusNode: phoneNumberfocus,
-                                controller: _phoneNumberController,
-                                textInputAction: TextInputAction.next,
-                                onEditingComplete: () =>
-                                    FocusScope.of(context).nextFocus(),
-                                keyboardType: TextInputType.phone,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(10),
-                                  // Limit to 10 digits
-                                  //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                ],
-                                decoration: const InputDecoration(
-                                 // labelText: 'Mobile',
-                                  label: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
-                                    child: Text('Mobile'),
-                                  ),
-                                  border: OutlineInputBorder(),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.orange),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.orange),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                                  prefixIcon: Icon(
-                                    Icons.phone,
-                                    color: Colors.orange,
-                                  ),
-                                ),
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter mobile number';
-                                  }
-                                  if (value.length > 1 && value.length < 10) {
-                                    return 'Enter 10 digit mobile number';
-                                  }
-                                  return null;
-                                },
-                              ),
-
-                            ),
-                            SizedBox(height: 10),
-                            /// LoginButton code and onclik Operation
-                            Center(
-                              child: Container(
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  // Background color of the container
-                                  borderRadius: BorderRadius.circular(28.0),
-                                  // Circular border radius
-                                  border: Border.all(
-                                    color: Colors.yellow, // Border color
-                                    width: 0.5, // Border width
-                                  ),
-                                ),
-                                child: CustomElevatedButton(
-                                  text: 'Login',
-                                  onTap: () async {
-                                    //  getLocation();
-                                    var phone = _phoneNumberController.text;
-                                    var password = passwordController.text;
-                                    if (_formKey.currentState!.validate() &&
-                                        phone != null) {
-                                      // Call Api
-                                      print('-----311----phone---$phone');
-                                      loginMap =
-                                          await SendOtpForCitizenLoginRepo()
-                                              .sendOtpForCitizenLogin(
-                                                  context, phone!);
-
-                                      print('---311----$loginMap');
-                                      result = "${loginMap['Result']}";
-                                      msg = "${loginMap['Msg']}";
-                                      print('---315----$result');
-                                      print('---316----$msg');
-                                    } else {
-                                      if (_phoneNumberController.text.isEmpty) {
-                                        phoneNumberfocus.requestFocus();
-                                      } else if (passwordController
-                                          .text.isEmpty) {
-                                        passWordfocus.requestFocus();
-                                      }
-                                    } // condition to fetch a response form a api
-                                    if (result == "1") {
-                                      print('--Login Success---');
-                                      _showToast(context, msg);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => OtpPage(
-                                                phone: _phoneNumberController
-                                                    .text)),
-                                      );
-                                    } else {
-                                      _showToast(context, msg);
-                                      print(
-                                          '----373---To display error msg---');
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15, right: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'If you are a new user?',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  SizedBox(width: 8),
-                                  // Add some spacing between the texts
-                                  GestureDetector(
-                                    onTap: () {
-                                      //Handle the click event
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Registration()),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'Register Here',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.blue,
-                                        decoration: TextDecoration.underline,
-                                      ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              middleHeaderPuri(context, 'Citizen Services'),
+                              SizedBox(height: 10),
+                                    
+                                    Container(
+                                        height: AppSize.s145,
+                                        width: MediaQuery.of(context).size.width - 50,
+                                        margin: const EdgeInsets.all(AppMargin.m20),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          image: const DecorationImage(
+                                            image: AssetImage(
+                                              'assets/images/temple_3.png',
+                                            ),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                    ),
+                              
+                              SizedBox(height: 20),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: AppPadding.p15, right: AppPadding.p15),
+                          
+                                child: TextFormField(
+                                  focusNode: phoneNumberfocus,
+                                  controller: _phoneNumberController,
+                                  textInputAction: TextInputAction.next,
+                                  onEditingComplete: () =>
+                                      FocusScope.of(context).nextFocus(),
+                                  keyboardType: TextInputType.phone,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10),
+                                    // Limit to 10 digits
+                                    //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                  ],
+                                  decoration: const InputDecoration(
+                                   // labelText: 'Mobile',
+                                    label: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
+                                      child: Text('Mobile'),
+                                    ),
+                                    border: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.orange),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.orange),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                                    prefixIcon: Icon(
+                                      Icons.phone,
+                                      color: Colors.orange,
                                     ),
                                   ),
-                                ],
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Enter mobile number';
+                                    }
+                                    if (value.length > 1 && value.length < 10) {
+                                      return 'Enter 10 digit mobile number';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                          
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 10),
+                              /// LoginButton code and onclik Operation
+                              Center(
+                                child: Container(
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    // Background color of the container
+                                    borderRadius: BorderRadius.circular(28.0),
+                                    // Circular border radius
+                                    border: Border.all(
+                                      color: Colors.yellow, // Border color
+                                      width: 0.5, // Border width
+                                    ),
+                                  ),
+                                  child: CustomElevatedButton(
+                                    text: 'Login',
+                                    onTap: () async {
+                                      //  getLocation();
+                                      var phone = _phoneNumberController.text;
+                                      var password = passwordController.text;
+                                      if (_formKey.currentState!.validate() &&
+                                          phone != null) {
+                                        // Call Api
+                                        print('-----311----phone---$phone');
+                                        loginMap =
+                                            await SendOtpForCitizenLoginRepo()
+                                                .sendOtpForCitizenLogin(
+                                                    context, phone!);
+                          
+                                        print('---311----$loginMap');
+                                        result = "${loginMap['Result']}";
+                                        msg = "${loginMap['Msg']}";
+                                        print('---315----$result');
+                                        print('---316----$msg');
+                                      } else {
+                                        if (_phoneNumberController.text.isEmpty) {
+                                          phoneNumberfocus.requestFocus();
+                                        } else if (passwordController
+                                            .text.isEmpty) {
+                                          passWordfocus.requestFocus();
+                                        }
+                                      } // condition to fetch a response form a api
+                                      if (result == "1") {
+                                        print('--Login Success---');
+                                        _showToast(context, msg);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => OtpPage(
+                                                  phone: _phoneNumberController
+                                                      .text)),
+                                        );
+                                      } else {
+                                        _showToast(context, msg);
+                                        print(
+                                            '----373---To display error msg---');
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'If you are a new user?',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    SizedBox(width: 8),
+                                    // Add some spacing between the texts
+                                    GestureDetector(
+                                      onTap: () {
+                                        //Handle the click event-
+                          
+                                        print('-----Registration----');
+                          
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => Registration()),
+                                        );
+                                      },
+                          
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(4.0),
+                                        child: Text(
+                                          'Register Here',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.blue,
+                                            decoration: TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 
-                    ),
+                    
+                   
+                   
+                   
+                   
                    //  Spacer(),
                    //  Padding(
                    //   padding: const EdgeInsets.only(left: 80),
@@ -366,9 +391,8 @@ class _LoginPageState extends State<LoginPage> {
                    //      ),
                    // ),
                    //  SizedBox(height: 20),
-                  ],
-                ),
-              ))
+          )
+      )
     );
   }
 
