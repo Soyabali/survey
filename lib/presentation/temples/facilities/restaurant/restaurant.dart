@@ -3,8 +3,10 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import '../../../../app/navigationUtils.dart';
+import '../../../resources/app_colors.dart';
 import '../../../resources/app_text_style.dart';
 
 
@@ -99,7 +101,14 @@ class _TemplesHomeState extends State<Restaurant> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('${itemList[index]['resturant']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                              Text('${itemList[index]['resturant']}',
+                                                  style: GoogleFonts.openSans(
+                                                    color: AppColors.green,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                  )
+                                              ),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
@@ -133,7 +142,7 @@ class _TemplesHomeState extends State<Restaurant> {
                                                     Icon(Icons.location_on,size: 16,color: Colors.red),
                                                     SizedBox(width: 5),
                                                     Text('Beach Area VIP Rd, Puri',
-                                                        style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                                        style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
 
                                                   ],
                                                 ),

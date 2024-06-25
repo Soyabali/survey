@@ -2,8 +2,10 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import '../../../../app/navigationUtils.dart';
+import '../../../resources/app_colors.dart';
 import '../../../resources/app_text_style.dart';
 
 
@@ -103,7 +105,13 @@ class _TemplesHomeState extends State<TaxiHome> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('${itemList[index]['texi']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                              Text('${itemList[index]['texi']}',
+                                                style: GoogleFonts.openSans(
+                                                color: AppColors.green,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle: FontStyle.normal,
+                                              )),
                                               SizedBox(height: 5),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -113,7 +121,7 @@ class _TemplesHomeState extends State<TaxiHome> {
 
                                                   SizedBox(width: 5),
                                                   Text('4+1',
-                                                      style:AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                                      style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
                                                 ],
                                               ),
                                               SizedBox(height: 5),
@@ -124,7 +132,7 @@ class _TemplesHomeState extends State<TaxiHome> {
                                                       style:AppTextStyle.font14penSansExtraboldRedTextStyle),
                                                   SizedBox(width: 5),
                                                   Text('₹12.0 per km',
-                                                      style:AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                                      style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
                                                 ],
                                               ),
                                             ],

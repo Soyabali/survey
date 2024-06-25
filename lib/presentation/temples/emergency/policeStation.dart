@@ -2,8 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
 
 
@@ -94,9 +96,16 @@ class _TemplesHomeState extends State<PoliceStation> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('${itemList[index]['policeStation']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                            Text('${itemList[index]['policeStation']}',
+                                                style: GoogleFonts.openSans(
+                                                  color: AppColors.green,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle: FontStyle.normal,
+                                                )
+                                            ),
                                             SizedBox(height: 8),
-                                            Text('05662233233',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                            Text('05662233233',style: AppTextStyle.font14penSansExtraboldBlack54TextStyle),
                                             SizedBox(height: 8),
                                             InkWell(
                                               onTap: (){
@@ -112,7 +121,7 @@ class _TemplesHomeState extends State<PoliceStation> {
                                                   Icon(Icons.location_on,size: 16,color: Colors.red),
                                                   SizedBox(width: 5),
                                                   Text('${itemList[index]['address']}',
-                                                      style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                                      style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
                                                 ],
                                               ),
                                             )

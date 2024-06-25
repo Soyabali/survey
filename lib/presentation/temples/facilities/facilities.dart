@@ -32,7 +32,7 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
   ];
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -57,8 +57,8 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
                     indicatorColor: Colors.transparent,
                     labelColor: Colors.red,
                     isScrollable:true,
-                   // labelPadding: EdgeInsets.only(right: 45.0),
-                    labelPadding: EdgeInsets.only(left: 0,right: 30),
+                    labelPadding: EdgeInsets.only(right: 65.0),
+                   // labelPadding: EdgeInsets.only(left: 0,right: 0),
                     unselectedLabelColor: Colors.black45,
 
                     tabs: const [
@@ -71,7 +71,9 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
                              fit: BoxFit.cover,
                              ),
                               SizedBox(height: 2),
-                              Text('HOTEL',style: TextStyle(fontSize: 12),)
+                              Text('HOTEL',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),
+
+                              )
                           ],
                         ),
                       ),
@@ -84,7 +86,7 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
                               height: 25,width: 25,
                               fit: BoxFit.cover,),
                             SizedBox(height: 2),
-                            Text('RESTAURANT',style: TextStyle(fontSize: 12),)
+                            Text('RESTAURANT',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),)
                           ],
                         ),
                       ),
@@ -96,24 +98,24 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
                             Image(image: AssetImage("assets/images/parkingfade.png"),height: 25,width: 25,
                             fit: BoxFit.cover,),
                             SizedBox(height: 2),
-                            Text('PARKING',style: TextStyle(fontSize: 12),)
+                            Text('PARKING',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),)
                           ],
                         ),
                       ),
-                      Tab(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image(image: AssetImage("assets/images/taxifade.png"),height: 25,width: 25,
-                                fit: BoxFit.cover,),
-                            //Image.asset("assets/images/facilities.png")
-                            //Icon(Icons.account_box,size: 20,color: Colors.red),
-                            SizedBox(height: 2),
-                            Text('TAXI',style: TextStyle(fontSize: 12),)
-                          ],
-                        ),
-                      ),
+                      // Tab(
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       Image(image: AssetImage("assets/images/taxifade.png"),height: 25,width: 25,
+                      //           fit: BoxFit.cover,),
+                      //       //Image.asset("assets/images/facilities.png")
+                      //       //Icon(Icons.account_box,size: 20,color: Colors.red),
+                      //       SizedBox(height: 2),
+                      //       Text('TAXI',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),)
+                      //     ],
+                      //   ),
+                      // ),
 
                     ]),
               ),
@@ -129,7 +131,7 @@ class _FacilitiesHomeState extends State<FacilitiesHome> with SingleTickerProvid
                     Hotel(),
                     Restaurant(),
                     Parking(),
-                    Taxi(),
+                   // Taxi(),
                   ],
                 ),
               ),

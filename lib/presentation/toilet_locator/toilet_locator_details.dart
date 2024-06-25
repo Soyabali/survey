@@ -44,15 +44,11 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                 padding: const EdgeInsets.only(left: 10,right: 10),
                 child: Container(
                   height:65,
-                  //color: Color(0xFFF5F5F5),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.orange, // Orange border color
                       width: 1.0, // Border width
                     ),
-                    //color: Colors.blue, // Background color
-                   // color: Color(0xFFF5F5F5),
-                    //color: Colors.orange,
                     borderRadius: BorderRadius.circular(5), // Border radius
                   ),
                   child: ListTile(
@@ -75,8 +71,6 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                   ),
               ),
 
-
-
               Column(
                   children: [
                     Card(
@@ -93,37 +87,6 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
-                              // Container(
-                              //      height:55,
-                              //      //color: Color(0xFFF5F5F5),
-                              //   decoration: BoxDecoration(
-                              //    //color: Colors.blue, // Background color
-                              //    color: Color(0xFFF5F5F5),
-                              //    borderRadius: BorderRadius.circular(5), // Border radius
-                              //  ),
-                              //   child: Padding(
-                              //    padding: const EdgeInsets.only(bottom: 15),
-                              //    child: ListTile(
-                              //           leading: Image.asset(
-                              //             'assets/images/toilet.png',
-                              //             width: 30, // Set the width of the image
-                              //             height: 30,
-                              //             fit: BoxFit.fill,
-                              //             // Set the height of the image
-                              //           ),
-                              //           title: Text('Name',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                              //           subtitle: Text('SBM Toilet',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
-                              //           trailing: Container(
-                              //             child: Text('Free',style: AppTextStyle.font16OpenSansRegularRedTextStyle),
-                              //           ),
-                              //           onTap: () {
-                              //             // Handle the tap event here
-                              //           },
-                              //         ),
-                              //  ),
-                              // ),
-
                               SizedBox(height: 5),
                               Text(
                                   "Male",
@@ -649,13 +612,17 @@ class _KnowYourWardState extends State<LoiletLocatorDetails> {
                                         style: AppTextStyle.font16OpenSansRegularRedTextStyle),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 5,right: 0),
-                                        child: Image.asset(
-                                          'assets/images/map2.png', // Replace with your actual path
-                                          width: 18, // Adjust as needed
-                                          height: 18, // Adjust as needed
-                                          fit: BoxFit.fill, // Adjust as needed
-                                        ),
+                                        child:  Icon(Icons.location_on,size: 22,color: Colors.red)
                                       )
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(top: 5,right: 0),
+                                      //   child: Image.asset(
+                                      //     'assets/images/map2.png', // Replace with your actual path
+                                      //     width: 18, // Adjust as needed
+                                      //     height: 18, // Adjust as needed
+                                      //     fit: BoxFit.fill, // Adjust as needed
+                                      //   ),
+                                      // )
                                     ],
                                   ),
                                 ),

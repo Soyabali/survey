@@ -67,7 +67,7 @@ class _FacilitiesHomeState extends State<Taxi> with SingleTickerProviderStateMix
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
 
-                            Text('TAXI STAND',style: TextStyle(fontSize: 12),)
+                            Text('TAXI STAND',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),)
                           ],
                         ),
                       ),
@@ -76,7 +76,7 @@ class _FacilitiesHomeState extends State<Taxi> with SingleTickerProviderStateMix
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('TAXI',style: TextStyle(fontSize: 12),)
+                            Text('TAXI',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),)
                           ],
                         ),
                       ),

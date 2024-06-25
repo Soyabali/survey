@@ -2,7 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
+import '../../../resources/app_colors.dart';
 import '../../../resources/app_text_style.dart';
 
 class Parking extends StatefulWidget {
@@ -99,7 +101,14 @@ class _TemplesHomeState extends State<Parking> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text('${itemList[index]['parking']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                                Text('${itemList[index]['parking']}',
+                                                    style: GoogleFonts.openSans(
+                                                      color: AppColors.green,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontStyle: FontStyle.normal,
+                                                    )
+                                                ),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
@@ -117,10 +126,10 @@ class _TemplesHomeState extends State<Parking> {
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
-                                                      Text('-',style:AppTextStyle.font10penSansExtraboldBlack45TextStyle
+                                                      Text('-',style:AppTextStyle.font10penSansExtraboldBlack54TextStyle
                                                       ),
                                                       SizedBox(width: 70),
-                                                      Text('-',style:AppTextStyle.font10penSansExtraboldBlack45TextStyle
+                                                      Text('-',style:AppTextStyle.font10penSansExtraboldBlack54TextStyle
                                                       ),
 
                                                     ],
@@ -138,7 +147,7 @@ class _TemplesHomeState extends State<Parking> {
                                                       Icon(Icons.location_on,size: 16,color: Colors.red),
                                                       SizedBox(width: 5),
                                                       Text('Odisha 752002, Road, Badasirei',
-                                                          style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                                          style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
 
                                                     ],
                                                   ),

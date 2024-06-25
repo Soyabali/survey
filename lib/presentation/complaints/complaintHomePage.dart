@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/presentation/complaints/raiseGrievance/onlineComplaint.dart';
 import 'package:puri/presentation/complaints/raiseGrievance/onlineComplaint_2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../app/navigationUtils.dart';
 import '../aboutpuri/aboutpuri.dart';
@@ -31,21 +32,28 @@ class ComplaintHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<ComplaintHomePage> {
   GeneralFunction generalFunction = GeneralFunction();
+  String? sCitizenName;
+  String? sContactNo;
 
   @override
   void initState() {
     // TODO: implement initState
+    getLocatdata();
     super.initState();
-    //BackButtonInterceptor.add(myInterceptor);
   }
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
+  getLocatdata() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    sCitizenName = prefs.getString('sCitizenName');
+    sContactNo = prefs.getString('sContactNo');
+    print('---46--$sCitizenName');
+    print('---47--$sContactNo');
+    setState(() {
+
+    });
+  }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
@@ -101,35 +109,52 @@ class _MyHomePageState extends State<ComplaintHomePage> {
         ],
         centerTitle: true,
       ),
-
-
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Stack(
         fit: StackFit.expand, // Make the stack fill the entire screen
         children: [
           middleHeader(context,'Citizen Services'),
-          // Positioned(
-          //   top: 20,
-          //   left: 15,
-          //   right: 15,
-          //   child: Image.asset('assets/images/templelement2.png',
-          //         height: 30.0,
-          //         width: MediaQuery.of(context).size.width),
-          //   ),
-          SizedBox(height: 0),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: <Widget>[
-          //     Icon(Icons.invert_colors_on_sharp, size: 20),
-          //     SizedBox(width: 5),
-          //     Text('Functional Activities',
-          //         style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
-          //   ],
-          // ),
+          SizedBox(height: 25),
+          Padding(
+            padding: const EdgeInsets.only(top: 35,left: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                  Text('Name',style: AppTextStyle
+                      .font14penSansExtraboldGreenTextStyle,),
+                  SizedBox(width: 50),
+                  Text(':',style: AppTextStyle
+                      .font14penSansExtraboldGreenTextStyle,),
+                SizedBox(width: 20),
+                Text('${sCitizenName}',style: AppTextStyle
+                    .font14penSansExtraboldOrangeTextStyle,),
+
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 60,left: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('ContactNo',style: AppTextStyle
+                    .font14penSansExtraboldGreenTextStyle,),
+                SizedBox(width: 20),
+                Text(':',style: AppTextStyle
+                    .font14penSansExtraboldGreenTextStyle,),
+                SizedBox(width: 20),
+                Text('${sContactNo}',style: AppTextStyle
+                    .font14penSansExtraboldOrangeTextStyle),
+
+              ],
+            ),
+          ),
+
           Padding(
             padding:
-                const EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 10),
+                const EdgeInsets.only(top: 90, left: 10, right: 10, bottom: 10),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -150,13 +175,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                 builder: (context) =>
                                     OnlineComplaint_2(name: "Raise Grievance")),
                           );
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) =>
-                          //           OnlineComplaint(name: "Raise Grievance")),
-                          // );
                         },
                         child: Container(
                           height: 100,

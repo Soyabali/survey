@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
-import '../../app/navigationUtils.dart';
 import '../resources/app_text_style.dart';
 import '../resources/custom_elevated_button.dart';
 import '../resources/values_manager.dart';
@@ -27,8 +25,8 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
   DateTime selectedDate = DateTime.now();
   GeneralFunction generalFunction = GeneralFunction();
   final _formKey = GlobalKey<FormState>();
-  String _toDate = 'Pick a date';
-  String _fromDate = 'Pick a date';
+  String _toDate = 'To Date';
+  String _fromDate = 'From Date';
   File? image;
   List distList = [];
   var _dropDownValueDistric;
@@ -88,7 +86,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
               hint: RichText(
                 text: TextSpan(
                   text: "Select Sub Category",
-                  style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+                  style: AppTextStyle.font16penSansExtraboldBlack54TextStyle,
                   children: <TextSpan>[
                     TextSpan(
                         text: '',
@@ -236,19 +234,6 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
       body: ListView(
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 15),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: <Widget>[
-          //       Icon(Icons.invert_colors_on_sharp, size: 20),
-          //       SizedBox(width: 5),
-          //       Text('Fill the below details',
-          //           style: AppTextStyle.font16penSansExtraboldBlack45TextStyle)
-          //     ],
-          //   ),
-          // ),
           SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
@@ -289,7 +274,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                             padding: EdgeInsets.only(top: 10),
                             child: Text('Fill the below details',
                                 style: AppTextStyle
-                                    .font16penSansExtraboldBlack45TextStyle),
+                                    .font16penSansExtraboldBlack54TextStyle),
                           ),
                         ],
                       ),
@@ -310,7 +295,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
 
                             Text('Advertisement Place Type',
                                 style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
+                                    .font16penSansExtraboldBlack54TextStyle),
                           ],
                         ),
                       ),
@@ -331,7 +316,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                             SizedBox(width: 5),
                             Text('Advertisement Place',
                                 style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
+                                    .font16penSansExtraboldBlack54TextStyle),
                           ],
                         ),
                       ),
@@ -352,7 +337,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                             SizedBox(width: 5),
                             Text('Advertisement Plan',
                                 style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
+                                    .font16penSansExtraboldBlack54TextStyle),
                           ],
                         ),
                       ),
@@ -373,7 +358,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                             SizedBox(width: 5),
                             Text('Content Type',
                                 style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
+                                    .font16penSansExtraboldBlack54TextStyle),
                           ],
                         ),
                       ),
@@ -424,7 +409,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                             SizedBox(width: 5),
                             Text('Content Description',
                                 style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
+                                    .font16penSansExtraboldBlack54TextStyle),
                           ],
                         ),
                       ),

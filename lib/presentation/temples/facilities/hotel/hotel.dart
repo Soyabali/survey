@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
+import '../../../resources/app_colors.dart';
 import '../../../resources/app_text_style.dart';
-
 
 class Hotel extends StatefulWidget {
   const Hotel({super.key});
@@ -103,10 +104,16 @@ class _TemplesHomeState extends State<Hotel> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('${itemList[index]['hotelName']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
-                                              //   style: TextStyle(
-                                              //     color: Colors.red,fontSize: 16
-                                              // ),),
+                                              Text('${itemList[index]['hotelName']}',
+                                                  style: GoogleFonts.openSans(
+                                                color: AppColors.green,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle: FontStyle.normal,
+                                              )
+                                              ),
+                                              //Text('${itemList[index]['hotelName']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
@@ -126,9 +133,9 @@ class _TemplesHomeState extends State<Hotel> {
                                                   const Icon(Icons.star,size: 15,color: Colors.orange,),
                                                   const Icon(Icons.star,size: 15,color: Colors.grey,),
                                                   const SizedBox(width: 20),
-                                                  Text('₹3274.0',style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
-                                                  Text(' - ',style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
-                                                  Text('₹4811.0',style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                                  Text('₹3274.0',style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
+                                                  Text(' - ',style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
+                                                  Text('₹4811.0',style:AppTextStyle.font10penSansExtraboldBlack54TextStyle),
 
                                                 ],
                                               ),
@@ -145,7 +152,7 @@ class _TemplesHomeState extends State<Hotel> {
                                                     Icon(Icons.location_on,size: 16,color: Colors.red),
                                                     SizedBox(width: 2),
                                                     Text('Masani Link Road, Bypass',
-                                                        style:AppTextStyle.font10penSansExtraboldBlack45TextStyle,
+                                                        style:AppTextStyle.font10penSansExtraboldBlack54TextStyle,
                                                       overflow: TextOverflow.ellipsis,
                                                       maxLines: 1,
                                                     ),

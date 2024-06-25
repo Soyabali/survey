@@ -135,6 +135,15 @@ class _MyHomePageState extends State<OtpPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          Text(
+                            'OTP has been sent on : ${widget.phone}',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xff3f617d),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: 120.0),
                           Container(
                             //color: Colors.white,
@@ -233,47 +242,7 @@ class _MyHomePageState extends State<OtpPage> {
                                         child: SingleChildScrollView(
                                           child: Column(
                                             children: <Widget>[
-                                              // Padding(
-                                              //   padding: const EdgeInsets.only(
-                                              //       left: AppPadding.p15, right: AppPadding.p15),
-                                              //   // PHONE NUMBER TextField
-                                              //   child: TextFormField(
-                                              //     focusNode: _contactNofocus,
-                                              //     controller: _nameController,
-                                              //     textInputAction: TextInputAction.next,
-                                              //     onEditingComplete: () =>
-                                              //         FocusScope.of(context).nextFocus(),
-                                              //     keyboardType: TextInputType.phone,
-                                              //     inputFormatters: [
-                                              //       LengthLimitingTextInputFormatter(10), // Limit to 10 digits
-                                              //       //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                              //     ],
-                                              //     decoration: const InputDecoration(
-                                              //       labelText: 'User Name',
-                                              //       border: OutlineInputBorder(),
-                                              //       contentPadding: EdgeInsets.symmetric(
-                                              //           vertical: AppPadding.p10),
-                                              //       prefixIcon: Icon(
-                                              //         Icons.account_box,
-                                              //         color: Color(0xFF255899),
-                                              //       ),
-                                              //     ),
-                                              //     autovalidateMode:
-                                              //     AutovalidateMode.onUserInteraction,
-                                              //     validator: (value) {
-                                              //       if (value!.isEmpty) {
-                                              //         return 'Enter user number';
-                                              //       }
-                                              //       if (value.length > 1 && value.length < 10) {
-                                              //         return 'Enter user number';
-                                              //       }
-                                              //       return null;
-                                              //     },
-                                              //   ),
-                                              // ),
-
                                               SizedBox(height: 10),
-
                                               InkWell(
                                                 onTap: () async {
 

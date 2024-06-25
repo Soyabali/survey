@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/presentation/complaints/grievanceStatus/searchBar.dart';
 import '../../../app/generalFunction.dart';
-import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 
 class GrievanceStatus extends StatefulWidget {
@@ -24,16 +23,13 @@ class _TemplesHomeState extends State<GrievanceStatus> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //BackButtonInterceptor.add(myInterceptor);
   }
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    //NavigationUtils.onWillPop(context);
     return true;
   }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
   @override
@@ -244,7 +240,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 15),
-                            child: Text('hyhsh',
+                            child: Text('complaint related to Category',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack26TextStyle),
                           ),
@@ -268,7 +264,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 15),
-                            child: Text('hshs',
+                            child: Text('Puri Odisha',
                                 style: AppTextStyle
                                     .font14penSansExtraboldBlack26TextStyle),
                           ),

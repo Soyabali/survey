@@ -1,9 +1,9 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:puri/presentation/temples/howToReach/reachmap.dart';
 import '../../../app/generalFunction.dart';
-import '../../../app/navigationUtils.dart';
 import '../../resources/app_text_style.dart';
 import '../../resources/custom_elevated_button.dart';
 import '../temple_gallery.dart';
@@ -49,19 +49,12 @@ class _TemplesHomeState extends State<HowToReach> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   // BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-  //  BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
 
   @override
@@ -145,26 +138,82 @@ class _TemplesHomeState extends State<HowToReach> {
                 ),
               ),
               SizedBox(height: 5),
-              Center(
-                child: Container(
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    // Background color of the container
-                    borderRadius: BorderRadius.circular(28.0),
-                    // Circular border radius
-                    border: Border.all(
-                      color: Colors.yellow, // Border color
-                      width: 0.5, // Border width
+              InkWell(
+
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ReachDirectionMap()),
+                  );
+                  print('----By Road ---Details---');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 130,right: 130),
+                  child: Center(
+                    child: Container(
+                      height: 35,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        // Background color of the container
+                        borderRadius: BorderRadius.circular(28.0),
+                        // Circular border radius
+                        border: Border.all(
+                          color: Colors.yellow, // Border color
+                          width: 0.5, // Border width
+                        ),
+                      ),
+                      child: Container(
+                          height: 35,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            // Background color of the container
+                            borderRadius: BorderRadius.circular(17.0),
+                            // Circular border radius
+                            border: Border.all(
+                              color: Colors.yellow, // Border color
+                              width: 0.5, // Border width
+                            ),
+                          ),
+                          child: ElevatedButton(
+                            onPressed: (){
+                              print('----Road Detail---');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ReachDirectionMap()),
+                              );
+                             // ReachDirectionMap
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.red,
+                              shadowColor: Colors.red, // Custom shadow color
+                              elevation: 5, // Text color
+                            ).copyWith(
+                              overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                                    (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Colors.yellow; // Splash color when pressed
+                                  }
+                                  return null; // Default splash color
+                                },
+                              ),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                         Text('Details',style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,),
+                                      SizedBox(width: 15),
+                                      Icon(Icons.directions,size: 20,color: Colors.white,)
+                                  ],
+                              ),
+                            ),
+                            // child: Text('Details',style: AppTextStyle
+                            //     .font14penSansExtraboldWhiteTextStyle,),
+                          )
+                      )
                     ),
-                  ),
-                  child: CustomElevatedButton(
-                    text: 'BUS DETAILS',
-                    onTap: () {
-                      print('---Live Darshan-----');
-                      // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                      //)));
-                    },
                   ),
                 ),
               ),
@@ -209,26 +258,72 @@ From Mumbai: Konark Express (11019)
                 ),
               ),
               SizedBox(height: 5),
-              Center(
-                child: Container(
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    // Background color of the container
-                    borderRadius: BorderRadius.circular(28.0),
-                    // Circular border radius
-                    border: Border.all(
-                      color: Colors.yellow, // Border color
-                      width: 0.5, // Border width
+              InkWell(
+                onTap: (){
+                  print('----By Road ---Details---');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 130,right: 130),
+                  child: Center(
+                    child: Container(
+                        height: 35,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          // Background color of the container
+                          borderRadius: BorderRadius.circular(28.0),
+                          // Circular border radius
+                          border: Border.all(
+                            color: Colors.yellow, // Border color
+                            width: 0.5, // Border width
+                          ),
+                        ),
+                        child: Container(
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              // Background color of the container
+                              borderRadius: BorderRadius.circular(17.0),
+                              // Circular border radius
+                              border: Border.all(
+                                color: Colors.yellow, // Border color
+                                width: 0.5, // Border width
+                              ),
+                            ),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                print('----Road Detail---');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.red,
+                                shadowColor: Colors.red, // Custom shadow color
+                                elevation: 5, // Text color
+                              ).copyWith(
+                                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                                      (Set<MaterialState> states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return Colors.yellow; // Splash color when pressed
+                                    }
+                                    return null; // Default splash color
+                                  },
+                                ),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text('Details',style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,),
+                                    SizedBox(width: 15),
+                                    Icon(Icons.directions,size: 20,color: Colors.white,)
+                                  ],
+                                ),
+                              ),
+                              // child: Text('Details',style: AppTextStyle
+                              //     .font14penSansExtraboldWhiteTextStyle,),
+                            )
+                        )
                     ),
-                  ),
-                  child: CustomElevatedButton(
-                    text: 'TRAIN DETAILS',
-                    onTap: () {
-                      print('---Live Darshan-----');
-                      // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                      //)));
-                    },
                   ),
                 ),
               ),
@@ -270,6 +365,81 @@ Online Booking: Use flight booking platforms such as MakeMyTrip, Cleartrip, Yatr
                   ),
                 ),
               ),
+              SizedBox(height: 5),
+              InkWell(
+                onTap: (){
+                  print('----By Road ---Details---');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ReachDirectionMap()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 130,right: 130),
+                  child: Center(
+                    child: Container(
+                        height: 35,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          // Background color of the container
+                          borderRadius: BorderRadius.circular(28.0),
+                          // Circular border radius
+                          border: Border.all(
+                            color: Colors.yellow, // Border color
+                            width: 0.5, // Border width
+                          ),
+                        ),
+                        child: Container(
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              // Background color of the container
+                              borderRadius: BorderRadius.circular(17.0),
+                              // Circular border radius
+                              border: Border.all(
+                                color: Colors.yellow, // Border color
+                                width: 0.5, // Border width
+                              ),
+                            ),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                print('----Road Detail---');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.red,
+                                shadowColor: Colors.red, // Custom shadow color
+                                elevation: 5, // Text color
+                              ).copyWith(
+                                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                                      (Set<MaterialState> states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return Colors.yellow; // Splash color when pressed
+                                    }
+                                    return null; // Default splash color
+                                  },
+                                ),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text('Details',style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,),
+                                    SizedBox(width: 15),
+                                    Icon(Icons.directions,size: 20,color: Colors.white,)
+                                  ],
+                                ),
+                              ),
+                              // child: Text('Details',style: AppTextStyle
+                              //     .font14penSansExtraboldWhiteTextStyle,),
+                            )
+                        )
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
               Image.asset('assets/images/templeelement3.png',
                   // Replace with your first image path
                   height: 20.0,

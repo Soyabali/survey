@@ -36,7 +36,8 @@ class SearchBar2 extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                     ),
 
-                    labelText: 'Search',
+                    //labelText: 'Search',
+                    hintText: 'Search',
                     labelStyle: const TextStyle(
                       color: Colors.grey, // Label color
                       fontWeight: FontWeight.bold,

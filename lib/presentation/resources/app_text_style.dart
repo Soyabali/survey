@@ -76,6 +76,15 @@ class AppTextStyle {
     // textStyle: Theme.of(context).textTheme.titleSmall,
 
   );
+  // black 54
+  static TextStyle font14penSansExtraboldBlack54TextStyle = GoogleFonts.openSans(
+    color: Colors.black54,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
    // gray with 10 size
   static TextStyle font10penSansExtraboldgrayTextStyle = GoogleFonts.openSans(
     color: Colors.grey,
@@ -155,12 +164,29 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
-  // black
+  // black 54
+  static TextStyle font10penSansExtraboldBlack54TextStyle = GoogleFonts.openSans(
+    //color: Color(0xFFC0C0C0),// silver
+    color:Colors.black54,
+    fontSize: 10,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
 
-  // silverColore
+  // silverColore black45
   static TextStyle font16penSansExtraboldBlack45TextStyle = GoogleFonts.openSans(
     //color: Color(0xFFC0C0C0),// silver
     color:Colors.black45,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
+  // light dark
+  static TextStyle font16penSansExtraboldBlack54TextStyle = GoogleFonts.openSans(
+    //color: Color(0xFFC0C0C0),// silver
+    color:Colors.black54,
     fontSize: 16,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,

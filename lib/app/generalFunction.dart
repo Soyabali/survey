@@ -68,13 +68,12 @@ Future<bool> _onWillPop(BuildContext context) async {
 // readmoreTemple
 readmore(String templeDetails) {
   return ReadMoreText(
-  '''
-  The District of Puri has been named after its head quarters, Puri. According to Cunningham, the ancient name of this town was Charitra
+    '''The District of Puri has been named after its head quarters, Puri. According to Cunningham, the ancient name of this town was Charitra
 Under Mughal Rule (1592-1751), Odisha for the purpose of revenue administration was divided into three circars, namely Jaleswar,
  Bhadrak and Kataka, each of which under the Mughals was subdivided into Bishis. Puri formed a part of Kataka circar. After their occupation of Odisha in 1751, 
 the Marathas brought about some changes in the revenue divisions of the province. They divided Odisha, which then extended from the river Suvarnarekha 
 in the North to the lake Chilika in the South, into four Chakalas viz. Pipli, Kataka, Soro and Balasore. The Chakala of Pipli comprised major portions of the modern District of Puri.
-  ''',
+''',
     trimLines: 10,
     colorClickableText: Colors.red,
     trimMode: TrimMode.Line,
@@ -83,7 +82,7 @@ in the North to the lake Chilika in the South, into four Chakalas viz. Pipli, Ka
     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
     moreStyle:
         TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
-    textAlign: TextAlign.justify, // Justify text alignment
+   // textAlign: TextAlign.justify, // Justify text alignment
   );
 }
 

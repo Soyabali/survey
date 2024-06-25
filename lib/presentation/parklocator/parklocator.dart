@@ -1,16 +1,16 @@
 import 'dart:io';
 
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/presentation/parklocator/parkImageDetail.dart';
 import 'package:puri/presentation/parklocator/parkMap.dart';
 import '../../app/generalFunction.dart';
-import '../../app/navigationUtils.dart';
+import '../resources/app_colors.dart';
 import '../resources/app_text_style.dart';
-import '../temples/cookie_detail.dart';
+
 
 class ParkLocator extends StatefulWidget {
   final name;
@@ -60,14 +60,9 @@ class _KnowYourWardState extends State<ParkLocator> {
 
   @override
   void dispose() {
-  //  BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -143,8 +138,18 @@ class _KnowYourWardState extends State<ParkLocator> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text('Ranjit Mohanty Park',
-                                              style: AppTextStyle
-                                                  .font14penSansExtraboldRedTextStyle),
+                                              style: GoogleFonts.openSans(
+                                                color: AppColors.green,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle: FontStyle.normal,
+                                              )
+                                          ),
+                                          // Text('Ranjit Mohanty Park',
+                                          //     style: AppTextStyle
+                                          //         .font14penSansExtraboldRedTextStyle
+                                          //
+                                          // ),
                                           SizedBox(height: 2),
                                           Row(
                                             mainAxisAlignment:
