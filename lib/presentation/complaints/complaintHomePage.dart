@@ -16,9 +16,11 @@ import '../emergencyContact/emergencyContact.dart';
 import '../eventsAndNewsletter/eventsAndNewsletter.dart';
 import '../homepage/homepage.dart';
 import '../knowyourward/KnowYourWard.dart';
+import '../login/loginScreen_2.dart';
 import '../marriageCertificate/marriageCertificate.dart';
 import '../notification/notification.dart';
 import '../parklocator/parklocator.dart';
+import '../resources/app_colors.dart';
 import '../resources/app_text_style.dart';
 import 'grievanceStatus/grievanceStatus.dart';
 
@@ -31,6 +33,7 @@ class ComplaintHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<ComplaintHomePage> {
+
   GeneralFunction generalFunction = GeneralFunction();
   String? sCitizenName;
   String? sContactNo;
@@ -178,6 +181,40 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                 SizedBox(width: 20),
                 Text('${sCitizenName}',style: AppTextStyle
                     .font14penSansExtraboldOrangeTextStyle,),
+                Spacer(),
+
+                InkWell(
+                  onTap: () async {
+                    print('---logout---');
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.clear();
+                    // prefs.setString('iCitizenCode',iCitizenCode);
+                    // prefs.setString('sContactNo',sContactNo);
+                    // prefs.setString('sCitizenName',sCitizenName);
+                    // prefs.setString('sToken',sToken);
+                   // String? name = prefs.remove('sToken') as String?;
+                   // print('name---194--${prefs.remove('sToken') as String?}');
+                   // print('----200---$name');
+                   // prefs.remove('iCitizenCode');
+                    //prefs.remove('sContactNo');
+                    //prefs.remove('sCitizenName');
+                    //String? token = prefs.remove('sToken') as String?;
+                    //String? name = prefs.remove('sToken') as String;
+                   // print('----200---$name');
+
+                   // print('---name --199--${prefs.remove('sToken') as String?}');
+
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Icon(Icons.logout,size: 20,color: AppColors.orange),
+                  ),
+                ),
 
               ],
             ),

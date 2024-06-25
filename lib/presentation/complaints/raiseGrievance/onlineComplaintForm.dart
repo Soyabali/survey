@@ -42,6 +42,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   FocusNode locationfocus = FocusNode();
   FocusNode descriptionfocus = FocusNode();
   // PickImage
+
   Future pickImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
@@ -49,7 +50,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
 
     try {
       final pickFileid = await ImagePicker()
-          .pickImage(source: ImageSource.camera, imageQuality: 65);
+          .pickImage(source: ImageSource.camera, imageQuality: 20);
       if (pickFileid != null) {
         image = File(pickFileid.path);
         setState(() {});

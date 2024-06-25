@@ -163,8 +163,8 @@ class _LoginPageState extends State<LoginPage> {
                             children: <Widget>[
                               middleHeaderPuri(context, 'Citizen Services'),
                               SizedBox(height: 10),
-                                    
-                                    Container(
+
+                              Container(
                                         height: AppSize.s145,
                                         width: MediaQuery.of(context).size.width - 50,
                                         margin: const EdgeInsets.all(AppMargin.m20),
