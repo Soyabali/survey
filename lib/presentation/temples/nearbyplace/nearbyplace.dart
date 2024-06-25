@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
+import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
+import 'nearbyplacemap.dart';
 
 
 class NearByPlace extends StatefulWidget {
@@ -28,7 +31,6 @@ class _TemplesHomeState extends State<NearByPlace> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
@@ -56,7 +58,6 @@ class _TemplesHomeState extends State<NearByPlace> {
                       itemCount: itemList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
-                          // padding: EdgeInsets.only(left: 5,right: 5),
                           padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
                           child: Container(
                             decoration: BoxDecoration(
@@ -73,8 +74,8 @@ class _TemplesHomeState extends State<NearByPlace> {
                                 print('-----165---$templeName');
                                 print('-----166---$image');
                                 // navigator
-                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
-                                //     templeName:templeName,image:image)));
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => NearByPlaceMap()));
+
                               },
 
                               child: Row(
@@ -107,7 +108,14 @@ class _TemplesHomeState extends State<NearByPlace> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('${itemList[index]['nearbyPlace']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                              Text('${itemList[index]['nearbyPlace']}',
+                                            style: GoogleFonts.openSans(
+                                              color: AppColors.green,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle: FontStyle.normal,
+                                            ),
+                                              ),
                                               //   style: TextStyle(
                                               //     color: Colors.red,fontSize: 16
                                               // ),),

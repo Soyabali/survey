@@ -120,6 +120,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text('Puri City Address',
+
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
@@ -486,7 +487,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          'Click on the image (icon) given below to connect with puri',
+                          'Click on the Icon given below to connect with puri',
                           style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
                         ),
                       ),

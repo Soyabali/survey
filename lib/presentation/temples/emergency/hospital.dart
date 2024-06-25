@@ -141,7 +141,7 @@ class _TemplesHomeState extends State<Hospital> {
                                 InkWell(
                                   onTap: (){
                                     ///TODO CHANGE YOUR NUMBER AS YOUR API
-                                    launchUrlString("tel://9871950000");
+                                    launchUrlString("tel:9871950000");
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 5),

@@ -93,19 +93,68 @@ class _MyHomePageState extends State<ComplaintHomePage> {
           style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-                icon: Icon(Icons.notification_add,color: Colors.white,size: 25,),
-                onPressed: () {
-                 //
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const NotificationPage()),
-                  );
-                },
+        InkWell(
+          onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const NotificationPage()),
+                        );
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Container(
+            width: 25,
+            height: 25,
+            //color: Colors.white,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16.0), // Sets the border radius
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               ),
+
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Image.asset('assets/images/notification_123.png',
+                width: 25,height: 25,
+              fit: BoxFit.cover,
+              ),
+            ),
+                  ),
           ),
+        ),
+
+          // Image(
+          //   image: AssetImage('assets/images/notification_123.png'),
+          //   height: 25,
+          //   width: 25,
+          //   fit: BoxFit.cover,
+          // ),
+          // Container(
+          //  // color: Colors.white,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(right: 10),
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(4.0),
+          //       child: IconButton(
+          //           icon: Icon(Icons.notification_add,color: Colors.white,size: 25,),
+          //           onPressed: () {
+          //            //
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => const NotificationPage()),
+          //             );
+          //           },
+          //         ),
+          //     ),
+          //   ),
+          // ),
         ],
         centerTitle: true,
       ),

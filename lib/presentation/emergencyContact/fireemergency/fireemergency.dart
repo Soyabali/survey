@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
 
 
@@ -22,7 +25,7 @@ class _TemplesHomeState extends State<FireEmergency> {
   final List<Map<String, String>> itemList = [
     {'image': 'https://www.drishtiias.com/images/uploads/1698053713_image1.png','temple': 'Fire Helpline'},
     {'image': 'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg','temple': 'Control Room'},
-    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Shri Debendra Kumar Swin'},
+    {'image': 'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg','temple': 'Shri Debendra'},
     {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Dy. Fire Officr'},
     {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Shri Parthasarathi Sahoo'},
   ];
@@ -99,7 +102,13 @@ class _TemplesHomeState extends State<FireEmergency> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('${itemList[index]['temple']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                            Text('${itemList[index]['temple']}', style: GoogleFonts.openSans(
+                                              color: AppColors.green,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle: FontStyle.normal,
+                                            ),),
+                                            // Text('${itemList[index]['temple']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.start,
@@ -113,28 +122,32 @@ class _TemplesHomeState extends State<FireEmergency> {
                                             SizedBox(height: 5),
                                             Text('05652565565',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
 
-
-
                                           ],
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
+                                InkWell(
+                                  onTap: (){
+                                    print('----calling ---');
+                                    launchUrlString("tel:05652565565");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
 
-                                      ),
-                                      child: Image.asset('assets/images/callicon.png',
-                                        height: 12,
-                                        width: 12,
-                                      )
+                                        ),
+                                        child: Image.asset('assets/images/callicon.png',
+                                          height: 12,
+                                          width: 12,
+                                        )
 
+                                    ),
                                   ),
                                 ),
                                 Padding(
