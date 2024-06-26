@@ -60,6 +60,37 @@ class _MyHomePageState extends State<ComplaintHomePage> {
     super.dispose();
   }
 
+  Widget logoutDialogBox(BuildContext context){
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        side: BorderSide(color: Colors.orange, width: 2),
+      ),
+      title: Text('Do you want to log out?'),
+      actions: <Widget>[
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.grey, // Background color
+          ),
+          child: Text('No'),
+          onPressed: () {
+            Navigator.of(context).pop(); // Dismiss the dialog
+          },
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange, // Background color
+          ),
+          child: Text('Yes'),
+          onPressed: () {
+            // Add your logout functionality here
+            Navigator.of(context).pop(); // Dismiss the dialog
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,36 +216,111 @@ class _MyHomePageState extends State<ComplaintHomePage> {
 
                 InkWell(
                   onTap: () async {
-                    print('---logout---');
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.clear();
-                    // prefs.setString('iCitizenCode',iCitizenCode);
-                    // prefs.setString('sContactNo',sContactNo);
-                    // prefs.setString('sCitizenName',sCitizenName);
-                    // prefs.setString('sToken',sToken);
-                   // String? name = prefs.remove('sToken') as String?;
-                   // print('name---194--${prefs.remove('sToken') as String?}');
-                   // print('----200---$name');
-                   // prefs.remove('iCitizenCode');
-                    //prefs.remove('sContactNo');
-                    //prefs.remove('sCitizenName');
-                    //String? token = prefs.remove('sToken') as String?;
-                    //String? name = prefs.remove('sToken') as String;
-                   // print('----200---$name');
+                    print('-----Open Dialog box-----');
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            side: BorderSide(color: Colors.orange, width: 2),
+                          ),
+                          title: Text('Do you want to log out?'),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey, // Background color
+                              ),
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Dismiss the dialog
+                              },
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orange, // Background color
+                              ),
+                              child: Text('Yes'),
+                              onPressed: ()async {
 
-                   // print('---name --199--${prefs.remove('sToken') as String?}');
-
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.clear();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+                                    );
+                              },
+                            ),
+                          ],
+                        );
+                      },
                     );
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 20),
-                    child: Icon(Icons.logout,size: 20,color: AppColors.orange),
+                    child: Icon(Icons.logout, size: 20, color: Colors.orange),
                   ),
                 ),
+
+
+                // InkWell(
+                //   onTap: () async {
+                //     print('-----Open Dialog box-----');
+                //     AlertDialog(
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(15.0),
+                //         side: BorderSide(color: Colors.orange, width: 2),
+                //       ),
+                //       title: Text('Do you want to log out?'),
+                //       actions: <Widget>[
+                //         ElevatedButton(
+                //           style: ElevatedButton.styleFrom(
+                //             backgroundColor: Colors.grey, // Background color
+                //           ),
+                //           child: Text('No'),
+                //           onPressed: () {
+                //             Navigator.of(context).pop(); // Dismiss the dialog
+                //           },
+                //         ),
+                //         ElevatedButton(
+                //           style: ElevatedButton.styleFrom(
+                //             backgroundColor: Colors.orange, // Background color
+                //           ),
+                //           child: Text('Yes'),
+                //           onPressed: () {
+                //             // Add your logout functionality here
+                //             Navigator.of(context).pop(); // Dismiss the dialog
+                //           },
+                //         ),
+                //       ],
+                //     );
+                //
+                //
+                //
+                //
+                //
+                //
+                //
+                //     // print('---logout---');
+                //     // SharedPreferences prefs = await SharedPreferences.getInstance();
+                //     // prefs.clear();
+                //     // Navigator.push(
+                //     //   context,
+                //     //   MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+                //     // );
+                //
+                //
+                //
+                //   },
+                //
+                //   child: Padding(
+                //     padding: const EdgeInsets.only(right: 20),
+                //     child: Icon(Icons.logout,size: 20,color: AppColors.orange),
+                //   ),
+                //
+                //
+                //
+                // ),
 
               ],
             ),
