@@ -9,7 +9,7 @@ void main() {
 
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(Mygit App());
+  runApp(MyApp());
   configLoading();
 }
 
