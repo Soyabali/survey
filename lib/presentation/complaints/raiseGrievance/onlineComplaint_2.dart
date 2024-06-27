@@ -3,7 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import '../../../app/generalFunction.dart';
+import '../../../provider/bindComplaintProvider.dart';
+import '../../../services/notificationRepo.dart';
 import '../../resources/app_text_style.dart';
 import 'onlineComplaintForm.dart';
 
@@ -19,15 +22,27 @@ class OnlineComplaint_2 extends StatefulWidget {
 class _TemplesHomeState extends State<OnlineComplaint_2> {
   GeneralFunction generalFunction = GeneralFunction();
 
+  List<Map<String, dynamic>>? notificationList;
+
+  String? sName, sContactNo;
+ // GeneralFunction generalFunction = GeneralFunction();
+  getnotificationResponse() async {
+    notificationList = await NotificationRepo().notification(context);
+    print('------31----$notificationList');
+    setState(() {
+    });
+  }
+
+
   final List<Map<String, String>> itemList = [
     {
       'image':
-          'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
+      'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
       'temple': 'Sanitation & Public Health'
     },
     {
       'image':
-          'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
+      'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
       'temple': 'Water, Drainage & Sewerage'
     },
     {
@@ -36,22 +51,22 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
     },
     {
       'image':
-          'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
+      'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
       'temple': 'Stay Animals Catching Services'
     },
     {
       'image':
-          'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
+      'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
       'temple': 'Encroachment'
     },
     {
       'image':
-          'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
+      'https://www.drishtiias.com/images/uploads/1698053713_image1.png',
       'temple': 'Miscellaneous'
     },
     {
       'image':
-          'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
+      'https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-hinohp2v89f6sovfrqk7d6bfj7-20231002122234.Medi.jpeg',
       'temple': 'Holding Tax'
     },
     {
@@ -60,12 +75,12 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
     },
     {
       'image':
-          'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
+      'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg',
       'temple': 'Slum /Project/Welfare Schemes'
     },
     {
       'image':
-          'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
+      'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg',
       'temple': 'Licence & Parking'
     },
   ];
@@ -219,7 +234,9 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
 
   @override
   void initState() {
+    getnotificationResponse();
     // TODO: implement initState
+   // Provider.of<BindComplaintProvider>(context, listen: false).getComplaint();
     super.initState();
   }
 
@@ -232,95 +249,119 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: getAppBarBack(context, '${widget.name}'),
-      drawer:
-          generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            middleHeader(context, '${widget.name}'),
-            Container(
-              height: MediaQuery.of(context).size.height *
-                  0.8, // Adjust the height as needed
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: itemList2.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 1.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            var name = itemList2[index]['temple'];
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    OnlineComplaintForm(complaintName: name),
-                              ),
-                            );
-                          },
-                          child: ListTile(
-                            leading: Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                gradient: const LinearGradient(
-                                  colors: [Colors.red, Colors.orange],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
+        backgroundColor: Colors.white,
+        appBar: getAppBarBack(context, '${widget.name}'),
+        drawer: generalFunction.drawerFunction(
+            context, 'Suaib Ali', '9871950881'),
+
+        body: Consumer<BindComplaintProvider>(
+            builder: (context, value, child) {
+              if (value.isLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final todos = value.todos;
+              print('---251---L--xx-${todos.length}');
+              print('Todos---252-: ${todos.map((e) => e.toString()).toList()}');
+
+              return Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                middleHeader(context, '${widget.name}'),
+                Container(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.8, // Adjust the height as needed
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: notificationList?.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                var categoryName = notificationList![index]['sCategoryName'];
+                                var categoryCode = notificationList![index]['iCategoryCode'];
+                                print('----categoryNmae---$categoryName');
+                                print('----categoryCode---$categoryCode');
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        OnlineComplaintForm(
+                                            complaintName: categoryName),
+                                  ),
+                                );
+                              },
+
+                              child: ListTile(
+                                leading: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    gradient: const LinearGradient(
+                                      colors: [Colors.red, Colors.orange],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Image.asset(
+                                      itemList2[index]['leadingIcon']!,
+                                      width: 30,
+                                      height: 30,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                title: Text(
+                                  notificationList![index]['sCategoryName']!,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/arrow.png',
+                                      height: 12,
+                                      width: 12,
+                                    ),
+                                  ],
                                 ),
                               ),
-                              child: Center(
-                                child: Image.asset(
-                                  itemList2[index]['leadingIcon']!,
-                                  width: 30,
-                                  height: 30,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            title: Text(
-                              itemList2[index]['temple']!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset(
-                                  'assets/images/arrow.png',
-                                  height: 12,
-                                  width: 12,
-                                ),
-                              ],
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12,right: 12),
-                        child: Container(
-                          height: 1,
-                          color: Colors.grey, // Gray color for the bottom line
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12, right: 12),
+                            child: Container(
+                              height: 1,
+                              color: Colors
+                                  .grey, // Gray color for the bottom line
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+
+          );
+        }
+        )
     );
   }
 }

@@ -24,9 +24,7 @@ class VerifyCitizenOtpRepo {
 
       showLoader();
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'POST',
-          Uri.parse('$registrationApi'));
+      var request = http.Request('POST', Uri.parse('$registrationApi'));
       request.body = json.encode({"sContactNo": contactNo, "sOTP": otp});
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();

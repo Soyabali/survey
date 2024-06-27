@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(notificationList?[index]['sTitle'].toString() ?? '',
+                                  Text(notificationList?[index]['sCategoryName'].toString() ?? '',
                                     style: const TextStyle(
                                                           fontFamily: 'Montserrat',
                                                           color: Color(0xff3f617d),

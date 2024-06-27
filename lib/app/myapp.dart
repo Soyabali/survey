@@ -9,6 +9,7 @@ import 'package:puri/provider/todo_provider.dart';
 import '../presentation/resources/noInternet.dart';
 import '../presentation/resources/routes_managements.dart';
 import '../presentation/resources/theme_manager.dart';
+import '../provider/bindComplaintProvider.dart';
 
 
 class MyApp extends StatefulWidget {
@@ -89,8 +90,8 @@ class _MyAppState extends State<MyApp> {
         ? MultiProvider(
       providers: [
         ListenableProvider<TempleProvider>(create: (_) => TempleProvider()),
-        // ChangeNotifierProvider<ParamsProvider>(
-        //     create: (_) => ParamsProvider()),
+        ChangeNotifierProvider<BindComplaintProvider>(
+            create: (_) => BindComplaintProvider()),
         // ListenableProvider<PendingPhotoProvider>(
         //     create: (_) => PendingPhotoProvider()),
         // ListenableProvider<ReportUploadProvider>(

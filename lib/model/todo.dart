@@ -11,4 +11,8 @@ class TempleModel {
     required this.title,
     required this.completed
 });
+  @override
+  String toString() {
+    return 'TempleModel{id: $id, userId: $userId, title: $title, completed: $completed}';
+  }
 }

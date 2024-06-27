@@ -16,10 +16,11 @@ class NotificationRepo {
 
     print('-----16---$sToken');
     print('-----17---$iCitizenCode');
+    print('---token----$sToken');
 
     try {
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "GetNotificationList/GetNotificationList";
+      var endPoint = "BindComplaintCategory/BindComplaintCategory";
       var notificationApi = "$baseURL$endPoint";
       showLoader();
 
@@ -28,16 +29,12 @@ class NotificationRepo {
         'Content-Type': 'application/json'
       };
       var request = http.Request('POST', Uri.parse('$notificationApi'));
-      request.body = json.encode({
-        "iCitizenCode": "$iCitizenCode",
-        "iPage": "1",
-        "iPageSize": "10"
-      });
+
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
-      if(response.statusCode ==401){
-        generalFunction.logout(context);
-      }
+      // if(response.statusCode ==401){
+      //   generalFunction.logout(context);
+      // }
       if (response.statusCode == 200) {
         hideLoader();
         var data = await response.stream.bytesToString();

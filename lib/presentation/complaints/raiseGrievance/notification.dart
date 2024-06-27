@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:noidaone/Controllers/notificationRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'generalFunction.dart';
-import 'loginScreen_2.dart';
+
+import '../../../services/notificationRepo.dart';
+
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -35,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Map<String, dynamic>>? notificationList;
   String? sName, sContactNo;
-  GeneralFunction generalFunction = GeneralFunction();
+  // get api response
   getnotificationResponse() async {
     notificationList = await NotificationRepo().notification(context);
     setState(() {
@@ -49,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     getnotificationResponse();
     super.initState();
   }
+
   getlocalvalue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -73,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         // drawer
-        drawer: generalFunction.drawerFunction(context,'$sName','$sContactNo'),
+       // drawer: generalFunction.drawerFunction(context,'$sName','$sContactNo'),
 
         body: Container(
           child: SingleChildScrollView(

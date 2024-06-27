@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -104,12 +106,14 @@ class _TemplesHomeState extends State<TemplesHome> {
 
           body: Consumer<TempleProvider>(builder: (context, value, child) {
             if (value.isLoading) {
+              // TODO APPLY CUSTOMPrograssBar
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
             final todos = value.todos;
             print('---113---L--xx-${todos.length}');
+            print('Todos---116-: ${todos.map((e) => e.toString()).toList()}');
 
             return Column(
               children: [
@@ -141,16 +145,15 @@ class _TemplesHomeState extends State<TemplesHome> {
                   ],
                 ),
                 SizedBox(height: 5),
-                // getList(todos),
-                //getList(),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 15),
-                    child: SingleChildScrollView(
-                      child: Padding(
+                    child: Padding(
                         padding: EdgeInsets.only(left: 5, right: 5),
-                        child: Column(
-                          children: List.generate(itemList.length, (index) {
+                        child: ListView.builder(
+                                 itemCount: todos.length,
+                                 itemBuilder: (context, index) {
+                                final todo = todos[index];
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
                               child: Container(
@@ -209,7 +212,7 @@ class _TemplesHomeState extends State<TemplesHome> {
                                             padding: EdgeInsets.only(top: 0),
                                             child: ListTile(
                                               title: Text(
-                                                '${itemList[index]['temple']}',
+                                                todo.title,
                                                 style: const TextStyle(
                                                   color: Colors.red,
                                                   fontSize: 14,
@@ -261,8 +264,6 @@ class _TemplesHomeState extends State<TemplesHome> {
                         ),
                       ),
                     ),
-                  ),
-                )
               ],
             );
           }));
