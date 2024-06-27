@@ -1,23 +1,31 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app/generalFunction.dart';
+import '../../../services/bindCityzenWardRepo.dart';
+import '../../../services/bindComplaintCategory.dart';
+import '../../../services/cityzenpostcomplaintRepo.dart';
 import '../../resources/app_text_style.dart';
 import '../../resources/custom_elevated_button.dart';
 import '../../resources/values_manager.dart';
 
 class OnlineComplaintForm extends StatefulWidget {
   final complaintName;
+  final categoryCode;
 
-  OnlineComplaintForm({super.key, this.complaintName});
+  OnlineComplaintForm({super.key, this.complaintName, this.categoryCode});
   @override
   State<OnlineComplaintForm> createState() => _TemplesHomeState();
 }
 
 class _TemplesHomeState extends State<OnlineComplaintForm> {
+
+
   GeneralFunction generalFunction = GeneralFunction();
   final _formKey = GlobalKey<FormState>();
   File? image;
@@ -25,22 +33,47 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   var _dropDownValueDistric;
   List stateList = [];
   List blockList = [];
-  List marklocationList = [];
+  List marklocationList = [];// bindComplaintSubCategory
+  List bindComplaintSubCategory = [];
+  List bindComplintWard = [];
   var _dropDownValueMarkLocation;
+  var _dropDownValueWard;
+  var _dropDownValueComplaintSubCategory;
   var _selectedPointId;
+  var _selectedValueWard;
+  var _selectedbindComplaintSubCategory;
   var _selectedBlockId;
   // Focus
   FocusNode namefieldfocus = FocusNode();
   final distDropdownFocus = GlobalKey();
   // controller
-  TextEditingController nameTextEditingController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+  TextEditingController categoryTextEditingController = TextEditingController();
+  TextEditingController addressTextEditingController = TextEditingController();
+  TextEditingController landmarkTextEditingController = TextEditingController();
+  TextEditingController mentionTextEditingController = TextEditingController();
   // focus
-  FocusNode locationfocus = FocusNode();
-  FocusNode descriptionfocus = FocusNode();
-  // PickImage
+  FocusNode categoryfocus = FocusNode();
+  FocusNode addressfocus = FocusNode();
+  FocusNode landMarkfocus = FocusNode();
+  FocusNode mentionfocus = FocusNode();
 
+
+  // get api BindComplaintApi
+
+  marklocationData() async {
+    bindComplaintSubCategory = await BindComplaintSubCategoryRepo().getbindcomplaintSub("${widget.categoryCode}");
+    print(" -----xxxxx-  bindComplaintSubCategory--- Data--51---> $marklocationList");
+    setState(() {});
+  }
+  // bindCityzenWard
+  bindCityzenData() async {
+    bindComplintWard = await BindCityzenWardRepo().getbindWard();
+    print(" -----xxxxx-  bindComplaintWard--- 62---> $bindComplintWard");
+    setState(() {});
+  }
+
+
+  // PickImage
   Future pickImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
@@ -89,25 +122,25 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                   ],
                 ),
               ), // Not necessary for Option 1
-              value: _dropDownValueMarkLocation,
+              value: _dropDownValueComplaintSubCategory,
               // key: distDropdownFocus,
               onChanged: (newValue) {
                 setState(() {
-                  _dropDownValueMarkLocation = newValue;
-                  print('---333-------$_dropDownValueMarkLocation');
+                  _dropDownValueComplaintSubCategory = newValue;
+                  print('---333-------$_dropDownValueComplaintSubCategory');
                   //  _isShowChosenDistError = false;
                   // Iterate the List
-                  marklocationList.forEach((element) {
-                    if (element["sPointTypeName"] ==
-                        _dropDownValueMarkLocation) {
+                  bindComplaintSubCategory.forEach((element) {
+                    if (element["sSubCategoryName"] ==
+                        _dropDownValueComplaintSubCategory) {
                       setState(() {
-                        _selectedPointId = element['iPointTypeCode'];
-                        print('----341------$_selectedPointId');
+                        _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
+                        print('----341------$_selectedbindComplaintSubCategory');
                       });
-                      print('-----Point id----241---$_selectedPointId');
-                      if (_selectedPointId != null) {
+                      print('-----Point id----241---$_selectedbindComplaintSubCategory');
+                      if (_selectedbindComplaintSubCategory != null) {
                         // updatedBlock();
-                        print('-----Point id----244---$_selectedPointId');
+                        print('-----Point id----244---$_selectedbindComplaintSubCategory');
                       } else {
                         print('-------');
                       }
@@ -118,10 +151,10 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                   });
                 });
               },
-              items: marklocationList.map((dynamic item) {
+              items: bindComplaintSubCategory.map((dynamic item) {
                 return DropdownMenuItem(
-                  child: Text(item['sPointTypeName'].toString()),
-                  value: item["sPointTypeName"].toString(),
+                  child: Text(item['sSubCategoryName'].toString()),
+                  value: item["iSubCategoryCode"].toString(),
                 );
               }).toList(),
             ),
@@ -130,6 +163,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
       ),
     );
   }
+
   // bindi ward
   Widget _bindWard() {
     return Material(
@@ -158,25 +192,25 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                   ],
                 ),
               ), // Not necessary for Option 1
-              value: _dropDownValueMarkLocation,
+              value: _dropDownValueWard,
               // key: distDropdownFocus,
               onChanged: (newValue) {
                 setState(() {
-                  _dropDownValueMarkLocation = newValue;
-                  print('---333-------$_dropDownValueMarkLocation');
+                  _dropDownValueWard = newValue;
+                  print('---333-------$_dropDownValueWard');
                   //  _isShowChosenDistError = false;
                   // Iterate the List
-                  marklocationList.forEach((element) {
-                    if (element["sPointTypeName"] ==
-                        _dropDownValueMarkLocation) {
+                  bindComplintWard.forEach((element) {
+                    if (element["sWardName"] ==
+                        _dropDownValueWard) {
                       setState(() {
-                        _selectedPointId = element['iPointTypeCode'];
-                        print('----341------$_selectedPointId');
+                        _selectedValueWard = element['sWardCode'];
+                        print('----341------$_selectedValueWard');
                       });
-                      print('-----Point id----241---$_selectedPointId');
-                      if (_selectedPointId != null) {
+                      print('-----Point id----241---$_selectedValueWard');
+                      if (_selectedValueWard != null) {
                         // updatedBlock();
-                        print('-----Point id----244---$_selectedPointId');
+                        print('-----Point id----244---$_selectedValueWard');
                       } else {
                         print('-------');
                       }
@@ -187,10 +221,10 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                   });
                 });
               },
-              items: marklocationList.map((dynamic item) {
+              items: bindComplintWard.map((dynamic item) {
                 return DropdownMenuItem(
-                  child: Text(item['sPointTypeName'].toString()),
-                  value: item["sPointTypeName"].toString(),
+                  child: Text(item['sWardName'].toString()),
+                  value: item["sWardCode"].toString(),
                 );
               }).toList(),
             ),
@@ -203,6 +237,12 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   @override
   void initState() {
     // TODO: implement initState
+    marklocationData();
+    bindCityzenData();
+    categoryfocus = FocusNode();
+    addressfocus = FocusNode();
+    landMarkfocus = FocusNode();
+    mentionfocus = FocusNode();
     super.initState();
    // BackButtonInterceptor.add(myInterceptor);
   }
@@ -213,22 +253,37 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
 
   @override
   void dispose() {
+    categoryfocus.dispose();
+    addressfocus.dispose();
+    landMarkfocus.dispose();
+    mentionfocus.dispose();
+
    // BackButtonInterceptor.remove(myInterceptor);
+
     super.dispose();
   }
-
+  // toast
+  void displayToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: getAppBarBack(context,'${widget.complaintName}'),
-      drawer:
-          generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+      drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
-
           SizedBox(height: 5),
+
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
             child: Container(
@@ -309,8 +364,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              focusNode: locationfocus,
-                              controller: _locationController,
+                              focusNode: categoryfocus,
+                              controller: categoryTextEditingController,
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
@@ -427,8 +482,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              focusNode: locationfocus,
-                              controller: _locationController,
+                              focusNode: addressfocus,
+                              controller: addressTextEditingController,
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
@@ -489,8 +544,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              focusNode: descriptionfocus,
-                              controller: _descriptionController,
+                              focusNode: landMarkfocus,
+                              controller: landmarkTextEditingController,
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
@@ -552,8 +607,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              focusNode: descriptionfocus,
-                              controller: _descriptionController,
+                              focusNode: mentionfocus,
+                              controller: mentionTextEditingController,
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
@@ -721,55 +776,134 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                 width: 0.5, // Border width
                               ),
                             ),
-                            child: CustomElevatedButton(
-                              text: 'Post Grievance',
-                              onTap: () {
-                                print('---Live Darshan-----');
-                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                                //)));
-                              },
-                            ),
+                            // child: CustomElevatedButton(
+                            //   text: 'Post Grievance',
+                            //   onTap: () {
+                            //
+                            //
+                            //     print('---Live Darshan-----');
+                            //
+                            //   },
+                            // ),
+                            child: ElevatedButton(
+                                onPressed: () async {
+
+                                  var random = Random();
+// Generate an 8-digit random number
+                                  int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
+                                  // DateTime currentDate = DateTime.now();
+                                  // todayDate = DateFormat('dd/MMM/yyyy HH:mm').format(currentDate);
+
+                                  // int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
+                                  // DateTime currentDate = DateTime.now();
+                                  // todayDate = DateFormat('dd/MMM/yyyy HH:mm').format(currentDate);
+                                  //
+                                  // SharedPreferences prefs =
+                                  // await SharedPreferences.getInstance();
+                                  //
+                                  // iUserTypeCode = prefs.getString('iUserTypeCode');
+                                  // userId = prefs.getString('iUserId');
+                                  // slat = prefs.getDouble('lat');
+                                  // slong = prefs.getDouble('long');
+
+
+                                  var category = categoryTextEditingController.text;
+                                  var address = addressTextEditingController.text;
+                                  var landmark = landmarkTextEditingController.text;
+                                  var mention = mentionTextEditingController.text;
+                                  // ward value --  _dropDownValueWard
+                                  // category value -- _dropDownValueComplaintSubCategory
+                                  // image ----  image
+
+                                  // apply condition
+                                  if (_formKey.currentState!.validate() &&
+                                      category != null &&
+                                      address != null &&
+                                      landmark != null &&
+                                      mention !=null &&
+                                      _dropDownValueComplaintSubCategory !=null&&
+                                      _dropDownValueWard !=null
+                                  ) {
+                                     print('--category--$category');
+                                     print('--address--$address');
+                                     print('--landmark--$landmark');
+                                     print('--mention--$mention');
+                                     print('--dropdownvalueCategory--$_dropDownValueComplaintSubCategory');
+                                     print('--_dropDownValueWard--$_dropDownValueWard');
+                                     print('---RanddomNumber---$randomNumber');
+
+                                    print('---call Api---');
+                                     var markPointSubmitResponse =
+                                     await MarkPointSubmitRepo().markpointsubmit(
+                                         context,
+                                         randomNumber,
+                                         category,
+                                         _dropDownValueComplaintSubCategory,
+                                         _dropDownValueWard,
+                                         address,
+                                         landmark,
+                                         mention,
+                                         image,
+                                     );
+                                     print('----699---$markPointSubmitResponse');
+
+                                    // var cityzenpostResponse =
+                                    // await CityzenPostComplaintRepo().cityzenPostComplaint(
+                                    //     context,
+                                    //     random,
+                                    //     category,
+                                    //     _dropDownValueComplaintSubCategory,
+                                    //     _dropDownValueWard,
+                                    //     address,
+                                    //     landmark,
+                                    //     mention,
+                                    //     image
+                                    //     );
+
+
+                                    // print('----699---$cityzenpostResponse');
+                                    // result2 = markPointSubmitResponse['Result'];
+                                    // msg2 = markPointSubmitResponse['Msg'];
+
+                                  } else {
+                                    // if(_dropDownValueMarkLocation==null){
+                                    //   displayToast('select Point Type');
+                                    // }else if(_dropDownValueDistric==null){
+                                    //   displayToast('select sector');
+                                    // }else if(location==""){
+                                    //   displayToast('Enter location');
+                                    // }else if(uplodedImage==null){
+                                    //   displayToast('Pick image');
+                                    // }else{
+                                    // }
+                                  }
+                                  // if(result2=="1"){
+                                  //   displayToast(msg2);
+                                  //   Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => const HomePage()),
+                                  //   );
+                                  // }else{
+                                  //   displayToast(msg2);
+                                  // }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(
+                                      0xFF255899), // Hex color code (FF for alpha, followed by RGB)
+                                ),
+                                child: const Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                )),
+
                           ),
                         ),
                       ),
-                      // ElevatedButton(
-                      //     onPressed: () async {
-                      //       var location = _locationController.text;
-                      //       // apply condition
-                      //       if (_formKey.currentState!.validate()) {
-                      //         print('---call Api---');
-                      //         //   var markPointSubmitResponse =
-                      //       } else {
-                      //         if (_dropDownValueMarkLocation == null) {
-                      //           //  displayToast('select Point Type');
-                      //         } else if (_dropDownValueDistric == null) {
-                      //           //displayToast('select sector');
-                      //         } else if (location == "") {}
-                      //       }
-                      //       // if(result2=="1"){
-                      //       //   displayToast(msg2);
-                      //       //   //Navigator.pop(context);
-                      //       //   // Navigator.push(
-                      //       //   //   context,
-                      //       //   //   MaterialPageRoute(
-                      //       //   //       builder: (context) => const HomePage()),
-                      //       //   // );
-                      //       // }else{
-                      //       //   displayToast(msg2);
-                      //     },
-                      //     /// Todo next Apply condition
-                      //     style: ElevatedButton.styleFrom(
-                      //       backgroundColor: Color(
-                      //           0xFF255899), // Hex color code (FF for alpha, followed by RGB)
-                      //     ),
-                      //     child: const Text(
-                      //       "Submit",
-                      //       style: TextStyle(
-                      //           fontFamily: 'Montserrat',
-                      //           color: Colors.white,
-                      //           fontSize: 16.0,
-                      //           fontWeight: FontWeight.bold),
-                      //     ))
                     ],
                   ),
                 ),

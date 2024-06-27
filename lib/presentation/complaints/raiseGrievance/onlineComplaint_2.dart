@@ -272,13 +272,11 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
               children: <Widget>[
                 middleHeader(context, '${widget.name}'),
                 Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
+                  height: MediaQuery.of(context).size
                       .height * 0.8, // Adjust the height as needed
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: notificationList?.length,
+                    itemCount: notificationList?.length ?? 0,
                     itemBuilder: (context, index) {
                       return Column(
                         children: <Widget>[
@@ -296,7 +294,9 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         OnlineComplaintForm(
-                                            complaintName: categoryName),
+                                            complaintName: categoryName,
+                                            categoryCode : categoryCode
+                                        ),
                                   ),
                                 );
                               },

@@ -4,15 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:noidaone/Controllers/ajencyUserRepo.dart';
-import 'package:noidaone/Controllers/complaintForwardRepo.dart';
-import 'package:noidaone/screens/viewimage.dart';
-import '../Controllers/bindAjencyRepo.dart';
-import '../Controllers/pendingInternalComplaintRepo.dart';
-import 'actionOnSchedulePoint.dart';
-import 'generalFunction.dart';
-import 'homeScreen.dart';
 
+import '../../../app/generalFunction.dart';
+import '../../../services/citizenMyPostedComplaint.dart';
+import '../../homepage/homepage.dart';
 
 class PendingComplaintScreen extends StatelessWidget {
   const PendingComplaintScreen({Key? key}) : super(key: key);
@@ -66,7 +61,8 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
 
   pendingInternalComplaintResponse() async {
     pendingInternalComplaintList =
-    await PendingInternalComplaintRepo().pendingInternalComplaint(context);
+    await CitizenMyPostComplaintRepo().cityzenpostcomplaint(context);
+    print('-----50----$pendingInternalComplaintList');
     _filteredData =
     List<Map<String, dynamic>>.from(pendingInternalComplaintList ?? []);
 
@@ -78,7 +74,7 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
     // TODO: implement initState
     pendingInternalComplaintResponse();
     _searchController.addListener(_search);
-    bindAjency();
+   // bindAjency();
     super.initState();
   }
 
@@ -143,22 +139,22 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
         fontSize: 16.0);
   }
 
-  bindAjency() async {
-    bindAjencyList = await BindAjencyRepo().bindajency();
-    print(" -----157---bindAjencyList---> $bindAjencyList");
-    setState(() {});
-  }
+  // bindAjency() async {
+  //   bindAjencyList = await BindAjencyRepo().bindajency();
+  //   print(" -----157---bindAjencyList---> $bindAjencyList");
+  //   setState(() {});
+  // }
 
-  userAjency(int ajencyCode) async {
-
-    userAjencyList = await AjencyUserRepo().ajencyuser(ajencyCode);
-    setState(() {
-    });
-    if(userAjencyList ==null || userAjencyList.isEmpty){
-    }else{
-      displayToast("Record Found");
-    }
-    }
+  // userAjency(int ajencyCode) async {
+  //
+  //   userAjencyList = await AjencyUserRepo().ajencyuser(ajencyCode);
+  //   setState(() {
+  //   });
+  //   if(userAjencyList ==null || userAjencyList.isEmpty){
+  //   }else{
+  //     displayToast("Record Found");
+  //   }
+  //   }
 
   @override
   Widget build(BuildContext context) {
@@ -168,6 +164,7 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
         backgroundColor: Color(0xFF255899),
         leading: GestureDetector(
             onTap: () {
+
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const HomePage()));
             },
@@ -176,7 +173,7 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
               child: Icon(Icons.arrow_back_ios),
             )),
         title: const Text(
-          'Pending Complaint',
+          'Grievance Status',
           style: TextStyle(
               fontFamily: 'Montserrat',
               color: Colors.white,
@@ -234,6 +231,7 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
                   child: Container(
                     child: Column(
                       children: [
+
                         Card(
                           elevation: 1,
                           child: Container(
@@ -537,14 +535,14 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
                                                   print('---$sBeforePhoto');
 
                                                   if (sBeforePhoto != null) {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (
-                                                                context) =>
-                                                                ImageScreen(
-                                                                    sBeforePhoto:
-                                                                    sBeforePhoto)));
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (
+                                                    //             context) =>
+                                                    //             ImageScreen(
+                                                    //                 sBeforePhoto:
+                                                    //                 sBeforePhoto)));
                                                   } else {
                                                     // toast
                                                   }
@@ -585,14 +583,14 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
                                                   print('----341---');
                                                   var sBeforePhoto =
                                                       "${item['sBeforePhoto']}";
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ActionOnSchedultPointScreen(
-                                                                sBeforePhoto:
-                                                                sBeforePhoto)),
-                                                  );
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           ActionOnSchedultPointScreen(
+                                                  //               sBeforePhoto:
+                                                  //               sBeforePhoto)),
+                                                 // );
                                                 },
                                                 child: const Row(
                                                   mainAxisAlignment:
@@ -657,6 +655,7 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
                             ),
                           ),
                         ),
+
                       ],
                     ),
                   ),
@@ -810,7 +809,7 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
                                               setState(() {});
                                               if (iAgencyCode != null) {
                                                 // TODO: update next api
-                                                userAjency(iAgencyCode);
+                                              //  userAjency(iAgencyCode);
 
                                               } else {
                                                 print('Please Select State name');
@@ -915,40 +914,40 @@ class _SchedulePointScreenState extends State<SchedulePointScreen> {
                             ),
 
                             SizedBox(height: 10),
-                            ElevatedButton(
-                                onPressed: () async {
-                                  /// TODO REMOVE COMMENT AND apply proper api below and handle api data
-                                  // print('----clicked--xxxxxxxx--');
-                                  if (iAgencyCode != null &&
-                                      agencyUserId != null) {
-                                    var complaintForwardResponse = await ComplaintForwardRepo()
-                                        .complaintForward(context,
-                                        iAgencyCode, agencyUserId);
-                                    result1 = "${complaintForwardResponse['Result']}";
-                                     msg1 = "${complaintForwardResponse['Msg']}";
-                                    if(result1=="1"){
-                                      displayToast(msg1);
-                                      Navigator.pop(context);
-
-                                    }else{
-                                      displayToast(msg1);
-                                    }
-
-                                  } else {
-                                    print('----Not call a Api--');
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(
-                                      0xFF255899), // Hex color code (FF for alpha, followed by RGB)
-                                ),
-                                child: const Text("Submit",
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold),
-                                ))
+                            // ElevatedButton(
+                            //     onPressed: () async {
+                            //       /// TODO REMOVE COMMENT AND apply proper api below and handle api data
+                            //       // print('----clicked--xxxxxxxx--');
+                            //       if (iAgencyCode != null &&
+                            //           agencyUserId != null) {
+                            //         var complaintForwardResponse = await ComplaintForwardRepo()
+                            //             .complaintForward(context,
+                            //             iAgencyCode, agencyUserId);
+                            //         result1 = "${complaintForwardResponse['Result']}";
+                            //          msg1 = "${complaintForwardResponse['Msg']}";
+                            //         if(result1=="1"){
+                            //           displayToast(msg1);
+                            //           Navigator.pop(context);
+                            //
+                            //         }else{
+                            //           displayToast(msg1);
+                            //         }
+                            //
+                            //       } else {
+                            //         print('----Not call a Api--');
+                            //       }
+                            //     },
+                            //     style: ElevatedButton.styleFrom(
+                            //       backgroundColor: const Color(
+                            //           0xFF255899), // Hex color code (FF for alpha, followed by RGB)
+                            //     ),
+                            //     child: const Text("Submit",
+                            //       style: TextStyle(
+                            //           fontFamily: 'Montserrat',
+                            //           color: Colors.white,
+                            //           fontSize: 16.0,
+                            //           fontWeight: FontWeight.bold),
+                            //     ))
                           ],
                         ),
                       ),

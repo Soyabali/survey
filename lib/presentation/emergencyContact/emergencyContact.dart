@@ -3,8 +3,11 @@ import 'dart:math';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import '../../app/generalFunction.dart';
 import '../../app/navigationUtils.dart';
+import '../../provider/bindComplaintProvider.dart';
+import '../../services/getEmergencyContactTitleRepo.dart';
 import '../resources/app_text_style.dart';
 import 'fireemergency/fireemergency.dart';
 
@@ -19,6 +22,18 @@ class EmergencyContacts extends StatefulWidget {
 
 class _TemplesHomeState extends State<EmergencyContacts> {
   GeneralFunction generalFunction = GeneralFunction();
+
+
+  List<Map<String, dynamic>>? emergencyTitleList;
+
+  String? sName, sContactNo;
+  // GeneralFunction generalFunction = GeneralFunction();
+  getEmergencyTitleResponse() async {
+    emergencyTitleList = await GetEmergencyContactTitleRepo().getEmergencyContactTitle(context);
+    print('------31----$emergencyTitleList');
+    setState(() {
+    });
+  }
 
 
     final List<Map<String, dynamic>> itemList2 = [
@@ -90,6 +105,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
   @override
   void initState() {
     // TODO: implement initState
+    getEmergencyTitleResponse();
     super.initState();
   }
 
@@ -106,122 +122,154 @@ class _TemplesHomeState extends State<EmergencyContacts> {
       appBar: getAppBarBack(context, '${widget.name}'),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            middleHeader(context, '${widget.name}'),
-            Container(
-              height: MediaQuery.of(context).size.height *
-                  0.8, // Adjust the height as needed
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: itemList2.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 1.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            var name = itemList2[index]['temple'];
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    FireEmergency(name: name),
-                              ),
-                            );
-                          },
-                          child: ListTile(
-                            leading: Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                gradient: const LinearGradient(
-                                  colors: [Colors.red, Colors.orange],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
+
+        body: Consumer<BindComplaintProvider>(
+            builder: (context, value, child) {
+              if (value.isLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final todos = value.todos;
+              print('---251---L--xx-${todos.length}');
+              print('Todos---252-: ${todos.map((e) => e.toString()).toList()}');
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    middleHeader(context, '${widget.name}'),
+                    Container(
+                      height: MediaQuery.of(context).size
+                          .height * 0.8, // Adjust the height as needed
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: emergencyTitleList?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 1.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    var name = emergencyTitleList![index]['sHeadName'];
+                                    var iHeadCode = emergencyTitleList![index]['iHeadCode'];
+                                    print('----categoryNmae---$name');
+                                    print('----categoryCode---$iHeadCode');
+
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  FireEmergency(name: name,iHeadCode:iHeadCode),
+                                                            ),
+                                                          );
+
+
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         OnlineComplaintForm(
+                                    //             complaintName: categoryName,
+                                    //             categoryCode : categoryCode
+                                    //         ),
+                                    //   ),
+                                    // );
+                                  },
+
+                                  child: ListTile(
+                                    leading: Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        gradient: const LinearGradient(
+                                          colors: [Colors.red, Colors.orange],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          itemList2[index]['leadingIcon']!,
+                                          width: 30,
+                                          height: 30,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      emergencyTitleList![index]['sHeadName']!,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/arrow.png',
+                                          height: 12,
+                                          width: 12,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                              child: Center(
-                                child: Image.asset(
-                                  itemList2[index]['leadingIcon']!,
-                                  width: 30,
-                                  height: 30,
-                                  fit: BoxFit.cover,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 12, right: 12),
+                                child: Container(
+                                  height: 1,
+                                  color: Colors
+                                      .grey, // Gray color for the bottom line
                                 ),
                               ),
-                            ),
-                            title: Text(
-                              itemList2[index]['temple']!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset(
-                                  'assets/images/arrow.png',
-                                  height: 12,
-                                  width: 12,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                            ],
+                          );
+                        },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12,right: 12),
-                        child: Container(
-                          height: 1,
-                          color: Colors.grey, // Gray color for the bottom line
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+                    ),
+                  ],
+                ),
+
+              );
+            }
+        )
       // body: Padding(
       //   padding: const EdgeInsets.only(bottom: 5),
-      //   child: SingleChildScrollView(
-      //     child: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.stretch,
-      //       children: <Widget>[
-      //         middleHeader(context, '${widget.name}'),
-      //         Container(
-      //           height: MediaQuery.of(context).size.height,
-      //           child: ListView.builder(
-      //             shrinkWrap: true,
-      //             physics: NeverScrollableScrollPhysics(),
-      //             itemCount: itemList2.length,
-      //             itemBuilder: (context, index) {
-      //               return Padding(
-      //                 // padding: const EdgeInsets.only(left: 5,right: 5),
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.stretch,
+      //     children: <Widget>[
+      //       middleHeader(context, '${widget.name}'),
+      //       Container(
+      //         height: MediaQuery.of(context).size.height *
+      //             0.8, // Adjust the height as needed
+      //         child: ListView.builder(
+      //           shrinkWrap: true,
+      //           itemCount: itemList2.length,
+      //           itemBuilder: (context, index) {
+      //             return Column(
+      //               children: <Widget>[
+      //                 Padding(
       //                   padding: const EdgeInsets.symmetric(vertical: 1.0),
-      //
       //                   child: GestureDetector(
-      //                     onTap: (){
-      //                      var name = '${itemList2[index]['temple']}';
-      //                       print('---59--$name');
+      //                     onTap: () {
+      //                       var name = itemList2[index]['temple'];
       //                       Navigator.push(
       //                         context,
       //                         MaterialPageRoute(
-      //                             builder: (context) =>
-      //                                 FireEmergency(name: name)),
+      //                           builder: (context) =>
+      //                               FireEmergency(name: name),
+      //                         ),
       //                       );
       //                     },
       //                     child: ListTile(
-      //                       leading:Container(
+      //                       leading: Container(
       //                         width: 35,
       //                         height: 35,
       //                         decoration: BoxDecoration(
@@ -231,18 +279,24 @@ class _TemplesHomeState extends State<EmergencyContacts> {
       //                             begin: Alignment.topLeft,
       //                             end: Alignment.bottomRight,
       //                           ),
-      //
       //                         ),
       //                         child: Center(
       //                           child: Image.asset(
-      //                               itemList2[index]['leadingIcon'],
-      //                               width:30,
-      //                               height:30,
-      //                               fit:BoxFit.cover
+      //                             itemList2[index]['leadingIcon']!,
+      //                             width: 30,
+      //                             height: 30,
+      //                             fit: BoxFit.cover,
       //                           ),
-      //                         ),),
-      //                       title: Text(itemList2[index]['temple'], style: AppTextStyle.font14penSansExtraboldBlack87TextStyle),
-      //
+      //                         ),
+      //                       ),
+      //                       title: Text(
+      //                         itemList2[index]['temple']!,
+      //                         style: const TextStyle(
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: 14,
+      //                           color: Colors.black87,
+      //                         ),
+      //                       ),
       //                       trailing: Row(
       //                         mainAxisSize: MainAxisSize.min,
       //                         children: [
@@ -254,12 +308,21 @@ class _TemplesHomeState extends State<EmergencyContacts> {
       //                         ],
       //                       ),
       //                     ),
-      //                   ));
-      //             },
-      //           ),
+      //                   ),
+      //                 ),
+      //                 Padding(
+      //                   padding: const EdgeInsets.only(left: 12,right: 12),
+      //                   child: Container(
+      //                     height: 1,
+      //                     color: Colors.grey, // Gray color for the bottom line
+      //                   ),
+      //                 ),
+      //               ],
+      //             );
+      //           },
       //         ),
-      //       ],
-      //     ),
+      //       ),
+      //     ],
       //   ),
       // ),
     );

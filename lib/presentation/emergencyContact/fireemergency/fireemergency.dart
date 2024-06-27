@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../services/getEmergencyContactList.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
 
@@ -12,7 +13,8 @@ import '../../resources/app_text_style.dart';
 class FireEmergency extends StatefulWidget {
 
   final name;
-  const FireEmergency({super.key, required this.name});
+  final iHeadCode;
+  const FireEmergency({super.key, required this.name, required this.iHeadCode});
 
   @override
   State<FireEmergency> createState() => _TemplesHomeState();
@@ -29,11 +31,32 @@ class _TemplesHomeState extends State<FireEmergency> {
     {'image': 'https://t4.ftcdn.net/jpg/03/57/53/11/360_F_357531159_cumH01clbXOo32Ytvkb7qGYspCJjj4gB.jpg','temple': 'Dy. Fire Officr'},
     {'image': 'https://w0.peakpx.com/wallpaper/672/441/HD-wallpaper-puri-jagannath-temple-cloud.jpg','temple': 'Shri Parthasarathi Sahoo'},
   ];
+  //
+
+  List<Map<String, dynamic>>? emergencyListResponse;
+
+  String? sName, sContactNo;
+  // GeneralFunction generalFunction = GeneralFunction();
+  getEmergencyListResponse() async {
+    emergencyListResponse = await GetEmergencyContactListeRepo().getEmergencyContactList(context);
+    print('------42----$emergencyListResponse');
+    setState(() {
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getEmergencyListResponse();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+       // appBar: getAppBarBack(context,"${widget.name}"),
         appBar: getAppBarBack(context,"${widget.name}"),
         drawer:
         generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
@@ -47,11 +70,11 @@ class _TemplesHomeState extends State<FireEmergency> {
               //     width: MediaQuery.of(context).size.width),
              // SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.only(left: 5,right: 5,bottom: 10),
+                padding: const EdgeInsets.only(left: 5,right: 5,bottom: 80),
                 child: Container(
                   height: MediaQuery.of(context).size.height,
                   child: ListView.builder(
-                    itemCount: itemList.length,
+                    itemCount: emergencyListResponse?.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         // padding: EdgeInsets.only(left: 5,right: 5),
@@ -66,10 +89,11 @@ class _TemplesHomeState extends State<FireEmergency> {
                           ),
                           child: InkWell(
                             onTap: (){
-                              var templeName = "${itemList[index]['temple']}";
-                              var image  =  "${itemList[index]['image']}";
-                              print('-----165---$templeName');
-                              print('-----166---$image');
+                              var templeName = "${emergencyListResponse![index]['sName']}";
+                              sContactNo  =  "${emergencyListResponse![index]['sContactNo']}";
+
+                              print('-----165---$sContactNo');
+
                               // navigator
                               // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
                               //     templeName:templeName,image:image)));
@@ -83,11 +107,17 @@ class _TemplesHomeState extends State<FireEmergency> {
                                     height: 90,
                                     width: 90,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/images/contactlist.jpeg'),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
+                                    // decoration: BoxDecoration(
+                                    //   borderRadius: BorderRadius.circular(5),
+                                    // ),
+                                    // child: ClipRRect(
+                                    //     borderRadius: BorderRadius.circular(5.0),
+                                    //     child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
 
                                   ),
                                 ),
@@ -102,7 +132,7 @@ class _TemplesHomeState extends State<FireEmergency> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('${itemList[index]['temple']}', style: GoogleFonts.openSans(
+                                            Text('${emergencyListResponse![index]['sName']}', style: GoogleFonts.openSans(
                                               color: AppColors.green,
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
@@ -110,17 +140,21 @@ class _TemplesHomeState extends State<FireEmergency> {
                                             ),),
                                             // Text('${itemList[index]['temple']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Text('Designation :',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
-                                                SizedBox(width: 5),
-                                                Text('Fire Helpline',
-                                                    style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
-                                              ],
-                                            ),
+                                            Text('${emergencyListResponse![index]['sDesignation']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                            // Row(
+                                            //   mainAxisAlignment: MainAxisAlignment.start,
+                                            //   children: [
+                                            //     Text('${emergencyListResponse![index]['sDesignation']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                            //     // SizedBox(width: 5),
+                                            //     //
+                                            //     // Text('${emergencyListResponse![index]['sName']}',
+                                            //     //     style:AppTextStyle.font10penSansExtraboldBlack45TextStyle),
+                                            //     //
+                                            //
+                                            //   ],
+                                            // ),
                                             SizedBox(height: 5),
-                                            Text('05652565565',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                            Text('${emergencyListResponse![index]['sContactNo']}',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
 
                                           ],
                                         ),
@@ -131,7 +165,7 @@ class _TemplesHomeState extends State<FireEmergency> {
                                 InkWell(
                                   onTap: (){
                                     print('----calling ---');
-                                    launchUrlString("tel:05652565565");
+                                    launchUrlString("tel:$sContactNo");
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
