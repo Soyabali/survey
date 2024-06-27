@@ -67,11 +67,12 @@ class _TemplesHomeState extends State<Hotel> {
                               onTap: (){
                                 var templeName = "${itemList[index]['hotelName']}";
                                 var image  =  "${itemList[index]['hotel']}";
-                                print('-----165---$templeName');
-                                print('-----166---$image');
-                                // navigator
-                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
-                                //     templeName:templeName,image:image)));
+                                //
+                                double lat = 19.817743;
+                                double long = 85.859839;
+                                launchGoogleMaps(lat,long);
+
+
                                 },
 
                               child: Row(
@@ -228,7 +229,7 @@ class _TemplesHomeState extends State<Hotel> {
                     ),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Text('Facilities',style: TextStyle(
                   color: Colors.black,fontSize: 14
                 ),)

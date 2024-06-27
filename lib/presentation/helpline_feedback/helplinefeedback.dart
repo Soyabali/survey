@@ -100,6 +100,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                           ),
                           child: InkWell(
                             onTap: () {
+                              /// TODO HERE GET A CURRECT LOCATION
                               double lat = 19.817743;
                               double long = 85.859839;
                               launchGoogleMaps(lat,long);
@@ -134,14 +135,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                     ),
                                   ),
                                 ),
-                                InkWell(
-                                  onTap: (){
-                                   // launchUrlString("tel://7520014455");
-                                    double lat = 19.817743;
-                                    double long = 85.859839;
-                                    launchGoogleMaps(lat,long);
-                                  },
-                                  child: Padding(
+                                Padding(
                                       padding: const EdgeInsets.only(left: 5),
                                       child: Container(
                                         height: 20,
@@ -154,7 +148,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             size:
                                             22), //Image.asset('assets/images/callicon.png',
                                       )),
-                                ),
+
                                 Padding(
                                   padding: const EdgeInsets.only(right: 5),
                                   child: Column(

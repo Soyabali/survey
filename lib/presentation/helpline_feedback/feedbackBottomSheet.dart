@@ -69,20 +69,21 @@ class _FeedbackFormState extends State<FeedbackForm> {
                  SizedBox(height: 10),
                  Padding(
                    padding: const EdgeInsets.only(
-                       left: AppPadding.p15, right: AppPadding.p15),
+                     left: 15, // Adjusted padding value
+                     right: 15, // Adjusted padding value
+                   ),
                    child: Container(
-                     height: 40,
+                     height: 80, // Adjusted container height
                      child: TextFormField(
                        focusNode: namefocus,
                        controller: _feedbackController,
-                       maxLines: 2,
+                       minLines: 2, // Minimum number of lines
+                       maxLines: 2, // Maximum number of lines
                        textInputAction: TextInputAction.next,
-                       onEditingComplete: () =>
-                           FocusScope.of(context).nextFocus(),
+                       onEditingComplete: () => FocusScope.of(context).nextFocus(),
                        decoration: const InputDecoration(
-                         // labelText: 'Mobile',
                          label: Padding(
-                           padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
+                           padding: EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
                            child: Text('Enter Feedback'),
                          ),
                          border: OutlineInputBorder(),
@@ -92,14 +93,13 @@ class _FeedbackFormState extends State<FeedbackForm> {
                          enabledBorder: OutlineInputBorder(
                            borderSide: BorderSide(color: Colors.orange),
                          ),
-                         contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                         contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0), // Adjusted content padding
                          prefixIcon: Icon(
                            Icons.feedback,
                            color: Colors.orange,
                          ),
                        ),
-                       autovalidateMode:
-                       AutovalidateMode.onUserInteraction,
+                       autovalidateMode: AutovalidateMode.onUserInteraction,
                        validator: (value) {
                          if (value!.isEmpty) {
                            return 'Enter Feedback';
@@ -108,9 +108,51 @@ class _FeedbackFormState extends State<FeedbackForm> {
                        },
                      ),
                    ),
-
                  ),
-                 SizedBox(height: 10),
+                 // Padding(
+                 //   padding: const EdgeInsets.only(
+                 //       left: AppPadding.p15, right: AppPadding.p15),
+                 //   child: Container(
+                 //     height: 40,
+                 //     child: TextFormField(
+                 //       focusNode: namefocus,
+                 //       controller: _feedbackController,
+                 //       maxLines: 2,
+                 //       textInputAction: TextInputAction.next,
+                 //       onEditingComplete: () =>
+                 //           FocusScope.of(context).nextFocus(),
+                 //       decoration: const InputDecoration(
+                 //         // labelText: 'Mobile',
+                 //         label: Padding(
+                 //           padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
+                 //           child: Text('Enter Feedback'),
+                 //         ),
+                 //         border: OutlineInputBorder(),
+                 //         focusedBorder: OutlineInputBorder(
+                 //           borderSide: BorderSide(color: Colors.orange),
+                 //         ),
+                 //         enabledBorder: OutlineInputBorder(
+                 //           borderSide: BorderSide(color: Colors.orange),
+                 //         ),
+                 //         contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                 //         prefixIcon: Icon(
+                 //           Icons.feedback,
+                 //           color: Colors.orange,
+                 //         ),
+                 //       ),
+                 //       autovalidateMode:
+                 //       AutovalidateMode.onUserInteraction,
+                 //       validator: (value) {
+                 //         if (value!.isEmpty) {
+                 //           return 'Enter Feedback';
+                 //         }
+                 //         return null;
+                 //       },
+                 //     ),
+                 //   ),
+                 //
+                 // ),
+                 SizedBox(height: 20),
                  /// LoginButton code and onclik Operation
                  Center(
                    child: Container(

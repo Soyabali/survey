@@ -200,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                                    // labelText: 'Mobile',
                                     label: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
-                                      child: Text('Mobile'),
+                                      child: Text('Mobile number'),
                                     ),
                                     border: OutlineInputBorder(),
                                     focusedBorder: OutlineInputBorder(

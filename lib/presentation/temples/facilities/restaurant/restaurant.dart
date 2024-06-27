@@ -70,9 +70,10 @@ class _TemplesHomeState extends State<Restaurant> {
                                 var image  =  "${itemList[index]['image']}";
                                 print('-----165---$templeName');
                                 print('-----166---$image');
-                                // navigator
-                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TemplesDetail(
-                                //     templeName:templeName,image:image)));
+
+                                double lat = 19.817743;
+                                double long = 85.859839;
+                                launchGoogleMaps(lat,long);
                               },
                               child: Row(
                                 children: [
