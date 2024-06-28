@@ -3,20 +3,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:noidaone/screens/homeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Controllers/district_repo.dart';
-import '../Controllers/markLocationRepo.dart';
-import '../Controllers/markpointSubmit.dart';
-import '../Controllers/postimagerepo.dart';
-import '../Helpers/loader_helper.dart';
-import '../resources/values_manager.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'flull_screen_image.dart';
 import 'dart:math';
+
+import '../../../app/loader_helper.dart';
+import '../../../services/cityzenpostcomplaintRepo.dart';
+import '../../../services/district_repo.dart';
+import '../../../services/markLocationRepo.dart';
+import '../../../services/postimagerepo.dart';
+import '../../fullscreen/flull_screen_image.dart';
+import '../../homepage/homepage.dart';
+import '../../resources/values_manager.dart';
 
 
 class MarkPointScreen extends StatelessWidget {
@@ -362,8 +363,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color(0xFF255899),
         leading: GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomePage()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => const HomePage()));
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -760,23 +761,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                   _dropDownValueDistric != null && uplodedImage !=null) {
 
 
-
-                                  var markPointSubmitResponse =
-                                    await MarkPointSubmitRepo().markpointsubmit(
-                                        context,
-                                        randomNumber,
-                                        _selectedPointId,
-                                        _selectedBlockId,
-                                        location,
-                                        slat,
-                                        slong,
-                                        description,
-                                        uplodedImage,
-                                        todayDate,
-                                        userId);
-                                print('----699---$markPointSubmitResponse');
-                                  result2 = markPointSubmitResponse['Result'];
-                                  msg2 = markPointSubmitResponse['Msg'];
+                                //
+                                //   var markPointSubmitResponse =
+                                //     await MarkPointSubmitRepo().markpointsubmit(
+                                //         context,
+                                //         randomNumber,
+                                //         _selectedPointId,
+                                //         _selectedBlockId,
+                                //         location,
+                                //         slat,
+                                //         slong,
+                                //         description,
+                                //         uplodedImage,
+                                //         iCompCode,
+                                //         userId);
+                                // print('----699---$markPointSubmitResponse');
+                                //   result2 = markPointSubmitResponse['Result'];
+                                //   msg2 = markPointSubmitResponse['Msg'];
 
                               } else {
                                 if(_dropDownValueMarkLocation==null){
@@ -825,3 +826,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+

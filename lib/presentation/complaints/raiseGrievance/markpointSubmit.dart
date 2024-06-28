@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Helpers/loader_helper.dart';
-import '../screens/generalFunction.dart';
-import 'baseurl.dart';
+
+import '../../../app/generalFunction.dart';
+import '../../../app/loader_helper.dart';
+import '../../../services/baseurl.dart';
+
 
 class MarkPointSubmitRepo {
   GeneralFunction generalFunction = GeneralFunction();
@@ -31,7 +33,7 @@ class MarkPointSubmitRepo {
       var markPointSubmitApi = "$baseURL$endPoint";
 
       String jsonResponse =
-          '{"sArray":[{"iCompCode":$randomNumber,"iPointTypeCode":$dropDownValueMarkLocation,"iSectorCode":$dropDownValueDistric,"sLocation":"$location","fLatitude":$slat,"fLongitude":$slong,"sDescription":"$description","sBeforePhoto":"$uplodedImage","dPostedOn":"$todayDate","iPostedBy":$userId}]}';
+          '{"sArray":[{"iCompCode":$randomNumber,"iSubCategoryCode":$dropDownValueMarkLocation,"sWardCode":$dropDownValueDistric,"sAddress":"$location","sLandmark":$slat,"sComplaintDetails":$slong,"sComplaintPhoto":"$description","sPostedBy":"$uplodedImage","fLatitude":"$todayDate","fLongitude":$userId}]}';
 // Parse the JSON response
       Map<String, dynamic> parsedResponse = jsonDecode(jsonResponse);
 
