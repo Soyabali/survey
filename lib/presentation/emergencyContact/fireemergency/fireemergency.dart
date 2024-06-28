@@ -36,9 +36,11 @@ class _TemplesHomeState extends State<FireEmergency> {
   List<Map<String, dynamic>>? emergencyListResponse;
 
   String? sName, sContactNo;
+
   // GeneralFunction generalFunction = GeneralFunction();
+
   getEmergencyListResponse() async {
-    emergencyListResponse = await GetEmergencyContactListeRepo().getEmergencyContactList(context);
+    emergencyListResponse = await GetEmergencyContactListeRepo().getEmergencyContactList(context,'${widget.iHeadCode}');
     print('------42----$emergencyListResponse');
     setState(() {
     });
@@ -48,6 +50,7 @@ class _TemplesHomeState extends State<FireEmergency> {
   void initState() {
     // TODO: implement initState
     getEmergencyListResponse();
+    print('-----52--${widget.iHeadCode}');
     super.initState();
   }
 
@@ -104,23 +107,36 @@ class _TemplesHomeState extends State<FireEmergency> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Container(
-                                    height: 90,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage('assets/images/contactlist.jpeg'),
+                                    height: 50,
+                                    width: 50,
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        'assets/images/contactlist.jpeg',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    // decoration: BoxDecoration(
-                                    //   borderRadius: BorderRadius.circular(5),
-                                    // ),
-                                    // child: ClipRRect(
-                                    //     borderRadius: BorderRadius.circular(5.0),
-                                    //     child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
-
                                   ),
                                 ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(left: 5),
+                                //   child: Container(
+                                //     height: 50,
+                                //     width: 50,
+                                //     decoration: BoxDecoration(
+                                //       image: DecorationImage(
+                                //         image: AssetImage('assets/images/contactlist.jpeg'),
+                                //         fit: BoxFit.cover,
+                                //       ),
+                                //     ),
+                                //     // decoration: BoxDecoration(
+                                //     //   borderRadius: BorderRadius.circular(5),
+                                //     // ),
+                                //     // child: ClipRRect(
+                                //     //     borderRadius: BorderRadius.circular(5.0),
+                                //     //     child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
+                                //
+                                //   ),
+                                // ),
                                 Expanded(
                                   child: Container(
                                     height: 110,

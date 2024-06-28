@@ -8,8 +8,9 @@ import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
 class GetEmergencyContactListeRepo {
+
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> getEmergencyContactList(BuildContext context,) async {
+  Future<List<Map<String, dynamic>>?> getEmergencyContactList(BuildContext context, headerValue) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
     String? iCitizenCode = prefs.getString('iCitizenCode');
@@ -17,6 +18,7 @@ class GetEmergencyContactListeRepo {
     print('-----16---$sToken');
     print('-----17---$iCitizenCode');
     print('---token----$sToken');
+    print('--headerValue---21--$headerValue');
    // print('---iHeadCode----$iHeadCode');
 
     try {
@@ -32,7 +34,7 @@ class GetEmergencyContactListeRepo {
       var request = http.Request('POST', Uri.parse('$emeggencyContactTitleApi'));
 
       request.body = json.encode({
-        "iHeadCode": 1,
+        "iHeadCode": headerValue,
       });
 
       request.headers.addAll(headers);

@@ -120,7 +120,8 @@ class _TemplesHomeState extends State<EmergencyContacts> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: getAppBarBack(context, '${widget.name}'),
-      drawer:
+
+        drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
         body: Consumer<BindComplaintProvider>(

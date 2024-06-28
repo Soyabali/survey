@@ -413,7 +413,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 15),
-                                  child: Text(item['sStatus20'] ?? '',
+                                  child: Text(item['sStatus'] ?? '',
                                       style:
                                       AppTextStyle.font14penSansExtraboldRedTextStyle),
                                 ),
@@ -444,7 +444,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                                 Text('Posted By',
                                                     style: AppTextStyle
                                                         .font140penSansExtraboldWhiteTextStyle),
-                                                Text('Soyab',
+                                                Text(item['sPostedBy'] ?? '',
                                                     style: AppTextStyle
                                                         .font140penSansExtraboldWhiteTextStyle)
                                               ],
@@ -477,7 +477,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                                   Text('Posted At',
                                                       style: AppTextStyle
                                                           .font140penSansExtraboldWhiteTextStyle),
-                                                  Text('31/May/2024 15:53',
+                                                  Text(item['dPostedAt'] ?? '',
                                                       style: AppTextStyle
                                                           .font140penSansExtraboldWhiteTextStyle)
                                                 ],

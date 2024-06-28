@@ -95,6 +95,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   }
 
   /// Todo bind SubCategory
+
+
   Widget _bindSubCategory() {
     return Material(
       color: Colors.white,
@@ -116,44 +118,33 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                   style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
                   children: <TextSpan>[
                     TextSpan(
-                        text: '',
-                        style: AppTextStyle
-                            .font14penSansExtraboldBlack45TextStyle),
+                      text: '',
+                      style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+                    ),
                   ],
                 ),
-              ), // Not necessary for Option 1
+              ),
               value: _dropDownValueComplaintSubCategory,
-              // key: distDropdownFocus,
               onChanged: (newValue) {
                 setState(() {
                   _dropDownValueComplaintSubCategory = newValue;
-                  print('---333-------$_dropDownValueComplaintSubCategory');
-                  //  _isShowChosenDistError = false;
-                  // Iterate the List
                   bindComplaintSubCategory.forEach((element) {
-                    if (element["sSubCategoryName"] ==
-                        _dropDownValueComplaintSubCategory) {
+                    if (element["sSubCategoryName"] == _dropDownValueComplaintSubCategory) {
                       setState(() {
                         _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
-                        print('----341------$_selectedbindComplaintSubCategory');
                       });
-                      print('-----Point id----241---$_selectedbindComplaintSubCategory');
-                      if (_selectedbindComplaintSubCategory != null) {
-                        // updatedBlock();
-                        print('-----Point id----244---$_selectedbindComplaintSubCategory');
-                      } else {
-                        print('-------');
-                      }
-                      // print("Distic Id value xxxxx.... $_selectedDisticId");
-                      print("Distic Name xxxxxxx.... $_dropDownValueDistric");
-                      print("Block list Ali xxxxxxxxx.... $blockList");
                     }
                   });
                 });
               },
               items: bindComplaintSubCategory.map((dynamic item) {
                 return DropdownMenuItem(
-                  child: Text(item['sSubCategoryName'].toString()),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      item['sSubCategoryName'].toString(),
+                    ),
+                  ),
                   value: item["iSubCategoryCode"].toString(),
                 );
               }).toList(),
@@ -163,6 +154,200 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
       ),
     );
   }
+
+
+
+  // Widget _bindSubCategory() {
+  //   return Material(
+  //     color: Colors.white,
+  //     borderRadius: BorderRadius.circular(10.0),
+  //     child: Container(
+  //       width: MediaQuery.of(context).size.width - 50,
+  //       height: 42,
+  //       color: Color(0xFFf2f3f5),
+  //       child: DropdownButtonHideUnderline(
+  //         child: ButtonTheme(
+  //           alignedDropdown: true,
+  //           child: DropdownButton(
+  //             onTap: () {
+  //               FocusScope.of(context).unfocus();
+  //             },
+  //             hint: RichText(
+  //               text: TextSpan(
+  //                 text: "Select Sub Category",
+  //                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+  //                 children: <TextSpan>[
+  //                   TextSpan(
+  //                     text: '',
+  //                     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             value: _dropDownValueComplaintSubCategory,
+  //             onChanged: (newValue) {
+  //               setState(() {
+  //                 _dropDownValueComplaintSubCategory = newValue;
+  //                 bindComplaintSubCategory.forEach((element) {
+  //                   if (element["sSubCategoryName"] == _dropDownValueComplaintSubCategory) {
+  //                     setState(() {
+  //                       _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
+  //                     });
+  //                   }
+  //                 });
+  //               });
+  //             },
+  //             items: bindComplaintSubCategory.map((dynamic item) {
+  //               return DropdownMenuItem(
+  //                 child: FittedBox(
+  //                   fit: BoxFit.scaleDown,
+  //                   child: Text(
+  //                     item['sSubCategoryName'].toString(),
+  //                   ),
+  //                 ),
+  //                 value: item["iSubCategoryCode"].toString(),
+  //               );
+  //             }).toList(),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+
+  // Widget _bindSubCategory() {
+  //   return Material(
+  //     color: Colors.white,
+  //     borderRadius: BorderRadius.circular(10.0),
+  //     child: Container(
+  //       width: MediaQuery.of(context).size.width - 50,
+  //       height: 42,
+  //       color: Color(0xFFf2f3f5),
+  //       child: DropdownButtonHideUnderline(
+  //         child: ButtonTheme(
+  //           alignedDropdown: true,
+  //           child: DropdownButton(
+  //             onTap: () {
+  //               FocusScope.of(context).unfocus();
+  //             },
+  //             hint: RichText(
+  //               text: TextSpan(
+  //                 text: "Select Sub Category",
+  //                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+  //                 children: <TextSpan>[
+  //                   TextSpan(
+  //                     text: '',
+  //                     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             value: _dropDownValueComplaintSubCategory,
+  //             onChanged: (newValue) {
+  //               setState(() {
+  //                 _dropDownValueComplaintSubCategory = newValue;
+  //                 bindComplaintSubCategory.forEach((element) {
+  //                   if (element["sSubCategoryName"] == _dropDownValueComplaintSubCategory) {
+  //                     setState(() {
+  //                       _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
+  //                     });
+  //                   }
+  //                 });
+  //               });
+  //             },
+  //             items: bindComplaintSubCategory.map((dynamic item) {
+  //               return DropdownMenuItem(
+  //                 child: FittedBox(
+  //                   fit: BoxFit.scaleDown,
+  //                   child: Text(
+  //                     item['sSubCategoryName'].toString(),
+  //                   ),
+  //                 ),
+  //                 value: item["iSubCategoryCode"].toString(),
+  //               );
+  //             }).toList(),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+
+
+
+  // Widget _bindSubCategory() {
+  //   return Material(
+  //     color: Colors.white,
+  //     borderRadius: BorderRadius.circular(10.0),
+  //     child: Container(
+  //       width: MediaQuery.of(context).size.width - 50,
+  //       height: 42,
+  //       color: Color(0xFFf2f3f5),
+  //       child: DropdownButtonHideUnderline(
+  //         child: ButtonTheme(
+  //           alignedDropdown: true,
+  //           child: DropdownButton(
+  //             onTap: () {
+  //               FocusScope.of(context).unfocus();
+  //             },
+  //             hint: RichText(
+  //               text: TextSpan(
+  //                 text: "Select Sub Category",
+  //                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+  //                 children: <TextSpan>[
+  //                   TextSpan(
+  //                       text: '',
+  //                       style: AppTextStyle
+  //                           .font14penSansExtraboldBlack45TextStyle),
+  //                 ],
+  //               ),
+  //             ), // Not necessary for Option 1
+  //             value: _dropDownValueComplaintSubCategory,
+  //             // key: distDropdownFocus,
+  //             onChanged: (newValue) {
+  //               setState(() {
+  //                 _dropDownValueComplaintSubCategory = newValue;
+  //                 print('---333-------$_dropDownValueComplaintSubCategory');
+  //                 //  _isShowChosenDistError = false;
+  //                 // Iterate the List
+  //                 bindComplaintSubCategory.forEach((element) {
+  //                   if (element["sSubCategoryName"] ==
+  //                       _dropDownValueComplaintSubCategory) {
+  //                     setState(() {
+  //                       _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
+  //                       print('----341------$_selectedbindComplaintSubCategory');
+  //                     });
+  //                     print('-----Point id----241---$_selectedbindComplaintSubCategory');
+  //                     if (_selectedbindComplaintSubCategory != null) {
+  //                       // updatedBlock();
+  //                       print('-----Point id----244---$_selectedbindComplaintSubCategory');
+  //                     } else {
+  //                       print('-------');
+  //                     }
+  //                     // print("Distic Id value xxxxx.... $_selectedDisticId");
+  //                     print("Distic Name xxxxxxx.... $_dropDownValueDistric");
+  //                     print("Block list Ali xxxxxxxxx.... $blockList");
+  //                   }
+  //                 });
+  //               });
+  //             },
+  //             items: bindComplaintSubCategory.map((dynamic item) {
+  //               return DropdownMenuItem(
+  //                 child: Text(item['sSubCategoryName'].toString()),
+  //                 value: item["iSubCategoryCode"].toString(),
+  //               );
+  //             }).toList(),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // bindComplintWard --ward list
+  // bindComplaintSubCategory --
 
   // bindi ward
   Widget _bindWard() {
@@ -355,39 +540,17 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           ],
                         ),
                       ),
-                      //_bindMarkLocation(),
+
                       Padding(
-                        padding: const EdgeInsets.only(left: 0, right: 0),
-                        child: Container(
-                          height: 42,
-                          color: Color(0xFFf2f3f5),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: TextFormField(
-                              focusNode: categoryfocus,
-                              controller: categoryTextEditingController,
-                              textInputAction: TextInputAction.next,
-                              onEditingComplete: () =>
-                                  FocusScope.of(context).nextFocus(),
-                              decoration: const InputDecoration(
-                                // labelText: AppStrings.txtMobile,
-                                // border: OutlineInputBorder(),
-                                border: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: AppPadding.p10),
-                              ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              // validator: (value) {
-                              //   if (value!.isEmpty) {
-                              //     return 'Enter location';
-                              //   }
-                              //   return null;
-                              // },
-                            ),
-                          ),
+                        padding: const EdgeInsets.only(bottom: 5, top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(width: 5),
+                            Text('${widget.complaintName}',
+                                style: AppTextStyle
+                                    .font14penSansExtraboldBlack45TextStyle),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 10),
