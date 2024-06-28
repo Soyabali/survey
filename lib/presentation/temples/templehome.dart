@@ -5,10 +5,12 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:puri/presentation/temples/templedetail.dart';
 import '../../app/navigationUtils.dart';
 import '../../provider/todo_provider.dart';
+import '../../services/templelistRepo.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +24,24 @@ class TemplesHome extends StatefulWidget {
 
 class _TemplesHomeState extends State<TemplesHome> {
   // final todos;
+  double? lat,long;
+  List<Map<String, dynamic>>? templeListResponse;
+
+
+  getTempleListResponse() async {
+    templeListResponse = await TempleListRepo().getTempleList(context,lat,long);
+    print('------36----$templeListResponse');
+    setState(() {
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
+    getLocation();
+    getTempleListResponse();
+
+
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TempleProvider>(context, listen: false).getAllTodos();
@@ -97,6 +113,40 @@ class _TemplesHomeState extends State<TemplesHome> {
     },
   ];
 
+  void getLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    debugPrint("-------------Position-----------------");
+    debugPrint(position.latitude.toString());
+
+    lat = position.latitude;
+    long = position.longitude;
+    print('-----------138----$lat');
+    print('-----------139----$long');
+    // setState(() {
+    // });
+    debugPrint("Latitude: ----142--- $lat and Longitude: $long");
+    debugPrint(position.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,18 +154,18 @@ class _TemplesHomeState extends State<TemplesHome> {
           appBar: getAppBar("Temples"),
           drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
-          body: Consumer<TempleProvider>(builder: (context, value, child) {
-            if (value.isLoading) {
-              // TODO APPLY CUSTOMPrograssBar
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            final todos = value.todos;
-            print('---113---L--xx-${todos.length}');
-            print('Todos---116-: ${todos.map((e) => e.toString()).toList()}');
+        // body: Consumer<TempleProvider>(builder: (context, value, child) {
+        //     if (value.isLoading) {
+        //       // TODO APPLY CUSTOMPrograssBar
+        //       return const Center(
+        //         child: CircularProgressIndicator(),
+        //       );
+        //     }
+        //     final todos = value.todos;
+        //     print('---113---L--xx-${todos.length}');
+        //     print('Todos---116-: ${todos.map((e) => e.toString()).toList()}');
 
-            return Column(
+         body:Column(
               children: [
                 Stack(
                   children: <Widget>[
@@ -151,9 +201,8 @@ class _TemplesHomeState extends State<TemplesHome> {
                     child: Padding(
                         padding: EdgeInsets.only(left: 5, right: 5),
                         child: ListView.builder(
-                                 itemCount: todos.length,
+                                 itemCount: templeListResponse!.length ?? 0,
                                  itemBuilder: (context, index) {
-                                final todo = todos[index];
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
                               child: Container(
@@ -166,16 +215,32 @@ class _TemplesHomeState extends State<TemplesHome> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    var templeName =
-                                        '${itemList[index]['temple']}';
-                                    var image = itemList[index]['image'];
-                                    print('-----165---$templeName');
-                                    print('-----166---$image');
+                                    double fLatitude;
+                                    double fLongitude;
+
+                                    if (templeListResponse![index]['fLatitude'] is String) {
+                                      fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                    } else {
+                                      fLatitude = templeListResponse![index]['fLatitude'];
+                                    }
+
+                                    if (templeListResponse![index]['fLongitude'] is String) {
+                                      fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                                    } else {
+                                      fLongitude = templeListResponse![index]['fLongitude'];
+                                    }
+
+                                    print('-----165---fLatitude--$fLatitude');
+                                    print('-----166---fLongitude--$fLongitude');
+                                    /// todo to open gooogle map
+                                    launchGoogleMaps(fLatitude, fLongitude);
+
+                                    /// TODO FEATURE YOU SHOULD GO AHEAD
                                     // navigator
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (_) => TemplesDetail(
-                                            templeName: templeName,
-                                            image: image)));
+                                    // Navigator.of(context).push(MaterialPageRoute(
+                                    //     builder: (_) => TemplesDetail(
+                                    //         templeName: templeName,
+                                    //         image: image)));
                                   },
                                   child: Row(
                                     children: [
@@ -196,7 +261,7 @@ class _TemplesHomeState extends State<TemplesHome> {
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
                                               child: Image.network(
-                                                '${itemList[index]['image']}',
+                                                '${templeListResponse![index]['sImage']}',
                                                 height: 56,
                                                 width: 56,
                                                 fit: BoxFit.fill,
@@ -212,17 +277,18 @@ class _TemplesHomeState extends State<TemplesHome> {
                                             padding: EdgeInsets.only(top: 0),
                                             child: ListTile(
                                               title: Text(
-                                                todo.title,
+                                                '${templeListResponse![index]['sTempleName']}',
                                                 style: const TextStyle(
                                                   color: Colors.red,
                                                   fontSize: 14,
                                                 ),
                                               ),
-                                              trailing: Image.asset(
-                                                'assets/images/arrow.png',
-                                                height: 12,
-                                                width: 12,
-                                              ),
+                                              // trailing: Image.asset(
+                                              //   'assets/images/arrow.png',
+                                              //   height: 12,
+                                              //   width: 12,
+                                              // ),
+                                              trailing: Icon(Icons.location_on_sharp,size: 20,color: Colors.red),
                                             ),
                                           ),
                                         ),
@@ -265,7 +331,8 @@ class _TemplesHomeState extends State<TemplesHome> {
                       ),
                     ),
               ],
-            );
-          }));
+    )
+    )
+  ;
   }
-}
+  }

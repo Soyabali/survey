@@ -36,10 +36,9 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   List marklocationList = [];// bindComplaintSubCategory
   List bindComplaintSubCategory = [];
   List bindComplintWard = [];
-  var _dropDownValueMarkLocation;
+
   var _dropDownValueWard;
   var _dropDownValueComplaintSubCategory;
-  var _selectedPointId;
   var _selectedValueWard;
   var _selectedbindComplaintSubCategory;
   var _selectedBlockId;
@@ -95,8 +94,6 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   }
 
   /// Todo bind SubCategory
-
-
   Widget _bindSubCategory() {
     return Material(
       color: Colors.white,
@@ -154,201 +151,6 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
       ),
     );
   }
-
-
-
-  // Widget _bindSubCategory() {
-  //   return Material(
-  //     color: Colors.white,
-  //     borderRadius: BorderRadius.circular(10.0),
-  //     child: Container(
-  //       width: MediaQuery.of(context).size.width - 50,
-  //       height: 42,
-  //       color: Color(0xFFf2f3f5),
-  //       child: DropdownButtonHideUnderline(
-  //         child: ButtonTheme(
-  //           alignedDropdown: true,
-  //           child: DropdownButton(
-  //             onTap: () {
-  //               FocusScope.of(context).unfocus();
-  //             },
-  //             hint: RichText(
-  //               text: TextSpan(
-  //                 text: "Select Sub Category",
-  //                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-  //                 children: <TextSpan>[
-  //                   TextSpan(
-  //                     text: '',
-  //                     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //             value: _dropDownValueComplaintSubCategory,
-  //             onChanged: (newValue) {
-  //               setState(() {
-  //                 _dropDownValueComplaintSubCategory = newValue;
-  //                 bindComplaintSubCategory.forEach((element) {
-  //                   if (element["sSubCategoryName"] == _dropDownValueComplaintSubCategory) {
-  //                     setState(() {
-  //                       _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
-  //                     });
-  //                   }
-  //                 });
-  //               });
-  //             },
-  //             items: bindComplaintSubCategory.map((dynamic item) {
-  //               return DropdownMenuItem(
-  //                 child: FittedBox(
-  //                   fit: BoxFit.scaleDown,
-  //                   child: Text(
-  //                     item['sSubCategoryName'].toString(),
-  //                   ),
-  //                 ),
-  //                 value: item["iSubCategoryCode"].toString(),
-  //               );
-  //             }).toList(),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-
-  // Widget _bindSubCategory() {
-  //   return Material(
-  //     color: Colors.white,
-  //     borderRadius: BorderRadius.circular(10.0),
-  //     child: Container(
-  //       width: MediaQuery.of(context).size.width - 50,
-  //       height: 42,
-  //       color: Color(0xFFf2f3f5),
-  //       child: DropdownButtonHideUnderline(
-  //         child: ButtonTheme(
-  //           alignedDropdown: true,
-  //           child: DropdownButton(
-  //             onTap: () {
-  //               FocusScope.of(context).unfocus();
-  //             },
-  //             hint: RichText(
-  //               text: TextSpan(
-  //                 text: "Select Sub Category",
-  //                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-  //                 children: <TextSpan>[
-  //                   TextSpan(
-  //                     text: '',
-  //                     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //             value: _dropDownValueComplaintSubCategory,
-  //             onChanged: (newValue) {
-  //               setState(() {
-  //                 _dropDownValueComplaintSubCategory = newValue;
-  //                 bindComplaintSubCategory.forEach((element) {
-  //                   if (element["sSubCategoryName"] == _dropDownValueComplaintSubCategory) {
-  //                     setState(() {
-  //                       _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
-  //                     });
-  //                   }
-  //                 });
-  //               });
-  //             },
-  //             items: bindComplaintSubCategory.map((dynamic item) {
-  //               return DropdownMenuItem(
-  //                 child: FittedBox(
-  //                   fit: BoxFit.scaleDown,
-  //                   child: Text(
-  //                     item['sSubCategoryName'].toString(),
-  //                   ),
-  //                 ),
-  //                 value: item["iSubCategoryCode"].toString(),
-  //               );
-  //             }).toList(),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-
-
-
-  // Widget _bindSubCategory() {
-  //   return Material(
-  //     color: Colors.white,
-  //     borderRadius: BorderRadius.circular(10.0),
-  //     child: Container(
-  //       width: MediaQuery.of(context).size.width - 50,
-  //       height: 42,
-  //       color: Color(0xFFf2f3f5),
-  //       child: DropdownButtonHideUnderline(
-  //         child: ButtonTheme(
-  //           alignedDropdown: true,
-  //           child: DropdownButton(
-  //             onTap: () {
-  //               FocusScope.of(context).unfocus();
-  //             },
-  //             hint: RichText(
-  //               text: TextSpan(
-  //                 text: "Select Sub Category",
-  //                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-  //                 children: <TextSpan>[
-  //                   TextSpan(
-  //                       text: '',
-  //                       style: AppTextStyle
-  //                           .font14penSansExtraboldBlack45TextStyle),
-  //                 ],
-  //               ),
-  //             ), // Not necessary for Option 1
-  //             value: _dropDownValueComplaintSubCategory,
-  //             // key: distDropdownFocus,
-  //             onChanged: (newValue) {
-  //               setState(() {
-  //                 _dropDownValueComplaintSubCategory = newValue;
-  //                 print('---333-------$_dropDownValueComplaintSubCategory');
-  //                 //  _isShowChosenDistError = false;
-  //                 // Iterate the List
-  //                 bindComplaintSubCategory.forEach((element) {
-  //                   if (element["sSubCategoryName"] ==
-  //                       _dropDownValueComplaintSubCategory) {
-  //                     setState(() {
-  //                       _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
-  //                       print('----341------$_selectedbindComplaintSubCategory');
-  //                     });
-  //                     print('-----Point id----241---$_selectedbindComplaintSubCategory');
-  //                     if (_selectedbindComplaintSubCategory != null) {
-  //                       // updatedBlock();
-  //                       print('-----Point id----244---$_selectedbindComplaintSubCategory');
-  //                     } else {
-  //                       print('-------');
-  //                     }
-  //                     // print("Distic Id value xxxxx.... $_selectedDisticId");
-  //                     print("Distic Name xxxxxxx.... $_dropDownValueDistric");
-  //                     print("Block list Ali xxxxxxxxx.... $blockList");
-  //                   }
-  //                 });
-  //               });
-  //             },
-  //             items: bindComplaintSubCategory.map((dynamic item) {
-  //               return DropdownMenuItem(
-  //                 child: Text(item['sSubCategoryName'].toString()),
-  //                 value: item["iSubCategoryCode"].toString(),
-  //               );
-  //             }).toList(),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // bindComplintWard --ward list
-  // bindComplaintSubCategory --
-
   // bindi ward
   Widget _bindWard() {
     return Material(
@@ -458,12 +260,14 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
         textColor: Colors.white,
         fontSize: 16.0);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: getAppBarBack(context,'${widget.complaintName}'),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+
       body: ListView(
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
@@ -797,34 +601,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           ),
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(bottom: 5, top: 5),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.start,
-                      //     children: <Widget>[
-                      //       Container(
-                      //         width: 8,
-                      //         height: 8,
-                      //         decoration: const BoxDecoration(
-                      //             shape: BoxShape.circle,
-                      //             color: Colors.black54
-                      //         ),
-                      //       ),
-                      //       SizedBox(width: 5),
-                      //       // Container(
-                      //       //     margin: EdgeInsets.only(left: 0, right: 2),
-                      //       //     child: const Icon(
-                      //       //       Icons.forward_sharp,
-                      //       //       size: 12,
-                      //       //       color: Colors.black54,
-                      //       //     )),
-                      //       // Text('Upload Photo',
-                      //       //     style: AppTextStyle
-                      //       //         .font14penSansExtraboldBlack45TextStyle),
-                      //     ],
-                      //   ),
-                      // ),
-                      //ContainerWithRow(),
+
                       SizedBox(height: 10),
                       Container(
                         decoration: BoxDecoration(
