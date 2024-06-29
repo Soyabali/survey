@@ -112,7 +112,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                   top: 40,
                   left: 130,
                   child: Container(
-                    child: const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -124,7 +124,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                         Row(
                           children: <Widget>[
                             Text(
-                              '46.22 C',
+                               weatherinfo![0]['temp'].toString(),
                               style:
                                   TextStyle(fontSize: 16, color: Colors.white),
                             ),
@@ -138,7 +138,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          'Sky is Clear',
+                            weatherinfo![0]['weather']['description'].toString(),
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                         SizedBox(height: 5),
@@ -151,7 +151,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                             ),
                             SizedBox(width: 2),
                             Text(
-                              '6%',
+                              weatherinfo![0]['rh'].toString(),
                               style:
                                   TextStyle(fontSize: 12, color: Colors.white),
                             ),
@@ -185,7 +185,7 @@ class _TemplesHomeState extends State<WeatherHome> {
               padding: const EdgeInsets.only(bottom: 15),
               child: SingleChildScrollView(
                 child: Column(
-                  children: List.generate(itemList.length, (index) {
+                  children: List.generate(weatherinfo?.length ?? 0, (index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 2.0, horizontal: 2.0),
@@ -225,7 +225,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                               Expanded(
                                 child: Container(
                                   height: 100,
-                                  child: const Padding(
+                                  child: Padding(
                                     padding: EdgeInsets.only(top: 20),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 10),
@@ -236,8 +236,8 @@ class _TemplesHomeState extends State<WeatherHome> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Wednesday',
-                                            style: TextStyle(
+                                            weatherinfo![index]['city_name'],
+                                            style: const TextStyle(
                                                 color: Colors.red,
                                                 fontSize: 16),
                                           ),
@@ -245,7 +245,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                '44.57 C',
+                                                weatherinfo![index]['temp'].toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey,
                                                     fontSize: 16),
@@ -254,7 +254,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                                 width: 5,
                                               ),
                                               Text(
-                                                '34.08 C-48.16 C',
+                                                weatherinfo![index]['timezone'].toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey,
                                                     fontSize: 10),
@@ -275,7 +275,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                                 width: 5,
                                               ),
                                               Text(
-                                                'Sky Is Clear',
+                                                  weatherinfo![index]['weather']['description'].toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey,
                                                     fontSize: 16),
