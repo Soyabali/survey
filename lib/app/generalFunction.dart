@@ -391,35 +391,35 @@ class GeneralFunction {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => FacilitiesHome()),
-                      );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const FacilitiesHome(),
-                      //   ),
-                      // );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/images/facilities.png',
-                          width: 25,
-                          height: 25,
-                        ),
-                        const SizedBox(width: 10),
-                        Text('Facilities',
-                            style: AppTextStyle
-                                .font16penSansExtraboldRedTextStyle),
-                      ],
-                    ),
-                  ),
+                  // const SizedBox(height: 15),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(
+                  //           builder: (context) => FacilitiesHome()),
+                  //     );
+                  //     // Navigator.push(
+                  //     //   context,
+                  //     //   MaterialPageRoute(
+                  //     //     builder: (context) => const FacilitiesHome(),
+                  //     //   ),
+                  //     // );
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Image.asset(
+                  //         'assets/images/facilities.png',
+                  //         width: 25,
+                  //         height: 25,
+                  //       ),
+                  //       const SizedBox(width: 10),
+                  //       Text('Facilities',
+                  //           style: AppTextStyle
+                  //               .font16penSansExtraboldRedTextStyle),
+                  //     ],
+                  //   ),
+                  // ),
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {

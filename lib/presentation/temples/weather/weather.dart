@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
 
 import '../../../app/navigationUtils.dart';
+import '../../../services/weather_repo.dart';
 
 class WeatherHome extends StatefulWidget {
   const WeatherHome({super.key});
@@ -15,6 +16,14 @@ class WeatherHome extends StatefulWidget {
 
 class _TemplesHomeState extends State<WeatherHome> {
   GeneralFunction generalFunction = GeneralFunction();
+  List<Map<String, dynamic>>? weatherinfo;
+
+  weatherResponse() async {
+    weatherinfo = await WeatherRepo().getWeatherInfo(context);
+    print('------22----$weatherinfo');
+    setState(() {
+    });
+  }
 
   final List<Map<String, String>> itemList = [
     {
@@ -56,6 +65,7 @@ class _TemplesHomeState extends State<WeatherHome> {
   @override
   void initState() {
     // TODO: implement initState
+    weatherResponse();
     super.initState();
   }
 
@@ -170,7 +180,6 @@ class _TemplesHomeState extends State<WeatherHome> {
             ],
           ),
           SizedBox(height: 5),
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 15),

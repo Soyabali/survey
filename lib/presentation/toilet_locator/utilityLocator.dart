@@ -5,8 +5,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import '../../../services/getNearByPlaceListRepo.dart';
+import '../../app/loader_helper.dart';
 import '../../services/toiletListRepo.dart';
 import '../fullscreen/imageDisplay.dart';
+import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_colors.dart';
 import '../temples/cookie_detail.dart';
 
@@ -38,20 +40,24 @@ class _TemplesHomeState extends State<UtilityLocator> {
     });
   }
   void getLocation() async {
+    showLoader();
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      hideLoader();
       return Future.error('Location services are disabled.');
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      hideLoader();
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         return Future.error('Location permissions are denied');
       }
     }
     if (permission == LocationPermission.deniedForever) {
+      hideLoader();
       // Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
@@ -66,6 +72,7 @@ class _TemplesHomeState extends State<UtilityLocator> {
     print('-----------76----$long');
 
     if (lat != null && long != null) {
+      hideLoader();
       getlocator(lat!, long!);
     }
     // setState(() {
@@ -106,7 +113,11 @@ class _TemplesHomeState extends State<UtilityLocator> {
       backgroundColor: Colors.white,
       appBar: getAppBarBack(context,'Utility Locator'),
       drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
-      body: ListView(
+      body:
+      utilityLocator == null
+          ? NoDataScreenPage()
+          :
+      ListView(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 5,right: 5,top: 10),
@@ -223,6 +234,22 @@ class _TemplesHomeState extends State<UtilityLocator> {
                               ),
                               InkWell(
                                 onTap: (){
+                                  fLatitude;
+                                  fLongitude;
+
+                                  if (utilityLocator![index]['fLatitude'] is String) {
+                                    fLatitude = double.parse(utilityLocator![index]['fLatitude']);
+                                  } else {
+                                    fLatitude = utilityLocator![index]['fLatitude'];
+                                  }
+
+                                  if (utilityLocator![index]['fLongitude'] is String) {
+                                    fLongitude = double.parse(utilityLocator![index]['fLongitude']);
+                                  } else {
+                                    fLongitude = utilityLocator![index]['fLongitude'];
+                                  }
+                                  print('-----165---fLatitude--$fLatitude');
+                                  print('-----166---fLongitude--$fLongitude');
                                   launchGoogleMaps(fLatitude!, fLongitude!);
                                 },
                                 child: Padding(
@@ -232,12 +259,7 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                       width: 25,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
-
                                       ),
-                                      // child: Image.asset('assets/images/arrow.png',
-                                      //   height: 12,
-                                      //   width: 12,
-                                      // )
                                       child: Image.asset('assets/images/direction.jpeg',
                                         height: 25,
                                         width: 25,

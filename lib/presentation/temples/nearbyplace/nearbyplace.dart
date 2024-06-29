@@ -111,8 +111,7 @@ class _TemplesHomeState extends State<NearByPlace> {
         children: <Widget>[
           middleHeader(context, '${widget.name}'),
           Container(
-            height: MediaQuery.of(context).size
-                .height * 0.8, // Adjust the height as needed
+            height: MediaQuery.of(context).size.height * 0.8, // Adjust the height as needed
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: getNearbyPlace?.length ?? 0,

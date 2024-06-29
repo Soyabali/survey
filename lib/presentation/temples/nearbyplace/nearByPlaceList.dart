@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import '../../../app/loader_helper.dart';
 import '../../../services/getNearByPlaceListRepo.dart';
+import '../../fullscreen/imageDisplay.dart';
 import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
@@ -23,6 +24,8 @@ class NearByPlaceList extends StatefulWidget {
 class _TemplesHomeState extends State<NearByPlaceList> {
   //double? lat,long;
   dynamic? lat,long;
+  double? fLatitude;
+  double? fLongitude;
   GeneralFunction generalFunction = GeneralFunction();
 
   List<Map<String, dynamic>>? templeListResponse;
@@ -57,12 +60,15 @@ class _TemplesHomeState extends State<NearByPlaceList> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
+      hideLoader();
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      hideLoader();
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         return Future.error('Location permissions are denied');
+        hideLoader();
       }
     }
     if (permission == LocationPermission.deniedForever) {
@@ -81,6 +87,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
     print('---77--${widget.iTypeCode}');
     if (lat != null && long != null) {
       getTempleListResponse(lat!, long!, widget.iTypeCode);
+      hideLoader();
     }else{
       hideLoader();
       _showToast(context,"Please location on Your Phone");
@@ -89,6 +96,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
     // });
     debugPrint("Latitude: ----142--- $lat and Longitude: $long");
     debugPrint(position.toString());
+    hideLoader();
   }
 
   @override
@@ -155,28 +163,40 @@ class _TemplesHomeState extends State<NearByPlaceList> {
                             print('-----165---fLatitude--$fLatitude');
                             print('-----166---fLongitude--$fLongitude');
                             /// todo to open gooogle map
-                            launchGoogleMaps(fLatitude, fLongitude);
+                           // launchGoogleMaps(fLatitude, fLongitude);
 
                             },
                           child: Row(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 5),
-                                child: Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      child: Image.network('${templeListResponse![index]['sImage']}',
-                                        height: 60,
-                                        width: 60,
-                                        fit: BoxFit.cover,)),
+                                child: InkWell(
+                                  onTap: (){
+                                    var image = '${templeListResponse![index]['sImage']}';
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FullScreenImages(image: image),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        child: Image.network('${templeListResponse![index]['sImage']}',
+                                          height: 60,
+                                          width: 60,
+                                          fit: BoxFit.cover,)),
 
+                                  ),
                                 ),
                               ),
+
                               Expanded(
                                 child: Container(
                                   height: 80,
@@ -207,29 +227,63 @@ class _TemplesHomeState extends State<NearByPlaceList> {
                               ),
                               InkWell(
                                 onTap: (){
+                                  fLatitude;
+                                  fLongitude;
 
+                                  if (templeListResponse![index]['fLatitude'] is String) {
+                                    fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                  } else {
+                                    fLatitude = templeListResponse![index]['fLatitude'];
+                                  }
+
+                                  if (templeListResponse![index]['fLongitude'] is String) {
+                                    fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                                  } else {
+                                    fLongitude = templeListResponse![index]['fLongitude'];
+                                  }
+                                  // lunch google map
+                                  launchGoogleMaps(fLatitude!, fLongitude!);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Container(
-                                      height: 12,
-                                      width: 12,
+                                      height: 25,
+                                      width: 25,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
-
                                       ),
-                                      // child: Image.asset('assets/images/arrow.png',
-                                      //   height: 12,
-                                      //   width: 12,
-                                      // )
                                       child: Image.asset('assets/images/direction.jpeg',
-                                        height: 12,
-                                        width: 12,
+                                        height: 25,
+                                        width: 25,
+                                        fit: BoxFit.fill,
                                       )
 
                                   ),
                                 ),
                               ),
+                              // InkWell(
+                              //   onTap: (){
+                              //
+                              //   },
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.only(left: 5),
+                              //     child: Container(
+                              //         height: 12,
+                              //         width: 12,
+                              //         decoration: BoxDecoration(
+                              //           borderRadius: BorderRadius.circular(5),
+                              //
+                              //         ),
+                              //         child: Image.asset('assets/images/direction.jpeg',
+                              //           height: 12,
+                              //           width: 12,
+                              //         )
+                              //
+                              //     ),
+                              //   ),
+                              // ),
+
+
                               Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: Column(

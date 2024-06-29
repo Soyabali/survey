@@ -4,7 +4,7 @@ class NoDataScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'No data available',
+        'No Record found',
         style: TextStyle(fontSize: 24),
       ),
     );

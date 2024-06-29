@@ -52,10 +52,13 @@ class NearByPlaceListRepo {
         List<dynamic>? dataList = parsedJson['Data'];
 
         if (dataList != null) {
+
           List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
+          hideLoader();
           print("xxxxx------46----: $notificationList");
           return notificationList;
         } else{
+          hideLoader();
           return null;
         }
       } else {

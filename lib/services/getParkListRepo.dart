@@ -10,7 +10,7 @@ import 'baseurl.dart';
 class ParkListRepo {
 
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> getParkList() async {
+  Future<List<Map<String, dynamic>>?> getParkList(BuildContext context, lat,long)async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
     String? iCitizenCode = prefs.getString('iCitizenCode');
@@ -18,6 +18,8 @@ class ParkListRepo {
     print('-----16---$sToken');
     print('-----17---$iCitizenCode');
     print('---token----$sToken');
+    print('---lat----$lat');
+    print('---long----$long');
 
     // print('---iHeadCode----$iHeadCode');
 
@@ -30,13 +32,12 @@ class ParkListRepo {
         'token': '$sToken',
         'Content-Type': 'application/json'
       };
-      var request = http.Request('GET', Uri.parse('$parkListApi'));
+      var request = http.Request('POST', Uri.parse('$parkListApi'));
 
-      // request.body = json.encode({
-      //   "fLatitude": lat,
-      //   "fLongitude": long,
-      //   "iTypeCode":iTypeCode
-      // });
+      request.body = json.encode({
+        "fLat": lat,
+        "fLon": long,
+      });
 
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();

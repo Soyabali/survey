@@ -170,15 +170,15 @@ class _TemplesHomeState extends State<FireEmergency> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Container(
-                                        height: 20,
-                                        width: 20,
+                                        height: 25,
+                                        width: 25,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(5),
 
                                         ),
                                         child: Image.asset('assets/images/callicon.png',
-                                          height: 12,
-                                          width: 12,
+                                          height: 25,
+                                          width: 25,
                                         )
 
                                     ),

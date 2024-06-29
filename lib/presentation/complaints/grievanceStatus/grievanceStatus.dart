@@ -860,7 +860,7 @@ class NoDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'No data available',
+        'No Record Found',
         style: TextStyle(fontSize: 24),
       ),
     );

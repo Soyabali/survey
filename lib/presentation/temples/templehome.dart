@@ -11,6 +11,8 @@ import 'package:puri/presentation/temples/templedetail.dart';
 import '../../app/navigationUtils.dart';
 import '../../provider/todo_provider.dart';
 import '../../services/templelistRepo.dart';
+import '../fullscreen/imageDisplay.dart';
+import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,8 @@ class TemplesHome extends StatefulWidget {
 class _TemplesHomeState extends State<TemplesHome> {
   // final todos;
   double? lat,long;
+  double? fLatitude;
+  double? fLongitude;
   List<Map<String, dynamic>>? templeListResponse;
 
 
@@ -153,19 +157,11 @@ class _TemplesHomeState extends State<TemplesHome> {
           backgroundColor: Colors.white,
           appBar: getAppBar("Temples"),
           drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-
-        // body: Consumer<TempleProvider>(builder: (context, value, child) {
-        //     if (value.isLoading) {
-        //       // TODO APPLY CUSTOMPrograssBar
-        //       return const Center(
-        //         child: CircularProgressIndicator(),
-        //       );
-        //     }
-        //     final todos = value.todos;
-        //     print('---113---L--xx-${todos.length}');
-        //     print('Todos---116-: ${todos.map((e) => e.toString()).toList()}');
-
-         body:Column(
+        body:
+        templeListResponse == null
+            ? NoDataScreenPage()
+            :
+        Column(
               children: [
                 Stack(
                   children: <Widget>[
@@ -215,40 +211,22 @@ class _TemplesHomeState extends State<TemplesHome> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    double fLatitude;
-                                    double fLongitude;
-
-                                    if (templeListResponse![index]['fLatitude'] is String) {
-                                      fLatitude = double.parse(templeListResponse![index]['fLatitude']);
-                                    } else {
-                                      fLatitude = templeListResponse![index]['fLatitude'];
-                                    }
-
-                                    if (templeListResponse![index]['fLongitude'] is String) {
-                                      fLongitude = double.parse(templeListResponse![index]['fLongitude']);
-                                    } else {
-                                      fLongitude = templeListResponse![index]['fLongitude'];
-                                    }
-
-                                    print('-----165---fLatitude--$fLatitude');
-                                    print('-----166---fLongitude--$fLongitude');
-                                    /// todo to open gooogle map
-                                    launchGoogleMaps(fLatitude, fLongitude);
-
-                                    /// TODO FEATURE YOU SHOULD GO AHEAD
-                                    // navigator
-                                    // Navigator.of(context).push(MaterialPageRoute(
-                                    //     builder: (_) => TemplesDetail(
-                                    //         templeName: templeName,
-                                    //         image: image)));
-                                  },
+                                    },
                                   child: Row(
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child: InkWell(
                                           onTap: () {
-                                            print('--Images--');
+                                            var image = '${templeListResponse![index]['sImage']}';
+
+                                            print('--Images--$image');
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => FullScreenImages(image: image),
+                                              ),
+                                            );
                                           },
                                           child: Container(
                                             height: 75,
@@ -283,12 +261,42 @@ class _TemplesHomeState extends State<TemplesHome> {
                                                   fontSize: 14,
                                                 ),
                                               ),
-                                              // trailing: Image.asset(
-                                              //   'assets/images/arrow.png',
-                                              //   height: 12,
-                                              //   width: 12,
-                                              // ),
-                                              trailing: Icon(Icons.location_on_sharp,size: 20,color: Colors.red),
+                                             trailing: InkWell(
+                                                onTap: (){
+                                                  fLatitude;
+                                                  fLongitude;
+
+                                                  if (templeListResponse![index]['fLatitude'] is String) {
+                                                    fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                                  } else {
+                                                    fLatitude = templeListResponse![index]['fLatitude'];
+                                                  }
+
+                                                  if (templeListResponse![index]['fLongitude'] is String) {
+                                                    fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                                                  } else {
+                                                    fLongitude = templeListResponse![index]['fLongitude'];
+                                                  }
+                                                  launchGoogleMaps(fLatitude!, fLongitude!);
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 5),
+                                                  child: Container(
+                                                      height: 25,
+                                                      width: 25,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(5),
+                                                      ),
+                                                      child: Image.asset('assets/images/direction.jpeg',
+                                                        height: 25,
+                                                        width: 25,
+                                                        fit: BoxFit.fill,
+                                                      )
+
+                                                  ),
+                                                ),
+                                              ),
+
                                             ),
                                           ),
                                         ),
