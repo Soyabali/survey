@@ -252,8 +252,7 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: getAppBarBack(context, '${widget.name}'),
-        drawer: generalFunction.drawerFunction(
-            context, 'Suaib Ali', '9871950881'),
+        drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
         body: Padding(
             padding: const EdgeInsets.only(bottom: 5),

@@ -4,15 +4,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app/generalFunction.dart';
+import '../../../app/loader_helper.dart';
 import '../../../services/bindCityzenWardRepo.dart';
 import '../../../services/bindComplaintCategory.dart';
 import '../../../services/cityzenpostcomplaintRepo.dart';
 import '../../resources/app_text_style.dart';
 import '../../resources/custom_elevated_button.dart';
 import '../../resources/values_manager.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class OnlineComplaintForm extends StatefulWidget {
   final complaintName;
@@ -29,6 +34,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   GeneralFunction generalFunction = GeneralFunction();
   final _formKey = GlobalKey<FormState>();
   File? image;
+  String? todayDate;
+  var result2,msg2;
   List distList = [];
   var _dropDownValueDistric;
   List stateList = [];
@@ -55,6 +62,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   FocusNode addressfocus = FocusNode();
   FocusNode landMarkfocus = FocusNode();
   FocusNode mentionfocus = FocusNode();
+  var uplodedImage;
 
 
   // get api BindComplaintApi
@@ -71,12 +79,54 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
     setState(() {});
   }
 
+  //
+
+  Future<void> uploadImage(String token, File imageFile) async {
+    try {
+      showLoader();
+      // Create a multipart request
+      var request = http.MultipartRequest(
+          'POST',
+          Uri.parse(
+              'https://upegov.in/purionecitizenapi/api/PostImage/PostImage'));
+
+      // Add headers
+      request.headers['token'] = token;
+      request.headers['sFolder'] = "CompImage";
+
+      // Add the image file as a part of the request
+      request.files.add(await http.MultipartFile.fromPath(
+        'file', imageFile.path,
+      ));
+
+      // Send the request
+      var streamedResponse = await request.send();
+
+      // Get the response
+      var response = await http.Response.fromStream(streamedResponse);
+
+      // Parse the response JSON
+      var responseData = json.decode(response.body);
+
+      // Print the response data
+      print(responseData);
+      hideLoader();
+      print('---------172---$responseData');
+      uplodedImage = "${responseData['Data'][0]['sImagePath']}";
+      print('----174--  xxxxx-$uplodedImage');
+    } catch (error) {
+      hideLoader();
+      print('Error uploading image: $error');
+    }
+  }
+
+
 
   // PickImage
   Future pickImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
-    print('---Token----113--$sToken');
+    print('---Token----128---xxxxx----$sToken');
 
     try {
       final pickFileid = await ImagePicker()
@@ -86,7 +136,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
         setState(() {});
         print(' Proof-------135----->$image');
         // multipartProdecudre();
-        // uploadImage(sToken!, image!);
+        uploadImage(sToken!, image!);
       } else {
         print('no image selected');
       }
@@ -125,10 +175,12 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
               onChanged: (newValue) {
                 setState(() {
                   _dropDownValueComplaintSubCategory = newValue;
+                  print('---131---D Ca--$_dropDownValueComplaintSubCategory');
                   bindComplaintSubCategory.forEach((element) {
                     if (element["sSubCategoryName"] == _dropDownValueComplaintSubCategory) {
                       setState(() {
                         _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
+                        print('----xxxx C VALUE ---$_selectedbindComplaintSubCategory');
                       });
                     }
                   });
@@ -184,15 +236,14 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
               onChanged: (newValue) {
                 setState(() {
                   _dropDownValueWard = newValue;
-                  print('---333-------$_dropDownValueWard');
+                  print('---33-------$_dropDownValueWard');
                   //  _isShowChosenDistError = false;
                   // Iterate the List
                   bindComplintWard.forEach((element) {
-                    if (element["sWardName"] ==
-                        _dropDownValueWard) {
+                    if (element["sWardName"] == _dropDownValueWard) {
                       setState(() {
                         _selectedValueWard = element['sWardCode'];
-                        print('----341------$_selectedValueWard');
+                        print('----Selectred Ward---198--------$_selectedValueWard');
                       });
                       print('-----Point id----241---$_selectedValueWard');
                       if (_selectedValueWard != null) {
@@ -233,10 +284,6 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
     super.initState();
    // BackButtonInterceptor.add(myInterceptor);
   }
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   void dispose() {
@@ -598,7 +645,6 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           ),
                         ),
                       ),
-
                       SizedBox(height: 10),
                       Container(
                         decoration: BoxDecoration(
@@ -698,138 +744,344 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                         .font14penSansExtraboldRedTextStyle),
                           ]),
                       SizedBox(height: 0),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Center(
-                          child: Container(
-                            height: 45,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              // Background color of the container
-                              borderRadius: BorderRadius.circular(28.0),
-                              // Circular border radius
-                              border: Border.all(
-                                color: Colors.yellow, // Border color
-                                width: 0.5, // Border width
-                              ),
-                            ),
-                            // child: CustomElevatedButton(
-                            //   text: 'Post Grievance',
-                            //   onTap: () {
-                            //
-                            //
-                            //     print('---Live Darshan-----');
-                            //
-                            //   },
-                            // ),
-                            child: ElevatedButton(
-                                onPressed: () async {
-                                  var random = Random();
-                                  int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
+                      ElevatedButton(
+                          onPressed: () async {
 
-                                  var category = categoryTextEditingController.text;
-                                  var address = addressTextEditingController.text;
-                                  var landmark = landmarkTextEditingController.text;
-                                  var mention = mentionTextEditingController.text;
-                                  // ward value --  _dropDownValueWard
-                                  // category value -- _dropDownValueComplaintSubCategory
-                                  // image ----  image
+                            var random = Random();
+                            // Generate an 8-digit random number
+                            int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
+                            print('Random 8-digit number---770--: $randomNumber');
 
-                                  // apply condition
-                                  print('--category----739--$category');
-                                  print('--address-----740---$address');
-                                  print('--landmark---741---$landmark');
-                                  print('--mention----742---$mention');
-                                  print('--dropdownvalueCategory----743---$_dropDownValueComplaintSubCategory');
-                                  print('--_dropDownValueWard----744---$_dropDownValueWard');
-                                  print('---RanddomNumber----745----$randomNumber');
+                            var address = addressTextEditingController.text;
+                            var landmark = landmarkTextEditingController.text;
+                            var mention = mentionTextEditingController.text;
 
-                                  if (_formKey.currentState!.validate() &&
-                                      category != null &&
-                                      address != null &&
-                                      landmark != null &&
-                                      mention !=null &&
-                                      _dropDownValueComplaintSubCategory !=null&&
-                                      _dropDownValueWard !=null
-                                  ) {
-                                    print('---call Api---');
-                                     // var markPointSubmitResponse =
-                                     // await MarkPointSubmitRepo().markpointsubmit(
-                                     //     context,
-                                     //     randomNumber,
-                                     //     category,
-                                     //     _dropDownValueComplaintSubCategory,
-                                     //     _dropDownValueWard,
-                                     //     address,
-                                     //     landmark,
-                                     //     mention,
-                                     //     image,
-                                     // );
-                                    // print('----699---$markPointSubmitResponse');
+                            print('---address--$address');
+                            print('---landmark--$landmark');
+                            print('---mention--$mention');
+                            print('--DropDownSubCategory--$_dropDownValueComplaintSubCategory');
+                            print('--DropDownward-----$_dropDownValueWard');// uplodedImage
+                            print('--uplodedImage-----$uplodedImage');// randomNumber
+                            print('--randomNumber-----$randomNumber');
+                            print('--images-----$randomNumber');
 
-                                    // var cityzenpostResponse =
-                                    // await CityzenPostComplaintRepo().cityzenPostComplaint(
-                                    //     context,
-                                    //     random,
-                                    //     category,
-                                    //     _dropDownValueComplaintSubCategory,
-                                    //     _dropDownValueWard,
-                                    //     address,
-                                    //     landmark,
-                                    //     mention,
-                                    //     image
-                                    //     );
+                            if (_formKey.currentState!.validate() &&
+                                _dropDownValueComplaintSubCategory !=null &&
+                                _dropDownValueWard !=null &&
+                                address != null &&
+                                landmark != null &&
+                                mention !=null &&
+                                uplodedImage !=null
+                            ) {
 
+                              var markPointSubmitResponse =
+                              await MarkPointSubmitRepo().markpointsubmit(
+                                  context,
+                                  randomNumber,
+                                  address,
+                                  landmark,
+                                  mention,
+                                  _dropDownValueComplaintSubCategory,
+                                  _dropDownValueWard,
+                                  uplodedImage
+                              );
 
-                                    // print('----699---$cityzenpostResponse');
-                                    // result2 = markPointSubmitResponse['Result'];
-                                    // msg2 = markPointSubmitResponse['Msg'];
+                              print('----805---$markPointSubmitResponse');
+                               result2 = markPointSubmitResponse['Result'];
+                               print('---result---xxx---$result2');
+                               msg2 = markPointSubmitResponse['Msg'];
 
-                                  } else {
-                                    // if(_dropDownValueMarkLocation==null){
-                                    //   displayToast('select Point Type');
-                                    // }else if(_dropDownValueDistric==null){
-                                    //   displayToast('select sector');
-                                    // }else if(location==""){
-                                    //   displayToast('Enter location');
-                                    // }else if(uplodedImage==null){
-                                    //   displayToast('Pick image');
-                                    // }else{
-                                    // }
-                                  }
-                                  // if(result2=="1"){
-                                  //   displayToast(msg2);
-                                  //   Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => const HomePage()),
-                                  //   );
-                                  // }else{
-                                  //   displayToast(msg2);
-                                  // }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(
-                                      0xFF255899), // Hex color code (FF for alpha, followed by RGB)
-                                ),
-                                child: const Text(
-                                  "Submit",
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold),
-                                )),
+                            } else {
+                              print('---call Api not call---');
+                              if(_dropDownValueComplaintSubCategory==null){
+                                displayToast('select Category');
+                              }else if(_dropDownValueWard==null){
+                                displayToast('select Ward');
+                              }else if(address==""){
+                                displayToast('Enter Address');
+                              }else if(landmark==null){
+                                displayToast('Enter Landmark');
+                              }else if(mention==null){
+                                displayToast('Enter Mention');
+                              }else if(uplodedImage==null){
+                                displayToast('Pick a Image');
+                              }else{
 
+                              }
+                            }
+                            if(result2=="1"){
+                              print('------823----xxxxxxxxxxxxxxx----');
+                              print('------823---result2  -xxxxxxxxxxxxxxx--$result2');
+                              displayToast(msg2);
+                              Navigator.pop(context);
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => const HomePage()),
+                              // );
+                            }else{
+
+                              displayToast(msg2);
+                            }
+
+                            /// Todo next Apply condition
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(
+                                0xFF255899), // Hex color code (FF for alpha, followed by RGB)
                           ),
-                        ),
-                      ),
-                    ],
+                          child: const Text(
+                            "Submit",
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                color: Colors.white,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold),
+                          )
+                      )
+
+                      // ElevatedButton(
+                      //     onPressed: () async {
+                      //       // random number
+                      //       var random = Random();
+                      //       // Generate an 8-digit random number
+                      //       int randomNumber = random.nextInt(
+                      //           99999999 - 10000000) + 10000000;
+                      //       print(
+                      //           'Random 8-digit number---770--: $randomNumber');
+                      //
+                      //       DateTime currentDate = DateTime.now();
+                      //       todayDate = DateFormat('dd/MMM/yyyy HH:mm').format(
+                      //           currentDate);
+                      //
+                      //       // SharedPreferences prefs =
+                      //       // await SharedPreferences.getInstance();
+                      //       // iUserTypeCode = prefs.getString('iUserTypeCode');
+                      //       // userId = prefs.getString('iUserId');
+                      //       // slat = prefs.getDouble('lat');
+                      //       // slong = prefs.getDouble('long');
+                      //       // print('--774--lati--$slat');
+                      //       // print('--775--longitude--$slong');
+                      //
+                      //       var category = categoryTextEditingController.text;
+                      //       var address = addressTextEditingController.text;
+                      //       var landmark = landmarkTextEditingController.text;
+                      //       var mention = mentionTextEditingController.text;
+                      //       print('-category---$category');
+                      //       print('-address---$address');
+                      //       print('-landmark---$landmark');
+                      //       print('-mention---$mention');
+                      //
+                      //
+                      //       // apply condition
+                      //       if (_formKey.currentState!.validate() &&
+                      //           category != null &&
+                      //           address != null &&
+                      //           landmark != null &&
+                      //           mention != null) {
+                      //         print('-category---$category');
+                      //         print('-address---$address');
+                      //         print('-landmark---$landmark');
+                      //         print('-mention---$mention');
+                      //         print('-randomNumber---$randomNumber');
+                      //
+                      //
+                      //         print('---call Api---');
+                      //         var markPointSubmitResponse =
+                      //         await MarkPointSubmitRepo().markpointsubmit(
+                      //             context,
+                      //             randomNumber,
+                      //             _dropDownValueComplaintSubCategory,
+                      //             _selectedValueWard,
+                      //             location,
+                      //             slat,
+                      //             slong,
+                      //             description,
+                      //             uplodedImage,
+                      //             todayDate,
+                      //             userId);
+                      //         print('----760---$markPointSubmitResponse');
+                      //         result2 = markPointSubmitResponse['Result'];
+                      //         msg2 = markPointSubmitResponse['Msg'];
+                      //         print('---806---xxxxx----$result2');
+                      //         //print('---807--$msg');
+                      //         //
+                      //
+                      //       } else {
+                      //         if (_dropDownValueComplaintSubCategory == null) {
+                      //           displayToast('select Sub Category');
+                      //         } else if (_dropDownValueDistric == null) {
+                      //           displayToast('select sector');
+                      //           // }else if(location==""){
+                      //           //   displayToast('Enter location');
+                      //           // }else if(uplodedImage==null){
+                      //           //   displayToast('Pick image');
+                      //           // }else{
+                      //           // }
+                      //         }
+                      //         if (result2 == "1") {
+                      //           print('------823----xxxxxxxxxxxxxxx----');
+                      //           print(
+                      //               '------823---result2  -xxxxxxxxxxxxxxx--$result2');
+                      //           displayToast(msg2);
+                      //           //Navigator.pop(context);
+                      //           // Navigator.push(
+                      //           //   context,
+                      //           //   MaterialPageRoute(
+                      //           //       builder: (context) => const HomePage()),
+                      //           // );
+                      //         } else {
+                      //           displayToast(msg2);
+                      //         }
+                      //
+                      //         /// Todo next Apply condition
+                      //       }
+                      //       style:
+                      //       ElevatedButton.styleFrom(
+                      //         backgroundColor: Color(
+                      //             0xFF255899), // Hex color code (FF for alpha, followed by RGB)
+                      //       );
+                      //       child:
+                      //       const Text(
+                      //         "Submit",
+                      //         style: TextStyle(
+                      //             fontFamily: 'Montserrat',
+                      //             color: Colors.white,
+                      //             fontSize: 16.0,
+                      //             fontWeight: FontWeight.bold),
+                      //       );
+                      //     }
+                      //     )
+                    ]
+                  )
+
+
+                      // Padding(
+                      //   padding: const EdgeInsets.only(top: 10),
+                      //   child: Center(
+                      //     child: Container(
+                      //       height: 45,
+                      //       decoration: BoxDecoration(
+                      //         color: Colors.red,
+                      //         // Background color of the container
+                      //         borderRadius: BorderRadius.circular(28.0),
+                      //         // Circular border radius
+                      //         border: Border.all(
+                      //           color: Colors.yellow, // Border color
+                      //           width: 0.5, // Border width
+                      //         ),
+                      //       ),
+                      //       child: ElevatedButton(
+                      //           onPressed: () async {
+                      //             var random = Random();
+                      //             int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
+                      //
+                      //             var category = categoryTextEditingController.text;
+                      //             var address = addressTextEditingController.text;
+                      //             var landmark = landmarkTextEditingController.text;
+                      //             var mention = mentionTextEditingController.text;
+                      //             // ward value --  _dropDownValueWard
+                      //             // category value -- _dropDownValueComplaintSubCategory
+                      //             // image ----  image
+                      //
+                      //             // apply condition
+                      //             print('--category----739--$category');
+                      //             print('--address-----740---$address');
+                      //             print('--landmark---741---$landmark');
+                      //             print('--mention----742---$mention');
+                      //             print('--dropdownvalueCategory----743---$_dropDownValueComplaintSubCategory');
+                      //             print('--_dropDownValueWard----744---$_dropDownValueWard');
+                      //             print('---RanddomNumber----745----$randomNumber');
+                      //
+                      //             if (_formKey.currentState!.validate() &&
+                      //                 category != null &&
+                      //                 address != null &&
+                      //                 landmark != null &&
+                      //                 mention !=null &&
+                      //                 _dropDownValueComplaintSubCategory !=null&&
+                      //                 _dropDownValueWard !=null
+                      //             ) {
+                      //               print('---call Api---');
+                      //                var markPointSubmitResponse =
+                      //                await MarkPointSubmitRepo().markpointsubmit(
+                      //                    context,
+                      //                    randomNumber,
+                      //                    category,
+                      //                    _dropDownValueComplaintSubCategory,
+                      //                    _dropDownValueWard,
+                      //                    address,
+                      //                    landmark,
+                      //                    mention,
+                      //                    image,
+                      //                );
+                      //               print('----699---$markPointSubmitResponse');
+                      //
+                      //               // var cityzenpostResponse =
+                      //               // await CityzenPostComplaintRepo().cityzenPostComplaint(
+                      //               //     context,
+                      //               //     random,
+                      //               //     category,
+                      //               //     _dropDownValueComplaintSubCategory,
+                      //               //     _dropDownValueWard,
+                      //               //     address,
+                      //               //     landmark,
+                      //               //     mention,
+                      //               //     image
+                      //               //     );
+                      //
+                      //
+                      //               // print('----699---$cityzenpostResponse');
+                      //               // result2 = markPointSubmitResponse['Result'];
+                      //               // msg2 = markPointSubmitResponse['Msg'];
+                      //
+                      //             } else {
+                      //               // if(_dropDownValueMarkLocation==null){
+                      //               //   displayToast('select Point Type');
+                      //               // }else if(_dropDownValueDistric==null){
+                      //               //   displayToast('select sector');
+                      //               // }else if(location==""){
+                      //               //   displayToast('Enter location');
+                      //               // }else if(uplodedImage==null){
+                      //               //   displayToast('Pick image');
+                      //               // }else{
+                      //               // }
+                      //             }
+                      //             // if(result2=="1"){
+                      //             //   displayToast(msg2);
+                      //             //   Navigator.push(
+                      //             //     context,
+                      //             //     MaterialPageRoute(
+                      //             //         builder: (context) => const HomePage()),
+                      //             //   );
+                      //             // }else{
+                      //             //   displayToast(msg2);
+                      //             // }
+                      //           },
+                      //           style: ElevatedButton.styleFrom(
+                      //             backgroundColor: const Color(
+                      //                 0xFF255899), // Hex color code (FF for alpha, followed by RGB)
+                      //           ),
+                      //           child: const Text(
+                      //             "Submit",
+                      //             style: TextStyle(
+                      //                 fontFamily: 'Montserrat',
+                      //                 color: Colors.white,
+                      //                 fontSize: 16.0,
+                      //                 fontWeight: FontWeight.bold),
+                      //           )),
+                      //
+                      //     ),
+                      //   ),
+                      // ),
+
+
+
+
                   ),
                 ),
               ),
             ),
-          ),
+
         ],
       ),
     );

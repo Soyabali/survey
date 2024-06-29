@@ -21,17 +21,28 @@ class MarkPointSubmitRepo {
   Future markpointsubmit(
       BuildContext context,
       randomNumber,
-      category,
-      _dropDownValueComplaintSubCategory,
-      _dropDownValueWard,
-      address,
-      landmark,
-      mention,
-      image) async {
+      String address,
+      String landmark,
+      String mention,
+      dropDownValueComplaintSubCategory,
+      dropDownValueWard,
+      String uplodedImage) async {
+
+      //
+      print('----random---$randomNumber');
+      print('----address---$address');
+      print('----landmark---$landmark');
+      print('----mention---$mention');
+      print('----dropDownValueComplaintSubCategory---$dropDownValueComplaintSubCategory');
+      print('----dropDownValueWard---$dropDownValueWard');
+      print('----uplodedImage---$uplodedImage');
+
     // sharedP
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('sToken');
+   var sContactNo = prefs.getString('sContactNo');
       print('---token ---$token');
+      print('---sContactNo ---$sContactNo');
     try {
       var baseURL = BaseRepo().baseurl;
       /// TODO CHANGE HERE
@@ -39,24 +50,14 @@ class MarkPointSubmitRepo {
       var markPointSubmitApi = "$baseURL$endPoint";
 
 
-
-      //====
-    //   "iCompCode": "2024062718335251257",
-    // "iSubCategoryCode": "4",
-    // "sWardCode": "5",
-    // "sAddress": "Ten Tower ",
-    // "sLandmark": "Testing ",
-    // "sComplaintDetails": "Mention your concern ",
-    // "sComplaintPhoto": "http:\/\/49.50.66.156\/PuriOneCitizenApi\/UploadedPhotos\/CompImage\/270620241829192297.png",
-    // "sPostedBy": "8755553370",
-    // "fLatitude": "28.6064095",
-    // "fLongitude": "77.3695671"
-
-    //-------
+      // String jsonResponse =
+      //     '{"sArray":[{"iCompCode":$randomNumber,"iSubCategoryCode":$dropDownValueComplaintSubCategory,"sWardCode":$dropDownValueWard,"sAddress":"NA","sLandmark":"NA","sComplaintDetails":"NA","sComplaintPhoto":$uplodedImage,"sPostedBy":$sContactNo,"fLatitude":"28.8765","fLongitude":"77.9898"}]}';
 
       String jsonResponse =
-          '{"sArray":[{"iCompCode":$randomNumber,"iSubCategoryCode":"NA","sWardCode":$_dropDownValueWard,"sAddress":"$address","sLandmark":$landmark,"sComplaintDetails":$mention,"sComplaintPhoto":"NA","sPostedBy":"9871950881","fLatitude":"72.8765","fLongitude":"70.9898"}]}';
-// Parse the JSON response
+          '{"sArray":[{"iCompCode":$randomNumber,"iSubCategoryCode":$dropDownValueComplaintSubCategory,"sWardCode":$dropDownValueWard,"sAddress":"$address","sLandmark":"NA","sComplaintDetails":"NA","sComplaintPhoto":"$uplodedImage","sPostedBy":"$sContactNo","fLatitude":"22.7777","fLongitude":"77.8765"}]}';
+
+
+      // Parse the JSON response
       Map<String, dynamic> parsedResponse = jsonDecode(jsonResponse);
 
 // Get the array value
@@ -82,6 +83,7 @@ class MarkPointSubmitRepo {
           'POST',
           Uri.parse(
               'https://upegov.in/purionecitizenapi/api/CitizenPostComplaint/CitizenPostComplaint'));
+
       request.body = updatedJsonResponse; // Assign the JSON string to the request body
       request.headers.addAll(headers);
 
