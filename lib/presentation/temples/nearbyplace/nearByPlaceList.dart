@@ -201,7 +201,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
                                 child: Container(
                                   height: 80,
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 20),
+                                    padding: EdgeInsets.only(top: 10),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 10),
                                       child: Column(
@@ -218,6 +218,28 @@ class _TemplesHomeState extends State<NearByPlaceList> {
                                                   fontStyle: FontStyle.normal,
                                                 )
                                             ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text('Distance :',
+                                                  style: GoogleFonts.openSans(
+                                                    color: AppColors.green,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                  )
+                                              ),
+                                              SizedBox(width: 5), // Add some space between the text widgets
+                                              Text('${templeListResponse![index]['sDistance']}',
+                                                  style: GoogleFonts.openSans(
+                                                    color: AppColors.red,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                  )
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),

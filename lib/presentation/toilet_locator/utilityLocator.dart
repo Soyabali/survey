@@ -111,6 +111,7 @@ class _TemplesHomeState extends State<UtilityLocator> {
   Widget build(BuildContext context) {
    return Scaffold(
       backgroundColor: Colors.white,
+     // appBar: getAppBarBack(context,'Utility Locator'),
       appBar: getAppBarBack(context,'Utility Locator'),
       drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
       body:
@@ -176,17 +177,6 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                         builder: (context) => FullScreenImages(image: image),
                                       ),
                                     );
-
-
-                                   //var  imagePath = '${imagePaths[index]}';
-
-                                   //   print('---xxxx---$imagePaths');
-                                  //   Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //       builder: (context) => CookieDetail(assetPath: image),
-                                  //     ),
-                                  //   );
                                   },
                                   child: Container(
                                     height: 60,
@@ -208,7 +198,7 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                 child: Container(
                                   height: 80,
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 20),
+                                    padding: EdgeInsets.only(top: 10),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 10),
                                       child: Column(
@@ -225,6 +215,28 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                                   fontStyle: FontStyle.normal,
                                                 )
                                             ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text('Distance :',
+                                                  style: GoogleFonts.openSans(
+                                                    color: AppColors.green,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                  )
+                                              ),
+                                              SizedBox(width: 5), // Add some space between the text widgets
+                                              Text('${utilityLocator![index]['sDistance']}',
+                                                  style: GoogleFonts.openSans(
+                                                    color: AppColors.red,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                  )
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
