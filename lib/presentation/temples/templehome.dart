@@ -201,7 +201,7 @@ class _TemplesHomeState extends State<TemplesHome> {
                     child: Padding(
                         padding: EdgeInsets.only(left: 5, right: 5),
                         child: ListView.builder(
-                                 itemCount: templeListResponse!.length ?? 0,
+                                 itemCount: templeListResponse?.length ?? 0,
                                  itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),

@@ -8,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/presentation/parklocator/parkImageDetail.dart';
 import 'package:puri/presentation/parklocator/parkMap.dart';
 import '../../app/generalFunction.dart';
+import '../../services/getParkListRepo.dart';
+import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_text_style.dart';
 
@@ -48,12 +50,20 @@ class _KnowYourWardState extends State<ParkLocator> {
       'temple': 'Shri Parthasarathi Sahoo'
     },
   ];
-
   GeneralFunction generalFunction = new GeneralFunction();
+  List<Map<String, dynamic>>? parkList;
+
+  getParkList() async {
+    parkList = await ParkListRepo().getParkList();
+    print('------57----$parkList');
+    setState(() {
+    });
+  }
 
   @override
   void initState() {
     print('-----27--${widget.name}');
+    getParkList();
     super.initState();
     //BackButtonInterceptor.add(myInterceptor);
   }
@@ -69,9 +79,14 @@ class _KnowYourWardState extends State<ParkLocator> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: getAppBarBack(context, 'Park Locator'),
-        drawer:
-            generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-        body: Container(
+        drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+
+        body:
+        // parkList == null
+        //     ? NoDataScreenPage()
+        //     :
+
+        Container(
             height: MediaQuery.of(context).size.height,
             child: ListView.builder(
                 itemCount: itemList.length,

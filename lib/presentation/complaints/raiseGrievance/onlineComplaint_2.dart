@@ -8,6 +8,7 @@ import '../../../app/generalFunction.dart';
 import '../../../provider/bindComplaintProvider.dart';
 import '../../../services/notificationRepo.dart';
 import '../../resources/app_text_style.dart';
+import 'MarkPointScreen.dart';
 import 'onlineComplaintForm.dart';
 
 class OnlineComplaint_2 extends StatefulWidget {
@@ -20,12 +21,12 @@ class OnlineComplaint_2 extends StatefulWidget {
 }
 
 class _TemplesHomeState extends State<OnlineComplaint_2> {
-  GeneralFunction generalFunction = GeneralFunction();
 
+  GeneralFunction generalFunction = GeneralFunction();
   List<Map<String, dynamic>>? notificationList;
 
   String? sName, sContactNo;
- // GeneralFunction generalFunction = GeneralFunction();
+  // GeneralFunction generalFunction = GeneralFunction();
   getnotificationResponse() async {
     notificationList = await NotificationRepo().notification(context);
     print('------31----$notificationList');
@@ -254,26 +255,14 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
         drawer: generalFunction.drawerFunction(
             context, 'Suaib Ali', '9871950881'),
 
-        body: Consumer<BindComplaintProvider>(
-            builder: (context, value, child) {
-              if (value.isLoading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final todos = value.todos;
-              print('---251---L--xx-${todos.length}');
-              print('Todos---252-: ${todos.map((e) => e.toString()).toList()}');
-
-              return Padding(
+        body: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 middleHeader(context, '${widget.name}'),
                 Container(
-                  height: MediaQuery.of(context).size
-                      .height * 0.8, // Adjust the height as needed
+                  height: MediaQuery.of(context).size.height * 0.8, // Adjust the height as needed
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: notificationList?.length ?? 0,
@@ -299,8 +288,15 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
                                         ),
                                   ),
                                 );
-                              },
 
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         MarkPointScreen(),
+                                //   ),
+                                // );
+                              },
                               child: ListTile(
                                 leading: Container(
                                   width: 35,
@@ -359,9 +355,8 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
               ],
             ),
 
-          );
-        }
-        )
+          )
     );
+        }
   }
-}
+

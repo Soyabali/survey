@@ -642,12 +642,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   fontSize: 10.0,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            SizedBox(width: 10),
-                                            Image(image: AssetImage('assets/images/ic_long_right_arrow.PNG'),
-                                              width: 15,
-                                              height: 15,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            // SizedBox(width: 10),
+                                            // Image(image: AssetImage('assets/images/ic_long_right_arrow.PNG'),
+                                            //   width: 15,
+                                            //   height: 15,
+                                            //   fit: BoxFit.fill,
+                                            // ),
                                           ],
                                         ),
                                       )
@@ -760,24 +760,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                   _dropDownValueMarkLocation != null &&
                                   _dropDownValueDistric != null && uplodedImage !=null) {
 
-
                                 //
-                                //   var markPointSubmitResponse =
-                                //     await MarkPointSubmitRepo().markpointsubmit(
-                                //         context,
-                                //         randomNumber,
-                                //         _selectedPointId,
-                                //         _selectedBlockId,
-                                //         location,
-                                //         slat,
-                                //         slong,
-                                //         description,
-                                //         uplodedImage,
-                                //         iCompCode,
-                                //         userId);
-                                // print('----699---$markPointSubmitResponse');
-                                //   result2 = markPointSubmitResponse['Result'];
-                                //   msg2 = markPointSubmitResponse['Msg'];
+
+                                  // var markPointSubmitResponse =
+                                  //   await MarkPointSubmitRepo().markpointsubmit(
+                                  //       context,
+                                  //       randomNumber,
+                                  //       _selectedPointId,
+                                  //       _selectedBlockId,
+                                  //       location,
+                                  //       slat,
+                                  //       slong,
+                                  //       description,
+                                  //       uplodedImage,
+                                  //       iCompCode,
+                                  //       userId);
+                                  // print('----699---$markPointSubmitResponse');
+                                  //
+                                  // result2 = markPointSubmitResponse['Result'];
+                                  // msg2 = markPointSubmitResponse['Msg'];
 
                               } else {
                                 if(_dropDownValueMarkLocation==null){

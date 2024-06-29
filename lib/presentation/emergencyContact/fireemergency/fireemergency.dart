@@ -6,6 +6,8 @@ import 'package:puri/app/generalFunction.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../services/getEmergencyContactList.dart';
+import '../../complaints/grievanceStatus/grievanceStatus.dart';
+import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
 
@@ -14,7 +16,8 @@ class FireEmergency extends StatefulWidget {
 
   final name;
   final iHeadCode;
-  const FireEmergency({super.key, required this.name, required this.iHeadCode});
+  final sIcon;
+  const FireEmergency({super.key, required this.name, required this.iHeadCode, required this.sIcon});
 
   @override
   State<FireEmergency> createState() => _TemplesHomeState();
@@ -51,6 +54,7 @@ class _TemplesHomeState extends State<FireEmergency> {
     // TODO: implement initState
     getEmergencyListResponse();
     print('-----52--${widget.iHeadCode}');
+    print('-----55---images--${widget.sIcon}');
     super.initState();
   }
 
@@ -64,14 +68,13 @@ class _TemplesHomeState extends State<FireEmergency> {
         drawer:
         generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         // appBar
-        body: ListView(
+        body:
+        emergencyListResponse == null
+            ? NoDataScreenPage()
+            :
+        ListView(
             children: <Widget>[
               middleHeader(context,'${widget.name}'),
-              // Image.asset('assets/images/templelement2.png',
-              //     // Replace with your first image path
-              //     height: 30.0,
-              //     width: MediaQuery.of(context).size.width),
-             // SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 5,right: 5,bottom: 80),
                 child: Container(
@@ -110,33 +113,13 @@ class _TemplesHomeState extends State<FireEmergency> {
                                     height: 50,
                                     width: 50,
                                     child: ClipOval(
-                                      child: Image.asset(
-                                        'assets/images/contactlist.jpeg',
+                                      child: Image.network(
+                                        '${widget.sIcon}',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(left: 5),
-                                //   child: Container(
-                                //     height: 50,
-                                //     width: 50,
-                                //     decoration: BoxDecoration(
-                                //       image: DecorationImage(
-                                //         image: AssetImage('assets/images/contactlist.jpeg'),
-                                //         fit: BoxFit.cover,
-                                //       ),
-                                //     ),
-                                //     // decoration: BoxDecoration(
-                                //     //   borderRadius: BorderRadius.circular(5),
-                                //     // ),
-                                //     // child: ClipRRect(
-                                //     //     borderRadius: BorderRadius.circular(5.0),
-                                //     //     child: Image.network('${itemList[index]['image']}',height: 90,width: 90, fit: BoxFit.cover,)),
-                                //
-                                //   ),
-                                // ),
                                 Expanded(
                                   child: Container(
                                     height: 110,
@@ -181,6 +164,7 @@ class _TemplesHomeState extends State<FireEmergency> {
                                 InkWell(
                                   onTap: (){
                                     print('----calling ---');
+                                    var sContactNo  =  "${emergencyListResponse![index]['sContactNo']}";
                                     launchUrlString("tel:$sContactNo");
                                   },
                                   child: Padding(

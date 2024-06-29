@@ -19,12 +19,12 @@ class OnlineComplaintForm extends StatefulWidget {
   final categoryCode;
 
   OnlineComplaintForm({super.key, this.complaintName, this.categoryCode});
+
   @override
   State<OnlineComplaintForm> createState() => _TemplesHomeState();
 }
 
 class _TemplesHomeState extends State<OnlineComplaintForm> {
-
 
   GeneralFunction generalFunction = GeneralFunction();
   final _formKey = GlobalKey<FormState>();
@@ -84,7 +84,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
       if (pickFileid != null) {
         image = File(pickFileid.path);
         setState(() {});
-        print('Image File path Id Proof-------135----->$image');
+        print(' Proof-------135----->$image');
         // multipartProdecudre();
         // uploadImage(sToken!, image!);
       } else {
@@ -272,7 +272,6 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
         children: <Widget>[
           middleHeader(context, '${widget.complaintName}'),
           SizedBox(height: 5),
-
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
             child: Container(
@@ -290,7 +289,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                     ),
                   ]),
               child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
+              padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -300,8 +299,7 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            margin:
-                                EdgeInsets.only(left: 0, right: 10, top: 10),
+                            margin: EdgeInsets.only(left: 0, right: 10, top: 10),
                             child: Image.asset(
                               'assets/images/ic_expense.png', // Replace with your image asset path
                               width: 24,
@@ -344,7 +342,6 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, top: 10),
                         child: Row(
@@ -727,25 +724,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                             // ),
                             child: ElevatedButton(
                                 onPressed: () async {
-
                                   var random = Random();
-// Generate an 8-digit random number
                                   int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
-                                  // DateTime currentDate = DateTime.now();
-                                  // todayDate = DateFormat('dd/MMM/yyyy HH:mm').format(currentDate);
-
-                                  // int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
-                                  // DateTime currentDate = DateTime.now();
-                                  // todayDate = DateFormat('dd/MMM/yyyy HH:mm').format(currentDate);
-                                  //
-                                  // SharedPreferences prefs =
-                                  // await SharedPreferences.getInstance();
-                                  //
-                                  // iUserTypeCode = prefs.getString('iUserTypeCode');
-                                  // userId = prefs.getString('iUserId');
-                                  // slat = prefs.getDouble('lat');
-                                  // slong = prefs.getDouble('long');
-
 
                                   var category = categoryTextEditingController.text;
                                   var address = addressTextEditingController.text;
@@ -756,6 +736,14 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                   // image ----  image
 
                                   // apply condition
+                                  print('--category----739--$category');
+                                  print('--address-----740---$address');
+                                  print('--landmark---741---$landmark');
+                                  print('--mention----742---$mention');
+                                  print('--dropdownvalueCategory----743---$_dropDownValueComplaintSubCategory');
+                                  print('--_dropDownValueWard----744---$_dropDownValueWard');
+                                  print('---RanddomNumber----745----$randomNumber');
+
                                   if (_formKey.currentState!.validate() &&
                                       category != null &&
                                       address != null &&
@@ -764,28 +752,20 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                                       _dropDownValueComplaintSubCategory !=null&&
                                       _dropDownValueWard !=null
                                   ) {
-                                     print('--category--$category');
-                                     print('--address--$address');
-                                     print('--landmark--$landmark');
-                                     print('--mention--$mention');
-                                     print('--dropdownvalueCategory--$_dropDownValueComplaintSubCategory');
-                                     print('--_dropDownValueWard--$_dropDownValueWard');
-                                     print('---RanddomNumber---$randomNumber');
-
                                     print('---call Api---');
-                                     var markPointSubmitResponse =
-                                     await MarkPointSubmitRepo().markpointsubmit(
-                                         context,
-                                         randomNumber,
-                                         category,
-                                         _dropDownValueComplaintSubCategory,
-                                         _dropDownValueWard,
-                                         address,
-                                         landmark,
-                                         mention,
-                                         image,
-                                     );
-                                     print('----699---$markPointSubmitResponse');
+                                     // var markPointSubmitResponse =
+                                     // await MarkPointSubmitRepo().markpointsubmit(
+                                     //     context,
+                                     //     randomNumber,
+                                     //     category,
+                                     //     _dropDownValueComplaintSubCategory,
+                                     //     _dropDownValueWard,
+                                     //     address,
+                                     //     landmark,
+                                     //     mention,
+                                     //     image,
+                                     // );
+                                    // print('----699---$markPointSubmitResponse');
 
                                     // var cityzenpostResponse =
                                     // await CityzenPostComplaintRepo().cityzenPostComplaint(

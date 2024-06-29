@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../app/generalFunction.dart';
 import '../app/loader_helper.dart';
 import 'baseurl.dart';
@@ -83,9 +82,9 @@ class MarkPointSubmitRepo {
           'POST',
           Uri.parse(
               'https://upegov.in/purionecitizenapi/api/CitizenPostComplaint/CitizenPostComplaint'));
-      request.body =
-          updatedJsonResponse; // Assign the JSON string to the request body
+      request.body = updatedJsonResponse; // Assign the JSON string to the request body
       request.headers.addAll(headers);
+
       http.StreamedResponse response = await request.send();
 
       var map;

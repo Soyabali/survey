@@ -8,6 +8,8 @@ import '../../app/generalFunction.dart';
 import '../../app/navigationUtils.dart';
 import '../../provider/bindComplaintProvider.dart';
 import '../../services/getEmergencyContactTitleRepo.dart';
+import '../complaints/grievanceStatus/grievanceStatus.dart';
+import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_text_style.dart';
 import 'fireemergency/fireemergency.dart';
 
@@ -124,20 +126,11 @@ class _TemplesHomeState extends State<EmergencyContacts> {
         drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
-        body: Consumer<BindComplaintProvider>(
-            builder: (context, value, child) {
-              if (value.isLoading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final todos = value.todos;
-              print('---251---L--xx-${todos.length}');
-              print('Todos---252-: ${todos.map((e) => e.toString()).toList()}');
-
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: Column(
+      body:
+      emergencyTitleList == null
+          ? NoDataScreenPage()
+          :
+      Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     middleHeader(context, '${widget.name}'),
@@ -156,14 +149,20 @@ class _TemplesHomeState extends State<EmergencyContacts> {
                                   onTap: () {
                                     var name = emergencyTitleList![index]['sHeadName'];
                                     var iHeadCode = emergencyTitleList![index]['iHeadCode'];
+                                    var sIcon = emergencyTitleList![index]['sIcon'];
+
+
+
+                                    // sIcon
                                     print('----categoryNmae---$name');
                                     print('----categoryCode---$iHeadCode');
+                                    print('----sIcon---$sIcon');
 
                                                           Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  FireEmergency(name: name,iHeadCode:iHeadCode),
+                                                                  FireEmergency(name: name,iHeadCode:iHeadCode,sIcon:sIcon),
                                                             ),
                                                           );
 
@@ -240,7 +239,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
 
               );
             }
-        )
+
       // body: Padding(
       //   padding: const EdgeInsets.only(bottom: 5),
       //   child: Column(
@@ -326,6 +325,6 @@ class _TemplesHomeState extends State<EmergencyContacts> {
       //     ],
       //   ),
       // ),
-    );
+
   }
-}
+

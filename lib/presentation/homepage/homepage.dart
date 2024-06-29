@@ -14,6 +14,7 @@ import '../resources/assets_manager.dart';
 import '../temples/nearbyplace/nearbyplace.dart';
 import '../temples/templehome.dart';
 import '../toilet_locator/toilet_locator_details.dart';
+import '../toilet_locator/utilityLocator.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -164,9 +165,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               //   context,
                               //   MaterialPageRoute(builder: (context) => ToiletLocator(name: "Toilet Locator")),
                               // );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => LoiletLocatorDetails(name: "Toilet Locator")),
+                              // );
+                             // UtilityLocator
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => LoiletLocatorDetails(name: "Toilet Locator")),
+                                MaterialPageRoute(builder: (context) => UtilityLocator()
+                                )
                               );
                             },
                             child: Container(
