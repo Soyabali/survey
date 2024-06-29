@@ -6,6 +6,7 @@ import 'package:puri/app/generalFunction.dart';
 
 import '../../../app/navigationUtils.dart';
 import '../../../services/weather_repo.dart';
+import '../../nodatavalue/NoDataValue.dart';
 
 class WeatherHome extends StatefulWidget {
   const WeatherHome({super.key});
@@ -82,7 +83,11 @@ class _TemplesHomeState extends State<WeatherHome> {
         appBar: getAppBar("Weather"),
         // drawer
         drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-        body: Column(children: <Widget>[
+        body:
+        weatherinfo == null
+            ? NoDataScreenPage()
+            :
+        Column(children: <Widget>[
           Stack(
             children: <Widget>[
               Opacity(
@@ -124,13 +129,13 @@ class _TemplesHomeState extends State<WeatherHome> {
                         Row(
                           children: <Widget>[
                             Text(
-                               weatherinfo![0]['temp'].toString(),
+                              weatherinfo![0]['temperature'].toString(),
                               style:
                                   TextStyle(fontSize: 16, color: Colors.white),
                             ),
                             SizedBox(width: 15),
                             Text(
-                              '33.88 C-47.99C',
+                                weatherinfo![0]['wind_speed'].toString(),
                               style:
                                   TextStyle(fontSize: 12, color: Colors.white),
                             ),
@@ -138,7 +143,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                            weatherinfo![0]['weather']['description'].toString(),
+                          weatherinfo![0]['weather_description'].toString(),
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                         SizedBox(height: 5),
@@ -151,7 +156,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                             ),
                             SizedBox(width: 2),
                             Text(
-                              weatherinfo![0]['rh'].toString(),
+                              weatherinfo![0]['humidity'].toString(),
                               style:
                                   TextStyle(fontSize: 12, color: Colors.white),
                             ),
@@ -166,7 +171,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                 ),
                                 SizedBox(width: 4),
                                 Text(
-                                  '5.49 km/h',
+                                    weatherinfo![0]['wind_speed'].toString(),
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.white),
                                 ),
@@ -236,7 +241,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            weatherinfo![index]['city_name'],
+                                            weatherinfo![0]['city_name'].toString(),
                                             style: const TextStyle(
                                                 color: Colors.red,
                                                 fontSize: 16),
@@ -245,7 +250,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                weatherinfo![index]['temp'].toString(),
+                                                weatherinfo![0]['temperature'].toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey,
                                                     fontSize: 16),
@@ -254,7 +259,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                                 width: 5,
                                               ),
                                               Text(
-                                                weatherinfo![index]['timezone'].toString(),
+                                                weatherinfo![index]['weather_description'].toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey,
                                                     fontSize: 10),
@@ -275,7 +280,7 @@ class _TemplesHomeState extends State<WeatherHome> {
                                                 width: 5,
                                               ),
                                               Text(
-                                                  weatherinfo![index]['weather']['description'].toString(),
+                                                weatherinfo![index]['weather_description'].toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey,
                                                     fontSize: 16),

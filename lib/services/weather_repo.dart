@@ -11,19 +11,13 @@ import 'package:http/http.dart' as http;
 class WeatherRepo {
   GeneralFunction generalFunction = GeneralFunction();
   Future<List<Map<String, dynamic>>?> getWeatherInfo(BuildContext context) async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String? sToken = prefs.getString('sToken');
-    // String? iCitizenCode = prefs.getString('iCitizenCode');
-    //
-    // print('-----16---$sToken');
-    // print('-----17---$iCitizenCode');
-    // print('---token----$sToken');
 
     try {
-     // var baseURL = BaseRepo().baseurl;
-      //var endPoint = "GetNearByPlacesType/GetNearByPlacesType";
-      var weatherApi = "https://api.weatherbit.io/v2.0/current?key=5d196d3c564c4598ba1cd29557ffd149&lat=19.804897504582037&lon=85.81792786738797";
-      showLoader();
+      var baseURL = BaseRepo().baseurl;
+       var endPoint = "GetWetherDetails/GetWetherDetails";
+       var weatherApi = "$baseURL$endPoint";
+
+       showLoader();
 
       // var headers = {
       //   'token': '$sToken',
@@ -39,7 +33,7 @@ class WeatherRepo {
         hideLoader();
         var data = await response.stream.bytesToString();
         Map<String, dynamic> parsedJson = jsonDecode(data);
-        List<dynamic>? dataList = parsedJson['data'];
+        List<dynamic>? dataList = parsedJson['Data'];
 
         if (dataList != null) {
           List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
