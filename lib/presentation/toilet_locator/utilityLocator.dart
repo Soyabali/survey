@@ -185,11 +185,17 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        child: Image.network('${utilityLocator![index]['sImage']}',
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      child: Transform.rotate(
+                                        angle: 11, // Angle in radians. For example, 0.5 radians is approximately 28.6 degrees.
+                                        child: Image.network(
+                                          '${utilityLocator![index]['sImage']}',
                                           height: 60,
                                           width: 60,
-                                          fit: BoxFit.cover,)),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
 
                                   ),
                                 ),
@@ -213,7 +219,9 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle: FontStyle.normal,
-                                                )
+                                                ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                           Row(

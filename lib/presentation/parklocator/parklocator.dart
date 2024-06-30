@@ -267,7 +267,7 @@ class _KnowYourWardState extends State<ParkLocator> {
                                               Text('${parkList![index]['sDistance']}',
                                                   style: AppTextStyle
                                                       .font12penSansExtraboldBlack45TextStyle),
-                                              SizedBox(width: 40),
+                                              SizedBox(width: 5),
                                               InkWell(
                                                 onTap: (){
                                                   fLatitude;
