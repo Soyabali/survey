@@ -147,8 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
                              height: 180),
                                  Positioned(
                                    top: 68,
-                                   left: 85,
-                                   child: Text(AppStrings.puriOne,
+                                   left: 35,
+                                   child: Text("Rath Yatra-2024",
                                      style: AppTextStyle.font30penSansExtraboldWhiteTextStyle
                                    )
 

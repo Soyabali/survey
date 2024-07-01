@@ -286,15 +286,28 @@ class GeneralFunction {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           DrawerHeader(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                 image: AssetImage('assets/images/puriOned.png',
-                 //image: AssetImage('assets/images/applogo.png',
-                ),
-                // Replace with your asset image path
+                image: AssetImage('assets/images/puriOned4.png'),
                 fit: BoxFit.cover,
               ),
             ),
+            // decoration: const BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage('assets/images/puriOned2.png',
+            //       //image: AssetImage('assets/images/applogo.png',
+            //     ),
+            //     // Replace with your asset image path
+            //     fit: BoxFit.cover,
+            //   ),
+            //   // image: DecorationImage(
+            //   //    image: AssetImage('assets/images/puriOned.png',
+            //   //    //image: AssetImage('assets/images/applogo.png',
+            //   //   ),
+            //   //   // Replace with your asset image path
+            //   //   fit: BoxFit.cover,
+            //   // ),
+            // ),
             child: Container(),
           ),
           Padding(

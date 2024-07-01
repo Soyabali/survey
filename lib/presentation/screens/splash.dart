@@ -109,11 +109,13 @@ class _SplaceState extends State<SplashView> {
     var msg = "${loginMap['Msg']}";
     //print('---73--$result');
     //print('---74--$msg');
+
     if(result=="1"){
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) =>  const HomePage()),
       );
+
       // displayToast(msg);
     }else{
       showDialog(context: context,
@@ -178,7 +180,7 @@ class SplaceScreen extends StatelessWidget {
                          width: 300,),
                      ),
                      Positioned(
-                         child: Text(AppStrings.puriOne,
+                         child: Text("Rath Yatra-2024",
                            style:AppTextStyle.font30penSansExtraboldWhiteTextStyle,
                          ),
                      )

@@ -161,17 +161,17 @@ class _TemplesHomeState extends State<NearByPlace> {
                           leading: Container(
                             width: 35,
                             height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              gradient: const LinearGradient(
-                                colors: [Colors.red, Colors.orange],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
+                            // decoration: BoxDecoration(
+                            //   borderRadius: BorderRadius.circular(5),
+                            //   gradient: const LinearGradient(
+                            //     colors: [Colors.red, Colors.orange],
+                            //     begin: Alignment.topLeft,
+                            //     end: Alignment.bottomRight,
+                            //   ),
+                            // ),
                             child: Center(
-                              child: Image.asset(
-                                'assets/images/credit-card.png',
+                              child: Image.network(
+                                getNearbyPlace![index]['sIcon']!,
                                 width: 30,
                                 height: 30,
                                 fit: BoxFit.cover,

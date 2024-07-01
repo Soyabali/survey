@@ -58,9 +58,9 @@ class _TemplesHomeState extends State<TemplesHome> {
     print('long----52--$long');
     getTempleListResponse(lati,long);
 
-
     super.initState();
-    getLocation();
+
+   // getLocation();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TempleProvider>(context, listen: false).getAllTodos();
     });
@@ -131,47 +131,47 @@ class _TemplesHomeState extends State<TemplesHome> {
     },
   ];
 
-  void getLocation() async {
-    showLoader();
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      hideLoader();
-      return Future.error('Location services are disabled.');
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      hideLoader();
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      hideLoader();
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    debugPrint("-------------Position-----------------");
-    debugPrint(position.latitude.toString());
-    lat = position.latitude;
-    long = position.longitude;
-    print('-----------7----$lat');
-    print('-----------76----$long');
-
-    if (lat != null && long != null) {
-      hideLoader();
-     // getlocator(lat!, long!);
-    }
-    // setState(() {
-    // });
-    debugPrint("Latitude: ----161--- $lat and Longitude: $long");
-    debugPrint(position.toString());
-  }
+  // void getLocation() async {
+  //   showLoader();
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     hideLoader();
+  //     return Future.error('Location services are disabled.');
+  //   }
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     hideLoader();
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       return Future.error('Location permissions are denied');
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     hideLoader();
+  //     // Permissions are denied forever, handle appropriately.
+  //     return Future.error(
+  //         'Location permissions are permanently denied, we cannot request permissions.');
+  //   }
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   debugPrint("-------------Position-----------------");
+  //   debugPrint(position.latitude.toString());
+  //   lat = position.latitude;
+  //   long = position.longitude;
+  //   print('-----------7----$lat');
+  //   print('-----------76----$long');
+  //
+  //   if (lat != null && long != null) {
+  //     hideLoader();
+  //    // getlocator(lat!, long!);
+  //   }
+  //   // setState(() {
+  //   // });
+  //   debugPrint("Latitude: ----161--- $lat and Longitude: $long");
+  //   debugPrint(position.toString());
+  // }
 
   @override
   Widget build(BuildContext context) {
