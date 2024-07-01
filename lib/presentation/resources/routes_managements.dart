@@ -5,7 +5,7 @@ import 'package:puri/presentation/screens/splash.dart';
 import '../homepage/homepage.dart';
 import '../temples/templehome.dart';
 
-
+dynamic? lat,long;
 class Routes {
   static const String splashRoute = "/";
   static const String loginRoute = "/loginRoute";
@@ -22,7 +22,7 @@ class RouteGenerator
       case Routes.homePageRoute:
         return MaterialPageRoute(builder: (_) => HomePage());
       case Routes.templePagehome:
-        return MaterialPageRoute(builder: (_) => TemplesHome());
+        return MaterialPageRoute(builder: (_) => TemplesHome(lat:lat,long:long));
        // next same route should be
       default:
         return unDefinedRoute();

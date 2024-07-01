@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../app/loader_helper.dart';
 import '../complaints/complaintHomePage.dart';
 import '../complaints/raiseGrievance/notification.dart';
 import '../helpline_feedback/helplinefeedback.dart';
@@ -39,16 +41,80 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool isTextVisible2 = false;
   bool isTextVisible = true;
+
+  //dynamic? lat,long;
+  double? lat,long;
+  double? fLatitude;
+  double? fLongitude;
+
+  // get a location
+  void getLocation() async {
+    showLoader();
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      hideLoader();
+      return Future.error('Location services are disabled.');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      hideLoader();
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      hideLoader();
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    debugPrint("-------------Position-----------------");
+    debugPrint(position.latitude.toString());
+    lat = position.latitude;
+    long = position.longitude;
+    print('-----------7----$lat');
+    print('-----------76----$long');
+
+    if (lat != null && long != null) {
+      hideLoader();
+      //save in a shared Preference value
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setDouble('lat',lat!);
+      prefs.setDouble('long',long!);
+      //getlocator(lat!, long!);
+    }
+    // setState(() {
+    // });
+    debugPrint("Latitude: ----88--- $lat and Longitude: $long");
+    debugPrint(position.toString());
+  }
   @override
   void initState() {
     // TODO: implement initState
+   // getLocation();
+    getlatAndLong();
     super.initState();
-    //BackButtonInterceptor.add(myInterceptor);
   }
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
+  // create a function to get a local data
+  getlatAndLong()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    lat = prefs.getDouble('lat');
+    long = prefs.getDouble('long');
+   // getlocator(lat!, long!);
+    if (lat!=null){
+      print('NO need to call location function--');
+    }else{
+      getLocation();
+    }
+    print('---110---lat---$lat');
+    print('---111---long---$long');
+  }
+
 
   @override
   void dispose() {
@@ -130,8 +196,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: () {
                               print('-----114-----'); // HelpLineFeedBack
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (context) => TemplesHome()));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
+                              );
+
+                                    // Navigator.of(context).pushReplacement(
+                                    //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)));
+                                    //
+
                             },
                             child: Container(
                               width: containerSize * 0.2,

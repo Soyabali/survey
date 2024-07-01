@@ -35,8 +35,8 @@ class TempleListRepo {
       var request = http.Request('POST', Uri.parse('$emeggencyContactTitleApi'));
 
       request.body = json.encode({
-        "fLatitude": 28.656473,
-        "fLongitude": 77.242943,
+        "fLatitude": lat,
+        "fLongitude": long,
       });
 
       request.headers.addAll(headers);

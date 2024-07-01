@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../services/getNearByPlaceListRepo.dart';
 import '../../app/loader_helper.dart';
 import '../../services/toiletListRepo.dart';
@@ -24,7 +25,8 @@ class UtilityLocator extends StatefulWidget {
 
 class _TemplesHomeState extends State<UtilityLocator> {
   //double? lat,long;
-  dynamic? lat,long;
+  //dynamic? lat,long;
+  double? lat,long;
   double? fLatitude;
   double? fLongitude;
   var image;
@@ -39,47 +41,47 @@ class _TemplesHomeState extends State<UtilityLocator> {
     setState(() {
     });
   }
-  void getLocation() async {
-    showLoader();
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      hideLoader();
-      return Future.error('Location services are disabled.');
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      hideLoader();
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      hideLoader();
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    debugPrint("-------------Position-----------------");
-    debugPrint(position.latitude.toString());
-    lat = position.latitude;
-    long = position.longitude;
-    print('-----------7----$lat');
-    print('-----------76----$long');
-
-    if (lat != null && long != null) {
-      hideLoader();
-      getlocator(lat!, long!);
-    }
-    // setState(() {
-    // });
-    debugPrint("Latitude: ----142--- $lat and Longitude: $long");
-    debugPrint(position.toString());
-  }
+  // void getLocation() async {
+  //   showLoader();
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     hideLoader();
+  //     return Future.error('Location services are disabled.');
+  //   }
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     hideLoader();
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       return Future.error('Location permissions are denied');
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     hideLoader();
+  //     // Permissions are denied forever, handle appropriately.
+  //     return Future.error(
+  //         'Location permissions are permanently denied, we cannot request permissions.');
+  //   }
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   debugPrint("-------------Position-----------------");
+  //   debugPrint(position.latitude.toString());
+  //   lat = position.latitude;
+  //   long = position.longitude;
+  //   print('-----------7----$lat');
+  //   print('-----------76----$long');
+  //
+  //   if (lat != null && long != null) {
+  //     hideLoader();
+  //     getlocator(lat!, long!);
+  //   }
+  //   // setState(() {
+  //   // });
+  //   debugPrint("Latitude: ----142--- $lat and Longitude: $long");
+  //   debugPrint(position.toString());
+  // }
 
   final List<Map<String, String>> itemList = [
     {'hotel': 'https://img.directhotels.com/in/puri/pipul-hotels-and-resorts/1.jpg','hotelName': 'La Platina Premium Suites'},
@@ -99,8 +101,17 @@ class _TemplesHomeState extends State<UtilityLocator> {
 
   @override
   void initState() {
-    getLocation();
+   // getLocation();
+    getlatAndLong();
     super.initState();
+  }
+  getlatAndLong()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+     lat = prefs.getDouble('lat');
+     long = prefs.getDouble('long');
+      getlocator(lat!, long!);
+    print('---110---lat---$lat');
+    print('---111---long---$long');
   }
   @override
   void dispose() {

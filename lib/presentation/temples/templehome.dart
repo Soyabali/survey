@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:puri/presentation/temples/templedetail.dart';
+import '../../app/loader_helper.dart';
 import '../../app/navigationUtils.dart';
 import '../../provider/todo_provider.dart';
 import '../../services/templelistRepo.dart';
@@ -20,7 +21,8 @@ import '../resources/assets_manager.dart';
 import 'package:provider/provider.dart';
 
 class TemplesHome extends StatefulWidget {
-  const TemplesHome({super.key});
+  final lat,long;
+  const TemplesHome({super.key, required this.lat, required this.long});
 
   @override
   State<TemplesHome> createState() => _TemplesHomeState();
@@ -28,15 +30,18 @@ class TemplesHome extends StatefulWidget {
 
 class _TemplesHomeState extends State<TemplesHome> {
   // final todos;
-  double? lat,long;
+  dynamic? lat,long;
   double? fLatitude;
   double? fLongitude;
   List<Map<String, dynamic>>? templeListResponse;
   var image;
 
+  getTempleListResponse(String lati, String long) async {
 
-  getTempleListResponse() async {
-    templeListResponse = await TempleListRepo().getTempleList(context,lat,long);
+    // print('---41--$lati');
+    // print('---42--$long');
+
+    templeListResponse = await TempleListRepo().getTempleList(context,lati,long);
     print('------36----$templeListResponse');
     setState(() {
     });
@@ -45,11 +50,17 @@ class _TemplesHomeState extends State<TemplesHome> {
   @override
   void initState() {
     // TODO: implement initState
-    getLocation();
-    getTempleListResponse();
+   // getLocation();
+
+    var lati = '${widget.lat}';
+    var long = '${widget.long}';
+    print('lat--51--$lati');
+    print('long----52--$long');
+    getTempleListResponse(lati,long);
 
 
     super.initState();
+    getLocation();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TempleProvider>(context, listen: false).getAllTodos();
     });
@@ -121,20 +132,24 @@ class _TemplesHomeState extends State<TemplesHome> {
   ];
 
   void getLocation() async {
+    showLoader();
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      hideLoader();
       return Future.error('Location services are disabled.');
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      hideLoader();
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         return Future.error('Location permissions are denied');
       }
     }
     if (permission == LocationPermission.deniedForever) {
+      hideLoader();
       // Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
@@ -143,14 +158,18 @@ class _TemplesHomeState extends State<TemplesHome> {
         desiredAccuracy: LocationAccuracy.high);
     debugPrint("-------------Position-----------------");
     debugPrint(position.latitude.toString());
-
     lat = position.latitude;
     long = position.longitude;
-    print('-----------138----$lat');
-    print('-----------139----$long');
+    print('-----------7----$lat');
+    print('-----------76----$long');
+
+    if (lat != null && long != null) {
+      hideLoader();
+     // getlocator(lat!, long!);
+    }
     // setState(() {
     // });
-    debugPrint("Latitude: ----142--- $lat and Longitude: $long");
+    debugPrint("Latitude: ----161--- $lat and Longitude: $long");
     debugPrint(position.toString());
   }
 

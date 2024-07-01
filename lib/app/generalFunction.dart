@@ -257,6 +257,8 @@ getAppBarBack(BuildContext context ,String title) {
   );
 }
 
+dynamic? lat,long;
+
 class GeneralFunction {
   void logout(BuildContext context) async {
     /// TODO LOGOUT CODE
@@ -323,9 +325,17 @@ class GeneralFunction {
                   ),
                   const SizedBox(height: 15),
                   GestureDetector(
-                    onTap: () {
+                    onTap: ()async {
+                      // lat and long in a sharedPreferenc
+                      //
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      double? lat = prefs.getDouble('lat');
+                      double? long = prefs.getDouble('long');
+                      print('---334---lat---$lat');
+                      print('---335---long---$long');
+
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => TemplesHome()),
+                        MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
                       );
                     },
                     child: Row(

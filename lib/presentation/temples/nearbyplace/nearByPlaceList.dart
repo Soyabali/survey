@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/loader_helper.dart';
 import '../../../services/getNearByPlaceListRepo.dart';
 import '../../fullscreen/imageDisplay.dart';
@@ -33,7 +34,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
 
   getTempleListResponse(double lat, double long, int iTypeCode,) async {
     templeListResponse = await NearByPlaceListRepo().getNearByTempleList(context,lat,long,'${widget.iTypeCode}');
-    print('------36----$templeListResponse');
+    print('------37----$templeListResponse');
     setState(() {
     });
 
@@ -102,12 +103,24 @@ class _TemplesHomeState extends State<NearByPlaceList> {
   @override
   void initState() {
     print("---48--${widget.iTypeCode}");
-    getLocation();
+    //getLocation();
+    getlatAndLong();
     print('--lat-  --87----$lat');
     print('--long-----88---$long');
    // getTempleListResponse();
     super.initState();
   }
+
+  getlatAndLong()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    lat = prefs.getDouble('lat');
+    long = prefs.getDouble('long');
+   // getlocator(lat!, long!);
+    print('---110---lat---$lat');
+    print('---111---long---$long');
+    getTempleListResponse(lat!, long!, widget.iTypeCode);
+  }
+
   @override
   void dispose() {
     super.dispose();
