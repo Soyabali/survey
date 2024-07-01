@@ -38,9 +38,6 @@ class _TemplesHomeState extends State<TemplesHome> {
 
   getTempleListResponse(String lati, String long) async {
 
-    // print('---41--$lati');
-    // print('---42--$long');
-
     templeListResponse = await TempleListRepo().getTempleList(context,lati,long);
     print('------36----$templeListResponse');
     setState(() {

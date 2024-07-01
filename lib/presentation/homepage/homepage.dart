@@ -17,6 +17,7 @@ import '../temples/nearbyplace/nearbyplace.dart';
 import '../temples/templehome.dart';
 import '../toilet_locator/toilet_locator_details.dart';
 import '../toilet_locator/utilityLocator.dart';
+import 'homeMap.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -151,9 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                    child: Text("Rath Yatra-2024",
                                      style: AppTextStyle.font30penSansExtraboldWhiteTextStyle
                                    )
-
                                  )
-
                        ],
                      )
                   ),
@@ -182,11 +181,22 @@ class _MyHomePageState extends State<MyHomePage> {
                         Positioned(
                           top: containerSize * 0.47,
                           left: containerSize * 0.43,
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Text(
-                              "SELECT",
-                              style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                          child: InkWell(
+                            onTap: (){
+                              print('--call a map--');
+                              // HomePageMap
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => HomePageMap(lat:lat,long:long)),
+                              );
+                              },
+
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10,right: 2,top: 0,bottom: 2),
+                              child: Text(
+                                "MAP",
+                                style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                              ),
                             ),
                           ),
                         ),
