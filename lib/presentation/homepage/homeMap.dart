@@ -24,6 +24,8 @@ class _BirthAndDeathState extends State<HomePageMap> {
   @override
   void initState() {
     super.initState();
+     //final lat = double.parse('${widget.lat}');
+    //final lat = double.parse('${widget.lat}');
 
    // print('----27--${widget.lat}');
     //print('----28--${widget.long}');

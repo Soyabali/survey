@@ -14,13 +14,13 @@ class _WebViewStackState extends State<HomePageWebViewStack> {
 
   var loadingPercentage = 0;
   late final WebViewController controller;
-var latitude,longitude;
+  var latitude,longitude;
 
   @override
   void initState() {
 
-     latitude = '${widget.lati}';
-     longitude = '${widget.longi}';
+    latitude = '${widget.lati}';
+    longitude = '${widget.longi}';
     print('--lati---23----$latitude');
     print('--longi---24----$longitude');
     super.initState();

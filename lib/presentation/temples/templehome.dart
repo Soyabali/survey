@@ -11,6 +11,7 @@ import 'package:puri/app/generalFunction.dart';
 import 'package:puri/presentation/temples/templedetail.dart';
 import '../../app/loader_helper.dart';
 import '../../app/navigationUtils.dart';
+import '../../model/templelistModel.dart';
 import '../../provider/todo_provider.dart';
 import '../../services/templelistRepo.dart';
 import '../fullscreen/imageDisplay.dart';
@@ -35,6 +36,7 @@ class _TemplesHomeState extends State<TemplesHome> {
   double? fLongitude;
   List<Map<String, dynamic>>? templeListResponse;
   var image;
+  late Future<TempleListModel> templeListModel;
 
   getTempleListResponse(String lati, String long) async {
 
