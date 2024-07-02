@@ -127,12 +127,11 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                           crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                           children: [
-                                            Text('Puri City Address',
-
+                                            Text('Address',
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
-                                            Text('City Puri distric puri state Odisha postal code 752001 India',
+                                            Text('Puri distric puri state Odisha postal code 752001 India',
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldBlack45TextStyle),
                                             SizedBox(height: 5),
@@ -201,7 +200,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              launchUrlString("tel://7520014455");
+                              launchUrlString("tel://6752222002");
                             },
                             child: Row(
                               children: [
@@ -222,7 +221,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
-                                            Text('9871xxxxxx',
+                                            Text('6752222002',
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldBlack45TextStyle),
                                             SizedBox(height: 5),
@@ -296,7 +295,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              UrlLauncher.launch('mailto:${'puri@gmail.com'}');
+                              UrlLauncher.launch('mailto:${'jagannath@nic.in'}');
                             },
                             child: Row(
                               children: [
@@ -317,7 +316,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
-                                            Text('puri@gmail.com',
+                                            Text('jagannath@nic.in',
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldBlack45TextStyle),
                                             SizedBox(height: 5),
@@ -418,7 +417,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
-                                            Text('https://puri.odisha.gov.in',
+                                            Text('https://www.shreejagannatha.in',
                                                 style: AppTextStyle
                                                     .font14penSansExtraboldBlack45TextStyle),
                                             SizedBox(height: 5),
@@ -493,7 +492,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                       ),
                       SizedBox(height: 15),
                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               InkWell(
                                 onTap: (){
