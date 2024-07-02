@@ -36,7 +36,7 @@ class _WebViewStackState extends State<InstagramWeb> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)  // Enable JavaScript
       ..loadRequest(
-        Uri.parse('https://www.instagram.com/mypuri/'),
+        Uri.parse('https://www.instagram.com/jagannathaDhaam/'),
       );
   }
 

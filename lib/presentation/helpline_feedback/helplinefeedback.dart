@@ -48,6 +48,14 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
       'title': 'WebSite'
     },
   ];
+  final String phoneNumber = '918826772888';
+  final String message = 'Hello';
+
+  void _launchWhatsApp() async {
+    // Use the WhatsApp API with the country code and phone number
+    var whatsappUrl = "https://wa.me/$phoneNumber/?text=${Uri.parse(message)}";
+    await canLaunch(whatsappUrl) ? launch(whatsappUrl) : print('Could not launch $whatsappUrl');
+  }
 
   @override
   void initState() {
@@ -80,7 +88,6 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
           ),
           SizedBox(height: 5),
           middleHeader(context, '${widget.name}'),
-
           Container(
                 child: Column(
                    // mainAxisAlignment: MainAxisAlignment.start,
@@ -148,7 +155,6 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             size:
                                             22), //Image.asset('assets/images/callicon.png',
                                       )),
-
                                 Padding(
                                   padding: const EdgeInsets.only(right: 5),
                                   child: Column(
@@ -523,6 +529,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                 onTap: (){
                                   print('--instagram---');
                                   //InstagramPage();
+
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -537,14 +544,15 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                               InkWell(
                                 onTap: (){
                                   print('--feedback---');
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => FeedbackBottomSheet(),
-                                  );
+                                  _launchWhatsApp();
+                                  // showModalBottomSheet(
+                                  //   context: context,
+                                  //   builder: (context) => FeedbackBottomSheet(),
+                                  // );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/images/feedback.png', height: 40, width: 40),
+                                  child: Image.asset('assets/images/whatsapp.png', height: 40, width: 40),
                                 ),
                               ),
                             ],

@@ -36,7 +36,7 @@ class _WebViewStackState extends State<TwitterWeb> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)  // Enable JavaScript
       ..loadRequest(
-        Uri.parse('https://x.com/dm_puri'),
+        Uri.parse('https://x.com/JagannathaDhaam'),
       );
   }
 
