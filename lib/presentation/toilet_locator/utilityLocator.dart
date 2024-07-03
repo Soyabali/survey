@@ -30,6 +30,7 @@ class _TemplesHomeState extends State<UtilityLocator> {
   double? fLatitude;
   double? fLongitude;
   var image;
+  bool isLoading = true;
   GeneralFunction generalFunction = GeneralFunction();
 
   List<Map<String, dynamic>>? utilityLocator;
@@ -39,6 +40,8 @@ class _TemplesHomeState extends State<UtilityLocator> {
     utilityLocator = await ToiletListRepo().getbyToilet(context,lat,long);
     print('------36----$utilityLocator');
     setState(() {
+      // utilityLocator=[];
+      isLoading = false;
     });
   }
   // void getLocation() async {
@@ -126,7 +129,10 @@ class _TemplesHomeState extends State<UtilityLocator> {
       appBar: getAppBarBack(context,'Utility Locator'),
       drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
       body:
-      utilityLocator == null
+      isLoading
+          ? Center(child:
+      Container())
+          : (utilityLocator == null || utilityLocator!.isEmpty)
           ? NoDataScreenPage()
           :
       ListView(

@@ -1,10 +1,8 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puri/app/generalFunction.dart';
-
-import '../../../app/navigationUtils.dart';
 import '../../../services/weather_repo.dart';
 import '../../nodatavalue/NoDataValue.dart';
 
@@ -18,11 +16,14 @@ class WeatherHome extends StatefulWidget {
 class _TemplesHomeState extends State<WeatherHome> {
   GeneralFunction generalFunction = GeneralFunction();
   List<Map<String, dynamic>>? weatherinfo;
+  bool isLoading = true;
 
   weatherResponse() async {
     weatherinfo = await WeatherRepo().getWeatherInfo(context);
     print('------22----$weatherinfo');
     setState(() {
+     // weatherinfo=[];
+      isLoading = false;
     });
   }
 
@@ -84,7 +85,10 @@ class _TemplesHomeState extends State<WeatherHome> {
         // drawer
         drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         body:
-        weatherinfo == null
+        isLoading
+            ? Center(child:
+              Container())
+            : (weatherinfo == null || weatherinfo!.isEmpty)
             ? NoDataScreenPage()
             :
         Column(children: <Widget>[

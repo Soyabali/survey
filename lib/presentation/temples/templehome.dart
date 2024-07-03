@@ -5,11 +5,8 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
-import 'package:puri/presentation/temples/templedetail.dart';
-import '../../app/loader_helper.dart';
 import '../../app/navigationUtils.dart';
 import '../../model/templelistModel.dart';
 import '../../provider/todo_provider.dart';
@@ -17,11 +14,10 @@ import '../../services/templelistRepo.dart';
 import '../fullscreen/imageDisplay.dart';
 import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_colors.dart';
-import '../resources/app_text_style.dart';
-import '../resources/assets_manager.dart';
 import 'package:provider/provider.dart';
 
 class TemplesHome extends StatefulWidget {
+
   final lat,long;
   const TemplesHome({super.key, required this.lat, required this.long});
 
@@ -36,13 +32,14 @@ class _TemplesHomeState extends State<TemplesHome> {
   double? fLongitude;
   List<Map<String, dynamic>>? templeListResponse;
   var image;
-  late Future<TempleListModel> templeListModel;
+  bool isLoading = true;
+ // late Future<TempleListModel> templeListModel;
 
   getTempleListResponse(String lati, String long) async {
-
     templeListResponse = await TempleListRepo().getTempleList(context,lati,long);
     print('------36----$templeListResponse');
     setState(() {
+      isLoading = false;
     });
   }
 
@@ -178,8 +175,9 @@ class _TemplesHomeState extends State<TemplesHome> {
           backgroundColor: Colors.white,
           appBar: getAppBar("Temples"),
           drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-        body:
-        templeListResponse == null
+        body:isLoading
+            ? Center(child: Container())
+            : (templeListResponse == null || templeListResponse!.isEmpty)
             ? NoDataScreenPage()
             :
         ListView(
@@ -570,7 +568,14 @@ class _TemplesHomeState extends State<TemplesHome> {
     //                 ),
     //           ],
     // )
-    )
-  ;
+    );
   }
   }
+class NoDataScreenPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('No data found'),
+    );
+  }
+}

@@ -27,6 +27,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
   dynamic? lat,long;
   double? fLatitude;
   double? fLongitude;
+  bool isLoading = true;
   GeneralFunction generalFunction = GeneralFunction();
 
   List<Map<String, dynamic>>? templeListResponse;
@@ -36,6 +37,8 @@ class _TemplesHomeState extends State<NearByPlaceList> {
     templeListResponse = await NearByPlaceListRepo().getNearByTempleList(context,lat,long,'${widget.iTypeCode}');
     print('------37----$templeListResponse');
     setState(() {
+      // templeListResponse=[];
+      isLoading = false;
     });
 
   }
@@ -134,7 +137,10 @@ class _TemplesHomeState extends State<NearByPlaceList> {
       drawer: generalFunction.drawerFunction(context,'Suaib Ali','9871950881'),
 
       body:
-      templeListResponse == null
+      isLoading
+          ? Center(child:
+      Container())
+          : (templeListResponse == null || templeListResponse!.isEmpty)
           ? NoDataScreenPage()
           :
       ListView(

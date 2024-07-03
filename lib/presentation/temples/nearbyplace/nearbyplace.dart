@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puri/app/generalFunction.dart';
 import '../../../services/genNearbyPlaceRepo.dart';
+import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
 import 'nearByPlaceList.dart';
@@ -21,11 +22,14 @@ class NearByPlace extends StatefulWidget {
 class _TemplesHomeState extends State<NearByPlace> {
   GeneralFunction generalFunction = GeneralFunction();
   List<Map<String, dynamic>>? getNearbyPlace;
+  bool isLoading = true;
 
   getEmergencyTitleResponse() async {
     getNearbyPlace = await GetNearbyPlaceRepo().getNearByPlace(context);
     print('------26----$getNearbyPlace');
     setState(() {
+      // getNearbyPlace=[];
+      isLoading = false;
     });
   }
 
@@ -106,7 +110,14 @@ class _TemplesHomeState extends State<NearByPlace> {
         generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         // appBar
 
-      body:Column(
+      body:
+      isLoading
+          ? Center(child:
+      Container())
+          : (getNearbyPlace == null || getNearbyPlace!.isEmpty)
+          ? NoDataScreenPage()
+          :
+      Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           middleHeader(context, '${widget.name}'),
