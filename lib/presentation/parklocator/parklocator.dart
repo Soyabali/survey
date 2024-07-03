@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:puri/presentation/parklocator/parkImageDetail.dart';
-import 'package:puri/presentation/parklocator/parkMap.dart';
 import '../../app/generalFunction.dart';
 import '../../app/loader_helper.dart';
 import '../../services/getParkListRepo.dart';
@@ -30,6 +27,7 @@ class _KnowYourWardState extends State<ParkLocator> {
   dynamic? lat,long;
   double? fLatitude;
   double? fLongitude;
+  bool isLoading = true;
   final List<Map<String, String>> itemList = [
     {
       'image':
@@ -63,6 +61,8 @@ class _KnowYourWardState extends State<ParkLocator> {
     parkList = await ParkListRepo().getParkList(context,lat,long);
     print('------58----$parkList');
     setState(() {
+      // parkList=[];
+      isLoading = false;
     });
   }
 
@@ -141,7 +141,10 @@ class _KnowYourWardState extends State<ParkLocator> {
         drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
         body:
-        parkList == null
+        isLoading
+            ? Center(child:
+        Container())
+            : (parkList == null || parkList!.isEmpty)
             ? NoDataScreenPage()
             :
         Container(

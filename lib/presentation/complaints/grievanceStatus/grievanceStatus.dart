@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:puri/presentation/complaints/grievanceStatus/searchBar.dart';
 import '../../../app/generalFunction.dart';
 import '../../../services/citizenMyPostedComplaint.dart';
+import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_text_style.dart';
 
 class GrievanceStatus extends StatefulWidget {
@@ -41,6 +42,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
   var result1;
   var msg1;
   GeneralFunction generalfunction = GeneralFunction();
+  bool isLoading = true;
 
   // Api response
 
@@ -51,7 +53,10 @@ class _TemplesHomeState extends State<GrievanceStatus> {
     _filteredData =
     List<Map<String, dynamic>>.from(pendingInternalComplaintList ?? []);
 
-    setState(() {});
+    setState(() {
+      // parkList=[];
+      isLoading = false;
+    });
   }
 
   @override
@@ -128,10 +133,17 @@ class _TemplesHomeState extends State<GrievanceStatus> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: getAppBarBack(context,'${widget.name}'),
+     // appBar: getAppBarBack(context,'jjsjsjsj'),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
      body :
-       pendingInternalComplaintList == null
-         ? NoDataScreen()
+       // pendingInternalComplaintList == null
+       //   ? NoDataScreen()
+       //   :
+     isLoading
+         ? Center(child:
+     Container())
+         : (pendingInternalComplaintList == null || pendingInternalComplaintList!.isEmpty)
+         ? NoDataScreenPage()
          :
        Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

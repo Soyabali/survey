@@ -3,12 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 import '../../../app/generalFunction.dart';
-import '../../../provider/bindComplaintProvider.dart';
 import '../../../services/notificationRepo.dart';
-import '../../resources/app_text_style.dart';
-import 'MarkPointScreen.dart';
+import '../../nodatavalue/NoDataValue.dart';
 import 'onlineComplaintForm.dart';
 
 class OnlineComplaint_2 extends StatefulWidget {
@@ -26,11 +23,15 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
   List<Map<String, dynamic>>? notificationList;
 
   String? sName, sContactNo;
+  bool isLoading = true;
+
   // GeneralFunction generalFunction = GeneralFunction();
   getnotificationResponse() async {
     notificationList = await NotificationRepo().notification(context);
     print('------31----$notificationList');
     setState(() {
+      // notificationList=[];
+      isLoading = false;
     });
   }
 
@@ -254,7 +255,14 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
         appBar: getAppBarBack(context, '${widget.name}'),
         drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
-        body: Padding(
+        body:
+        isLoading
+            ? Center(child:
+        Container())
+            : (notificationList == null || notificationList!.isEmpty)
+            ? NoDataScreenPage()
+            :
+        Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
