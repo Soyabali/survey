@@ -110,8 +110,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                             child: InkWell(
                               onTap: () {
                                 /// TODO HERE GET A CURRECT LOCATION
-                                double lat = 19.817743;
-                                double long = 85.859839;
+                                double lat = 19.80494797579724;
+                                double long = 85.81796005389619;
                                 launchGoogleMaps(lat,long);
                               },
                               child: Row(
@@ -133,7 +133,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldRedTextStyle),
                                               SizedBox(height: 5),
-                                              Text('Shree Jagannath Temple Administration Puri,Odisha',
+                                              Text('Shree Jagannatha Temple Administration, Puri,Odisha',
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldBlack45TextStyle),
                                               SizedBox(height: 5),
@@ -203,7 +203,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                             ),
                             child: InkWell(
                               onTap: () {
-                                launchUrlString("tel://+91-6752-222002");
+                                print('call---numbr--');
+                               // launchUrlString("tel://+91-6752-222002");
                               },
                               child: Row(
                                 children: [
@@ -224,7 +225,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldRedTextStyle),
                                               SizedBox(height: 5),
-                                              Text("+91-6752-222002",
+                                              Text("112",
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldBlack45TextStyle),
                                               SizedBox(height: 5),
@@ -236,7 +237,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                   ),
                                   InkWell(
                                     onTap: (){
-                                      launchUrlString("tel://7520014455");
+                                     // launchUrlString("tel://7520014455");
+                                      launchUrlString("tel://112");
                                     },
                                     child: Padding(
                                         padding: const EdgeInsets.only(left: 5),
@@ -332,7 +334,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                   InkWell(
                                     onTap: (){
                                       /// TODO CHANGE EMAIL IN A FUTURE
-                                      UrlLauncher.launch('mailto:${'puri@gmail.com'}');
+                                     // UrlLauncher.launch('mailto:${'puri@gmail.com'}');
+                                      UrlLauncher.launch('mailto:${'jagannath@nic.in'}');
                                     },
                                     child: Padding(
                                         padding: const EdgeInsets.only(left: 5),
@@ -438,8 +441,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                         MaterialPageRoute(
                                             builder: (context) => WebSitePage()),
                                       );
-
-                                    },
+                                      },
                                     child: Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child:  Container(
@@ -447,7 +449,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                           height: 25,
                                           decoration: const BoxDecoration(
                                             image: DecorationImage(
-                                              image: AssetImage('assets/images/webicon.png'),
+                                              image: AssetImage('assets/images/webicon.jpeg'),
                                               fit: BoxFit.cover,
                                             ),
                                           ),

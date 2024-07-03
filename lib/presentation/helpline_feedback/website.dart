@@ -46,7 +46,7 @@ class _MarriageCertificateState extends State<WebSitePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack(context,'Puri One Web'),
+      appBar: getAppBarBack(context,'Shree Jagannatha'),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Container(

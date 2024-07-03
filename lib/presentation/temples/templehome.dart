@@ -335,30 +335,29 @@ class _TemplesHomeState extends State<TemplesHome> {
                                 ),
                                 InkWell(
                                   onTap: (){
-                                    fLatitude;
-                                    fLongitude;
-                                    // sLocation
+                                    setState(() {
+                                      fLatitude;
+                                      fLongitude;
+                                      // sLocation
+                                      if (templeListResponse![index]['fLatitude'] is String) {
+                                        fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                      } else {
+                                        fLatitude = templeListResponse![index]['fLatitude'];
+                                      }
 
-                                    if (templeListResponse![index]['fLatitude'] is String) {
-                                      fLatitude = double.parse(templeListResponse![index]['fLatitude']);
-                                    } else {
-                                      fLatitude = templeListResponse![index]['fLatitude'];
-                                    }
-
-                                    if (templeListResponse![index]['fLongitude'] is String) {
-                                      fLongitude = double.parse(templeListResponse![index]['fLongitude']);
-                                    } else {
-                                      fLongitude = templeListResponse![index]['fLongitude'];
-                                    }
-                                     var locationName = '${templeListResponse![index]['sTempleName']}';
-                                    var sLocationAddress = '${templeListResponse![index]['sDistance']}';
-                                    print('-----336---fLatitude--$fLatitude');
-                                    print('-----337---fLongitude--$fLongitude');
-                                    print('-----338---locationName--$locationName');
-                                    print('-----338---sLocation--$sLocationAddress');
-
-                                    _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
-
+                                      if (templeListResponse![index]['fLongitude'] is String) {
+                                        fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                                      } else {
+                                        fLongitude = templeListResponse![index]['fLongitude'];
+                                      }
+                                      var locationName = '${templeListResponse![index]['sTempleName']}';
+                                      var sLocationAddress = '${templeListResponse![index]['sDistance']}';
+                                      print('-----336---fLatitude--$fLatitude');
+                                      print('-----337---fLongitude--$fLongitude');
+                                      print('-----338---locationName--$locationName');
+                                      print('-----338---sLocation--$sLocationAddress');
+                                      _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+                                    });
                                     // Navigator.push(
                                     //   context,
                                     //   MaterialPageRoute(builder: (context) => TempleGoogleMap(fLatitude:fLatitude,fLongitude:fLongitude,locationName:locationName,sLocationAddress:sLocationAddress)),

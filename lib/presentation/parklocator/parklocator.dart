@@ -295,31 +295,31 @@ class _KnowYourWardState extends State<ParkLocator> {
                                               SizedBox(width: 5),
                                               InkWell(
                                                 onTap: (){
+                                                  setState(() {
+                                                    fLatitude;
+                                                    fLongitude;
+                                                    // sLocation
 
-                                                  fLatitude;
-                                                  fLongitude;
-                                                  // sLocation
+                                                    if (parkList![index]['fLat'] is String) {
+                                                      fLatitude = double.parse(parkList![index]['fLat']);
+                                                    } else {
+                                                      fLatitude = parkList![index]['fLat'];
+                                                    }
 
-                                                  if (parkList![index]['fLat'] is String) {
-                                                    fLatitude = double.parse(parkList![index]['fLat']);
-                                                  } else {
-                                                    fLatitude = parkList![index]['fLat'];
-                                                  }
+                                                    if (parkList![index]['fLon'] is String) {
+                                                      fLongitude = double.parse(parkList![index]['fLon']);
+                                                    } else {
+                                                      fLongitude = parkList![index]['fLon'];
+                                                    }
+                                                    var locationName = '${parkList![index]['sParkName']}';
+                                                    var sLocationAddress = '${parkList![index]['sDistance']}';
+                                                    print('-----336---fLatitude--$fLatitude');
+                                                    print('-----337---fLongitude--$fLongitude');
+                                                    print('-----338---locationName--$locationName');
+                                                    print('-----338---sLocation--$sLocationAddress');
+                                                    _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
 
-                                                  if (parkList![index]['fLon'] is String) {
-                                                    fLongitude = double.parse(parkList![index]['fLon']);
-                                                  } else {
-                                                    fLongitude = parkList![index]['fLon'];
-                                                  }
-                                                  var locationName = '${parkList![index]['sParkName']}';
-                                                  var sLocationAddress = '${parkList![index]['sDistance']}';
-                                                  print('-----336---fLatitude--$fLatitude');
-                                                  print('-----337---fLongitude--$fLongitude');
-                                                  print('-----338---locationName--$locationName');
-                                                  print('-----338---sLocation--$sLocationAddress');
-
-                                                  _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
-
+                                                  });
                                                   /// TODO IN A FUTURE ITS MAY INCOMMENTS
                                                   ///
                                                   // fLatitude;

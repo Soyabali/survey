@@ -20,6 +20,7 @@ import '../login/loginScreen_2.dart';
 import '../marriageCertificate/marriageCertificate.dart';
 import '../notification/notification.dart';
 import '../parklocator/parklocator.dart';
+import '../propertyTax/propertytax.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_text_style.dart';
 import 'grievanceStatus/grievanceStatus.dart';
@@ -1139,16 +1140,16 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          displayToast("Coming Soon");
+                          //displayToast("Coming Soon");
                           // Add your onTap functionality here
                           // ParkLocator
                           print('-----414------');
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => ParkLocator(
-                          //           name: "Park Locator'")),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PropertyTax(
+                                    name: "Property Tax")),
+                          );
                         },
                         child: Container(
                           height: 100,
@@ -1199,7 +1200,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         height: 30,
                                       )),
                                     ),
-                                    Text('House holding Tax',
+                                    Text('Property Tax',
                                         style: AppTextStyle
                                             .font14penSansExtraboldOrangeTextStyle),
                                   ],

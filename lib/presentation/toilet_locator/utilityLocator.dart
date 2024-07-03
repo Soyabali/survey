@@ -291,30 +291,30 @@ class _TemplesHomeState extends State<UtilityLocator> {
                               ),
                               InkWell(
                                 onTap: (){
-                                  fLatitude;
-                                  fLongitude;
-                                  // sLocation
+                                  setState(() {
+                                    fLatitude;
+                                    fLongitude;
+                                    // sLocation
+                                    if (utilityLocator![index]['fLatitude'] is String) {
+                                      fLatitude = double.parse(utilityLocator![index]['fLatitude']);
+                                    } else {
+                                      fLatitude = utilityLocator![index]['fLatitude'];
+                                    }
 
-                                  if (utilityLocator![index]['fLatitude'] is String) {
-                                    fLatitude = double.parse(utilityLocator![index]['fLatitude']);
-                                  } else {
-                                    fLatitude = utilityLocator![index]['fLatitude'];
-                                  }
+                                    if (utilityLocator![index]['fLongitude'] is String) {
+                                      fLongitude = double.parse(utilityLocator![index]['fLongitude']);
+                                    } else {
+                                      fLongitude = utilityLocator![index]['fLongitude'];
+                                    }
+                                    var locationName = '${utilityLocator![index]['sToiletName']}';
+                                    var sLocationAddress = '${utilityLocator![index]['sDistance']}';
+                                    print('-----336---fLatitude--$fLatitude');
+                                    print('-----337---fLongitude--$fLongitude');
+                                    print('-----338---locationName--$locationName');
+                                    print('-----338---sLocation--$sLocationAddress');
+                                    _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
 
-                                  if (utilityLocator![index]['fLongitude'] is String) {
-                                    fLongitude = double.parse(utilityLocator![index]['fLongitude']);
-                                  } else {
-                                    fLongitude = utilityLocator![index]['fLongitude'];
-                                  }
-                                  var locationName = '${utilityLocator![index]['sToiletName']}';
-                                  var sLocationAddress = '${utilityLocator![index]['sDistance']}';
-                                  print('-----336---fLatitude--$fLatitude');
-                                  print('-----337---fLongitude--$fLongitude');
-                                  print('-----338---locationName--$locationName');
-                                  print('-----338---sLocation--$sLocationAddress');
-
-                                  _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
-
+                                  });
                                   /// TODO IN A FUTURE IT MAY BE NEED
                                   ///
                                   // fLatitude;

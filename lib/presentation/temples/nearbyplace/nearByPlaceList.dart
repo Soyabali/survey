@@ -10,8 +10,8 @@ import '../../../services/getNearByPlaceListRepo.dart';
 import '../../fullscreen/imageDisplay.dart';
 import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_colors.dart';
-import '../../resources/app_text_style.dart';
-import '../templeGoogleMap.dart';
+import 'nearbyplacedirectionmap.dart';
+import 'nearbyplacemap.dart';
 
 
 class NearByPlaceList extends StatefulWidget {
@@ -32,7 +32,6 @@ class _TemplesHomeState extends State<NearByPlaceList> {
   GeneralFunction generalFunction = GeneralFunction();
 
   List<Map<String, dynamic>>? templeListResponse;
-
 
   getTempleListResponse(double lat, double long, int iTypeCode,) async {
     templeListResponse = await NearByPlaceListRepo().getNearByTempleList(context,lat,long,'${widget.iTypeCode}');
@@ -107,7 +106,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
   @override
   void initState() {
     print("---48--${widget.iTypeCode}");
-    //getLocation();
+   // getLocation();
     getlatAndLong();
     print('--lat-  --87----$lat');
     print('--long-----88---$long');
@@ -135,7 +134,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TempleGoogleMap(
+          builder: (context) => NearbyMap2(
             fLatitude: fLatitude,
             fLongitude: fLongitude,
             locationName: locationName,
@@ -297,29 +296,51 @@ class _TemplesHomeState extends State<NearByPlaceList> {
                               ),
                               InkWell(
                                 onTap: (){
-                                  fLatitude;
-                                  fLongitude;
-                                  // sLocation
+                                  setState(() {
+                                    fLatitude;
+                                    fLongitude;
+                                    // sLocation
+                                    if (templeListResponse![index]['fLatitude'] is String) {
+                                      fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                    } else {
+                                      fLatitude = templeListResponse![index]['fLatitude'];
+                                    }
+                                    if (templeListResponse![index]['fLongitude'] is String) {
+                                      fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                                    } else {
+                                      fLongitude = templeListResponse![index]['fLongitude'];
+                                    }
+                                    var locationName = '${templeListResponse![index]['sPlaceName']}';
+                                    var sLocationAddress = '${templeListResponse![index]['sDistance']}';
+                                    print('-----336---fLatitude--$fLatitude');
+                                    print('-----337---fLongitude--$fLongitude');
+                                    print('-----338---locationName--$locationName');
+                                    print('-----338---sLocation--$sLocationAddress');
 
-                                  if (templeListResponse![index]['fLatitude'] is String) {
-                                    fLatitude = double.parse(templeListResponse![index]['fLatitude']);
-                                  } else {
-                                    fLatitude = templeListResponse![index]['fLatitude'];
-                                  }
+                                    _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
 
-                                  if (templeListResponse![index]['fLongitude'] is String) {
-                                    fLongitude = double.parse(templeListResponse![index]['fLongitude']);
-                                  } else {
-                                    fLongitude = templeListResponse![index]['fLongitude'];
-                                  }
-                                  var locationName = '${templeListResponse![index]['sPlaceName']}';
-                                  var sLocationAddress = '${templeListResponse![index]['sDistance']}';
-                                  print('-----336---fLatitude--$fLatitude');
-                                  print('-----337---fLongitude--$fLongitude');
-                                  print('-----338---locationName--$locationName');
-                                  print('-----338---sLocation--$sLocationAddress');
-
-                                  _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+                                  });
+                                  // fLatitude;
+                                  // fLongitude;
+                                  // // sLocation
+                                  // if (templeListResponse![index]['fLatitude'] is String) {
+                                  //   fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                  // } else {
+                                  //   fLatitude = templeListResponse![index]['fLatitude'];
+                                  // }
+                                  // if (templeListResponse![index]['fLongitude'] is String) {
+                                  //   fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                                  // } else {
+                                  //   fLongitude = templeListResponse![index]['fLongitude'];
+                                  // }
+                                  // var locationName = '${templeListResponse![index]['sPlaceName']}';
+                                  // var sLocationAddress = '${templeListResponse![index]['sDistance']}';
+                                  // print('-----336---fLatitude--$fLatitude');
+                                  // print('-----337---fLongitude--$fLongitude');
+                                  // print('-----338---locationName--$locationName');
+                                  // print('-----338---sLocation--$sLocationAddress');
+                                  //
+                                  // _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
 
                                   /// TOTO IN A FUTURE ITS MAY NEED TO UNCOMMENTS
                                   // fLatitude;

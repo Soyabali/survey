@@ -34,6 +34,9 @@ void displayToast(String msg) {
 // navigateToGoogleMap
 
 Future<void> launchGoogleMaps(double latitude, double longitude) async {
+  print('----37---$latitude');
+  print('----38---$longitude');
+
   final uri = Uri(
     scheme: 'geo',
     path: '$latitude,$longitude',
