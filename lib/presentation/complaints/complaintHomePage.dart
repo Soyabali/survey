@@ -214,7 +214,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                 Text('${sCitizenName}',style: AppTextStyle
                     .font14penSansExtraboldOrangeTextStyle,),
                 Spacer(),
-
                 InkWell(
                   onTap: () async {
                     print('-----Open Dialog box-----');
@@ -257,12 +256,11 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       },
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20),
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 20),
                     child: Icon(Icons.logout, size: 20, color: Colors.orange),
                   ),
                 ),
-
 
                 // InkWell(
                 //   onTap: () async {
@@ -344,7 +342,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
               ],
             ),
           ),
-
           Padding(
             padding:
                 const EdgeInsets.only(top: 90, left: 10, right: 10, bottom: 10),
@@ -375,10 +372,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                 builder: (context) =>
                                     OnlineComplaint_2(name: "Raise Grievance")),
                           );
-
-
-
-                        },
+                          },
                         child: Container(
                           height: 100,
                           width: MediaQuery.of(context).size.width / 2 - 14,
@@ -523,153 +517,324 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       ),
                     ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: <Widget>[
-                  //     InkWell(
-                  //       onTap: () {
-                  //         // BookAdvertisement
-                  //         // Add your onTap functionality here
-                  //         print('-----177------');
-                  //         Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //               builder: (context) => BookAdvertisement(
-                  //                   complaintName: "Book Advertisement")),
-                  //         );
-                  //       },
-                  //       child: Container(
-                  //         height: 100,
-                  //         width: MediaQuery.of(context).size.width / 2 - 14,
-                  //         decoration: const BoxDecoration(
-                  //           border: Border(
-                  //             left: BorderSide(
-                  //               color: Colors.orange,
-                  //               // Specify your desired border color here
-                  //               width: 5.0, // Adjust the width of the border
-                  //             ),
-                  //           ),
-                  //           borderRadius: BorderRadius.only(
-                  //             topLeft: Radius.circular(10.0),
-                  //             // Adjust the radius for the top-left corner
-                  //             bottomLeft: Radius.circular(
-                  //                 10.0), // Adjust the radius for the bottom-left corner
-                  //           ),
-                  //         ),
-                  //         // color: Colors.black,
-                  //         child: Card(
-                  //             elevation: 10,
-                  //             margin: EdgeInsets.all(5.0),
-                  //             shadowColor: Colors.orange,
-                  //             shape: RoundedRectangleBorder(
-                  //               side: BorderSide(
-                  //                   color: Colors.orange, width: 0.5),
-                  //               borderRadius: BorderRadius.circular(10.0),
-                  //             ),
-                  //             child: Padding(
-                  //               padding: const EdgeInsets.only(top: 10),
-                  //               child: Column(
-                  //                 children: <Widget>[
-                  //                   Container(
-                  //                     width: 50,
-                  //                     height: 50,
-                  //                     decoration: BoxDecoration(
-                  //                       borderRadius: BorderRadius.circular(25),
-                  //                       // half of width and height for a circle
-                  //                       //color: Colors.green
-                  //                       color: Color(0xFFD3D3D3),
-                  //                     ),
-                  //                     child: const Center(
-                  //                         child: Image(
-                  //                       image: AssetImage(
-                  //                           'assets/images/complaint_status.png'),
-                  //                       width: 30,
-                  //                       height: 30,
-                  //                     )),
-                  //                   ),
-                  //                   Text(
-                  //                     'Book Advertisement',
-                  //                     style: AppTextStyle
-                  //                         .font14penSansExtraboldOrangeTextStyle,
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             )),
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: 5),
-                  //     InkWell(
-                  //       onTap: () {
-                  //         // Add your onTap functionality here
-                  //         print('-----235------');
-                  //         Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //               builder: (context) => KnowYourWard(
-                  //                   name: "Know Your Ward")),
-                  //         );
-                  //       },
-                  //       child: Container(
-                  //         height: 100,
-                  //         width: MediaQuery.of(context).size.width / 2 - 14,
-                  //         decoration: const BoxDecoration(
-                  //           border: Border(
-                  //             right: BorderSide(
-                  //               color: Colors.green,
-                  //               // Specify your desired border color here
-                  //               width: 5.0, // Adjust the width of the border
-                  //             ),
-                  //           ),
-                  //           borderRadius: BorderRadius.only(
-                  //             topRight: Radius.circular(10.0),
-                  //             // Adjust the radius for the top-left corner
-                  //             bottomRight: Radius.circular(
-                  //                 10.0), // Adjust the radius for the bottom-left corner
-                  //           ),
-                  //         ),
-                  //         // color: Colors.black,
-                  //         child: Card(
-                  //             elevation: 10,
-                  //             shadowColor: Colors.green,
-                  //             shape: RoundedRectangleBorder(
-                  //               side:
-                  //                   BorderSide(color: Colors.green, width: 0.5),
-                  //               borderRadius: BorderRadius.circular(10.0),
-                  //             ),
-                  //             child: Padding(
-                  //               padding: const EdgeInsets.only(top: 10),
-                  //               child: Column(
-                  //                 children: <Widget>[
-                  //                   Container(
-                  //                     width: 50,
-                  //                     height: 50,
-                  //                     decoration: BoxDecoration(
-                  //                       borderRadius: BorderRadius.circular(25),
-                  //                       // half of width and height for a circle
-                  //                       //color: Colors.green
-                  //                       color: Color(0xFFD3D3D3),
-                  //                     ),
-                  //                     child: const Center(
-                  //                         child: Image(
-                  //                       image: AssetImage(
-                  //                           'assets/images/complaint_status.png'),
-                  //                       width: 30,
-                  //                       height: 30,
-                  //                     )),
-                  //                   ),
-                  //                   Text(
-                  //                     'Know Your Ward',
-                  //                     style: AppTextStyle
-                  //                         .font14penSansExtraboldGreenTextStyle,
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             )),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          // Add your onTap functionality here
+                          print('-----52------');
+                          displayToast("Coming Soon");
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           NotificationPage(),
+                          // ));
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           OnlineComplaint_2(name: "Raise Grievance")),
+                          // );
+                        },
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 2 - 14,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              left: BorderSide(
+                                color: Colors.orange,
+                                // Specify your desired border color here
+                                width: 5.0, // Adjust the width of the border
+                              ),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              // Adjust the radius for the top-left corner
+                              bottomLeft: Radius.circular(
+                                  10.0), // Adjust the radius for the bottom-left corner
+                            ),
+                          ),
+                          // color: Colors.black,
+                          child: Card(
+                              elevation: 10,
+                              margin: EdgeInsets.all(5.0),
+                              shadowColor: Colors.orange,
+                              shape: RoundedRectangleBorder(
+                                side:
+                                BorderSide(color: Colors.orange, width: 0.5),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        // half of width and height for a circle
+                                        //color: Colors.green
+                                        color: Color(0xFFD3D3D3),
+                                      ),
+                                      child: const Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/images/complaint_status.png'),
+                                            width: 30,
+                                            height: 30,
+                                          )),
+                                    ),
+                                    Text(
+                                      'Garbage Pickup Request',
+                                      style: AppTextStyle
+                                          .font14penSansExtraboldOrangeTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      InkWell(
+                        onTap: () {
+                          // Add your onTap functionality here
+                          print('-----109------');
+                          displayToast("Coming Soon");
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           PendingComplaintScreen()),
+                          // );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           GrievanceStatus(name: "Grievance Status")),
+                          // );
+                        },
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 2 - 14,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              right: BorderSide(
+                                color: Colors.green,
+                                // Specify your desired border color here
+                                width: 5.0, // Adjust the width of the border
+                              ),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10.0),
+                              // Adjust the radius for the top-left corner
+                              bottomRight: Radius.circular(
+                                  10.0), // Adjust the radius for the bottom-left corner
+                            ),
+                          ),
+                          // color: Colors.black,
+                          child: Card(
+                              elevation: 10,
+                              shadowColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.green, width: 0.5),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        // half of width and height for a circle
+                                        //color: Colors.green
+                                        color: Color(0xFFD3D3D3),
+                                      ),
+                                      child: const Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/images/complaint_status.png'),
+                                            width: 30,
+                                            height: 30,
+                                          )),
+                                    ),
+                                    Text(
+                                      'Sewarge Lifting Request',
+                                      style: AppTextStyle
+                                          .font14penSansExtraboldGreenTextStyle,
+                                      // style: GoogleFonts.lato(
+                                      //     textStyle: Theme.of(context).textTheme.titleSmall,
+                                      //     fontSize: 14,
+                                      //     fontWeight: FontWeight.w700,
+                                      //     fontStyle: FontStyle.italic,
+                                      //     color:Colors.orange
+                                      // ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          displayToast("Coming Soon");
+                          // BookAdvertisement
+                          // Add your onTap functionality here
+                          print('-----177------');
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => BookAdvertisement(
+                          //           complaintName: "Book Advertisement")),
+                          // );
+                        },
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 2 - 14,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              left: BorderSide(
+                                color: Colors.green,
+                                // Specify your desired border color here
+                                width: 5.0, // Adjust the width of the border
+                              ),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              // Adjust the radius for the top-left corner
+                              bottomLeft: Radius.circular(
+                                  10.0), // Adjust the radius for the bottom-left corner
+                            ),
+                          ),
+                          // color: Colors.black,
+                          child: Card(
+                              elevation: 10,
+                              margin: EdgeInsets.all(5.0),
+                              shadowColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.green, width: 0.5),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        // half of width and height for a circle
+                                        //color: Colors.green
+                                        color: Color(0xFFD3D3D3),
+                                      ),
+                                      child: const Center(
+                                          child: Image(
+                                        image: AssetImage(
+                                            'assets/images/complaint_status.png'),
+                                        width: 30,
+                                        height: 30,
+                                      )),
+                                    ),
+                                    Text(
+                                      'Book Advertisement',
+                                      style: AppTextStyle
+                                          .font14penSansExtraboldGreenTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      InkWell(
+                        onTap: () {
+                          // Add your onTap functionality here
+                          print('-----235------');
+                          displayToast("Coming Soon");
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => KnowYourWard(
+                          //           name: "Know Your Ward")),
+                          // );
+                        },
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 2 - 14,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              right: BorderSide(
+                                color: Colors.orange,
+                                // Specify your desired border color here
+                                width: 5.0, // Adjust the width of the border
+                              ),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10.0),
+                              // Adjust the radius for the top-left corner
+                              bottomRight: Radius.circular(
+                                  10.0), // Adjust the radius for the bottom-left corner
+                            ),
+                          ),
+                          // color: Colors.black,
+                          child: Card(
+                              elevation: 10,
+                              shadowColor: Colors.orange,
+                              shape: RoundedRectangleBorder(
+                                side:
+                                    BorderSide(color: Colors.orange, width: 0.5),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        // half of width and height for a circle
+                                        //color: Colors.green
+                                        color: Color(0xFFD3D3D3),
+                                      ),
+                                      child: const Center(
+                                          child: Image(
+                                        image: AssetImage(
+                                            'assets/images/complaint_status.png'),
+                                        width: 30,
+                                        height: 30,
+                                      )),
+                                    ),
+                                    Text(
+                                      'Know Your Ward',
+                                      style: AppTextStyle
+                                          .font14penSansExtraboldOrangeTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -689,7 +854,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                           decoration: const BoxDecoration(
                             border: Border(
                               left: BorderSide(
-                                color: Colors.green,
+                                color: Colors.orange,
                                 // Specify your desired border color here
                                 width: 5.0, // Adjust the width of the border
                               ),
@@ -735,7 +900,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                     Text(
                                       'Marriage Certificate',
                                       style: AppTextStyle
-                                          .font14penSansExtraboldGreenTextStyle,
+                                          .font14penSansExtraboldOrangeTextStyle,
                                     ),
                                   ],
                                 ),
@@ -752,6 +917,158 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                             MaterialPageRoute(
                                 builder: (context) => BirthAndDeathCertificate(
                                     name: "Birth & Death Cert")),
+                          );
+
+                        },
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 2 - 14,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              right: BorderSide(
+                                color: Colors.green,
+                                // Specify your desired border color here
+                                width: 5.0, // Adjust the width of the border
+                              ),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10.0),
+                              // Adjust the radius for the top-left corner
+                              bottomRight: Radius.circular(
+                                  10.0), // Adjust the radius for the bottom-left corner
+                            ),
+                          ),
+                          // color: Colors.black,
+                          child: Card(
+                              elevation: 10,
+                              shadowColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.green, width: 0.5),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        // half of width and height for a circle
+                                        //color: Colors.green
+                                        color: Color(0xFFD3D3D3),
+                                      ),
+                                      child: const Center(
+                                          child: Image(
+                                        image: AssetImage(
+                                            'assets/images/complaint_status.png'),
+                                        width: 30,
+                                        height: 30,
+                                      )),
+                                    ),
+                                    Text(
+                                      'Birth & Death Cert',
+                                      style: AppTextStyle
+                                          .font14penSansExtraboldGreenTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          displayToast("Coming Soon");
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => MarriageCertificate(
+                          //           name: "Marriage Certificate")),
+                          // );
+                        },
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 2 - 14,
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              left: BorderSide(
+                                color: Colors.green,
+                                // Specify your desired border color here
+                                width: 5.0, // Adjust the width of the border
+                              ),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              // Adjust the radius for the top-left corner
+                              bottomLeft: Radius.circular(
+                                  10.0), // Adjust the radius for the bottom-left corner
+                            ),
+                          ),
+                          // color: Colors.black,
+                          child: Card(
+                              elevation: 10,
+                              margin: EdgeInsets.all(5.0),
+                              shadowColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                side:
+                                BorderSide(color: Colors.green, width: 0.5),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        // half of width and height for a circle
+                                        //color: Colors.green
+                                        color: Color(0xFFD3D3D3),
+                                      ),
+                                      child: Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/images/complaint_status.png'),
+                                            width: 30,
+                                            height: 30,
+                                          )),
+                                    ),
+                                    Text(
+                                      'Garbage Vehicle Locator',
+                                      style: AppTextStyle
+                                          .font14penSansExtraboldGreenTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      InkWell(
+                        onTap: () {
+                          // Add your onTap functionality here
+                          //print('-----353------');
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => BirthAndDeathCertificate(
+                          //           name: "Birth & Death Cert")),
+                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ParkLocator(
+                                    name: "Park Locator'")),
                           );
 
                         },
@@ -795,16 +1112,16 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         //color: Colors.green
                                         color: Color(0xFFD3D3D3),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                           child: Image(
-                                        image: AssetImage(
-                                            'assets/images/complaint_status.png'),
-                                        width: 30,
-                                        height: 30,
-                                      )),
+                                            image: AssetImage(
+                                                'assets/images/complaint_status.png'),
+                                            width: 30,
+                                            height: 30,
+                                          )),
                                     ),
                                     Text(
-                                      'Birth & Death Cert',
+                                      'Park Locator',
                                       style: AppTextStyle
                                           .font14penSansExtraboldOrangeTextStyle,
                                     ),
@@ -815,21 +1132,23 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       ),
                     ],
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       InkWell(
                         onTap: () {
+                          displayToast("Coming Soon");
                           // Add your onTap functionality here
                           // ParkLocator
                           print('-----414------');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ParkLocator(
-                                    name: "Park Locator'")),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => ParkLocator(
+                          //           name: "Park Locator'")),
+                          // );
                         },
                         child: Container(
                           height: 100,
@@ -880,7 +1199,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                         height: 30,
                                       )),
                                     ),
-                                    Text('Park Locator',
+                                    Text('House holding Tax',
                                         style: AppTextStyle
                                             .font14penSansExtraboldOrangeTextStyle),
                                   ],
