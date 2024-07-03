@@ -452,30 +452,30 @@ class GeneralFunction {
                   //     ],
                   //   ),
                   // ),
-                  const SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: () {
-                      // _showBottomSheet(context);   // EmergencyHome
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => EmergencyHome()),
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/images/emergency_menu.png',
-                          width: 25,
-                          height: 25,
-                        ),
-                        const SizedBox(width: 10),
-                        Text('Emergency',
-                            style: AppTextStyle
-                                .font16penSansExtraboldRedTextStyle),
-                      ],
-                    ),
-                  ),
+                  // const SizedBox(height: 15),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     // _showBottomSheet(context);   // EmergencyHome
+                  //     Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(
+                  //           builder: (context) => EmergencyHome()),
+                  //     );
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Image.asset(
+                  //         'assets/images/emergency_menu.png',
+                  //         width: 25,
+                  //         height: 25,
+                  //       ),
+                  //       const SizedBox(width: 10),
+                  //       Text('Emergency',
+                  //           style: AppTextStyle
+                  //               .font16penSansExtraboldRedTextStyle),
+                  //     ],
+                  //   ),
+                  // ),
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {

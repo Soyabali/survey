@@ -27,13 +27,14 @@ class _TemplesHomeState extends State<EmergencyContacts> {
 
 
   List<Map<String, dynamic>>? emergencyTitleList;
-
+  bool isLoading = true;
   String? sName, sContactNo;
   // GeneralFunction generalFunction = GeneralFunction();
   getEmergencyTitleResponse() async {
     emergencyTitleList = await GetEmergencyContactTitleRepo().getEmergencyContactTitle(context);
     print('------31----$emergencyTitleList');
     setState(() {
+      isLoading = false;
     });
   }
 
@@ -127,7 +128,9 @@ class _TemplesHomeState extends State<EmergencyContacts> {
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
       body:
-      emergencyTitleList == null
+      isLoading
+          ? Center(child: Container())
+          : (emergencyTitleList == null || emergencyTitleList!.isEmpty)
           ? NoDataScreenPage()
           :
       Column(

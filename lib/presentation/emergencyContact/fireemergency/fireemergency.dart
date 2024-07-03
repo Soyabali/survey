@@ -25,6 +25,7 @@ class FireEmergency extends StatefulWidget {
 
 class _TemplesHomeState extends State<FireEmergency> {
   // GeneralFunction? generalFunction;
+  bool isLoading = true;
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
@@ -46,6 +47,7 @@ class _TemplesHomeState extends State<FireEmergency> {
     emergencyListResponse = await GetEmergencyContactListeRepo().getEmergencyContactList(context,'${widget.iHeadCode}');
     print('------42----$emergencyListResponse');
     setState(() {
+      isLoading = false;
     });
   }
 
@@ -69,7 +71,9 @@ class _TemplesHomeState extends State<FireEmergency> {
         generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         // appBar
         body:
-        emergencyListResponse == null
+        isLoading
+            ? Center(child: Container())
+            : (emergencyListResponse == null || emergencyListResponse!.isEmpty)
             ? NoDataScreenPage()
             :
         ListView(

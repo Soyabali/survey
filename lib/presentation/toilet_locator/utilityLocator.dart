@@ -12,6 +12,7 @@ import '../fullscreen/imageDisplay.dart';
 import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_colors.dart';
 import '../temples/cookie_detail.dart';
+import '../temples/templeGoogleMap.dart';
 
 
 
@@ -101,6 +102,25 @@ class _TemplesHomeState extends State<UtilityLocator> {
   // get a current location
 
 
+  void _navigateToMap(BuildContext context, double? fLatitude, double? fLongitude, String locationName, String sLocationAddress) {
+    if (fLatitude != null && fLongitude != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TempleGoogleMap(
+            fLatitude: fLatitude,
+            fLongitude: fLongitude,
+            locationName: locationName,
+            sLocationAddress: sLocationAddress,
+          ),
+        ),
+      );
+    } else {
+      // Handle the case where either fLatitude or fLongitude is null
+      // For example, show an error message or use default values
+      print("Latitude or Longitude is null");
+    }
+  }
 
   @override
   void initState() {
@@ -273,6 +293,7 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                 onTap: (){
                                   fLatitude;
                                   fLongitude;
+                                  // sLocation
 
                                   if (utilityLocator![index]['fLatitude'] is String) {
                                     fLatitude = double.parse(utilityLocator![index]['fLatitude']);
@@ -285,9 +306,34 @@ class _TemplesHomeState extends State<UtilityLocator> {
                                   } else {
                                     fLongitude = utilityLocator![index]['fLongitude'];
                                   }
-                                  print('-----165---fLatitude--$fLatitude');
-                                  print('-----166---fLongitude--$fLongitude');
-                                  launchGoogleMaps(fLatitude!, fLongitude!);
+                                  var locationName = '${utilityLocator![index]['sToiletName']}';
+                                  var sLocationAddress = '${utilityLocator![index]['sDistance']}';
+                                  print('-----336---fLatitude--$fLatitude');
+                                  print('-----337---fLongitude--$fLongitude');
+                                  print('-----338---locationName--$locationName');
+                                  print('-----338---sLocation--$sLocationAddress');
+
+                                  _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+
+                                  /// TODO IN A FUTURE IT MAY BE NEED
+                                  ///
+                                  // fLatitude;
+                                  // fLongitude;
+                                  //
+                                  // if (utilityLocator![index]['fLatitude'] is String) {
+                                  //   fLatitude = double.parse(utilityLocator![index]['fLatitude']);
+                                  // } else {
+                                  //   fLatitude = utilityLocator![index]['fLatitude'];
+                                  // }
+                                  //
+                                  // if (utilityLocator![index]['fLongitude'] is String) {
+                                  //   fLongitude = double.parse(utilityLocator![index]['fLongitude']);
+                                  // } else {
+                                  //   fLongitude = utilityLocator![index]['fLongitude'];
+                                  // }
+                                  //print('-----165---fLatitude--$fLatitude');
+                                  //print('-----166---fLongitude--$fLongitude');
+                                  //launchGoogleMaps(fLatitude!, fLongitude!);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 5),

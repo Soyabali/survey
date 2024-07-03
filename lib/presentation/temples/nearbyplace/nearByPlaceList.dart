@@ -11,6 +11,7 @@ import '../../fullscreen/imageDisplay.dart';
 import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_text_style.dart';
+import '../templeGoogleMap.dart';
 
 
 class NearByPlaceList extends StatefulWidget {
@@ -127,6 +128,26 @@ class _TemplesHomeState extends State<NearByPlaceList> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void _navigateToMap(BuildContext context, double? fLatitude, double? fLongitude, String locationName, String sLocationAddress) {
+    if (fLatitude != null && fLongitude != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TempleGoogleMap(
+            fLatitude: fLatitude,
+            fLongitude: fLongitude,
+            locationName: locationName,
+            sLocationAddress: sLocationAddress,
+          ),
+        ),
+      );
+    } else {
+      // Handle the case where either fLatitude or fLongitude is null
+      // For example, show an error message or use default values
+      print("Latitude or Longitude is null");
+    }
   }
 
   @override
@@ -278,6 +299,7 @@ class _TemplesHomeState extends State<NearByPlaceList> {
                                 onTap: (){
                                   fLatitude;
                                   fLongitude;
+                                  // sLocation
 
                                   if (templeListResponse![index]['fLatitude'] is String) {
                                     fLatitude = double.parse(templeListResponse![index]['fLatitude']);
@@ -290,8 +312,32 @@ class _TemplesHomeState extends State<NearByPlaceList> {
                                   } else {
                                     fLongitude = templeListResponse![index]['fLongitude'];
                                   }
-                                  // lunch google map
-                                  launchGoogleMaps(fLatitude!, fLongitude!);
+                                  var locationName = '${templeListResponse![index]['sPlaceName']}';
+                                  var sLocationAddress = '${templeListResponse![index]['sDistance']}';
+                                  print('-----336---fLatitude--$fLatitude');
+                                  print('-----337---fLongitude--$fLongitude');
+                                  print('-----338---locationName--$locationName');
+                                  print('-----338---sLocation--$sLocationAddress');
+
+                                  _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+
+                                  /// TOTO IN A FUTURE ITS MAY NEED TO UNCOMMENTS
+                                  // fLatitude;
+                                  // fLongitude;
+                                  //
+                                  // if (templeListResponse![index]['fLatitude'] is String) {
+                                  //   fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                  // } else {
+                                  //   fLatitude = templeListResponse![index]['fLatitude'];
+                                  // }
+                                  //
+                                  // if (templeListResponse![index]['fLongitude'] is String) {
+                                  //   fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                                  // } else {
+                                  //   fLongitude = templeListResponse![index]['fLongitude'];
+                                  // }
+                                  // // lunch google map
+                                  // launchGoogleMaps(fLatitude!, fLongitude!);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 5),

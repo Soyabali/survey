@@ -12,6 +12,7 @@ import '../fullscreen/imageDisplay.dart';
 import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_text_style.dart';
+import '../temples/templeGoogleMap.dart';
 
 
 class ParkLocator extends StatefulWidget {
@@ -131,6 +132,27 @@ class _KnowYourWardState extends State<ParkLocator> {
   void dispose() {
     super.dispose();
   }
+
+  void _navigateToMap(BuildContext context, double? fLatitude, double? fLongitude, String locationName, String sLocationAddress) {
+    if (fLatitude != null && fLongitude != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TempleGoogleMap(
+            fLatitude: fLatitude,
+            fLongitude: fLongitude,
+            locationName: locationName,
+            sLocationAddress: sLocationAddress,
+          ),
+        ),
+      );
+    } else {
+      // Handle the case where either fLatitude or fLongitude is null
+      // For example, show an error message or use default values
+      print("Latitude or Longitude is null");
+    }
+  }
+
 
 
   @override
@@ -273,23 +295,49 @@ class _KnowYourWardState extends State<ParkLocator> {
                                               SizedBox(width: 5),
                                               InkWell(
                                                 onTap: (){
+
                                                   fLatitude;
                                                   fLongitude;
+                                                  // sLocation
 
                                                   if (parkList![index]['fLat'] is String) {
-                                                    fLatitude = double.parse(parkList![index]['fLatitude']);
+                                                    fLatitude = double.parse(parkList![index]['fLat']);
                                                   } else {
                                                     fLatitude = parkList![index]['fLat'];
                                                   }
+
                                                   if (parkList![index]['fLon'] is String) {
                                                     fLongitude = double.parse(parkList![index]['fLon']);
                                                   } else {
                                                     fLongitude = parkList![index]['fLon'];
                                                   }
-                                                  print('-----165---fLatitude--$fLatitude');
-                                                  print('-----166---fLongitude--$fLongitude');
+                                                  var locationName = '${parkList![index]['sParkName']}';
+                                                  var sLocationAddress = '${parkList![index]['sDistance']}';
+                                                  print('-----336---fLatitude--$fLatitude');
+                                                  print('-----337---fLongitude--$fLongitude');
+                                                  print('-----338---locationName--$locationName');
+                                                  print('-----338---sLocation--$sLocationAddress');
 
-                                                  launchGoogleMaps(fLatitude!, fLongitude!);
+                                                  _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+
+                                                  /// TODO IN A FUTURE ITS MAY INCOMMENTS
+                                                  ///
+                                                  // fLatitude;
+                                                  // fLongitude;
+                                                  //
+                                                  // if (parkList![index]['fLat'] is String) {
+                                                  //   fLatitude = double.parse(parkList![index]['fLatitude']);
+                                                  // } else {
+                                                  //   fLatitude = parkList![index]['fLat'];
+                                                  // }
+                                                  // if (parkList![index]['fLon'] is String) {
+                                                  //   fLongitude = double.parse(parkList![index]['fLon']);
+                                                  // } else {
+                                                  //   fLongitude = parkList![index]['fLon'];
+                                                  // }
+                                                  // print('-----165---fLatitude--$fLatitude');
+                                                  // print('-----166---fLongitude--$fLongitude');
+                                                  // launchGoogleMaps(fLatitude!, fLongitude!);
 
                                                 },
                                                 child: Padding(
