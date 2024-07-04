@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../app/generalFunction.dart';
 import '../../app/loader_helper.dart';
 import '../complaints/complaintHomePage.dart';
 import '../complaints/raiseGrievance/notification.dart';
@@ -288,26 +289,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: InkWell(
                             onTap: ()async {
 
-                              print('---complaintHomePage---');
+                              displayToast("Coming Soon");
 
-                              SharedPreferences prefs = await SharedPreferences.getInstance();
-                              String? token = prefs.getString('sToken');
-                              print('----TOKEN---87---$token');
-                              if(token!=null ){
-                                print('-----89---HomeScreen');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                                );
-                              }else{
-                                print('-----91----LoginScreen');
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => LoginScreen_2()),
-                                );
-
-                              }
+                              /// TODO IN A FUTURE IT have to be Open
+                              ///
+                              // print('---complaintHomePage---');
+                              // SharedPreferences prefs = await SharedPreferences.getInstance();
+                              // String? token = prefs.getString('sToken');
+                              // print('----TOKEN---87---$token');
+                              // if(token!=null ){
+                              //   print('-----89---HomeScreen');
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                              //   );
+                              // }else{
+                              //   print('-----91----LoginScreen');
+                              //
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                              //   );
+                              //
+                              // }
 
                               // Navigator.push(
                               //   context,
