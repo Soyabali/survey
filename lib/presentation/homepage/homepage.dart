@@ -9,8 +9,12 @@ import '../../app/generalFunction.dart';
 import '../../app/loader_helper.dart';
 import '../complaints/complaintHomePage.dart';
 import '../complaints/raiseGrievance/notification.dart';
+import '../emergencyContact/emergencyContact.dart';
 import '../helpline_feedback/helplinefeedback.dart';
 import '../login/loginScreen_2.dart';
+import '../pdfViwer/PdfViewPage.dart';
+import '../pdfViwer/pdfhome.dart';
+import '../pdfViwer/pdfhome_2.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
@@ -19,7 +23,6 @@ import '../temples/templehome.dart';
 import '../toilet_locator/toilet_locator_details.dart';
 import '../toilet_locator/utilityLocator.dart';
 import 'homeMap.dart';
-
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -32,6 +35,7 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -40,12 +44,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   bool isTextVisible2 = false;
   bool isTextVisible = true;
 
   //dynamic? lat,long;
-  double? lat,long;
+  double? lat, long;
   double? fLatitude;
   double? fLongitude;
 
@@ -86,42 +89,45 @@ class _MyHomePageState extends State<MyHomePage> {
       hideLoader();
       //save in a shared Preference value
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setDouble('lat',lat!);
-      prefs.setDouble('long',long!);
+      prefs.setDouble('lat', lat!);
+      prefs.setDouble('long', long!);
       //getlocator(lat!, long!);
+    }else{
+      displayToast("Please turn on Location");
     }
     // setState(() {
     // });
     debugPrint("Latitude: ----88--- $lat and Longitude: $long");
     debugPrint(position.toString());
   }
+
   @override
   void initState() {
     // TODO: implement initState
-   // getLocation();
+    // getLocation();
     getlatAndLong();
     super.initState();
   }
+
   // create a function to get a local data
-  getlatAndLong()async{
+  getlatAndLong() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     lat = prefs.getDouble('lat');
     long = prefs.getDouble('long');
-   // getlocator(lat!, long!);
-    if (lat!=null){
+    // getlocator(lat!, long!);
+    if (lat != null) {
       print('NO need to call location function--');
-    }else{
+    } else {
+      print('call location on function ---');
       getLocation();
     }
     print('---110---lat---$lat');
     print('---111---long---$long');
   }
 
-
   @override
-
   void dispose() {
-  //  BackButtonInterceptor.remove(myInterceptor);
+    //  BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
   }
 
@@ -129,37 +135,35 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body:Stack(
+        body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-           Container(
-                width: MediaQuery.of(context).size.width-50,
-                height: MediaQuery.of(context).size.height,
-                child: Image.asset(ImageAssets.templepuri4,
-                fit: BoxFit.cover,),
+            Container(
+              width: MediaQuery.of(context).size.width - 50,
+              height: MediaQuery.of(context).size.height,
+              child: Image.asset(
+                ImageAssets.templepuri4,
+                fit: BoxFit.cover,
               ),
+            ),
             Positioned(
-              top: 70,
+                top: 70,
                 right: 10,
                 left: 10,
                 child: Center(
                   child: Container(
-                     child: Stack(
-                       children: <Widget>[
-                         Image.asset(ImageAssets.cityname,
-                             height: 180),
-                                 Positioned(
-                                   top: 68,
-                                   left: 35,
-                                   child: Text("Rath Yatra-2024",
-                                     style: AppTextStyle.font30penSansExtraboldWhiteTextStyle
-                                   )
-                                 )
-                       ],
-                     )
-                  ),
-                )
-            ),
+                      child: Stack(
+                    children: <Widget>[
+                      Image.asset(ImageAssets.cityname, height: 180),
+                      Positioned(
+                          top: 68,
+                          left: 35,
+                          child: Text("Rath Yatra-2024",
+                              style: AppTextStyle
+                                  .font30penSansExtraboldWhiteTextStyle))
+                    ],
+                  )),
+                )),
             // circle
             Positioned(
               top: 280,
@@ -172,9 +176,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: containerSize,
                     width: containerSize,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(containerSize / 2), // Make it circular
+                      borderRadius: BorderRadius.circular(containerSize / 2),
+                      // Make it circular
                       image: const DecorationImage(
-                        image: AssetImage(ImageAssets.changecitybackground), // Provide your image path here
+                        image: AssetImage(ImageAssets.changecitybackground),
+                        // Provide your image path here
                         fit: BoxFit.cover, // Cover the entire container
                       ),
                     ),
@@ -184,39 +190,44 @@ class _MyHomePageState extends State<MyHomePage> {
                           top: containerSize * 0.47,
                           left: containerSize * 0.43,
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               print('--call a map--');
                               // HomePageMap
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => HomePageMap(lat:lat,long:long)),
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        HomePageMap(lat: lat, long: long)),
                               );
-                              },
-
+                            },
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 10,right: 2,top: 0,bottom: 2),
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 2, top: 0, bottom: 2),
                               child: Text(
                                 "MAP",
-                                style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                style: AppTextStyle
+                                    .font14penSansExtraboldWhiteTextStyle,
                               ),
                             ),
                           ),
                         ),
                         Positioned(
-                             top: containerSize * 0.10,
-                            left: containerSize * 0.40,
+                          top: containerSize * 0.10,
+                          left: containerSize * 0.40,
                           child: InkWell(
                             onTap: () {
-                              print('-----114-----'); // HelpLineFeedBack
+                              print('-----114-----');
+                              // HelpLineFeedBack
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TemplesHome(lat: lat, long: long)),
                               );
 
-                                    // Navigator.of(context).pushReplacement(
-                                    //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)));
-                                    //
-
+                              // Navigator.of(context).pushReplacement(
+                              //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)));
+                              //
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -228,11 +239,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 children: [
                                   Text(
                                     'Temples',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                   Text(
                                     '',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                 ],
                               ),
@@ -254,12 +267,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               //   context,
                               //   MaterialPageRoute(builder: (context) => LoiletLocatorDetails(name: "Toilet Locator")),
                               // );
-                             // UtilityLocator
+                              // UtilityLocator
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => UtilityLocator()
-                                )
-                              );
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UtilityLocator()));
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -271,11 +283,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 children: [
                                   Text(
                                     'Utility',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                   Text(
                                     'Locator',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                 ],
                               ),
@@ -283,13 +297,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         Positioned(
-                            top: containerSize * 0.35,
-                            right: containerSize * 0.06,
-                            left: containerSize * 0.75,
+                          top: containerSize * 0.35,
+                          right: containerSize * 0.06,
+                          left: containerSize * 0.70,
                           child: InkWell(
-                            onTap: ()async {
+                            onTap: () async {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EmergencyContacts(
+                                        name: "Emergency Contacts")),
+                              );
 
-                              displayToast("Coming Soon");
+                              // displayToast("Coming Soon");
 
                               /// TODO IN A FUTURE IT have to be Open
                               ///
@@ -312,13 +332,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               //   );
                               //
                               // }
-
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(builder: (context) => LoginScreen_2()),
                               // );
-
-                              },
+                            },
                             child: Container(
                               width: containerSize * 0.2,
                               height: containerSize * 0.2,
@@ -328,29 +346,96 @@ class _MyHomePageState extends State<MyHomePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Citizen',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    'Emergency',
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                   Text(
-                                    'Services',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    'Contacts',
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                 ],
                               ),
                             ),
                           ),
                         ),
+                        // Positioned(
+                        //   bottom: containerSize * 0.12,
+                        //   right: containerSize * 0.18,
+                        //   child: InkWell(
+                        //     onTap: () {
+                        //       print('----130------');
+                        //
+                        //       Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line", image: '',)),
+                        //       );
+                        //       // Navigator.push(
+                        //       //   context,
+                        //       //   MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
+                        //       // );
+                        //     },
+                        //     child: Container(
+                        //       width: containerSize * 0.2,
+                        //       height: containerSize * 0.2,
+                        //       color: Colors.transparent,
+                        //       alignment: Alignment.center,
+                        //       child: Text(
+                        //         'Help Line',
+                        //         style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         Positioned(
                           bottom: containerSize * 0.12,
-                          right: containerSize * 0.18,
+                          right: containerSize * 0.15,
+                          left: containerSize * 0.50,
                           child: InkWell(
-                            onTap: () {
-                              print('----130------');
+                            onTap: () async {
+                              print('----130------');  // PdfHome_2 ||  PdfHome
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line", image: '',)),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => PdfHome_2(),
+                              //   ),
+                              // );
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => PdfHome(),
+                              //   ),
+                              // );
+
+                              String path = await loadPdfFromAssets('assets/images/sample.pdf');
+                              if (path.isNotEmpty) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        PdfViewPage(path: path),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Failed to load PDF")),
+                                );
+                              }
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => PdfHome(),
+                              //   ),
+                              // );
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => HelpLineFeedBack(name:"Help Line", image: '',)),
+                              // );
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
@@ -361,22 +446,39 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: containerSize * 0.2,
                               color: Colors.transparent,
                               alignment: Alignment.center,
-                              child: Text(
-                                'Help Line',
-                                style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Rath Yatra',
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                  Text(
+                                    'Schedule',
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
+                                  ),
+                                ],
                               ),
+                              // child: Text(
+                              //   'Rath Yatra_Schedule',
+                              //   style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                              // ),
                             ),
                           ),
                         ),
                         Positioned(
-                            bottom: containerSize * 0.12,
-                            left: containerSize * 0.20,
+                          bottom: containerSize * 0.12,
+                          left: containerSize * 0.20,
                           child: InkWell(
                             onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => NearByPlace(name:"Near by Place")),
-                                    );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NearByPlace(name: "Near by Place")),
+                              );
                             },
                             child: Container(
                               width: containerSize * 0.2,
@@ -388,11 +490,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 children: [
                                   Text(
                                     'Near by',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                   Text(
                                     'Places',
-                                    style: AppTextStyle.font14penSansExtraboldWhiteTextStyle,
+                                    style: AppTextStyle
+                                        .font14penSansExtraboldWhiteTextStyle,
                                   ),
                                 ],
                               ),
@@ -400,16 +504,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ],
-
                     ),
-
                   );
                 },
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
-

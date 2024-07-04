@@ -45,22 +45,53 @@ class _TemplesHomeState extends State<TemplesHome> {
   @override
   void initState() {
     // TODO: implement initState
-   // getLocation();
+    // getLocation();
 
-    var lati = '${widget.lat}';
-    var long = '${widget.long}';
+    var lati = widget.lat?.toString() ?? '';
+    var long = widget.long?.toString() ?? '';
     print('lat--51--$lati');
     print('long----52--$long');
-    getTempleListResponse(lati,long);
+    getTempleListResponse(lati, long);
+
+    if (lati.isNotEmpty) {
+      print('No need to turn on location');
+    } else {
+      print('Please turn on location');
+    }
 
     super.initState();
 
-   // getLocation();
+    // getLocation();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TempleProvider>(context, listen: false).getAllTodos();
     });
     BackButtonInterceptor.add(myInterceptor);
   }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //  // getLocation();
+  //
+  //   var lati = '${widget.lat}';
+  //   var long = '${widget.long}';
+  //   print('lat--51--$lati');
+  //   print('long----52--$long');
+  //   getTempleListResponse(lati,long);
+  //   if(lati !=null || lati.isNotEmpty){
+  //     print('no xxxxxxxxxx Requirement---- ');
+  //   }else{
+  //     print('location on --- --xxx--xxx--xxx---- ');
+  //   }
+  //
+  //   super.initState();
+  //
+  //  // getLocation();
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     Provider.of<TempleProvider>(context, listen: false).getAllTodos();
+  //   });
+  //   BackButtonInterceptor.add(myInterceptor);
+  // }
 
   @override
   void dispose() {

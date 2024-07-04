@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,9 +20,23 @@ import '../presentation/temples/howToReach/howToReach.dart';
 import '../presentation/temples/templehome.dart';
 import '../presentation/temples/weather/weather.dart';
 
+// pdf downlodd path
+
+Future<String> loadPdfFromAssets(String assetPath) async {
+  try {
+    final byteData = await rootBundle.load(assetPath);
+    final buffer = byteData.buffer;
+    final tempDir = await getTemporaryDirectory();
+    final tempFile = File('${tempDir.path}/temp.pdf');
+    await tempFile.writeAsBytes(buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    return tempFile.path;
+  } catch (e) {
+    print(e);
+    return '';
+  }
+}
 
 // toast
-
 void displayToast(String msg) {
   Fluttertoast.showToast(
       msg: msg,

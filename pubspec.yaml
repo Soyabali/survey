@@ -55,6 +55,8 @@ dependencies:
   location: ^6.0.2
   geolocator: ^12.0.0
   flutter_inappwebview: ^6.0.0
+  flutter_pdfview: ^1.3.2
+  path_provider: ^2.1.3
 
 
 dev_dependencies:
@@ -86,6 +88,7 @@ flutter:
      - assets/images/appbackground.png
      - assets/images/complaint_status.png
      - assets/images/favicon.png
+     - assets/images/sample.pdf
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

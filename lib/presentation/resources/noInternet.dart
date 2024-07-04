@@ -30,7 +30,7 @@ class NoInternetState extends State<NoInternet> {
   Widget build(BuildContext context) {
     return Scaffold(
      // backgroundColor: AppColors.backgroundColor,
-      backgroundColor: Colors.orangeAccent,
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,8 +39,7 @@ class NoInternetState extends State<NoInternet> {
             SizedBox(
               height: 150,
               width: 150,
-              child: Image.asset(
-                "assets/images/puriOned.png",
+              child: Image.asset("assets/images/ic_launcher.png",
                 // color: Colors.transparent,
               ),
             ),
@@ -75,7 +74,7 @@ class NoInternetState extends State<NoInternet> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text('Puri One',
+              child: Text('Rath Yatra - 2024',
                   style: AppTextStyle.font12OpenSansRegularBlackTextStyle),
             ),
           ],

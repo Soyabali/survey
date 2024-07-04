@@ -78,34 +78,34 @@ class _TemplesHomeState extends State<HowToReach> {
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset("assets/images/puribanner.jpeg",fit:BoxFit.fill),
                   ),
-                  Positioned(
-                    top: 155,
-                    left: 0,
-                    right: 0,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 35,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          // Background color of the container
-                          borderRadius: BorderRadius.circular(17.0),
-                          // Circular border radius
-                          border: Border.all(
-                            color: Colors.yellow, // Border color
-                            width: 0.5, // Border width
-                          ),
-                        ),
-                        child: CustomElevatedButton(
-                          text: 'VIEW GALLERY',
-                          onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => TempleGallery(templeName:'Puri')));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Positioned(
+                  //   top: 155,
+                  //   left: 0,
+                  //   right: 0,
+                  //   child: Align(
+                  //     alignment: Alignment.bottomCenter,
+                  //     child: Container(
+                  //       height: 35,
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.red,
+                  //         // Background color of the container
+                  //         borderRadius: BorderRadius.circular(17.0),
+                  //         // Circular border radius
+                  //         border: Border.all(
+                  //           color: Colors.yellow, // Border color
+                  //           width: 0.5, // Border width
+                  //         ),
+                  //       ),
+                  //       child: CustomElevatedButton(
+                  //         text: 'VIEW GALLERY',
+                  //         onTap: () {
+                  //           Navigator.of(context).push(
+                  //               MaterialPageRoute(builder: (_) => TempleGallery(templeName:'Puri')));
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
               SizedBox(height: 5),

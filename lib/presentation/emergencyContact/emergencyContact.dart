@@ -25,7 +25,6 @@ class EmergencyContacts extends StatefulWidget {
 class _TemplesHomeState extends State<EmergencyContacts> {
   GeneralFunction generalFunction = GeneralFunction();
 
-
   List<Map<String, dynamic>>? emergencyTitleList;
   bool isLoading = true;
   String? sName, sContactNo;
