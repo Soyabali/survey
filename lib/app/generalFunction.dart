@@ -375,8 +375,11 @@ class GeneralFunction {
                       print('---334---lat---$lat');
                       print('---335---long---$long');
 
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
+                      // );
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
+                        MaterialPageRoute(builder: (context) => TemplesHome()),
                       );
                     },
                     child: Row(

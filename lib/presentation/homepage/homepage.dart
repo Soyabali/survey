@@ -7,20 +7,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../app/loader_helper.dart';
-import '../complaints/complaintHomePage.dart';
-import '../complaints/raiseGrievance/notification.dart';
 import '../emergencyContact/emergencyContact.dart';
-import '../helpline_feedback/helplinefeedback.dart';
-import '../login/loginScreen_2.dart';
-import '../pdfViwer/PdfViewPage.dart';
-import '../pdfViwer/pdfhome.dart';
 import '../pdfViwer/pdfhome_2.dart';
-import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
 import '../temples/nearbyplace/nearbyplace.dart';
 import '../temples/templehome.dart';
-import '../toilet_locator/toilet_locator_details.dart';
 import '../toilet_locator/utilityLocator.dart';
 import 'homeMap.dart';
 
@@ -222,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TemplesHome(lat: lat, long: long)),
+                                        TemplesHome()),
                               );
 
                               // Navigator.of(context).pushReplacement(
@@ -396,12 +388,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             onTap: () async {
                               print('----130------');  // PdfHome_2 ||  PdfHome
 
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => PdfHome_2(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PdfHome_2(),
+                                ),
+                              );
 
                               // Navigator.push(
                               //   context,
@@ -410,20 +402,20 @@ class _MyHomePageState extends State<MyHomePage> {
                               //   ),
                               // );
 
-                              String path = await loadPdfFromAssets('assets/images/sample.pdf');
-                              if (path.isNotEmpty) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        PdfViewPage(path: path),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text("Failed to load PDF")),
-                                );
-                              }
+                              // String path = await loadPdfFromAssets('assets/images/sample.pdf');
+                              // if (path.isNotEmpty) {
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) =>
+                              //           PdfViewPage(path: path),
+                              //     ),
+                              //   );
+                              // } else {
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(content: Text("Failed to load PDF")),
+                              //   );
+                              // }
 
                               // Navigator.push(
                               //   context,

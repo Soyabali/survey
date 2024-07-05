@@ -5,12 +5,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../app/generalFunction.dart';
 import '../app/loader_helper.dart';
+import '../model/nearByPlaceListModel.dart';
 import 'baseurl.dart';
 
 class NearByPlaceListRepo {
 
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> getNearByTempleList(BuildContext context, lat,long,iTypeCode) async {
+  Future<List<NearByPlaceListModel>?> getNearByTempleList(BuildContext context, lat,long,iTypeCode) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
     String? iCitizenCode = prefs.getString('iCitizenCode');
@@ -52,11 +53,12 @@ class NearByPlaceListRepo {
         List<dynamic>? dataList = parsedJson['Data'];
 
         if (dataList != null) {
+          // turn response into the model \
 
-          List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
+          List<NearByPlaceListModel> nearbyPlace = dataList.map((json) => NearByPlaceListModel.fromJson(json)).toList();
           hideLoader();
-          print("xxxxx------46----: $notificationList");
-          return notificationList;
+          print("xxxxx------46----: $nearbyPlace");
+          return nearbyPlace;
         } else{
           hideLoader();
           return null;

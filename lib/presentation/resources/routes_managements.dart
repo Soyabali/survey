@@ -22,7 +22,7 @@ class RouteGenerator
       case Routes.homePageRoute:
         return MaterialPageRoute(builder: (_) => HomePage());
       case Routes.templePagehome:
-        return MaterialPageRoute(builder: (_) => TemplesHome(lat:lat,long:long));
+        return MaterialPageRoute(builder: (_) => TemplesHome());
        // next same route should be
       default:
         return unDefinedRoute();

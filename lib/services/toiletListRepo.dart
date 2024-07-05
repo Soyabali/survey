@@ -5,12 +5,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../app/generalFunction.dart';
 import '../app/loader_helper.dart';
+import '../model/toiletListModel.dart';
 import 'baseurl.dart';
 
 class ToiletListRepo {
 
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> getbyToilet(BuildContext context, lat,long) async {
+
+  Future<List<ToiletListModel>?> getbyToilet(BuildContext context, lat,long) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
     String? iCitizenCode = prefs.getString('iCitizenCode');
@@ -51,9 +53,10 @@ class ToiletListRepo {
         List<dynamic>? dataList = parsedJson['Data'];
 
         if (dataList != null) {
-          List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
-          print("xxxxx------46----: $notificationList");
-          return notificationList;
+         // List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
+          List<ToiletListModel> toilet = dataList.map((json) => ToiletListModel.fromJson(json)).toList();
+          print("xxxxx------46----: $toilet");
+          return toilet;
         } else{
           return null;
         }
