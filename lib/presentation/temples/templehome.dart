@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:puri/presentation/temples/templeGoogleMap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +19,7 @@ import '../../services/templelistRepo.dart';
 import '../fullscreen/imageDisplay.dart';
 import '../resources/app_colors.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 class TemplesHome extends StatefulWidget {
 
@@ -29,6 +30,7 @@ class TemplesHome extends StatefulWidget {
 }
 
 class _TemplesHomeState extends State<TemplesHome> with WidgetsBindingObserver {
+
   // final todos;
   dynamic? lat,long;
   double? fLatitude;
@@ -39,7 +41,103 @@ class _TemplesHomeState extends State<TemplesHome> with WidgetsBindingObserver {
   bool _isLocationPermanentlyDenied = false;
   bool _toastDisplayed = false;
 
-  Future<void> fetchTempleList(double lat2, double long2,) async {
+
+  Future<void> _getLocation(BuildContext context) async {
+    //showLoader();
+    bool serviceEnabled;
+    LocationPermission permission;
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      hideLoader();
+      displayToast('Location services are disabled.');
+      await Geolocator.openLocationSettings();
+      return;
+    }
+    // Check location permissions
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      hideLoader();
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        hideLoader();
+        displayToast('Location permissions are denied');
+        return;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      hideLoader();
+      // Ensure the loader is hidden immediately
+      _isLocationPermanentlyDenied = true;
+      // Save _isLocationPermanentlyDenied state
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isLocationPermanentlyDenied', _isLocationPermanentlyDenied);
+      // Show dialog if permissions are permanently denied
+      if (!_toastDisplayed) {
+        hideLoader();
+        _showPermissionsDialog(context);
+        _toastDisplayed = true; // Mark toast as displayed
+      }
+      return;
+    }
+    // Get the current location
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    double lat = position.latitude;
+    double long = position.longitude;
+    // Handle location data
+    if (lat != null && long != null) {
+      hideLoader();
+      // Call your API or perform other location-dependent actions
+      print('----113---$lat');
+      print('----114---$long');
+      fetchTempleList(lat, long);
+    } else {
+      hideLoader();
+      displayToast('Failed to retrieve location');
+    }
+  }
+  void displayToast(String message) {
+    // Implement your toast message display here
+    print(message);
+  }
+  void _showPermissionsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Location Permission'),
+          content: Text('Please enable location permissions in settings.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await _clearAppData();
+                exit(0);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<void> _clearAppData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
+    if (Platform.isAndroid) {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String packageName = packageInfo.packageName;
+
+      await Process.run('pm', ['clear', packageName]);
+    } else if (Platform.isIOS) {
+      // iOS does not provide a way to programmatically clear app data. You might need to instruct the user to do it manually.
+      displayToast('Please clear app data manually in iOS settings.');
+    }
+  }
+
+
+  Future<void> fetchTempleList(double lat2, double long2) async {
     print('---40---$lat2');
     print('---41---$long2');
     TempleListRepo templeListRepo = TempleListRepo();
@@ -62,72 +160,75 @@ class _TemplesHomeState extends State<TemplesHome> with WidgetsBindingObserver {
       // Optionally, show a message to the user or retry fetching data
     }
   }
+  // Future<void> _getLocation() async {
+  // // showLoader();
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //   // Check if location services are enabled
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     hideLoader();
+  //     displayToast('Location services are disabled.');
+  //     await Geolocator.openLocationSettings();
+  //     return;
+  //   }
+  //   // Check location permissions
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       hideLoader();
+  //       displayToast('Location permissions are denied');
+  //       return;
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     hideLoader(); // Ensure the loader is hidden immediately
+  //
+  //     setState(() {
+  //       _isLocationPermanentlyDenied = true;
+  //     });
+  //
+  //     // Save _isLocationPermanentlyDenied state
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     prefs.setBool('isLocationPermanentlyDenied', _isLocationPermanentlyDenied);
+  //     // Check if toast has been displayed before showing it again
+  //     if (!_toastDisplayed) {
+  //       displayToast("Location permissions are permanently denied.");
+  //       _toastDisplayed = true; // Mark toast as displayed
+  //     }
+  //     return;
+  //   }
+  //   // Get the current location
+  //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  //   double lat = position.latitude;
+  //   double long = position.longitude;
+  //
+  //   // Handle location data
+  //   if (lat != null && long != null) {
+  //     // Call your API or perform other location-dependent actions
+  //    setState(() {
+  //      print('----113---$lat');
+  //      print('----114---$long');
+  //      fetchTempleList(lat, long);
+  //    });
+  //   } else {
+  //     displayToast('Failed to retrieve location');
+  //   }
+  //   hideLoader(); // Ensure the loader is hidden after processing
+  // }
 
-  Future<void> _getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
 
-    // Check if location services are enabled
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      hideLoader();
-      displayToast('Location services are disabled.');
-      await Geolocator.openLocationSettings();
-      return;
-    }
-    // Check location permissions
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        hideLoader();
-        displayToast('Location permissions are denied');
-        return;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      hideLoader(); // Ensure the loader is hidden immediately
-
-      setState(() {
-        _isLocationPermanentlyDenied = true;
-      });
-      // Save _isLocationPermanentlyDenied state
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('isLocationPermanentlyDenied', _isLocationPermanentlyDenied);
-      // Check if toast has been displayed before showing it again
-      if (!_toastDisplayed) {
-        displayToast("Location permissions are permanently denied.");
-        _toastDisplayed = true; // Mark toast as displayed
-      }
-      return;
-    }
-    // Get the current location
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    double lat = position.latitude;
-    double long = position.longitude;
-
-    // Handle location data
-    if (lat != null && long != null) {
-      // Call your API or perform other location-dependent actions
-     setState(() {
-       print('----113---$lat');
-       print('----114---$long');
-       fetchTempleList(lat, long);
-     });
-    } else {
-      displayToast('Failed to retrieve location');
-    }
-    hideLoader(); // Ensure the loader is hidden after processing
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     print('lat-----xxxxxxxxxxxxxx-----243---$_isLocationPermanentlyDenied');
     WidgetsBinding.instance.addObserver(this);
-    _getLocation();
+ //   _getLocation();
     super.initState();
     // getLocation();
+    _getLocation(context);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TempleProvider>(context, listen: false).getAllTodos();
     });
@@ -146,7 +247,8 @@ class _TemplesHomeState extends State<TemplesHome> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       // Call your API or get location when the app resumes
      // getLocation();
-      _getLocation();
+      _getLocation(context);
+     // _getLocation();
     }
   }
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {

@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/loader_helper.dart';
@@ -11,11 +14,8 @@ import '../../../app/navigationUtils.dart';
 import '../../../model/nearByPlaceListModel.dart';
 import '../../../services/getNearByPlaceListRepo.dart';
 import '../../fullscreen/imageDisplay.dart';
-import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_colors.dart';
 import '../templeGoogleMap.dart';
-import 'nearbyplacedirectionmap.dart';
-import 'nearbyplacemap.dart';
 
 class NearByPlaceList extends StatefulWidget {
    var sTypeName;
@@ -37,7 +37,7 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
   bool _isLocationPermanentlyDenied = false;
   bool _toastDisplayed = false;
 
-  Future<void> fetchToiletList(double lat2, double long2,) async {
+  Future<void> nearbyPlaceList(double lat2, double long2,) async {
     print('---40---$lat2');
     print('---41---$long2');
     // create the instance of the class
@@ -64,10 +64,10 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
     }
   }
 
-  Future<void> _getLocation() async {
+  Future<void> _getLocation(BuildContext context) async {
+    //showLoader();
     bool serviceEnabled;
     LocationPermission permission;
-
     // Check if location services are enabled
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -79,6 +79,7 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
     // Check location permissions
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      hideLoader();
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         hideLoader();
@@ -87,17 +88,16 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      hideLoader(); // Ensure the loader is hidden immediately
-
-      setState(() {
-        _isLocationPermanentlyDenied = true;
-      });
+      hideLoader();
+      // Ensure the loader is hidden immediately
+      _isLocationPermanentlyDenied = true;
       // Save _isLocationPermanentlyDenied state
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('isLocationPermanentlyDenied', _isLocationPermanentlyDenied);
-      // Check if toast has been displayed before showing it again
+      // Show dialog if permissions are permanently denied
       if (!_toastDisplayed) {
-        displayToast("Location permissions are permanently denied.");
+        hideLoader();
+        _showPermissionsDialog(context);
         _toastDisplayed = true; // Mark toast as displayed
       }
       return;
@@ -106,25 +106,124 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     double lat = position.latitude;
     double long = position.longitude;
-
     // Handle location data
     if (lat != null && long != null) {
+      hideLoader();
       // Call your API or perform other location-dependent actions
       print('----113---$lat');
       print('----114---$long');
-      fetchToiletList(lat, long);
+      nearbyPlaceList(lat, long);
     } else {
+      hideLoader();
       displayToast('Failed to retrieve location');
     }
-    hideLoader(); // Ensure the loader is hidden after processing
   }
+  void displayToast(String message) {
+    // Implement your toast message display here
+    print(message);
+  }
+  void _showPermissionsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Location Permission'),
+          content: Text('Please enable location permissions in settings.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await _clearAppData();
+                exit(0);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<void> _clearAppData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
+    if (Platform.isAndroid) {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String packageName = packageInfo.packageName;
+
+      await Process.run('pm', ['clear', packageName]);
+    } else if (Platform.isIOS) {
+      // iOS does not provide a way to programmatically clear app data. You might need to instruct the user to do it manually.
+      displayToast('Please clear app data manually in iOS settings.');
+    }
+  }
+
+  // Future<void> _getLocation() async {
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //
+  //   // Check if location services are enabled
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     hideLoader();
+  //     displayToast('Location services are disabled.');
+  //     await Geolocator.openLocationSettings();
+  //     return;
+  //   }
+  //   // Check location permissions
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       hideLoader();
+  //       displayToast('Location permissions are denied');
+  //       return;
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     hideLoader(); // Ensure the loader is hidden immediately
+  //
+  //     setState(() {
+  //       _isLocationPermanentlyDenied = true;
+  //     });
+  //     // Save _isLocationPermanentlyDenied state
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     prefs.setBool('isLocationPermanentlyDenied', _isLocationPermanentlyDenied);
+  //     // Check if toast has been displayed before showing it again
+  //     if (!_toastDisplayed) {
+  //       displayToast("Location permissions are permanently denied.");
+  //       _toastDisplayed = true; // Mark toast as displayed
+  //     }
+  //     return;
+  //   }
+  //   // Get the current location
+  //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  //   double lat = position.latitude;
+  //   double long = position.longitude;
+  //
+  //   // Handle location data
+  //   if (lat != null && long != null) {
+  //     // Call your API or perform other location-dependent actions
+  //     print('----113---$lat');
+  //     print('----114---$long');
+  //     fetchToiletList(lat, long);
+  //   } else {
+  //     displayToast('Failed to retrieve location');
+  //   }
+  //   hideLoader(); // Ensure the loader is hidden after processing
+  // }
+
+
+
+
+
 
   @override
   void initState() {
     // TODO: implement initState
     print('lat-----xxxxxxxxxxxxxx-----243---$_isLocationPermanentlyDenied');
     WidgetsBinding.instance.addObserver(this);
-    _getLocation();
+    _getLocation(context);
     super.initState();
   }
 
@@ -140,7 +239,7 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
     if (state == AppLifecycleState.resumed) {
       // Call your API or get location when the app resumes
       // getLocation();
-      _getLocation();
+      _getLocation(context);
     }
   }
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
@@ -172,7 +271,9 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBar("${widget.sTypeName}"),
+      //appBar: getAppBar("${widget.sTypeName}"),
+     // appBar: getAppBarBack("${widget.sTypeName}"),
+      appBar: getAppBarBack(context,"${widget.sTypeName}"),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body:
       _isLocationPermanentlyDenied

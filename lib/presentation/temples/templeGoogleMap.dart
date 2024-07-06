@@ -12,6 +12,7 @@ import 'dart:ui' as ui;
 import '../../app/generalFunction.dart';
 
 class TempleGoogleMap extends StatefulWidget {
+
  final double fLatitude;
  final double fLongitude;
  final String locationName;
@@ -30,7 +31,9 @@ class TempleGoogleMap extends StatefulWidget {
 }
 
 class _TempleGoogleMapState extends State<TempleGoogleMap> {
+
  GoogleMapController? mapController;
+
  late LatLng _center;
  final Set<Marker> _markers = {};
  LatLng? _currentMapPosition;
@@ -78,7 +81,6 @@ class _TempleGoogleMapState extends State<TempleGoogleMap> {
     widget.locationName,
     widget.sLocationAddress,
    );
-
    setState(() {
     _markers.add(Marker(
      markerId: MarkerId(_currentMapPosition.toString()),
@@ -106,8 +108,41 @@ class _TempleGoogleMapState extends State<TempleGoogleMap> {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
   final Paint paint = Paint()..color = Colors.white;
-  final double width = 300.0;
-  final double height = 150.0;  // Increased height to accommodate larger text
+
+  // TextPainter to measure the text size
+  final TextPainter titleTextPainter = TextPainter(
+   textDirection: TextDirection.ltr,
+   text: TextSpan(
+    text: title,
+    style: TextStyle(
+     fontSize: 25.0,
+     color: Colors.black,
+     fontWeight: FontWeight.bold,
+    ),
+   ),
+  );
+
+  final TextPainter snippetTextPainter = TextPainter(
+   textDirection: TextDirection.ltr,
+   text: TextSpan(
+    text: snippet,
+    style: TextStyle(
+     fontSize: 25.0,
+     color: Colors.black,
+    ),
+   ),
+  );
+
+  // Layout the text to get the size
+  titleTextPainter.layout(minWidth: 0, maxWidth: double.infinity);
+  snippetTextPainter.layout(minWidth: 0, maxWidth: double.infinity);
+
+  // Calculate the width and height based on text size
+  final double width = (titleTextPainter.width > snippetTextPainter.width
+      ? titleTextPainter.width
+      : snippetTextPainter.width) +
+      20.0;
+  final double height = titleTextPainter.height + snippetTextPainter.height + 40.0;
 
   // Draw rounded rectangle
   canvas.drawRRect(
@@ -129,43 +164,16 @@ class _TempleGoogleMapState extends State<TempleGoogleMap> {
    ..close();
   canvas.drawPath(markerPath, markerPaint);
 
-  final TextPainter textPainter = TextPainter(
-   textDirection: TextDirection.ltr,
-  );
-
   // Draw title
-  textPainter.text = TextSpan(
-   text: title,
-   style: TextStyle(
-    fontSize: 25.0,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-   ),
-  );
-  textPainter.layout(
-   minWidth: 0,
-   maxWidth: width - 20.0,
-  );
-  textPainter.paint(
+  titleTextPainter.paint(
    canvas,
    Offset(10.0, 10.0),
   );
 
   // Draw snippet
-  textPainter.text = TextSpan(
-   text: snippet,
-   style: TextStyle(
-    fontSize: 25.0,
-    color: Colors.black,
-   ),
-  );
-  textPainter.layout(
-   minWidth: 0,
-   maxWidth: width - 20.0,
-  );
-  textPainter.paint(
+  snippetTextPainter.paint(
    canvas,
-   Offset(10.0, 50.0),
+   Offset(10.0, titleTextPainter.height + 20.0),
   );
 
   // Convert canvas to image
@@ -180,6 +188,87 @@ class _TempleGoogleMapState extends State<TempleGoogleMap> {
 
   return byteData!.buffer.asUint8List();
  }
+
+
+ // Future<Uint8List> _createCustomMarkerBitmap(String title, String snippet) async {
+ //  final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
+ //  final Canvas canvas = Canvas(pictureRecorder);
+ //  final Paint paint = Paint()..color = Colors.white;
+ //
+ //  final double width = 300.0;
+ //   final double height = 150.0;  // Increased height to accommodate larger text
+ //
+ //  // Draw rounded rectangle
+ //  canvas.drawRRect(
+ //   RRect.fromRectAndRadius(
+ //    Rect.fromLTWH(0.0, 0.0, width, height),
+ //    Radius.circular(10.0),
+ //   ),
+ //   paint,
+ //  );
+ //
+ //  const double iconSize = 100.0;
+ //  final Paint markerPaint = Paint()..color = Colors.red;
+ //
+ //  // Draw the marker path
+ //  final Path markerPath = Path()
+ //   ..moveTo(width / 2 - iconSize / 2, height)
+ //   ..lineTo(width / 2, height + iconSize / 2)
+ //   ..lineTo(width / 2 + iconSize / 2, height)
+ //   ..close();
+ //  canvas.drawPath(markerPath, markerPaint);
+ //
+ //  final TextPainter textPainter = TextPainter(
+ //   textDirection: TextDirection.ltr,
+ //  );
+ //
+ //  // Draw title
+ //  textPainter.text = TextSpan(
+ //   text: title,
+ //   style: TextStyle(
+ //    fontSize: 25.0,
+ //    color: Colors.black,
+ //    fontWeight: FontWeight.bold,
+ //   ),
+ //  );
+ //  textPainter.layout(
+ //   minWidth: 0,
+ //   maxWidth: width - 20.0,
+ //  );
+ //  textPainter.paint(
+ //   canvas,
+ //   Offset(10.0, 10.0),
+ //  );
+ //
+ //  // Draw snippet
+ //  textPainter.text = TextSpan(
+ //   text: snippet,
+ //   style: TextStyle(
+ //    fontSize: 25.0,
+ //    color: Colors.black,
+ //   ),
+ //  );
+ //  textPainter.layout(
+ //   minWidth: 0,
+ //   maxWidth: width - 20.0,
+ //  );
+ //  textPainter.paint(
+ //   canvas,
+ //   Offset(10.0, 50.0),
+ //  );
+ //  // Convert canvas to image
+ //
+ //  final ui.Image markerAsImage = await pictureRecorder.endRecording().toImage(
+ //   width.toInt(),
+ //   height.toInt() + (iconSize / 2).toInt(),
+ //  );
+ //
+ //  final ByteData? byteData = await markerAsImage.toByteData(
+ //   format: ui.ImageByteFormat.png,
+ //  );
+ //
+ //  return byteData!.buffer.asUint8List();
+ // }
 
  @override
  Widget build(BuildContext context) {
