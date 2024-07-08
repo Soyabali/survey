@@ -271,215 +271,432 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      //appBar: getAppBar("${widget.sTypeName}"),
-     // appBar: getAppBarBack("${widget.sTypeName}"),
-      appBar: getAppBarBack(context,"${widget.sTypeName}"),
+      appBar: getAppBar("Utility Locator"),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-      body:
-      _isLocationPermanentlyDenied
+      body: _isLocationPermanentlyDenied
           ? Padding(
-        padding: const EdgeInsets.only(left: 15,top: 10),
-        child: Text("Location permissions are permanently denied. You should reinstall the application or clear the application's storage on your phone."),
+        padding: const EdgeInsets.only(left: 15, top: 10),
+        child: Text(
+          "Location permissions are permanently denied. You should reinstall the application or clear the application's storage on your phone.",
+        ),
       )
-          :
-      ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 5,right: 5,top: 10),
-              child: Container(
-                height: MediaQuery.of(context).size.height-150,
-                child: ListView.builder(
-                  itemCount: templeListResponse?.length ?? 0,
-                  itemBuilder: (BuildContext context, int index)
-                  {
-                    // take an index
-
-                    NearByPlaceListModel temple = templeListResponse![index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          //color: Colors.red,
-                          border: Border.all(
-                            color: Colors.orange, // Set the golden border color
-                            width: 1.0, // Set the width of the border
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: GestureDetector(
-                                onTap: (){
-                                  print('---click images---');
-                                  image = temple.sImage;
-                                  print('---Images----160---$image');
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => FullScreenImages(image: image),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child:ClipRRect(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    child: Transform.rotate(
-                                      angle: 11, // Angle in radians. For example, 0.5 radians is approximately 28.6 degrees.
-                                      child: Image.network(
-                                        temple.sImage,
-                                        height: 60,
-                                        width: 60,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+          : Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
+              itemCount: templeListResponse?.length ?? 0,
+              itemBuilder: (BuildContext context, int index) {
+                NearByPlaceListModel temple = templeListResponse![index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.orange,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: GestureDetector(
+                            onTap: () {
+                              print('---click images---');
+                              String image = temple.sImage;
+                              print('---Images----160---$image');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FullScreenImages(image: image),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 75,
+                              width: 75,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5.0),
+                                child: Transform.rotate(
+                                  angle: 11,
+                                  child: Image.network(
+                                    temple.sImage,
+                                    height: 75,
+                                    width: 75,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                height: 80,
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 10),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 10),
-                                    child: Column(
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 80,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Text(
+                                        temple.sPlaceName,
+                                        style: GoogleFonts.openSans(
+                                          color: AppColors.green,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.normal,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 8),
-                                          child: Text(temple.sPlaceName,
-                                            style: GoogleFonts.openSans(
-                                              color: AppColors.green,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle: FontStyle.normal,
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
+                                      children: <Widget>[
+                                        Text(
+                                          'Distance :',
+                                          style: GoogleFonts.openSans(
+                                            color: AppColors.green,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: FontStyle.normal,
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text('Distance :',
-                                                style: GoogleFonts.openSans(
-                                                  color: AppColors.green,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle: FontStyle.normal,
-                                                )
-                                            ),
-                                            SizedBox(width: 5), // Add some space between the text widgets
-                                            Text(temple.sDistance,
-                                                style: GoogleFonts.openSans(
-                                                  color: AppColors.red,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle: FontStyle.normal,
-                                                )
-                                            ),
-                                          ],
+                                        SizedBox(width: 5),
+                                        Text(
+                                          temple.sDistance,
+                                          style: GoogleFonts.openSans(
+                                            color: AppColors.red,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: FontStyle.normal,
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
                             ),
-                            InkWell(
-                              onTap: (){
-                                setState(() {
-                                  fLatitude;
-                                  fLongitude;
-                                  // sLocation
-                                  if (temple.fLatitude is String) {
-                                    //fLatitude = double.parse(templeListResponse![index]['fLatitude']);
-                                    // fLatitude = double.parse(temple.fLatitude);
-                                  } else {
-                                    fLatitude = temple.fLatitude;
-                                  }
-
-                                  if (temple.fLongitude is String) {
-                                    // fLongitude = double.parse(templeListResponse![index]['fLongitude']);
-                                  } else {
-                                    fLongitude = temple.fLongitude;
-                                  }
-                                  var locationName = temple.sPlaceName;
-                                  var sLocationAddress = temple.sDistance;
-                                  print('-----336---fLatitude--$fLatitude');
-                                  print('-----337---fLongitude--$fLongitude');
-                                  print('-----338---locationName--$locationName');
-                                  print('-----338---sLocation--$sLocationAddress');
-
-                                  _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
-
-                                });
-
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Container(
-                                    height: 25,
-                                    width: 25,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Image.asset('assets/images/direction.jpeg',
-                                      height: 25,
-                                      width: 25,
-                                      fit: BoxFit.fill,
-                                    )
-
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Image.asset(
-                                      "assets/images/listelementtop.png",
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                  ),
-                                  SizedBox(height: 35),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Image.asset(
-                                      "assets/images/listelementbottom.png",
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    );
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              fLatitude;
+                              fLongitude;
+                              // sLocation
+                              if (temple.fLatitude is String) {
+                                //fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+                                // fLatitude = double.parse(temple.fLatitude);
+                              } else {
+                                fLatitude = temple.fLatitude;
+                              }
 
-                  },
-                ),
-              ),
+                              if (temple.fLongitude is String) {
+                                // fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+                              } else {
+                                fLongitude = temple.fLongitude;
+                              }
+                              var locationName = temple.sPlaceName;
+                              var sLocationAddress = temple.sDistance;
+                              print('-----336---fLatitude--$fLatitude');
+                              print('-----337---fLongitude--$fLongitude');
+                              print('-----338---locationName--$locationName');
+                              print('-----338---sLocation--$sLocationAddress');
+
+                              _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+
+                            });
+
+                            // setState(() {
+                            //   double fLatitude = double.parse(temple.fLatitude);
+                            //   double fLongitude = double.parse(temple.fLongitude);
+                            //   String locationName = temple.sTempleName;
+                            //   String sLocationAddress = temple.sDistance;
+                            //   print('-----336---fLatitude--$fLatitude');
+                            //   print('-----337---fLongitude--$fLongitude');
+                            //   print('-----338---locationName--$locationName');
+                            //   print('-----338---sLocation--$sLocationAddress');
+                            //   _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+                            // });
+
+
+
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Container(
+                              height: 25,
+                              width: 25,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Image.asset(
+                                'assets/images/direction.jpeg',
+                                height: 25,
+                                width: 25,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Image.asset(
+                                  "assets/images/listelementtop.png",
+                                  height: 25,
+                                  width: 25,
+                                ),
+                              ),
+                              SizedBox(height: 35),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Image.asset(
+                                  "assets/images/listelementbottom.png",
+                                  height: 25,
+                                  width: 25,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          ]
+          ),
+        ],
       ),
     );
+    // return Scaffold(
+    //   backgroundColor: Colors.white,
+    //   //appBar: getAppBar("${widget.sTypeName}"),
+    //  // appBar: getAppBarBack("${widget.sTypeName}"),
+    //   appBar: getAppBarBack(context,"${widget.sTypeName}"),
+    //   drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+    //   body:
+    //   _isLocationPermanentlyDenied
+    //       ? Padding(
+    //     padding: const EdgeInsets.only(left: 15,top: 10),
+    //     child: Text("Location permissions are permanently denied. You should reinstall the application or clear the application's storage on your phone."),
+    //   )
+    //       :
+    //   ListView(
+    //       children: <Widget>[
+    //         Padding(
+    //           padding: const EdgeInsets.only(left: 5,right: 5,top: 10),
+    //           child: Container(
+    //             height: MediaQuery.of(context).size.height-150,
+    //             child: ListView.builder(
+    //               itemCount: templeListResponse?.length ?? 0,
+    //               itemBuilder: (BuildContext context, int index)
+    //               {
+    //                 // take an index
+    //
+    //                 NearByPlaceListModel temple = templeListResponse![index];
+    //                 return Padding(
+    //                   padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+    //                   child: Container(
+    //                     decoration: BoxDecoration(
+    //                       //color: Colors.red,
+    //                       border: Border.all(
+    //                         color: Colors.orange, // Set the golden border color
+    //                         width: 1.0, // Set the width of the border
+    //                       ),
+    //                     ),
+    //                     child: Row(
+    //                       children: [
+    //                         Padding(
+    //                           padding: const EdgeInsets.only(left: 5),
+    //                           child: GestureDetector(
+    //                             onTap: (){
+    //                               print('---click images---');
+    //                               image = temple.sImage;
+    //                               print('---Images----160---$image');
+    //
+    //                               Navigator.push(
+    //                                 context,
+    //                                 MaterialPageRoute(
+    //                                   builder: (context) => FullScreenImages(image: image),
+    //                                 ),
+    //                               );
+    //                             },
+    //                             child: Container(
+    //                               height: 60,
+    //                               width: 60,
+    //                               decoration: BoxDecoration(
+    //                                 borderRadius: BorderRadius.circular(5),
+    //                               ),
+    //                               child:ClipRRect(
+    //                                 borderRadius: BorderRadius.circular(5.0),
+    //                                 child: Transform.rotate(
+    //                                   angle: 11, // Angle in radians. For example, 0.5 radians is approximately 28.6 degrees.
+    //                                   child: Image.network(
+    //                                     temple.sImage,
+    //                                     height: 60,
+    //                                     width: 60,
+    //                                     fit: BoxFit.cover,
+    //                                   ),
+    //                                 ),
+    //                               ),
+    //                             ),
+    //                           ),
+    //                         ),
+    //                         Expanded(
+    //                           child: Container(
+    //                             height: 80,
+    //                             child: Padding(
+    //                               padding: EdgeInsets.only(top: 10),
+    //                               child: Padding(
+    //                                 padding: EdgeInsets.only(left: 10),
+    //                                 child: Column(
+    //                                   mainAxisAlignment: MainAxisAlignment.start,
+    //                                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                                   children: [
+    //                                     Padding(
+    //                                       padding: const EdgeInsets.only(top: 8),
+    //                                       child: Text(temple.sPlaceName,
+    //                                         style: GoogleFonts.openSans(
+    //                                           color: AppColors.green,
+    //                                           fontSize: 14,
+    //                                           fontWeight: FontWeight.w600,
+    //                                           fontStyle: FontStyle.normal,
+    //                                         ),
+    //                                         maxLines: 1,
+    //                                         overflow: TextOverflow.ellipsis,
+    //                                       ),
+    //                                     ),
+    //                                     Row(
+    //                                       mainAxisAlignment: MainAxisAlignment.start,
+    //                                       children: <Widget>[
+    //                                         Text('Distance :',
+    //                                             style: GoogleFonts.openSans(
+    //                                               color: AppColors.green,
+    //                                               fontSize: 12,
+    //                                               fontWeight: FontWeight.w600,
+    //                                               fontStyle: FontStyle.normal,
+    //                                             )
+    //                                         ),
+    //                                         SizedBox(width: 5), // Add some space between the text widgets
+    //                                         Text(temple.sDistance,
+    //                                             style: GoogleFonts.openSans(
+    //                                               color: AppColors.red,
+    //                                               fontSize: 12,
+    //                                               fontWeight: FontWeight.w600,
+    //                                               fontStyle: FontStyle.normal,
+    //                                             )
+    //                                         ),
+    //                                       ],
+    //                                     ),
+    //                                   ],
+    //                                 ),
+    //                               ),
+    //                             ),
+    //                           ),
+    //                         ),
+    //                         InkWell(
+    //                           onTap: (){
+    //                             setState(() {
+    //                               fLatitude;
+    //                               fLongitude;
+    //                               // sLocation
+    //                               if (temple.fLatitude is String) {
+    //                                 //fLatitude = double.parse(templeListResponse![index]['fLatitude']);
+    //                                 // fLatitude = double.parse(temple.fLatitude);
+    //                               } else {
+    //                                 fLatitude = temple.fLatitude;
+    //                               }
+    //
+    //                               if (temple.fLongitude is String) {
+    //                                 // fLongitude = double.parse(templeListResponse![index]['fLongitude']);
+    //                               } else {
+    //                                 fLongitude = temple.fLongitude;
+    //                               }
+    //                               var locationName = temple.sPlaceName;
+    //                               var sLocationAddress = temple.sDistance;
+    //                               print('-----336---fLatitude--$fLatitude');
+    //                               print('-----337---fLongitude--$fLongitude');
+    //                               print('-----338---locationName--$locationName');
+    //                               print('-----338---sLocation--$sLocationAddress');
+    //
+    //                               _navigateToMap(context, fLatitude, fLongitude, locationName, sLocationAddress);
+    //
+    //                             });
+    //
+    //                           },
+    //                           child: Padding(
+    //                             padding: const EdgeInsets.only(left: 5),
+    //                             child: Container(
+    //                                 height: 25,
+    //                                 width: 25,
+    //                                 decoration: BoxDecoration(
+    //                                   borderRadius: BorderRadius.circular(5),
+    //                                 ),
+    //                                 child: Image.asset('assets/images/direction.jpeg',
+    //                                   height: 25,
+    //                                   width: 25,
+    //                                   fit: BoxFit.fill,
+    //                                 )
+    //
+    //                             ),
+    //                           ),
+    //                         ),
+    //                         Padding(
+    //                           padding: const EdgeInsets.only(right: 5),
+    //                           child: Column(
+    //                             mainAxisAlignment: MainAxisAlignment.end,
+    //                             crossAxisAlignment: CrossAxisAlignment.end,
+    //                             children: [
+    //                               Align(
+    //                                 alignment: Alignment.topRight,
+    //                                 child: Image.asset(
+    //                                   "assets/images/listelementtop.png",
+    //                                   height: 25,
+    //                                   width: 25,
+    //                                 ),
+    //                               ),
+    //                               SizedBox(height: 35),
+    //                               Align(
+    //                                 alignment: Alignment.bottomRight,
+    //                                 child: Image.asset(
+    //                                   "assets/images/listelementbottom.png",
+    //                                   height: 25,
+    //                                   width: 25,
+    //                                 ),
+    //                               ),
+    //                             ],
+    //                           ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                 );
+    //
+    //               },
+    //             ),
+    //           ),
+    //         ),
+    //       ]
+    //   ),
+    // );
   }
 }
 class NoDataScreenPage extends StatelessWidget {
