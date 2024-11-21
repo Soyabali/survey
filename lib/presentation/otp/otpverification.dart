@@ -69,7 +69,8 @@ class _MyHomePageState extends State<OtpPage> {
       backgroundColor: Colors.white,
       //appBar: getAppBarBack(context,"OTP Verification"),
       appBar: AppBar(
-        backgroundColor: Colors.red,
+       // backgroundColor: Colors.red,
+        backgroundColor: Color(0xFF255899),
         elevation: 10,
         shadowColor: Colors.orange,
         toolbarOpacity: 0.5,
@@ -315,8 +316,7 @@ class _MyHomePageState extends State<OtpPage> {
                                                   padding:
                                                       const EdgeInsets.all(5.0),
                                                   decoration: BoxDecoration(
-                                                    color: const Color(
-                                                        0xFF255899), // Background color using HEX value
+                                                    color: const Color(0xFF255899), // Background color using HEX value
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10.0), // Rounded corners

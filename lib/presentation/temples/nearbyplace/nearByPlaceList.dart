@@ -271,7 +271,7 @@ class _TemplesHomeState extends State<NearByPlaceList> with WidgetsBindingObserv
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBar("Utility Locator"),
+      appBar: getAppBar("${widget.sTypeName}"),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: _isLocationPermanentlyDenied
           ? Padding(

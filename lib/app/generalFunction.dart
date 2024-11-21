@@ -109,7 +109,7 @@ in the North to the lake Chilika in the South, into four Chakalas viz. Pipli, Ka
     trimExpandedText: 'Show less',
     style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
     moreStyle:
-        TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
+    TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
    // textAlign: TextAlign.justify, // Justify text alignment
   );
 }
@@ -147,21 +147,6 @@ middleHeader(BuildContext context, String templeName) {
                 ],
               ),
             ),
-            // Positioned(
-            //   top: 20,
-            //   child: Image.asset('assets/images/templeelement1.png',
-            //       // Replace with your first image path
-            //       height: 30.0,
-            //       width: MediaQuery.of(context).size.width),
-            // ),
-            // Positioned(
-            //     top: 55,
-            //     left: 0,
-            //     right: 0,
-            //     child: Center(
-            //       child: Text(templeName,
-            //           style: AppTextStyle.font16penSansExtraboldRedTextStyle),
-            //     ))
           ],
         ),
       )
@@ -221,7 +206,34 @@ middleHeaderPuri(BuildContext context, String templeName) {
     ],
   );
 }
-
+ appBarFunction(BuildContext context,String title){
+   return AppBar(
+     // statusBarColore
+     iconTheme: IconThemeData(color: Colors.white),
+     systemOverlayStyle: const SystemUiOverlayStyle(
+       statusBarColor: Color(0xFF2a697b),
+       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+       statusBarBrightness: Brightness.light, // For iOS (dark icons)
+     ),
+     // backgroundColor: Colors.blu
+     backgroundColor: Color(0xFF0098a6),
+     title: Padding(
+       padding: EdgeInsets.symmetric(horizontal: 5),
+       child: Text(
+         '$title',
+         style: TextStyle(
+           color: Colors.white,
+           fontSize: 16,
+           fontWeight: FontWeight.normal,
+           fontFamily: 'Montserrat',
+         ),
+         textAlign: TextAlign.center,
+       ),
+     ),
+     //centerTitle: true,
+     elevation: 0, // Removes shadow under the AppBar
+   );
+}
 // appBar
 getAppBar(String title) {
   return AppBar(
@@ -261,27 +273,29 @@ getAppBar(String title) {
 // appbar with backbutton
 getAppBarBack(BuildContext context ,String title) {
   return AppBar(
-    backgroundColor: Colors.red,
-    elevation: 10,
-    shadowColor: Colors.orange,
-    toolbarOpacity: 0.5,
-    leading: InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(16.0), // Adjust padding if necessary
-        child: Image.asset(
-          "assets/images/back.png",
-          fit: BoxFit.contain, // BoxFit.contain ensures the image is not distorted
+    // statusBarColore
+    systemOverlayStyle: const SystemUiOverlayStyle(
+      statusBarColor: Color(0xFF2a697b),
+      statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+      statusBarBrightness: Brightness.light, // For iOS (dark icons)
+    ),
+    // backgroundColor: Colors.blu
+    backgroundColor: Color(0xFF0098a6),
+    title: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5),
+      child: Text(
+        '$title',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+          fontFamily: 'Montserrat',
         ),
+        textAlign: TextAlign.center,
       ),
     ),
-    title: Text(
-      title,
-      style: AppTextStyle.font16penSansExtraboldWhiteTextStyle,
-    ),
-    centerTitle: true,
+    //centerTitle: true,
+    elevation: 0, // Removes shadow under the AppBar
   );
 }
 
@@ -320,22 +334,6 @@ class GeneralFunction {
                 fit: BoxFit.cover,
               ),
             ),
-            // decoration: const BoxDecoration(
-            //   image: DecorationImage(
-            //     image: AssetImage('assets/images/puriOned2.png',
-            //       //image: AssetImage('assets/images/applogo.png',
-            //     ),
-            //     // Replace with your asset image path
-            //     fit: BoxFit.cover,
-            //   ),
-            //   // image: DecorationImage(
-            //   //    image: AssetImage('assets/images/puriOned.png',
-            //   //    //image: AssetImage('assets/images/applogo.png',
-            //   //   ),
-            //   //   // Replace with your asset image path
-            //   //   fit: BoxFit.cover,
-            //   // ),
-            // ),
             child: Container(),
           ),
           Padding(
@@ -445,59 +443,6 @@ class GeneralFunction {
                       ],
                     ),
                   ),
-                  // const SizedBox(height: 15),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Navigator.of(context).pushReplacement(
-                  //       MaterialPageRoute(
-                  //           builder: (context) => FacilitiesHome()),
-                  //     );
-                  //     // Navigator.push(
-                  //     //   context,
-                  //     //   MaterialPageRoute(
-                  //     //     builder: (context) => const FacilitiesHome(),
-                  //     //   ),
-                  //     // );
-                  //   },
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: <Widget>[
-                  //       Image.asset(
-                  //         'assets/images/facilities.png',
-                  //         width: 25,
-                  //         height: 25,
-                  //       ),
-                  //       const SizedBox(width: 10),
-                  //       Text('Facilities',
-                  //           style: AppTextStyle
-                  //               .font16penSansExtraboldRedTextStyle),
-                  //     ],
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 15),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     // _showBottomSheet(context);   // EmergencyHome
-                  //     Navigator.of(context).pushReplacement(
-                  //       MaterialPageRoute(
-                  //           builder: (context) => EmergencyHome()),
-                  //     );
-                  //   },
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: <Widget>[
-                  //       Image.asset(
-                  //         'assets/images/emergency_menu.png',
-                  //         width: 25,
-                  //         height: 25,
-                  //       ),
-                  //       const SizedBox(width: 10),
-                  //       Text('Emergency',
-                  //           style: AppTextStyle
-                  //               .font16penSansExtraboldRedTextStyle),
-                  //     ],
-                  //   ),
-                  // ),
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
@@ -525,43 +470,6 @@ class GeneralFunction {
               ),
             ),
           ),
-          //  Expanded(
-          //   child: Align(
-          //     alignment: Alignment.bottomCenter,
-          //     child: Padding(
-          //       padding: EdgeInsets.only(bottom: 5.0, left: 15),
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.start,
-          //         children: <Widget>
-          //         [
-          //           Text(
-          //             'Synergy Telmatics Pvt.Ltd.',
-          //             style: TextStyle(
-          //               fontFamily: 'Montserrat',
-          //               color: Color(0xffF37339), //#F37339
-          //               fontSize: 14.0,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //           SizedBox(width: 10),
-          //            Padding(
-          //               padding: EdgeInsets.only(right: AppSize.s10),
-          //               child: SizedBox(
-          //                 width: 25,
-          //                 height: 25,
-          //                 child: Image.asset(
-          //                   'assets/images/favicon.png',
-          //                   width: 25,
-          //                   height: 25,
-          //                   fit: BoxFit.fill, // Changed BoxFit to fill
-          //                 ),
-          //               ),
-          //             ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

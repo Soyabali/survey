@@ -74,6 +74,24 @@ class AppTextStyle {
     // textStyle: Theme.of(context).textTheme.titleSmall,
 
   );
+  // black
+  static TextStyle font14penSansBlackTextStyle = GoogleFonts.openSans(
+    color: Colors.black,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
+  // black 45
+  static TextStyle font14penSansBlack45TextStyle = GoogleFonts.openSans(
+    color: Colors.black45,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
   // black 87
   static TextStyle font14penSansExtraboldBlack87TextStyle = GoogleFonts.openSans(
     color: Colors.black87,

@@ -1,4 +1,4 @@
-package com.example.puri
+package com.city.purione
 
 import io.flutter.embedding.android.FlutterActivity
 

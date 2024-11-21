@@ -123,104 +123,106 @@ class _TemplesHomeState extends State<NearByPlace> {
           middleHeader(context, '${widget.name}'),
           Container(
             height: MediaQuery.of(context).size.height * 0.8, // Adjust the height as needed
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: getNearbyPlace?.length ?? 0,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 1.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          var sTypeName = getNearbyPlace![index]['sTypeName'];
-                          var iTypeCode = getNearbyPlace![index]['iTypeCode'];
-                          print('----sTypeName---$sTypeName');
-                          print('----iTypeCode---$iTypeCode');
-                         // Navigator.of(context).push(MaterialPageRoute(builder: (_) => NearByPlaceMap()));
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  NearByPlaceList(sTypeName: sTypeName,iTypeCode:iTypeCode),
-                            ),
-                          );
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         FireEmergency(name: name,iHeadCode:iHeadCode),
-                          //   ),
-                          // );
-
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         OnlineComplaintForm(
-                          //             complaintName: categoryName,
-                          //             categoryCode : categoryCode
-                          //         ),
-                          //   ),
-                          // );
-                        },
-
-                        child: ListTile(
-                          leading: Container(
-                            width: 35,
-                            height: 35,
-                            // decoration: BoxDecoration(
-                            //   borderRadius: BorderRadius.circular(5),
-                            //   gradient: const LinearGradient(
-                            //     colors: [Colors.red, Colors.orange],
-                            //     begin: Alignment.topLeft,
-                            //     end: Alignment.bottomRight,
+            child: Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: getNearbyPlace?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 1.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            var sTypeName = getNearbyPlace![index]['sTypeName'];
+                            var iTypeCode = getNearbyPlace![index]['iTypeCode'];
+                            print('----sTypeName---$sTypeName');
+                            print('----iTypeCode---$iTypeCode');
+                           // Navigator.of(context).push(MaterialPageRoute(builder: (_) => NearByPlaceMap()));
+              
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NearByPlaceList(sTypeName: sTypeName,iTypeCode:iTypeCode),
+                              ),
+                            );
+              
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         FireEmergency(name: name,iHeadCode:iHeadCode),
                             //   ),
-                            // ),
-                            child: Center(
-                              child: Image.network(
-                                getNearbyPlace![index]['sIcon']!,
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
+                            // );
+              
+              
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         OnlineComplaintForm(
+                            //             complaintName: categoryName,
+                            //             categoryCode : categoryCode
+                            //         ),
+                            //   ),
+                            // );
+                          },
+              
+                          child: ListTile(
+                            leading: Container(
+                              width: 35,
+                              height: 35,
+                              // decoration: BoxDecoration(
+                              //   borderRadius: BorderRadius.circular(5),
+                              //   gradient: const LinearGradient(
+                              //     colors: [Colors.red, Colors.orange],
+                              //     begin: Alignment.topLeft,
+                              //     end: Alignment.bottomRight,
+                              //   ),
+                              // ),
+                              child: Center(
+                                child: Image.network(
+                                  getNearbyPlace![index]['sIcon']!,
+                                  width: 30,
+                                  height: 30,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                          title: Text(
-                            getNearbyPlace![index]['sTypeName']!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                'assets/images/arrow.png',
-                                height: 12,
-                                width: 12,
+                            title: Text(
+                              getNearbyPlace![index]['sTypeName']!,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.black87,
                               ),
-                            ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                  'assets/images/arrow.png',
+                                  height: 12,
+                                  width: 12,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12, right: 12),
-                      child: Container(
-                        height: 1,
-                        color: Colors
-                            .grey, // Gray color for the bottom line
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, right: 12),
+                        child: Container(
+                          height: 1,
+                          color: Colors
+                              .grey, // Gray color for the bottom line
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ],

@@ -81,6 +81,7 @@ class _SplaceState extends State<SplashView> {
     checkUserConnection();
     // versionAliCall();
    // getlocalDataBaseValue();
+    print('---------xx--xxxxxx-------');
     super.initState();
   }
   getlocalDataBaseValue() async{
@@ -111,10 +112,15 @@ class _SplaceState extends State<SplashView> {
     //print('---74--$msg');
 
     if(result=="1"){
+     // LoginScreen_2
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  const HomePage()),
+        MaterialPageRoute(builder: (context) =>  const LoginScreen_2()),
       );
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) =>  const HomePage()),
+      // );
 
       // displayToast(msg);
     }else{
@@ -180,7 +186,7 @@ class SplaceScreen extends StatelessWidget {
                          width: 300,),
                      ),
                      Positioned(
-                         child: Text("Rath Yatra-2024",
+                         child: Text("Puri One",
                            style:AppTextStyle.font30penSansExtraboldWhiteTextStyle,
                          ),
                      )
