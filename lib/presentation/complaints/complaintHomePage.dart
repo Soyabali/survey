@@ -26,6 +26,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
   //  drawerFunction
   String? sCitizenName;
   String? sContactNo;
+  String? sContactNo2;
 
   @override
   void initState() {
