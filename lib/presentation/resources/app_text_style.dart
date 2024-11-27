@@ -22,6 +22,16 @@ class AppTextStyle {
     // textStyle: Theme.of(context).textTheme.titleSmall,
 
   );
+  //
+  static TextStyle font14penSansExtraboldBlack45TextStyle = GoogleFonts.openSans(
+    color: Colors.black45,
+    fontSize: 14,
+    //fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
+
   static TextStyle font18penSansExtraboldWhiteTextStyle = GoogleFonts.openSans(
     color: AppColors.white,
     fontSize: 18,
@@ -65,8 +75,16 @@ class AppTextStyle {
     fontStyle: FontStyle.normal,
     // textStyle: Theme.of(context).textTheme.titleSmall,
   );
-  // Black 45
-  static TextStyle font14penSansExtraboldBlack45TextStyle = GoogleFonts.openSans(
+  // black
+  static TextStyle font60penSansExtraboldBlack45TextStyle = GoogleFonts.openSans(
+    color: Colors.black45,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
+  // Black 45 --14
+  static TextStyle font14OpenSansRegularBlack45TextStyle = GoogleFonts.openSans(
     color: Colors.black45,
     fontSize: 14,
     fontWeight: FontWeight.w600,
@@ -74,6 +92,25 @@ class AppTextStyle {
     // textStyle: Theme.of(context).textTheme.titleSmall,
 
   );
+  // black 45 ---12
+  static TextStyle font12OpenSansRegularBlack45TextStyle = GoogleFonts.openSans(
+    color: Colors.black45,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
+
+  static TextStyle font16OpenSansRegularBlack45TextStyle = GoogleFonts.openSans(
+    color: Colors.black45,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
+  //    // Black 45 --16
   // black
   static TextStyle font14penSansBlackTextStyle = GoogleFonts.openSans(
     color: Colors.black,
@@ -125,9 +162,15 @@ class AppTextStyle {
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
   );
-  // pendindg TextView Style
   static TextStyle font14penSansExtraboldRedTextStyle = GoogleFonts.openSans(
     color: AppColors.red,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+  // pendindg TextView Style
+  static TextStyle font14penSansExtraboldBlackTextStyle = GoogleFonts.openSans(
+    color: AppColors.black,
     fontSize: 14,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
@@ -148,6 +191,14 @@ class AppTextStyle {
   );
   static TextStyle font16penSansExtraboldRedTextStyle = GoogleFonts.openSans(
     color: AppColors.red,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+  );
+  // black
+  static TextStyle font16penSansExtraboldBlackTextStyle = GoogleFonts.openSans(
+    color: AppColors.black,
     fontSize: 16,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,

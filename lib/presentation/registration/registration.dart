@@ -5,12 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
+import '../../services/citizenRegistrationRepo.dart';
 import '../login/loginScreen_2.dart';
 import '../otp/otpverification.dart';
-import '../registration/registration.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
@@ -18,6 +17,7 @@ import '../resources/values_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Registration extends StatelessWidget {
+
   const Registration({super.key});
 
   @override
@@ -58,39 +58,39 @@ class _LoginPageState extends State<RegistrationPage> {
   double? lat, long;
   GeneralFunction generalFunction = GeneralFunction();
 
-  void getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    debugPrint("-------------Position-----------------");
-    debugPrint(position.latitude.toString());
-
-    lat = position.latitude;
-    long = position.longitude;
-    print('-----------105----$lat');
-    print('-----------106----$long');
-    // setState(() {
-    // });
-    debugPrint("Latitude: ----1056--- $lat and Longitude: $long");
-    debugPrint(position.toString());
-  }
+  // void getLocation() async {
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     return Future.error('Location services are disabled.');
+  //   }
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       return Future.error('Location permissions are denied');
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     // Permissions are denied forever, handle appropriately.
+  //     return Future.error(
+  //         'Location permissions are permanently denied, we cannot request permissions.');
+  //   }
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   debugPrint("-------------Position-----------------");
+  //   debugPrint(position.latitude.toString());
+  //
+  //   lat = position.latitude;
+  //   long = position.longitude;
+  //   print('-----------105----$lat');
+  //   print('-----------106----$long');
+  //   // setState(() {
+  //   // });
+  //   debugPrint("Latitude: ----1056--- $lat and Longitude: $long");
+  //   debugPrint(position.toString());
+  // }
 
   Future<bool> _onWillPop() async {
     return (await showDialog(
@@ -335,11 +335,10 @@ class _LoginPageState extends State<RegistrationPage> {
                                       controller: _userController,
                                       textInputAction: TextInputAction.next,
                                       onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                                      keyboardType: TextInputType.phone,
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                     // keyboardType: TextInputType.phone,
+                                      //inputFormatters: [LengthLimitingTextInputFormatter(10), // Limit to 10 digits
                                         //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                      ],
+                                     // ],
                                       decoration: const InputDecoration(
                                         labelText: "User Name",
                                         border: OutlineInputBorder(),
@@ -418,20 +417,21 @@ class _LoginPageState extends State<RegistrationPage> {
                                     padding: const EdgeInsets.only(left: 13,right: 13),
                                     child: InkWell(
                                       onTap: () async {
-                                        getLocation();
+                                       // getLocation();
                                         var phone = _phoneNumberController.text;
-                                        var password = _userController.text;
+                                        var name = _userController.text;
 
-                                        if(_formKey.currentState!.validate() && phone != null && password != null){
+                                        if(_formKey.currentState!.validate() && phone != null && name != null){
                                           // Call Api
-                                          // loginMap = await LoginRepo1().authenticate(context, phone!, password!);
+
+                                           loginMap = await CitizenRegistrationRepo().citizenRegistration(context, phone!, name);
 
 
-                                          print('---358----$loginMap');
+                                          print('---431----$loginMap');
                                           result = "${loginMap['Result']}";
                                           msg = "${loginMap['Msg']}";
-                                          print('---361----$result');
-                                          print('---362----$msg');
+                                          print('---434----$result');
+                                          print('---435----$msg');
                                         }else{
                                           if(_phoneNumberController.text.isEmpty){
                                             phoneNumberfocus.requestFocus();
@@ -440,63 +440,39 @@ class _LoginPageState extends State<RegistrationPage> {
                                           }
                                         } // condition to fetch a response form a api
                                         if(result=="1"){
-                                          var iUserId = "${loginMap['Data'][0]['iUserId']}";
-                                          var sName =
-                                              "${loginMap['Data'][0]['sName']}";
-                                          var sContactNo =
-                                              "${loginMap['Data'][0]['sContactNo']}";
-                                          var sDesgName =
-                                              "${loginMap['Data'][0]['sDesgName']}";
-                                          var iDesgCode =
-                                              "${loginMap['Data'][0]['iDesgCode']}";
-                                          var iDeptCode =
-                                              "${loginMap['Data'][0]['iDeptCode']}";
-                                          var iUserTypeCode =
-                                              "${loginMap['Data'][0]['iUserTypeCode']}";
-                                          var sToken =
-                                              "${loginMap['Data'][0]['sToken']}";
-                                          var dLastLoginAt =
-                                              "${loginMap['Data'][0]['dLastLoginAt']}";
-                                          var iAgencyCode =
-                                              "${loginMap['Data'][0]['iAgencyCode']}";
-
+                                          var iCitizenCode = "${loginMap['Data'][0]['iCitizenCode']}";
+                                          var sContactNo = "${loginMap['Data'][0]['sContactNo']}";
+                                          var sCitizenName = "${loginMap['Data'][0]['sCitizenName']}";
+                                          var sToken = "${loginMap['Data'][0]['sToken']}";
                                           // To store value in  a SharedPreference
 
                                           SharedPreferences prefs = await SharedPreferences.getInstance();
-                                          prefs.setString('iUserId',iUserId);
-                                          prefs.setString('sName',sName);
+                                          prefs.setString('iCitizenCode',iCitizenCode);
                                           prefs.setString('sContactNo',sContactNo);
-                                          prefs.setString('sDesgName',sDesgName);
-                                          prefs.setString('iDesgCode',iDesgCode);
-                                          prefs.setString('iDeptCode',iDeptCode);
-                                          prefs.setString('iUserTypeCode',iUserTypeCode);
+                                          prefs.setString('sCitizenName',sCitizenName);
                                           prefs.setString('sToken',sToken);
-                                          prefs.setString('dLastLoginAt',dLastLoginAt);
-                                          prefs.setString('iAgencyCode',iAgencyCode);
-                                          // prefs.setDouble('lat',lat!);
-                                          //prefs.setDouble('long',long!);
-                                          String? stringName = prefs.getString('sName');
-                                          String? stringContact = prefs.getString('sContactNo');
-                                          iAgencyCode = prefs.getString('iAgencyCode').toString();
-                                          print('---464-----stringContact--$stringName');
-                                          print('---465----stringContact----$stringContact');
-                                          print('---473----iAgencyCode----$iAgencyCode');
 
-                                          if(iAgencyCode =="1"){
+                                           // navigate to login screen
+                                           Navigator.pushReplacement(context,
+                                             MaterialPageRoute(builder: (context) => LoginScreen_2()),);
+
+                                          if(iCitizenCode =="1"){
 
                                             // Navigator.pushReplacement(
                                             //   context,
                                             //   MaterialPageRoute(builder: (context) => HomePage()),
                                             // );
 
-                                            // print('----570---To go with $iAgencyCode---');
+
+
+                                            // print('----xxxx--------493---');
                                           }else{
                                             // HomeScreen_2
                                             // Navigator.pushReplacement(
                                             //   context,
                                             //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
                                             // );
-                                            print('----HomeScreen 2---');
+                                            print('----xxxx--------500---');
 
                                           }
                                           // Navigator.pushReplacement(
@@ -521,7 +497,7 @@ class _LoginPageState extends State<RegistrationPage> {
                                         ),
                                         child: const Center(
                                           child: Text(
-                                            AppStrings.txtLogin,
+                                            "Sign up",
                                             style: TextStyle(
                                                 fontSize: AppSize.s16,
                                                 color: Colors.white),

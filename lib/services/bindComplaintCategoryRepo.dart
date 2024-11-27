@@ -7,9 +7,10 @@ import '../app/generalFunction.dart';
 import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
-class GetEmergencyContactTitleRepo {
+class BindComplaintCategoryRepo {
+
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> getEmergencyContactTitle(BuildContext context) async {
+  Future<List<Map<String, dynamic>>?> bindComplaintCategory(BuildContext context) async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
@@ -21,15 +22,15 @@ class GetEmergencyContactTitleRepo {
 
     try {
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "GetEmergencyContactTitle/GetEmergencyContactTitle";
-      var getEmergencyContactListApi = "$baseURL$endPoint";
+      var endPoint = "BindComplaintCategory/BindComplaintCategory";
+      var bindComplaintCategoryApi = "$baseURL$endPoint";
       showLoader();
 
       var headers = {
         'token': '$sToken',
         'Content-Type': 'application/json'
       };
-      var request = http.Request('GET', Uri.parse('$getEmergencyContactListApi'));
+      var request = http.Request('GET', Uri.parse('$bindComplaintCategoryApi'));
 
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();

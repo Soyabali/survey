@@ -1,13 +1,13 @@
 
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../app/generalFunction.dart';
-import '../complaints/complaintHomePage.dart';
+import '../../services/loginRepo.dart';
+import '../otp/otpverification.dart';
 import '../registration/registration.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
@@ -29,6 +29,7 @@ class LoginScreen_2 extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
+
   const LoginPage({super.key});
 
   @override
@@ -90,6 +91,11 @@ class _LoginPageState extends State<LoginPage> {
     debugPrint("Latitude: ----1056--- $lat and Longitude: $long");
     debugPrint(position.toString());
   }
+  turnOnLocationMsg(){
+    if((lat==null && lat=='') ||(long==null && long=='')){
+      displayToast("Please turn on Location");
+    }
+  }
 
   Future<bool> _onWillPop() async {
     return (await showDialog(
@@ -122,25 +128,20 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getLocation();
-    Future.delayed(const Duration(milliseconds: 100), () {
-     // requestLocationPermission();
-      setState(() {
-        // Here you can write your code for open new view
-      });
-    });
+    getLocation();
+    if(lat==null || lat==''){
+      turnOnLocationMsg();
+    }
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     _phoneNumberController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
   void clearText() {
     _phoneNumberController.clear();
-    passwordController.clear();
   }
   // bottomSheet
   void _showBottomSheet(BuildContext context) {
@@ -235,312 +236,323 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
           backgroundColor: Colors.white,
-          body: Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    // mention all widget here
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.all(AppMargin.m10),
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(ImageAssets.roundcircle), // Replace with your image asset path
-                              fit: BoxFit.cover,
+          body: GestureDetector(
+            onTap: (){
+              FocusScope.of(context).unfocus();
+            },
+            child: Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      // mention all widget here
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.all(AppMargin.m10),
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(ImageAssets.roundcircle), // Replace with your image asset path
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          width: AppSize.s50,
-                          height: AppSize.s50,
-                          child: Image.asset(
-                            "assets/images/home.png",
-                           // ImageAssets.noidaauthoritylogo, // Replace with your image asset path
                             width: AppSize.s50,
                             height: AppSize.s50,
+                            child: Image.asset(
+                              "assets/images/home.png",
+                             // ImageAssets.noidaauthoritylogo, // Replace with your image asset path
+                              width: AppSize.s50,
+                              height: AppSize.s50,
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Container(
+                            margin: EdgeInsets.only(right: 5),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Image.asset(
+                                ImageAssets.favicon, // Replace with your image asset path
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: AppSize.s145,
+                        width: AppSize.s145,
+                        margin: const EdgeInsets.all(AppMargin.m20),
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              ImageAssets.roundcircle,
+                            ),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        Expanded(child: Container()),
-                        Container(
-                          margin: EdgeInsets.only(right: 5),
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 5),
+                        child: Padding(
+                          padding: const EdgeInsets.all(AppMargin.m16),
+                          child: Center(
                             child: Image.asset(
-                              ImageAssets.favicon, // Replace with your image asset path
-                              width: 40,
-                              height: 40,
-                              fit: BoxFit.cover,
+                              "assets/images/home.png",
+                              //ImageAssets.loginIcon, // Replace with your image asset path
+                              width: AppSize.s145,
+                              height: AppSize.s145,
+                              fit: BoxFit.contain, // Adjust as needed
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    Container(
-                      height: AppSize.s145,
-                      width: AppSize.s145,
-                      margin: const EdgeInsets.all(AppMargin.m20),
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            ImageAssets.roundcircle,
-                          ),
-                          fit: BoxFit.cover,
-                        ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(AppMargin.m16),
-                        child: Center(
-                          child: Image.asset(
-                            "assets/images/home.png",
-                            //ImageAssets.loginIcon, // Replace with your image asset path
-                            width: AppSize.s145,
-                            height: AppSize.s145,
-                            fit: BoxFit.contain, // Adjust as needed
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Align(
+                          alignment: Alignment.centerLeft, // Align to the left
+                          child: Text(
+                            AppStrings.txtLogin,
+                            style: AppTextStyle.font14penSansBlackTextStyle,
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: Align(
-                        alignment: Alignment.centerLeft, // Align to the left
-                        child: Text(
-                          AppStrings.txtLogin,
-                          style: AppTextStyle.font14penSansBlackTextStyle,
-                        ),
-                      ),
-                    ),
-                    /// Todo here we mention main code for a login ui.
-                    GestureDetector(
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
-                      },
-                      child: Form(
-                        key: _formKey,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10,right: 10),
-                          child: Column(
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: AppPadding.p15, right: AppPadding.p15),
-                                    // PHONE NUMBER TextField
-                                    child: TextFormField(
-                                      focusNode: phoneNumberfocus,
-                                      controller: _phoneNumberController,
-                                      textInputAction: TextInputAction.next,
-                                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                                      keyboardType: TextInputType.phone,
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(10), // Limit to 10 digits
-                                        //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                      ],
-                                      decoration: const InputDecoration(
-                                        labelText: AppStrings.txtMobile,
-                                        border: OutlineInputBorder(),
-                                        contentPadding: EdgeInsets.symmetric(
-                                          vertical: AppPadding.p10,
-                                          horizontal: AppPadding.p10, // Add horizontal padding
-                                        ),
-
-                                        prefixIcon: Icon(
-                                          Icons.phone,
-                                          color: Color(0xFF255899),
-                                        ),
-                                        // errorBorder
-                                        // errorBorder: OutlineInputBorder(
-                                        //     borderSide: BorderSide(color: Colors.green, width: 0.5))
-                                      ),
-                                      autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Enter mobile number';
-                                        }
-                                        if (value.length > 1 && value.length < 10) {
-                                          return 'Enter 10 digit mobile number';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 13,right: 13),
-                                    child: InkWell(
-                                      onTap: (){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                                        );
-                                      },
-                                      // onTap: () async {
-                                      //   getLocation();
-                                      //   var phone = _phoneNumberController.text;
-                                      //   var password = passwordController.text;
-                                      //
-                                      //   if(_formKey.currentState!.validate() && phone != null && password != null){
-                                      //     // Call Api
-                                      //     // loginMap = await LoginRepo1().authenticate(context, phone!, password!);
-                                      //
-                                      //
-                                      //     print('---358----$loginMap');
-                                      //     result = "${loginMap['Result']}";
-                                      //     msg = "${loginMap['Msg']}";
-                                      //     print('---361----$result');
-                                      //     print('---362----$msg');
-                                      //   }else{
-                                      //     if(_phoneNumberController.text.isEmpty){
-                                      //       phoneNumberfocus.requestFocus();
-                                      //     }else if(passwordController.text.isEmpty){
-                                      //       passWordfocus.requestFocus();
-                                      //     }
-                                      //   } // condition to fetch a response form a api
-                                      //   if(result=="1"){
-                                      //     var iUserId = "${loginMap['Data'][0]['iUserId']}";
-                                      //     var sName =
-                                      //         "${loginMap['Data'][0]['sName']}";
-                                      //     var sContactNo =
-                                      //         "${loginMap['Data'][0]['sContactNo']}";
-                                      //     var sDesgName =
-                                      //         "${loginMap['Data'][0]['sDesgName']}";
-                                      //     var iDesgCode =
-                                      //         "${loginMap['Data'][0]['iDesgCode']}";
-                                      //     var iDeptCode =
-                                      //         "${loginMap['Data'][0]['iDeptCode']}";
-                                      //     var iUserTypeCode =
-                                      //         "${loginMap['Data'][0]['iUserTypeCode']}";
-                                      //     var sToken =
-                                      //         "${loginMap['Data'][0]['sToken']}";
-                                      //     var dLastLoginAt =
-                                      //         "${loginMap['Data'][0]['dLastLoginAt']}";
-                                      //     var iAgencyCode =
-                                      //         "${loginMap['Data'][0]['iAgencyCode']}";
-                                      //
-                                      //     // To store value in  a SharedPreference
-                                      //
-                                      //     SharedPreferences prefs = await SharedPreferences.getInstance();
-                                      //     prefs.setString('iUserId',iUserId);
-                                      //     prefs.setString('sName',sName);
-                                      //     prefs.setString('sContactNo',sContactNo);
-                                      //     prefs.setString('sDesgName',sDesgName);
-                                      //     prefs.setString('iDesgCode',iDesgCode);
-                                      //     prefs.setString('iDeptCode',iDeptCode);
-                                      //     prefs.setString('iUserTypeCode',iUserTypeCode);
-                                      //     prefs.setString('sToken',sToken);
-                                      //     prefs.setString('dLastLoginAt',dLastLoginAt);
-                                      //     prefs.setString('iAgencyCode',iAgencyCode);
-                                      //     // prefs.setDouble('lat',lat!);
-                                      //     //prefs.setDouble('long',long!);
-                                      //     String? stringName = prefs.getString('sName');
-                                      //     String? stringContact = prefs.getString('sContactNo');
-                                      //     iAgencyCode = prefs.getString('iAgencyCode').toString();
-                                      //     print('---464-----stringContact--$stringName');
-                                      //     print('---465----stringContact----$stringContact');
-                                      //     print('---473----iAgencyCode----$iAgencyCode');
-                                      //
-                                      //     if(iAgencyCode =="1"){
-                                      //
-                                      //       // Navigator.pushReplacement(
-                                      //       //   context,
-                                      //       //   MaterialPageRoute(builder: (context) => HomePage()),
-                                      //       // );
-                                      //
-                                      //       // print('----570---To go with $iAgencyCode---');
-                                      //     }else{
-                                      //       // HomeScreen_2
-                                      //       // Navigator.pushReplacement(
-                                      //       //   context,
-                                      //       //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
-                                      //       // );
-                                      //       print('----HomeScreen 2---');
-                                      //
-                                      //     }
-                                      //     // Navigator.pushReplacement(
-                                      //     //   context,
-                                      //     //   MaterialPageRoute(builder: (context) => HomePage()),
-                                      //     // );
-                                      //
-                                      //   }else{
-                                      //     print('----373---To display error msg---');
-                                      //     displayToast(msg);
-                                      //
-                                      //   }
-                                      // },
-                                      child: Container(
-                                        width: double.infinity, // Make container fill the width of its parent
-                                        height: AppSize.s45,
-                                        //  padding: EdgeInsets.all(AppPadding.p5),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF255899), // Background color using HEX value
-                                          borderRadius: BorderRadius.circular(
-                                              AppMargin.m10), // Rounded corners
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            AppStrings.txtLogin,
-                                            style: TextStyle(
-                                                fontSize: AppSize.s16,
-                                                color: Colors.white),
+                      /// Todo here we mention main code for a login ui.
+                      GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                        },
+                        child: Form(
+                          key: _formKey,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10,right: 10),
+                            child: Column(
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    SizedBox(height: 10),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: AppPadding.p15, right: AppPadding.p15),
+                                      // PHONE NUMBER TextField
+                                      child: TextFormField(
+                                        focusNode: phoneNumberfocus,
+                                        controller: _phoneNumberController,
+                                        textInputAction: TextInputAction.next,
+                                        onEditingComplete: () => FocusScope.of(context).nextFocus(),
+                                        keyboardType: TextInputType.phone,
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                          //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                        ],
+                                        decoration: const InputDecoration(
+                                          labelText: AppStrings.txtMobile,
+                                          border: OutlineInputBorder(),
+                                          contentPadding: EdgeInsets.symmetric(
+                                            vertical: AppPadding.p10,
+                                            horizontal: AppPadding.p10, // Add horizontal padding
                                           ),
+
+                                          prefixIcon: Icon(
+                                            Icons.phone,
+                                            color: Color(0xFF255899),
+                                          ),
+                                          // errorBorder
+                                          // errorBorder: OutlineInputBorder(
+                                          //     borderSide: BorderSide(color: Colors.green, width: 0.5))
                                         ),
+                                        autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Enter mobile number';
+                                          }
+                                          if (value.length > 1 && value.length < 10) {
+                                            return 'Enter 10 digit mobile number';
+                                          }
+                                          return null;
+                                        },
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 13,right: 13),
-                                    child: Container(
-                                      height: 45,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute space between texts
-                                        children: [
-                                          Container(
+                                    SizedBox(height: 10),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 13,right: 13),
+                                      child: InkWell(
+                                        // onTap: (){
+                                        //   Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                                        //   );
+                                        // },
+
+                                        onTap: () async {
+                                          getLocation();
+                                          var phone = _phoneNumberController.text;
+
+                                          if(_formKey.currentState!.validate() && phone != null && phone!=''){
+                                            // Call Api
+
+                                             loginMap = await LoginRepo().login(context, phone!);
+
+
+                                            print('---358----$loginMap');
+                                            result = "${loginMap['Result']}";
+                                            msg = "${loginMap['Msg']}";
+                                            print('---361----$result');
+                                            print('---362----$msg');
+                                          }else{
+                                            if(_phoneNumberController.text.isEmpty){
+                                              phoneNumberfocus.requestFocus();
+                                            }else if(passwordController.text.isEmpty){
+                                              passWordfocus.requestFocus();
+                                            }
+                                          } // condition to fetch a response form a api
+                                          if(result=="1"){
+
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => OtpPage(phone:phone)),
+                                            );
+                                            // var iUserId = "${loginMap['Data'][0]['iUserId']}";
+                                            // var sName =
+                                            //     "${loginMap['Data'][0]['sName']}";
+                                            // var sContactNo =
+                                            //     "${loginMap['Data'][0]['sContactNo']}";
+                                            // var sDesgName =
+                                            //     "${loginMap['Data'][0]['sDesgName']}";
+                                            // var iDesgCode =
+                                            //     "${loginMap['Data'][0]['iDesgCode']}";
+                                            // var iDeptCode =
+                                            //     "${loginMap['Data'][0]['iDeptCode']}";
+                                            // var iUserTypeCode =
+                                            //     "${loginMap['Data'][0]['iUserTypeCode']}";
+                                            // var sToken =
+                                            //     "${loginMap['Data'][0]['sToken']}";
+                                            // var dLastLoginAt =
+                                            //     "${loginMap['Data'][0]['dLastLoginAt']}";
+                                            // var iAgencyCode =
+                                            //     "${loginMap['Data'][0]['iAgencyCode']}";
+
+                                            // To store value in  a SharedPreference
+
+                                            // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                            // prefs.setString('iUserId',iUserId);
+                                            // prefs.setString('sName',sName);
+                                            // prefs.setString('sContactNo',sContactNo);
+                                            // prefs.setString('sDesgName',sDesgName);
+                                            // prefs.setString('iDesgCode',iDesgCode);
+                                            // prefs.setString('iDeptCode',iDeptCode);
+                                            // prefs.setString('iUserTypeCode',iUserTypeCode);
+                                            // prefs.setString('sToken',sToken);
+                                            // prefs.setString('dLastLoginAt',dLastLoginAt);
+                                            // prefs.setString('iAgencyCode',iAgencyCode);
+                                            // // prefs.setDouble('lat',lat!);
+                                            // //prefs.setDouble('long',long!);
+                                            // String? stringName = prefs.getString('sName');
+                                            // String? stringContact = prefs.getString('sContactNo');
+                                            // iAgencyCode = prefs.getString('iAgencyCode').toString();
+                                            // print('---464-----stringContact--$stringName');
+                                            // print('---465----stringContact----$stringContact');
+                                            // print('---473----iAgencyCode----$iAgencyCode');
+                                            //
+                                            // if(iAgencyCode =="1"){
+                                            //
+                                            //   // Navigator.pushReplacement(
+                                            //   //   context,
+                                            //   //   MaterialPageRoute(builder: (context) => HomePage()),
+                                            //   // );
+                                            //
+                                            //   // print('----570---To go with $iAgencyCode---');
+                                            // }else{
+                                            //   // HomeScreen_2
+                                            //   // Navigator.pushReplacement(
+                                            //   //   context,
+                                            //   //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
+                                            //   // );
+                                            //   print('----HomeScreen 2---');
+                                            //
+                                            // }
+                                            // Navigator.pushReplacement(
+                                            //   context,
+                                            //   MaterialPageRoute(builder: (context) => HomePage()),
+                                            // );
+
+                                          }else{
+                                            print('----373---To display error msg---');
+                                            displayToast(msg);
+
+                                          }
+                                        },
+                                        child: Container(
+                                          width: double.infinity, // Make container fill the width of its parent
+                                          height: AppSize.s45,
+                                          //  padding: EdgeInsets.all(AppPadding.p5),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF255899), // Background color using HEX value
+                                            borderRadius: BorderRadius.circular(
+                                                AppMargin.m10), // Rounded corners
+                                          ),
+                                          child: const Center(
                                             child: Text(
-                                              "If you are a new user ?",
-                                              style: AppTextStyle.font14penSansBlackTextStyle,
+                                              AppStrings.txtLogin,
+                                              style: TextStyle(
+                                                  fontSize: AppSize.s16,
+                                                  color: Colors.white),
                                             ),
                                           ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              // Registration
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => const Registration()),
-                                              );
-
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.all(10.0), // 10dp padding around the text
-                                              decoration: BoxDecoration(
-                                                border: Border.all(color: Color(0xFF255899)), // Gray border color
-                                                borderRadius: BorderRadius.circular(8.0), // Rounded corners for the border
-                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 13,right: 13),
+                                      child: Container(
+                                        height: 45,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute space between texts
+                                          children: [
+                                            Container(
                                               child: Text(
-                                                "Register Here",
+                                                "If you are a new user ?",
                                                 style: AppTextStyle.font14penSansBlackTextStyle,
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            GestureDetector(
+                                              onTap: (){
+                                                // Registration
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) => const Registration()),
+                                                );
+
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.all(10.0), // 10dp padding around the text
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(color: Color(0xFF255899)), // Gray border color
+                                                  borderRadius: BorderRadius.circular(8.0), // Rounded corners for the border
+                                                ),
+                                                child: Text(
+                                                  "Register Here",
+                                                  style: AppTextStyle.font14penSansBlackTextStyle,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                  ],
+                                ),
 
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ))),
+                    ],
+                  ),
+                )),
+          )),
     );
   }
   // toast code

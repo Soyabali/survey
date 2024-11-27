@@ -7,9 +7,10 @@ import '../app/generalFunction.dart';
 import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
-class GetEmergencyContactTitleRepo {
+class GetEmergencyContactListRepo {
+
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> getEmergencyContactTitle(BuildContext context) async {
+  Future<List<Map<String, dynamic>>?> getEmergencyContactList(BuildContext context, String headCode) async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
@@ -21,7 +22,7 @@ class GetEmergencyContactTitleRepo {
 
     try {
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "GetEmergencyContactTitle/GetEmergencyContactTitle";
+      var endPoint = "GetEmergencyContactList/GetEmergencyContactList";
       var getEmergencyContactListApi = "$baseURL$endPoint";
       showLoader();
 
@@ -29,8 +30,12 @@ class GetEmergencyContactTitleRepo {
         'token': '$sToken',
         'Content-Type': 'application/json'
       };
-      var request = http.Request('GET', Uri.parse('$getEmergencyContactListApi'));
 
+      var request = http.Request('POST', Uri.parse('$getEmergencyContactListApi'));
+
+      request.body = json.encode({
+        "iHeadCode": headCode,
+      });
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       // if(response.statusCode ==401){

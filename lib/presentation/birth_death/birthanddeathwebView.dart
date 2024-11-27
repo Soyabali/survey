@@ -2,6 +2,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
 
 class BirthAndDeathWebViewStack extends StatefulWidget {
+
   const BirthAndDeathWebViewStack({super.key});
 
   @override
@@ -36,7 +37,7 @@ class _WebViewStackState extends State<BirthAndDeathWebViewStack> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)  // Enable JavaScript
       ..loadRequest(
-        Uri.parse('https://www.birthdeath.odisha.gov.in/'),
+        Uri.parse('https://dc.crsorgi.gov.in/crs/Auth/general-public'),
       );
   }
 

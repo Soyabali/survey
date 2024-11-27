@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../app/loader_helper.dart';
 import 'baseurl.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
@@ -17,7 +15,6 @@ class BindCityzenWardRepo
     String? sToken = prefs.getString('sToken');
 
     print('---19-  TOKEN---$sToken');
-
 
     try
     {

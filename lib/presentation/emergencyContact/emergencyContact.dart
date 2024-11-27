@@ -1,16 +1,13 @@
 import 'dart:math';
 
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 import '../../app/generalFunction.dart';
-import '../../app/navigationUtils.dart';
-import '../../provider/bindComplaintProvider.dart';
 import '../../services/getEmergencyContactTitleRepo.dart';
-import '../complaints/grievanceStatus/grievanceStatus.dart';
+import '../complaints/complaintHomePage.dart';
 import '../nodatavalue/NoDataValue.dart';
-import '../resources/app_text_style.dart';
+import 'emergencyContactsDetail.dart';
 import 'fireemergency/fireemergency.dart';
 
 class EmergencyContacts extends StatefulWidget {
@@ -29,6 +26,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
   bool isLoading = true;
   String? sName, sContactNo;
   // GeneralFunction generalFunction = GeneralFunction();
+
   getEmergencyTitleResponse() async {
     emergencyTitleList = await GetEmergencyContactTitleRepo().getEmergencyContactTitle(context);
     print('------31----$emergencyTitleList');
@@ -38,7 +36,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
   }
 
 
-    final List<Map<String, dynamic>> itemList2 = [
+  final List<Map<String, dynamic>> itemList2 = [
     {
       //'leadingIcon': Icons.account_balance_wallet,
       'leadingIcon': 'assets/images/credit-card.png',
@@ -121,11 +119,48 @@ class _TemplesHomeState extends State<EmergencyContacts> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack(context, '${widget.name}'),
+      // appBar: getAppBarBack(context, '${widget.name}'),
+      appBar: AppBar(
+        // statusBarColore
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Color(0xFF12375e),
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: Brightness.light, // For iOS (dark icons)
+        ),
+        // backgroundColor: Colors.blu
+        backgroundColor: Color(0xFF255898),
+        leading: GestureDetector(
+          onTap: (){
+            print("------back---");
+            //Navigator.pop(context);
 
-        drawer:
-      generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+            );
+          },
+          child: Icon(Icons.arrow_back_ios,
+            color: Colors.white,),
+        ),
+        title: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          child: Text(
+            'Department List',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'Montserrat',
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        //centerTitle: true,
+        elevation: 0, // Removes shadow under the AppBar
+      ),
 
+
+      drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body:
       isLoading
           ? Center(child: Container())
@@ -135,10 +170,9 @@ class _TemplesHomeState extends State<EmergencyContacts> {
       Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    middleHeader(context, '${widget.name}'),
+                   // middleHeader(context, '${widget.name}'),
                     Container(
-                      height: MediaQuery.of(context).size
-                          .height * 0.8, // Adjust the height as needed
+                      height: MediaQuery.of(context).size.height * 0.8, // Adjust the height as needed
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: emergencyTitleList?.length ?? 0,
@@ -149,37 +183,18 @@ class _TemplesHomeState extends State<EmergencyContacts> {
                                 padding: const EdgeInsets.symmetric(vertical: 1.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    var name = emergencyTitleList![index]['sHeadName'];
+                                    var sHeadName = emergencyTitleList![index]['sHeadName'];
                                     var iHeadCode = emergencyTitleList![index]['iHeadCode'];
-                                    var sIcon = emergencyTitleList![index]['sIcon'];
-
-
-
-                                    // sIcon
-                                    print('----categoryNmae---$name');
-                                    print('----categoryCode---$iHeadCode');
-                                    print('----sIcon---$sIcon');
-
-                                                          Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  FireEmergency(name: name,iHeadCode:iHeadCode,sIcon:sIcon),
-                                                            ),
-                                                          );
-
-
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         OnlineComplaintForm(
-                                    //             complaintName: categoryName,
-                                    //             categoryCode : categoryCode
-                                    //         ),
-                                    //   ),
-                                    // );
-                                  },
+                                  //
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EmergencyListPage(name:sHeadName,iHeadCode:iHeadCode)
+                                           // FireEmergency(name: name,iHeadCode:iHeadCode,sIcon:sIcon),
+                                      ),
+                                    );
+                                    },
 
                                   child: ListTile(
                                     leading: Container(
@@ -193,14 +208,14 @@ class _TemplesHomeState extends State<EmergencyContacts> {
                                           end: Alignment.bottomRight,
                                         ),
                                       ),
-                                      child: Center(
-                                        child: Image.asset(
-                                          itemList2[index]['leadingIcon']!,
-                                          width: 30,
-                                          height: 30,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                      // child: Center(
+                                      //   child: Image.asset(
+                                      //     itemList2[index]['leadingIcon']!,
+                                      //     width: 30,
+                                      //     height: 30,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
                                     ),
                                     title: Text(
                                       emergencyTitleList![index]['sHeadName']!,
@@ -241,92 +256,6 @@ class _TemplesHomeState extends State<EmergencyContacts> {
 
               );
             }
-
-      // body: Padding(
-      //   padding: const EdgeInsets.only(bottom: 5),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.stretch,
-      //     children: <Widget>[
-      //       middleHeader(context, '${widget.name}'),
-      //       Container(
-      //         height: MediaQuery.of(context).size.height *
-      //             0.8, // Adjust the height as needed
-      //         child: ListView.builder(
-      //           shrinkWrap: true,
-      //           itemCount: itemList2.length,
-      //           itemBuilder: (context, index) {
-      //             return Column(
-      //               children: <Widget>[
-      //                 Padding(
-      //                   padding: const EdgeInsets.symmetric(vertical: 1.0),
-      //                   child: GestureDetector(
-      //                     onTap: () {
-      //                       var name = itemList2[index]['temple'];
-      //                       Navigator.push(
-      //                         context,
-      //                         MaterialPageRoute(
-      //                           builder: (context) =>
-      //                               FireEmergency(name: name),
-      //                         ),
-      //                       );
-      //                     },
-      //                     child: ListTile(
-      //                       leading: Container(
-      //                         width: 35,
-      //                         height: 35,
-      //                         decoration: BoxDecoration(
-      //                           borderRadius: BorderRadius.circular(5),
-      //                           gradient: const LinearGradient(
-      //                             colors: [Colors.red, Colors.orange],
-      //                             begin: Alignment.topLeft,
-      //                             end: Alignment.bottomRight,
-      //                           ),
-      //                         ),
-      //                         child: Center(
-      //                           child: Image.asset(
-      //                             itemList2[index]['leadingIcon']!,
-      //                             width: 30,
-      //                             height: 30,
-      //                             fit: BoxFit.cover,
-      //                           ),
-      //                         ),
-      //                       ),
-      //                       title: Text(
-      //                         itemList2[index]['temple']!,
-      //                         style: const TextStyle(
-      //                           fontWeight: FontWeight.bold,
-      //                           fontSize: 14,
-      //                           color: Colors.black87,
-      //                         ),
-      //                       ),
-      //                       trailing: Row(
-      //                         mainAxisSize: MainAxisSize.min,
-      //                         children: [
-      //                           Image.asset(
-      //                             'assets/images/arrow.png',
-      //                             height: 12,
-      //                             width: 12,
-      //                           ),
-      //                         ],
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(left: 12,right: 12),
-      //                   child: Container(
-      //                     height: 1,
-      //                     color: Colors.grey, // Gray color for the bottom line
-      //                   ),
-      //                 ),
-      //               ],
-      //             );
-      //           },
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
 
   }
 

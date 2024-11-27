@@ -1,23 +1,18 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../app/navigationUtils.dart';
 import '../../services/verifyAppVersion.dart';
 import '../complaints/complaintHomePage.dart';
-import '../homepage/homepage.dart';
 import '../login/loginScreen_2.dart';
-import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
-import '../resources/values_manager.dart';
 
 class SplashView extends StatefulWidget {
+
   const SplashView({super.key});
 
   @override
@@ -80,15 +75,15 @@ class _SplaceState extends State<SplashView> {
     // TODO: implement initState
     checkUserConnection();
     // versionAliCall();
-   // getlocalDataBaseValue();
+    getlocalDataBaseValue();
     print('---------xx--xxxxxx-------');
     super.initState();
   }
-  getlocalDataBaseValue() async{
+  getlocalDataBaseValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('sToken');
     print('----TOKEN---87---$token');
-    if(token!=null ){
+    if(token!=null && token!=''){
       print('-----89---HomeScreen');
       Navigator.push(
         context,
@@ -108,8 +103,8 @@ class _SplaceState extends State<SplashView> {
     var loginMap = await VerifyAppVersionRepo().verifyAppVersion(context,'1');
     var result = "${loginMap['Result']}";
     var msg = "${loginMap['Msg']}";
-    //print('---73--$result');
-    //print('---74--$msg');
+    // print('---73--$result');
+    // print('---74--$msg');
 
     if(result=="1"){
      // LoginScreen_2
@@ -168,25 +163,25 @@ class SplaceScreen extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.bottomRight,
           children: [
-            Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(ImageAssets.templepuri4), // Replace 'background_image.jpg' with your image path
-                    fit: BoxFit.cover, // Cover the entire container
-                  ),
-                ),
-              ),
+            // Container(
+            //     decoration: const BoxDecoration(
+            //       image: DecorationImage(
+            //         image: AssetImage(ImageAssets.templepuri4), // Replace 'background_image.jpg' with your image path
+            //         fit: BoxFit.cover, // Cover the entire container
+            //       ),
+            //     ),
+            //   ),
             Container(
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                     Container(
-                       child: Image.asset(ImageAssets.cityname,
-                         height: 200,
-                         width: 300,),
-                     ),
+                     // Container(
+                     //   child: Image.asset(ImageAssets.cityname,
+                     //     height: 200,
+                     //     width: 300,),
+                     // ),
                      Positioned(
-                         child: Text("Puri One",
+                         child: Text('Diu Citizen',
                            style:AppTextStyle.font30penSansExtraboldWhiteTextStyle,
                          ),
                      )

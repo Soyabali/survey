@@ -1,5 +1,4 @@
 
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:puri/presentation/helpline_feedback/twitte_page.dart';
@@ -8,25 +7,26 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../app/generalFunction.dart';
 import 'package:flutter/widgets.dart';
-import '../../app/navigationUtils.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../resources/app_text_style.dart';
 import 'facebook.dart';
-import 'feedbackBottomSheet.dart';
 import 'instagrampage.dart';
 
-
 class HelpLineFeedBack extends StatefulWidget {
+
   final String name;
   final String image;
 
-  HelpLineFeedBack({Key? key, required this.name, required this.image}) : super(key: key);
+  HelpLineFeedBack({Key? key,
+    required this.name,
+    required this.image}) : super(key: key);
 
   @override
   State<HelpLineFeedBack> createState() => _HelpLineFeedBackState();
 }
 
 class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
+
   GeneralFunction generalFunction = GeneralFunction();
 
   final List<Map<String, String>> itemList = [
@@ -73,21 +73,39 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack(context,'Help Line'),
+      appBar: getAppBarBack(context,'Help Line/Feedback'),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
         children: <Widget>[
+          SizedBox(height: 10),
           Stack(
             children: <Widget>[
-              Container(
-                height: 115,
-                width: MediaQuery.of(context).size.width,
-                child: Image.network('https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg', fit: BoxFit.cover),
+              Center( // Optional: Center the circular image
+                child: ClipOval(
+                  child: Container(
+                    height: 100, // Set height to 100
+                    width: 100,  // Set width to 100
+                    child: Image.network(
+                      'https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg',
+                      fit: BoxFit.cover, // Ensures the image covers the circular area
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
+
+          // Stack(
+          //   children: <Widget>[
+          //     Container(
+          //       height: 115,
+          //       width: MediaQuery.of(context).size.width,
+          //       child: Image.network('https://images.indianexpress.com/2021/08/Puri-temple-1.jpeg', fit: BoxFit.cover),
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 5),
-          middleHeader(context, '${widget.name}'),
+         // middleHeader(context, '${widget.name}'),
           Container(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5,right: 5),
@@ -102,7 +120,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                             decoration: BoxDecoration(
                               //color: Colors.red,
                               border: Border.all(
-                                color: Colors.orange,
+                               // color: Colors.orange,
+                                color: Color(0xFF255898),
                                 // Set the golden border color
                                 width: 1.0, // Set the width of the border
                               ),
@@ -129,11 +148,11 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                             children: [
-                                              Text('Address',
+                                              Text('Diu Muncipal Council Address',
                                                   style: AppTextStyle
-                                                      .font14penSansExtraboldRedTextStyle),
+                                                      .font14penSansExtraboldBlackTextStyle),
                                               SizedBox(height: 5),
-                                              Text('Shree Jagannatha Temple Administration, Puri,Odisha',
+                                              Text('For Road, Diu,(Union territory),India',
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldBlack45TextStyle),
                                               SizedBox(height: 5),
@@ -144,7 +163,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                     ),
                                   ),
                                   Padding(
-                                        padding: const EdgeInsets.only(left: 5),
+                                        padding: const EdgeInsets.only(right: 10),
                                         child: Container(
                                           height: 20,
                                           width: 20,
@@ -152,36 +171,10 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: const Icon(Icons.location_on,
-                                              color: Colors.red,
+                                              color: Color(0xFF255898),
                                               size:
                                               22), //Image.asset('assets/images/callicon.png',
                                         )),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementtop.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                        SizedBox(height: 35),
-                                        Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementbottom.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -196,7 +189,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                             decoration: BoxDecoration(
                               //color: Colors.red,
                               border: Border.all(
-                                color: Colors.orange,
+                                color:Color(0xFF255898),
                                 // Set the golden border color
                                 width: 1.0, // Set the width of the border
                               ),
@@ -223,9 +216,9 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             children: [
                                               Text('Phone Number',
                                                   style: AppTextStyle
-                                                      .font14penSansExtraboldRedTextStyle),
+                                                      .font14penSansExtraboldBlackTextStyle),
                                               SizedBox(height: 5),
-                                              Text("112",
+                                              Text("+91-2875-253638",
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldBlack45TextStyle),
                                               SizedBox(height: 5),
@@ -238,10 +231,10 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                   InkWell(
                                     onTap: (){
                                      // launchUrlString("tel://7520014455");
-                                      launchUrlString("tel://112");
+                                      launchUrlString("tel://912875-253638");
                                     },
                                     child: Padding(
-                                        padding: const EdgeInsets.only(left: 5),
+                                        padding: const EdgeInsets.only(right: 10),
                                         child: Container(
                                           height: 20,
                                           width: 20,
@@ -249,37 +242,37 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: const Icon(Icons.phone,
-                                              color: Colors.red,
+                                              color: Color(0xFF255898),
                                               size:
                                               22), //Image.asset('assets/images/callicon.png',
                                         )),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementtop.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                        SizedBox(height: 35),
-                                        Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementbottom.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(right: 5),
+                                  //   child: Column(
+                                  //     mainAxisAlignment: MainAxisAlignment.end,
+                                  //     crossAxisAlignment: CrossAxisAlignment.end,
+                                  //     children: [
+                                  //       Align(
+                                  //         alignment: Alignment.topRight,
+                                  //         child: Image.asset(
+                                  //           "assets/images/listelementtop.png",
+                                  //           height: 25,
+                                  //           width: 25,
+                                  //         ),
+                                  //       ),
+                                  //       SizedBox(height: 35),
+                                  //       Align(
+                                  //         alignment: Alignment.bottomRight,
+                                  //         child: Image.asset(
+                                  //           "assets/images/listelementbottom.png",
+                                  //           height: 25,
+                                  //           width: 25,
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -293,7 +286,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                             decoration: BoxDecoration(
                               //color: Colors.red,
                               border: Border.all(
-                                color: Colors.orange,
+                                color:Color(0xFF255898),
                                 // Set the golden border color
                                 width: 1.0, // Set the width of the border
                               ),
@@ -319,9 +312,9 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             children: [
                                               Text('Email id',
                                                   style: AppTextStyle
-                                                      .font14penSansExtraboldRedTextStyle),
+                                                      .font14penSansExtraboldBlackTextStyle),
                                               SizedBox(height: 5),
-                                              Text('jagannath@nic.in',
+                                              Text('dmc-diu-dd@nic.in',
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldBlack45TextStyle),
                                               SizedBox(height: 5),
@@ -335,10 +328,10 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                     onTap: (){
                                       /// TODO CHANGE EMAIL IN A FUTURE
                                      // UrlLauncher.launch('mailto:${'puri@gmail.com'}');
-                                      UrlLauncher.launch('mailto:${'jagannath@nic.in'}');
+                                      UrlLauncher.launch('mailto:${'dmc-diu-dd@nic.in'}');
                                     },
                                     child: Padding(
-                                        padding: const EdgeInsets.only(left: 5),
+                                        padding: const EdgeInsets.only(right: 10),
                                         child: Container(
                                           height: 20,
                                           width: 20,
@@ -346,36 +339,10 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: const Icon(Icons.email,
-                                              color: Colors.red,
+                                              color: Color(0xFF255898),
                                               size:
                                               22), //Image.asset('assets/images/callicon.png',
                                         )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementtop.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                        SizedBox(height: 35),
-                                        Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementbottom.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ],
                               ),
@@ -390,7 +357,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                             decoration: BoxDecoration(
                               //color: Colors.red,
                               border: Border.all(
-                                color: Colors.orange,
+                                color: Color(0xFF255898),
                                 // Set the golden border color
                                 width: 1.0, // Set the width of the border
                               ),
@@ -420,10 +387,9 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                             CrossAxisAlignment.start,
                                             children: [
                                               Text('Website',
-                                                  style: AppTextStyle
-                                                      .font14penSansExtraboldRedTextStyle),
+                                                  style: AppTextStyle.font14penSansExtraboldBlackTextStyle),
                                               SizedBox(height: 5),
-                                              Text('https://www.shreejagannatha.in',
+                                              Text('https://upegov.in/website/',
                                                   style: AppTextStyle
                                                       .font14penSansExtraboldBlack45TextStyle),
                                               SizedBox(height: 5),
@@ -443,55 +409,22 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                       );
                                       },
                                     child: Padding(
-                                        padding: const EdgeInsets.only(left: 5),
-                                        child:  Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: const BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage('assets/images/webicon.jpeg'),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
+                                        padding:
+                                        const EdgeInsets.only(right: 10),
+                                        child: Padding(
+                                            padding: const EdgeInsets.only(right: 10),
+                                            child: Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5),
+                                              ),
+                                              child: const Icon(Icons.webhook,
+                                                  color: Color(0xFF255898),
+                                                  size:
+                                                  22), //Image.asset('assets/images/callicon.png',
+                                            )
                                         ),
-                                        // child: Container(
-                                        //   height: 20,
-                                        //   width: 20,
-                                        //   decoration: BoxDecoration(
-                                        //     borderRadius: BorderRadius.circular(5),
-                                        //   ),
-                                        //   child: const Icon(Icons.web,
-                                        //       color: Colors.red,
-                                        //       size:
-                                        //       22), //Image.asset('assets/images/callicon.png',
-                                        // )
-
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementtop.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                        SizedBox(height: 35),
-                                        Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: Image.asset(
-                                            "assets/images/listelementbottom.png",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                        ),
-                                      ],
                                     ),
                                   ),
                                 ],
@@ -502,9 +435,12 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                         SizedBox(height: 5),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            'Click on the Icon given below to connect with puri',
-                            style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+                          child: Center(
+                            child: Text(
+                              'Click on the Icon given below to connect with Diu Municipal Council',
+                              style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+                              textAlign: TextAlign.center, // Centers the text horizontally
+                            ),
                           ),
                         ),
                         SizedBox(height: 15),

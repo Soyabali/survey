@@ -148,7 +148,7 @@ class _TemplesHomeState extends State<HowToReach> {
                     // Circular border radius
                     border: Border.all(
                       color: Colors.yellow, // Border color
-                      width: 0.5, // Border width
+                      width: 0.5, // Border widt0
                     ),
                   ),
                   child: CustomElevatedButton(

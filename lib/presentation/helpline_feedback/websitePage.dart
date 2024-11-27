@@ -36,7 +36,7 @@ class _WebViewStackState extends State<WebSitePuri> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)  // Enable JavaScript
       ..loadRequest(
-        Uri.parse('https://www.shreejagannatha.in'),
+        Uri.parse('https://upegov.in/website/'),
       );
   }
 

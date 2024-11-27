@@ -78,7 +78,7 @@ class _TemplesHomeState extends State<FireEmergency> {
             :
         ListView(
             children: <Widget>[
-              middleHeader(context,'${widget.name}'),
+             // middleHeader(context,'${widget.name}'),
               Padding(
                 padding: const EdgeInsets.only(left: 5,right: 5,bottom: 80),
                 child: Container(
@@ -98,10 +98,10 @@ class _TemplesHomeState extends State<FireEmergency> {
                             ),
                           ),
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
+
                               var templeName = "${emergencyListResponse![index]['sName']}";
                               sContactNo  =  "${emergencyListResponse![index]['sContactNo']}";
-
                               print('-----165---$sContactNo');
 
                               // navigator
@@ -135,7 +135,8 @@ class _TemplesHomeState extends State<FireEmergency> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('${emergencyListResponse![index]['sName']}', style: GoogleFonts.openSans(
+                                            Text('${emergencyListResponse![index]['sName']}',
+                                              style: GoogleFonts.openSans(
                                               color: AppColors.green,
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
@@ -143,7 +144,8 @@ class _TemplesHomeState extends State<FireEmergency> {
                                             ),),
                                             // Text('${itemList[index]['temple']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                             SizedBox(height: 5),
-                                            Text('${emergencyListResponse![index]['sDesignation']}',style: AppTextStyle.font14penSansExtraboldRedTextStyle),
+                                            Text('${emergencyListResponse![index]['sDesignation']}',
+                                                style: AppTextStyle.font14penSansExtraboldRedTextStyle),
                                             // Row(
                                             //   mainAxisAlignment: MainAxisAlignment.start,
                                             //   children: [
@@ -157,7 +159,8 @@ class _TemplesHomeState extends State<FireEmergency> {
                                             //   ],
                                             // ),
                                             SizedBox(height: 5),
-                                            Text('${emergencyListResponse![index]['sContactNo']}',style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
+                                            Text('${emergencyListResponse![index]['sContactNo']}',
+                                                style: AppTextStyle.font14penSansExtraboldBlack45TextStyle),
 
                                           ],
                                         ),

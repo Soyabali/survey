@@ -6,33 +6,38 @@ import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
 
-class VerifyAppVersionRepo {
+class CitizenRegistrationRepo {
 
   // this is a loginApi call functin
-
   GeneralFunction generalFunction = GeneralFunction();
-  Future verifyAppVersion(BuildContext context, String sVersion) async {
+
+  Future citizenRegistration(BuildContext context, String phone, String name) async {
 
     try {
-      print('----version-----17--$sVersion');
-    ;
+      print('----phone-----17--$phone');
+      print('----name-----17--$name');
 
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "VerifyAppVersion/VerifyAppVersion";
-      var verifyAppVersionApi = "$baseURL$endPoint";
-      print('------------23---verifyAppVersionApi---$verifyAppVersionApi');
+      var endPoint = "CitizenRegistration/CitizenRegistration";
+      var registrationApi = "$baseURL$endPoint";
+      print('------------17---registrationApi---$registrationApi');
 
       showLoader();
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('$verifyAppVersionApi'));
-      request.body = json.encode({"sVersion": sVersion});
+          'POST',
+          Uri.parse('$registrationApi'));
+      request.body = json.encode(
+          {
+            "sContactNo": phone,
+            "sCitizenName": name,
+          });
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       var map;
       var data = await response.stream.bytesToString();
       map = json.decode(data);
-      print('----------20---sVersion RESPONSE----$map');
+      print('----------20---Registration response----$map');
 
       if (response.statusCode == 200) {
         // create an instance of auth class
@@ -41,7 +46,7 @@ class VerifyAppVersionRepo {
         print('----------22-----$map');
         return map;
       } else {
-        print('----------29---sVersion RESPONSE----$map');
+        print('----------29---Registration response----$map');
         hideLoader();
         print(response.reasonPhrase);
         return map;

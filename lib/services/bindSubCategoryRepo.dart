@@ -7,9 +7,11 @@ import '../app/generalFunction.dart';
 import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
-class GetEmergencyContactTitleRepo {
+class BindSubCategoryRepo {
+
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> getEmergencyContactTitle(BuildContext context) async {
+
+  Future<List?> bindSubCategory(BuildContext context, String subCategoryCode) async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
@@ -21,16 +23,20 @@ class GetEmergencyContactTitleRepo {
 
     try {
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "GetEmergencyContactTitle/GetEmergencyContactTitle";
-      var getEmergencyContactListApi = "$baseURL$endPoint";
+      var endPoint = "BindComplaintSubCategory/BindComplaintSubCategory";
+      var bindComplaintSubCategoryApi = "$baseURL$endPoint";
       showLoader();
 
       var headers = {
         'token': '$sToken',
         'Content-Type': 'application/json'
       };
-      var request = http.Request('GET', Uri.parse('$getEmergencyContactListApi'));
-
+      var request = http.Request('POST', Uri.parse('$bindComplaintSubCategoryApi'));
+      // body
+      request.body = json.encode(
+          {
+            "iCategoryCode": subCategoryCode,
+          });
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       // if(response.statusCode ==401){
@@ -40,15 +46,17 @@ class GetEmergencyContactTitleRepo {
         hideLoader();
         var data = await response.stream.bytesToString();
         Map<String, dynamic> parsedJson = jsonDecode(data);
-        List<dynamic>? dataList = parsedJson['Data'];
+        List<dynamic>? subCategory = parsedJson['Data'];
 
-        if (dataList != null) {
-          List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
-          print("xxxxx------46----: $notificationList");
-          return notificationList;
-        } else{
-          return null;
-        }
+        return subCategory;
+
+        // if (dataList != null) {
+        //   List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
+        //   print("xxxxx------46----: $notificationList");
+        //   return notificationList;
+        // } else{
+        //   return null;
+        // }
       } else {
         hideLoader();
         return null;

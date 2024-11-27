@@ -12,8 +12,8 @@ import '../temples/temple_gallery.dart';
 
 class AboutPuri extends StatefulWidget {
 
-
-  AboutPuri({super.key});
+   String name;
+  AboutPuri({super.key, required this.name});
   @override
   State<AboutPuri> createState() => _TemplesHomeState();
 }
@@ -43,7 +43,7 @@ class _TemplesHomeState extends State<AboutPuri> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack(context,"About Puri"),
+      appBar: getAppBarBack(context,"${widget.name}"),
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Column(

@@ -51,11 +51,9 @@ class NoInternetState extends State<NoInternet> {
             ),
             MaterialButton(
                 color: AppColors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => MyApp())));
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) => MyApp())));
                 },
                 child: Text("Retry",
                     style: AppTextStyle.font14OpenSansSemiBoldGreenTextStyle))
@@ -74,7 +72,7 @@ class NoInternetState extends State<NoInternet> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text('Rath Yatra - 2024',
+              child: Text('Diu Citizen',
                   style: AppTextStyle.font12OpenSansRegularBlackTextStyle),
             ),
           ],

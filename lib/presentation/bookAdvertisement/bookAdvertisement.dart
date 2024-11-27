@@ -8,19 +8,20 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../resources/app_text_style.dart';
-import '../resources/custom_elevated_button.dart';
 import '../resources/values_manager.dart';
 
 class BookAdvertisement extends StatefulWidget {
-  final complaintName;
 
-  BookAdvertisement({super.key, this.complaintName});
+  final complaintName;
+  var bookAdvertisement;
+
+  BookAdvertisement(this.bookAdvertisement, {super.key, this.complaintName});
+
   @override
   State<BookAdvertisement> createState() => _BookAdvertisementState();
 }
 
 class _BookAdvertisementState extends State<BookAdvertisement> {
-
   // Date PICKER
   DateTime selectedDate = DateTime.now();
   GeneralFunction generalFunction = GeneralFunction();
@@ -36,16 +37,20 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
   var _dropDownValueMarkLocation;
   var _selectedPointId;
   var _selectedBlockId;
+
   // Focus
   FocusNode namefieldfocus = FocusNode();
   final distDropdownFocus = GlobalKey();
+
   // controller
-  TextEditingController nameTextEditingController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+  TextEditingController contentDescriptionController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
+
   // focus
-  FocusNode locationfocus = FocusNode();
-  FocusNode descriptionfocus = FocusNode();
+  FocusNode contentfocus = FocusNode();
+  FocusNode contentDescriptionfocus = FocusNode();
+
   // PickImage
   Future pickImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -94,7 +99,8 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                             .font14penSansExtraboldBlack45TextStyle),
                   ],
                 ),
-              ), // Not necessary for Option 1
+              ),
+              // Not necessary for Option 1
               value: _dropDownValueMarkLocation,
               // key: distDropdownFocus,
               onChanged: (newValue) {
@@ -136,6 +142,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
       ),
     );
   }
+
   // bindi ward
   Widget _bindWard() {
     return Material(
@@ -163,7 +170,8 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                             .font14penSansExtraboldBlack45TextStyle),
                   ],
                 ),
-              ), // Not necessary for Option 1
+              ),
+              // Not necessary for Option 1
               value: _dropDownValueMarkLocation,
               // key: distDropdownFocus,
               onChanged: (newValue) {
@@ -208,35 +216,44 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
 
   @override
   void initState() {
-    print('-----27--${widget.complaintName}');
+    print('-----27--${widget.bookAdvertisement}');
     super.initState();
+    contentController = TextEditingController();
+    contentDescriptionController = TextEditingController();
     //BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-   // BackButtonInterceptor.remove(myInterceptor);
+    // BackButtonInterceptor.remove(myInterceptor);
+    contentController.dispose();
+    contentDescriptionController.dispose();
+    contentfocus.dispose();
+    contentDescriptionfocus.dispose();
     super.dispose();
   }
-
-  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-  //   NavigationUtils.onWillPop(context);
-  //   return true;
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBarBack(context,'${widget.complaintName}'),
-      drawer:
-      generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+      appBar: getAppBarBack(context, '${widget.bookAdvertisement}'),
+      drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: ListView(
         children: <Widget>[
-          middleHeader(context, '${widget.complaintName}'),
-          SizedBox(height: 12),
+          // middleHeader(context, '${widget.complaintName}'),
+          //SizedBox(height: 12),
+          SizedBox(
+            height: 150, // Height of the container
+            child: Image.asset(
+              'assets/images/onlinecomplaint.jpeg',
+              fit: BoxFit.cover, // Adjust the image fit to cover the container
+            ),
+          ),
+          SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
+            padding:
+            const EdgeInsets.only(left: 15, right: 15, bottom: 100, top: 10),
             child: Container(
               width: MediaQuery.of(context).size.width - 30,
               decoration: BoxDecoration(
@@ -244,28 +261,29 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color:
-                      Colors.grey.withOpacity(0.5), // Color of the shadow
+                      color: Colors.grey.withOpacity(0.5), // Color of the shadow
                       spreadRadius: 5, // Spread radius
                       blurRadius: 7, // Blur radius
                       offset: Offset(0, 3), // Offset of the shadow
                     ),
                   ]),
               child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20),
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Container(
                             margin:
-                            EdgeInsets.only(left: 0, right: 10, top: 10),
+                                EdgeInsets.only(left: 0, right: 10, top: 10),
                             child: Image.asset(
-                              'assets/images/ic_expense.png', // Replace with your image asset path
+                              'assets/images/ic_expense.png',
+                              // Replace with your image asset path
                               width: 24,
                               height: 24,
                             ),
@@ -288,11 +306,9 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                               height: 8,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.black54
-                              ),
+                                  color: Colors.black54),
                             ),
                             SizedBox(width: 5),
-
                             Text('Advertisement Place Type',
                                 style: AppTextStyle
                                     .font16penSansExtraboldBlack54TextStyle),
@@ -310,8 +326,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                               height: 8,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.black54
-                              ),
+                                  color: Colors.black54),
                             ),
                             SizedBox(width: 5),
                             Text('Advertisement Place',
@@ -331,8 +346,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                               height: 8,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.black54
-                              ),
+                                  color: Colors.black54),
                             ),
                             SizedBox(width: 5),
                             Text('Advertisement Plan',
@@ -352,8 +366,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                               height: 8,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.black54
-                              ),
+                                  color: Colors.black54),
                             ),
                             SizedBox(width: 5),
                             Text('Content Type',
@@ -370,8 +383,8 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              focusNode: locationfocus,
-                              controller: _locationController,
+                              focusNode: contentfocus,
+                              controller: contentController,
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
@@ -382,7 +395,8 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: AppPadding.p10),
                               ),
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               // validator: (value) {
                               //   if (value!.isEmpty) {
                               //     return 'Enter location';
@@ -403,8 +417,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                               height: 8,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.black54
-                              ),
+                                  color: Colors.black54),
                             ),
                             SizedBox(width: 5),
                             Text('Content Description',
@@ -421,8 +434,8 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              focusNode: locationfocus,
-                              controller: _locationController,
+                              focusNode: contentDescriptionfocus,
+                              controller: contentDescriptionController,
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () =>
                                   FocusScope.of(context).nextFocus(),
@@ -434,7 +447,7 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                                     vertical: AppPadding.p10),
                               ),
                               autovalidateMode:
-                              AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                               // validator: (value) {
                               //   if (value!.isEmpty) {
                               //     return 'Enter location';
@@ -447,274 +460,153 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
                       ),
                       SizedBox(height: 20),
                       /// TODO pick date and as a ui TO Date and FromDATE
-                    Row(
-                      children: [
-                        // First Container
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2101),
-                              );
+                      Row(
+                        children: [
+                          // First Container
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2101),
+                                );
 
-                              if (pickedDate != null) {
-                                String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
-                                setState(() {
-                                  _fromDate = formattedDate;
-                                });
-                              }
-                            },
-                            child: Container(
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 4,
-                                    offset: Offset(2, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Image(
-                                      image: AssetImage('assets/images/calendar.png'),
-                                      width: 30.0,
-                                      height: 30.0,
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      _fromDate,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                      textAlign: TextAlign.center,
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      DateFormat('dd/MMM/yyyy')
+                                          .format(pickedDate);
+                                  setState(() {
+                                    _fromDate = formattedDate;
+                                  });
+                                }
+                              },
+                              child: Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(2, 2),
                                     ),
                                   ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Image(
+                                        image: AssetImage(
+                                            'assets/images/calendar.png'),
+                                        width: 30.0,
+                                        height: 30.0,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        _fromDate,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 10),
-                        // Second Container
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2101),
-                              );
+                          SizedBox(width: 10),
+                          // Second Container
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2101),
+                                );
 
-                              if (pickedDate != null) {
-                                String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
-                                setState(() {
-                                  _toDate = formattedDate;
-                                });
-                              }
-                            },
-                            child: Container(
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 4,
-                                    offset: Offset(2, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Image(
-                                      image: AssetImage('assets/images/calendar.png'),
-                                      width: 30.0,
-                                      height: 30.0,
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      _toDate,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                      textAlign: TextAlign.center,
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      DateFormat('dd/MMM/yyyy')
+                                          .format(pickedDate);
+                                  setState(() {
+                                    _toDate = formattedDate;
+                                  });
+                                }
+                              },
+                              child: Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(2, 2),
                                     ),
                                   ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Image(
+                                        image: AssetImage(
+                                            'assets/images/calendar.png'),
+                                        width: 30.0,
+                                        height: 30.0,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        _toDate,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-
-                      //  Row(
-                      //             children: [
-                      //             // First Container
-                      //               Expanded(
-                      //                 child: GestureDetector(
-                      //                   onTap: ()async {
-                      //                     DateTime? pickedDate = await showDatePicker(
-                      //                       context: context,
-                      //                       initialDate: DateTime.now(),
-                      //                       firstDate: DateTime(2000),
-                      //                       lastDate: DateTime(2101),
-                      //                     );
-                      //
-                      //                     if (pickedDate != null) {
-                      //                       String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
-                      //                       setState(() {
-                      //                         _fromDate = formattedDate;
-                      //                       });
-                      //                     }
-                      //                   },
-                      //                   child: Container(
-                      //                     height: 70,
-                      //                     //color: Colors.blue,
-                      //                     decoration: const BoxDecoration(
-                      //                       color: Colors.blueGrey,
-                      //                       borderRadius: BorderRadius.only(
-                      //                         topLeft: Radius.circular(5),
-                      //                         topRight: Radius.circular(5),
-                      //                         bottomLeft: Radius.circular(5),
-                      //                         bottomRight: Radius.circular(5),
-                      //                       ),
-                      //                     ),
-                      //                     child: Padding(
-                      //                       padding: const EdgeInsets.only(left: 10,top: 5),
-                      //                       child: Center(
-                      //                         child: Column(
-                      //                           mainAxisAlignment: MainAxisAlignment.start,
-                      //                           crossAxisAlignment: CrossAxisAlignment.start,
-                      //                           children: [
-                      //                             const Center(
-                      //                               child: Image(
-                      //                                   image: AssetImage('assets/images/calendar.png'),
-                      //                                   width: 30.0,
-                      //                                   height: 30.0,
-                      //                                   fit: BoxFit.fill,
-                      //                                 ),
-                      //                             ),
-                      //                             SizedBox(height: 10),
-                      //                             Center(
-                      //                               child: Text(_fromDate,
-                      //                                   style: AppTextStyle
-                      //                                       .font140penSansExtraboldWhiteTextStyle),
-                      //                             )
-                      //                            // Icon(Icons.calendar_month,size: 25),
-                      //                           ],
-                      //                         ),
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             SizedBox(width: 5),
-                      //             // Second Container
-                      //             Expanded(
-                      //               child: GestureDetector(
-                      //                 onTap: ()async {
-                      //                   print('--To Date---');
-                      //                   DateTime? pickedDate = await showDatePicker(
-                      //                     context: context,
-                      //                     initialDate: DateTime.now(),
-                      //                     firstDate: DateTime(2000),
-                      //                     lastDate: DateTime(2101),
-                      //                   );
-                      //
-                      //                   if (pickedDate != null) {
-                      //                     String formattedDate = DateFormat('dd/MMM/yyyy').format(pickedDate);
-                      //                     setState(() {
-                      //                       _toDate = formattedDate;
-                      //                     });
-                      //                   }
-                      //                 },
-                      //                 child: Container(
-                      //                   height: 70,
-                      //                   //color: Colors.blue,
-                      //                   decoration: const BoxDecoration(
-                      //                     color: Colors.red,
-                      //                     borderRadius: BorderRadius.only(
-                      //                       topLeft: Radius.circular(5),
-                      //                       topRight: Radius.circular(5),
-                      //                       bottomLeft: Radius.circular(5),
-                      //                       bottomRight: Radius.circular(5),
-                      //                     ),
-                      //                   ),
-                      //                   child: Padding(
-                      //                     padding: const EdgeInsets.only(left: 10,top: 5),
-                      //                     child: Column(
-                      //                       mainAxisAlignment: MainAxisAlignment.start,
-                      //                       crossAxisAlignment: CrossAxisAlignment.start,
-                      //                       children: [
-                      //                         const Center(
-                      //                           child: Image(
-                      //                             image: AssetImage('assets/images/calendar.png'),
-                      //                             width: 30.0,
-                      //                             height: 30.0,
-                      //                             fit: BoxFit.fill,
-                      //                           ),
-                      //                         ),
-                      //                         SizedBox(height: 10),
-                      //                         // Text('To Date',
-                      //                         //     style: AppTextStyle
-                      //                         //         .font140penSansExtraboldWhiteTextStyle),
-                      //                         Center(
-                      //                           child: Text(_toDate,
-                      //                             style: AppTextStyle
-                      //                                 .font140penSansExtraboldWhiteTextStyle),
-                      //                         )
-                      //                       ],
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
+                        ],
+                      ),
                       SizedBox(height: 15),
                       Center(
                         child: Container(
-                          height: 45,
+                          width: double.infinity,
+                          // Make container fill the width of its parent
+                          height: AppSize.s45,
+                          padding: EdgeInsets.all(AppPadding.p5),
                           decoration: BoxDecoration(
-                            color: Colors.red,
-                            // Background color of the container
-                            borderRadius: BorderRadius.circular(28.0),
-                            // Circular border radius
-                            border: Border.all(
-                              color: Colors.yellow, // Border color
-                              width: 0.5, // Border width
+                            color: Color(0xFF255898),
+                            // Background color using HEX value
+                            borderRadius: BorderRadius.circular(AppMargin.m10), // Rounded corners
+                          ),
+                          //  #00b3c7
+                          child: Center(
+                            child: Text(
+                              "Submit",
+                              style: AppTextStyle
+                                  .font16OpenSansRegularWhiteTextStyle,
                             ),
                           ),
-                          child: CustomElevatedButton(
-                            text: 'Submit',
-                            onTap: () {
-                              print('---Live Darshan-----');
-                              // Navigator.of(context).push(MaterialPageRoute(builder: (_) => TempleGallery(
-                              //)));
-                            },
-                          ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -723,8 +615,6 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
           ),
         ],
       ),
-
     );
-
   }
 }

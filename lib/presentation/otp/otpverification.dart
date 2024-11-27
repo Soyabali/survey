@@ -18,8 +18,9 @@ class OtpPage extends StatefulWidget {
   State<OtpPage> createState() => _MyHomePageState();
 }
 class _MyHomePageState extends State<OtpPage> {
-
+  var phoneNumber;
   TextEditingController _nameController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   List<TextEditingController>? controllers;
@@ -40,6 +41,7 @@ class _MyHomePageState extends State<OtpPage> {
     // TODO: implement initState
     super.initState();
     print('------45----${widget.phone}');
+    phoneNumber = "${widget.phone}";
     _contactNofocus = FocusNode();
     controllers = List.generate(4, (_) => TextEditingController());
     focusNodes = List.generate(4, (_) => FocusNode());
@@ -259,14 +261,14 @@ class _MyHomePageState extends State<OtpPage> {
 
 
                                                   if (_formKey.currentState!.validate() &&
-                                                      otp != null && contactNo != null)
+                                                      otp != null && phoneNumber != null)
                                                     {
                                                       print('----otp----276---$otp');
                                                       print('----contactNo----269---$contactNo');
 
-                                                      verifyCitizenOtpMap = await VerifyCitizenOtpRepo()
-                                                          .verifyCitizenOtp(context, otp!, '${widget.phone}');
-                                                      print('-----verifyCityzen----283---$verifyCitizenOtpMap');
+                                                      verifyCitizenOtpMap = await VerifyCitizenOtpRepo().verifyCitizenOtp(context, otp!, '${widget.phone}');
+                                                      print('-----verifyCityzen----270---$verifyCitizenOtpMap');
+
                                                           result = "${verifyCitizenOtpMap['Result']}";
                                                           msg = "${verifyCitizenOtpMap['Msg']}";
                                                           print('---410----$result');

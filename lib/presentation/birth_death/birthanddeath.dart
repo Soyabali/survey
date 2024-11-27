@@ -40,7 +40,7 @@ class _BirthAndDeathState extends State<BirthAndDeathCertificate> {
     return Scaffold(
       backgroundColor: Colors.white,
      // appBar: getAppBarBack(context,'${widget.name}'),
-      appBar: getAppBarBack(context,"Birth & Death Certificate"),
+      appBar: getAppBarBack(context,"${widget.name}"),
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body: Container(
           height: MediaQuery.of(context).size.height,

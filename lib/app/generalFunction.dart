@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../presentation/complaints/complaintHomePage.dart';
 import '../presentation/homepage/homepage.dart';
 import '../presentation/login/loginScreen_2.dart';
 import '../presentation/resources/app_text_style.dart';
@@ -33,6 +35,172 @@ Future<String> loadPdfFromAssets(String assetPath) async {
   } catch (e) {
     print(e);
     return '';
+  }
+}
+// call dialog
+Widget buildDialogCall(BuildContext context, String sEmpName, String sContactNo) {
+  return Dialog(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+    elevation: 0,
+    backgroundColor: Colors.transparent,
+    child: Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Container(
+          height: 170,
+          padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Space for the image
+              Row(
+                children: [
+                  Icon(
+                    Icons.phone, // Exclamation icon
+                    color: Colors.red, // Color of the icon
+                    size: 22, // Size of the icon
+                  ),
+                  SizedBox(width: 8), // Spacing between the icon and text
+                  Text(
+                    'Phone Call',
+                    style: TextStyle(
+                      fontSize: 16, // Adjust font size
+                      fontWeight: FontWeight.bold, // Make the text bold
+                      color: Colors.black, // Text color
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Expanded( // Wrap the text in Expanded to allow it to take available space and wrap
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Do you want to call ', // Regular text
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600]), // Default text style
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '$sEmpName', // Highlighted text
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold, // Bold only for the name
+                          color: Color(0xff3f617d), // Optional: Change color for the name
+                        ),
+                      ),
+                      TextSpan(
+                        text: '?', // Regular text after the name
+                      ),
+                    ],
+                  ),
+                ),
+                // child: Text(
+                //   "Do you want to call Ashish Babu",
+                //   style: TextStyle(
+                //     fontSize: 12,
+                //     color: Colors.grey[600],
+                //   ),
+                //   textAlign: TextAlign.left, // Align the text to the left
+                //   softWrap: true, // Allow text to wrap
+                //   maxLines: 2, // Set the maximum number of lines the text can take
+                //   overflow: TextOverflow.ellipsis, // Add ellipsis if the text exceeds the available space
+                // ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                height: 35, // Reduced height to 35
+                padding: EdgeInsets.symmetric(horizontal: 5), // Adjust padding as needed
+                decoration: BoxDecoration(
+                  color: Colors.white, // Container background color
+                  borderRadius: BorderRadius.circular(15), // Rounded corners
+                  border: Border.all(color: Colors.grey), // Border color
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+
+                          //generalFunction.logout(context);
+                          Navigator.of(context).pop();
+                        },
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero, // Remove default padding
+                          minimumSize: Size(0, 0), // Remove minimum size constraints
+                          backgroundColor: Colors.white, // Button background
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15), // Button border radius
+                          ),
+                        ),
+                        child: Text(
+                          'No',
+                          style: GoogleFonts.openSans(
+                            color: Colors.red, // Text color for "Yes"
+                            fontSize: 12, // Adjust font size to fit the container
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                    VerticalDivider(
+                      color: Colors.grey, // Divider color
+                      width: 20, // Space between buttons
+                      thickness: 1, // Thickness of the divider
+                    ),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          // getLocation();
+                          // Navigator.of(context).pop();
+                          _makePhoneCall("${sContactNo}");
+
+                          print("----Phone call----");
+                        },
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero, // Remove default padding
+                          minimumSize: Size(0, 0), // Remove minimum size constraints
+                          backgroundColor: Colors.white, // Button background
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15), // Button border radius
+                          ),
+                        ),
+                        child: Text(
+                          'Yes',
+                          style: GoogleFonts.openSans(
+                            color: Colors.green, // Text color for "No"
+                            fontSize: 12, // Adjust font size to fit the container
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+        ),
+
+      ],
+    ),
+  );
+}
+
+// phoneCall method
+void _makePhoneCall(String phoneNumber) async {
+  final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+  if (await canLaunchUrl(phoneUri)) {
+    await launchUrl(phoneUri);
+  } else {
+    throw 'Could not launch $phoneUri';
   }
 }
 
@@ -211,12 +379,12 @@ middleHeaderPuri(BuildContext context, String templeName) {
      // statusBarColore
      iconTheme: IconThemeData(color: Colors.white),
      systemOverlayStyle: const SystemUiOverlayStyle(
-       statusBarColor: Color(0xFF2a697b),
+       statusBarColor: Color(0xFF12375e),
        statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
        statusBarBrightness: Brightness.light, // For iOS (dark icons)
      ),
      // backgroundColor: Colors.blu
-     backgroundColor: Color(0xFF0098a6),
+     backgroundColor: Color(0xFF255898),
      title: Padding(
        padding: EdgeInsets.symmetric(horizontal: 5),
        child: Text(
@@ -275,12 +443,20 @@ getAppBarBack(BuildContext context ,String title) {
   return AppBar(
     // statusBarColore
     systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarColor: Color(0xFF2a697b),
+      statusBarColor: Color(0xFF12375e),
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
       statusBarBrightness: Brightness.light, // For iOS (dark icons)
     ),
     // backgroundColor: Colors.blu
-    backgroundColor: Color(0xFF0098a6),
+    backgroundColor: Color(0xFF255898),
+    leading: GestureDetector(
+      onTap: (){
+        print("------back---");
+        Navigator.pop(context);
+      },
+      child: Icon(Icons.arrow_back_ios,
+        color: Colors.white,),
+    ),
     title: Padding(
       padding: EdgeInsets.symmetric(horizontal: 5),
       child: Text(
@@ -320,22 +496,79 @@ class GeneralFunction {
           (route) => false, // Pop all routes until this page
     );
   }
-  // drawerFunction
-
+  // drawerfuntiion 2
   drawerFunction(BuildContext context, String sName, String sContactNo) {
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           DrawerHeader(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/puriOned4.png'),
-                fit: BoxFit.cover,
+            decoration: const BoxDecoration(
+              color: Color(0xFF0098a6),
+
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+
+                  // internetImage(
+                  //   '$sEmpImage',
+                  //   fit: BoxFit.cover,
+                  // ),
+                  // Container(
+                  //   width: 80,
+                  //   height: 80,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.grey[300], // Light gray color
+                  //     borderRadius: BorderRadius.circular(40), // Border radius of 40
+                  //   ),
+                  //   /// todo apply a funcation to set a internet images
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(14.0),
+                  //     child: Container(
+                  //       child:   Image.asset('assets/images/post_complaint.png',
+                  //         fit: BoxFit.cover,
+                  //        ),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(height: 10),
+                  Text(
+                    sName,
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  Text(
+                    "email",
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ],
               ),
             ),
-            child: Container(),
           ),
+          // Drawer
+          // DrawerHeader(
+          //   decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //       image: AssetImage('assets/images/puriOned4.png'),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          //   child: Container(),
+          // ),
+
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: SingleChildScrollView(
@@ -345,8 +578,11 @@ class GeneralFunction {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => ComplaintHomePage()),
                       );
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(builder: (context) => HomePage()),
+                      // );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -354,11 +590,11 @@ class GeneralFunction {
                         Image.asset('assets/images/home.png',
                             width: 25,
                             height: 25),
-                           // color: Colors.red),
+                        // color: Colors.red),
                         const SizedBox(width: 10),
                         Text('Home',
                             style: AppTextStyle
-                                .font16penSansExtraboldRedTextStyle),
+                                .font16penSansExtraboldBlackTextStyle),
                       ],
                     ),
                   ),
@@ -389,9 +625,9 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('Temples',
+                        Text('Advertisement Booking Status',
                             style: AppTextStyle
-                                .font16penSansExtraboldRedTextStyle),
+                                .font16penSansExtraboldBlackTextStyle),
                       ],
                     ),
                   ),
@@ -414,9 +650,9 @@ class GeneralFunction {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'City History',
+                          'Notification',
                           style:
-                              AppTextStyle.font16penSansExtraboldRedTextStyle,
+                          AppTextStyle.font16penSansExtraboldBlackTextStyle,
                         ),
                       ],
                     ),
@@ -437,9 +673,170 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('Weather',
+                        Text('Logout',
                             style: AppTextStyle
-                                .font16penSansExtraboldRedTextStyle),
+                                .font16penSansExtraboldBlackTextStyle),
+                      ],
+                    ),
+                  ),
+                  // const SizedBox(height: 15),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(builder: (context) => HowToReach()),
+                  //     );
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Image.asset(
+                  //         'assets/images/how_to_rech.png',
+                  //         width: 25,
+                  //         height: 25,
+                  //       ),
+                  //       const SizedBox(width: 10),
+                  //       Text('How To Reach',
+                  //           style: AppTextStyle
+                  //               .font16penSansExtraboldRedTextStyle),
+                  //     ],
+                  //   ),
+                  // ),
+                  // SizedBox(height: 15),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  // drawerFunction
+
+  drawerFunction_2(BuildContext context, String sName, String sContactNo) {
+    return Drawer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Color(0xFF255898),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300], // Light gray color
+                      borderRadius: BorderRadius.circular(40), // Border radius of 40
+                    ),
+                    /// todo apply a funcation to set a internet images
+                    child: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Container(
+                        child:   Image.asset('assets/images/clear_sky_front.png',
+                          fit: BoxFit.cover,
+                         ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    sName,
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  Text(
+                    sContactNo,
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+          ),
+          // Drawer
+          // DrawerHeader(
+          //   decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //       image: AssetImage('assets/images/puriOned4.png'),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          //   child: Container(),
+          // ),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                      );
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(builder: (context) => HomePage()),
+                      // );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Image.asset('assets/images/home.png',
+                            width: 25,
+                            height: 25),
+                           // color: Colors.red),
+                        const SizedBox(width: 10),
+                        Text('Home',
+                            style: AppTextStyle
+                                .font16penSansExtraboldBlackTextStyle),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: ()async {
+                      // lat and long in a sharedPreferenc
+                      //
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      double? lat = prefs.getDouble('lat');
+                      double? long = prefs.getDouble('long');
+                      print('---334---lat---$lat');
+                      print('---335---long---$long');
+
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
+                      // );
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => TemplesHome()),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/images/templepin.png',
+                          width: 25,
+                          height: 25,
+                        ),
+                        const SizedBox(width: 10),
+                        Text('Advertisement Booking Status',
+                            style: AppTextStyle
+                                .font16penSansExtraboldBlackTextStyle),
                       ],
                     ),
                   ),
@@ -447,30 +844,123 @@ class GeneralFunction {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => HowToReach()),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CityHistory(templeName: "", image: "")),
                       );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Image.asset(
-                          'assets/images/how_to_rech.png',
+                          'assets/images/cityhistory.png',
                           width: 25,
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text('How To Reach',
-                            style: AppTextStyle
-                                .font16penSansExtraboldRedTextStyle),
+                        Text(
+                          'Notification',
+                          style:
+                              AppTextStyle.font16penSansExtraboldBlackTextStyle,
+                        ),
                       ],
                     ),
                   ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () async {
+                      // clear all store SharedPreferenceValue :
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.clear(); // This removes all stored data
+
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                      );
+
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/images/weather.png',
+                          width: 25,
+                          height: 25,
+                        ),
+                        const SizedBox(width: 10),
+                        Text('Logout',
+                            style: AppTextStyle
+                                .font16penSansExtraboldBlackTextStyle),
+                      ],
+                    ),
+                  ),
+                  // const SizedBox(height: 15),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(builder: (context) => HowToReach()),
+                  //     );
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Image.asset(
+                  //         'assets/images/how_to_rech.png',
+                  //         width: 25,
+                  //         height: 25,
+                  //       ),
+                  //       const SizedBox(width: 10),
+                  //       Text('How To Reach',
+                  //           style: AppTextStyle
+                  //               .font16penSansExtraboldRedTextStyle),
+                  //     ],
+                  //   ),
+                  // ),
                  // SizedBox(height: 15),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // inter net images
+  Widget internetImage(String imageUrl, {double size = 80.0, BoxFit fit = BoxFit.cover}) {
+    return ClipOval(
+      child: Image.network(
+        imageUrl,
+        width: size,
+        height: size,
+        fit: fit,
+        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) {
+            return child; // Image is fully loaded, so display it
+          } else {
+            // Show a CircularProgressIndicator while the image is loading
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
+            );
+          }
+        },
+        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+          // Show an error icon if the image fails to load
+          return Container(
+            height: 50, // Set the height of the container
+            width: 50,  // Set the width of the container
+            decoration: BoxDecoration(
+              color: Colors.grey.shade400, // Background color
+              borderRadius: BorderRadius.circular(50), // Make the corners rounded
+            ),
+            child: ClipOval( // Clip the child to a circle
+            ),
+          );
+          // return Icon(Icons.error, color: Colors.red, size: size / 2);
+        },
       ),
     );
   }

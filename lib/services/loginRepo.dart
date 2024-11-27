@@ -6,33 +6,36 @@ import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
 
-class VerifyAppVersionRepo {
+class LoginRepo {
 
   // this is a loginApi call functin
-
   GeneralFunction generalFunction = GeneralFunction();
-  Future verifyAppVersion(BuildContext context, String sVersion) async {
+
+  Future login(BuildContext context, String phone) async {
 
     try {
-      print('----version-----17--$sVersion');
-    ;
+      print('----phone-----17--$phone');
 
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "VerifyAppVersion/VerifyAppVersion";
-      var verifyAppVersionApi = "$baseURL$endPoint";
-      print('------------23---verifyAppVersionApi---$verifyAppVersionApi');
+      var endPoint = "SendOTPForCitizenLogin/SendOTPForCitizenLogin";
+      var loginApi = "$baseURL$endPoint";
+      print('------------17---loginApi---$loginApi');
 
       showLoader();
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('$verifyAppVersionApi'));
-      request.body = json.encode({"sVersion": sVersion});
+          'POST',
+          Uri.parse('$loginApi'));
+      request.body = json.encode(
+          {
+            "sContactNo": phone
+          });
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       var map;
       var data = await response.stream.bytesToString();
       map = json.decode(data);
-      print('----------20---sVersion RESPONSE----$map');
+      print('----------20---LOGINaPI RESPONSE----$map');
 
       if (response.statusCode == 200) {
         // create an instance of auth class
@@ -41,7 +44,7 @@ class VerifyAppVersionRepo {
         print('----------22-----$map');
         return map;
       } else {
-        print('----------29---sVersion RESPONSE----$map');
+        print('----------29---LOGINaPI RESPONSE----$map');
         hideLoader();
         print(response.reasonPhrase);
         return map;
