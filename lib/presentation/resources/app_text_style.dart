@@ -85,7 +85,16 @@ class AppTextStyle {
   );
   // Black 45 --14
   static TextStyle font14OpenSansRegularBlack45TextStyle = GoogleFonts.openSans(
-    color: Colors.black45,
+    color: Colors.black54,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    // textStyle: Theme.of(context).textTheme.titleSmall,
+
+  );
+  // black 26
+  static TextStyle font14OpenSansRegularBlack26TextStyle = GoogleFonts.openSans(
+    color: Colors.black26,
     fontSize: 14,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,

@@ -7,6 +7,7 @@ import '../../app/generalFunction.dart';
 import '../../services/getEmergencyContactTitleRepo.dart';
 import '../complaints/complaintHomePage.dart';
 import '../nodatavalue/NoDataValue.dart';
+import '../resources/app_text_style.dart';
 import 'emergencyContactsDetail.dart';
 import 'fireemergency/fireemergency.dart';
 
@@ -26,6 +27,18 @@ class _TemplesHomeState extends State<EmergencyContacts> {
   bool isLoading = true;
   String? sName, sContactNo;
   // GeneralFunction generalFunction = GeneralFunction();
+  final List<Color> borderColors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.teal,
+    Colors.brown,
+    Colors.cyan,
+    Colors.amber,
+  ];
 
   getEmergencyTitleResponse() async {
     emergencyTitleList = await GetEmergencyContactTitleRepo().getEmergencyContactTitle(context);
@@ -84,18 +97,6 @@ class _TemplesHomeState extends State<EmergencyContacts> {
     },
     ];
 
-  final List<Color> borderColors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.orange,
-    Colors.purple,
-    Colors.pink,
-    Colors.teal,
-    Colors.brown,
-    Colors.cyan,
-    Colors.amber,
-  ];
 
   Color getRandomBorderColor() {
     final random = Random();
@@ -121,7 +122,6 @@ class _TemplesHomeState extends State<EmergencyContacts> {
       backgroundColor: Colors.white,
       // appBar: getAppBarBack(context, '${widget.name}'),
       appBar: AppBar(
-        // statusBarColore
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Color(0xFF12375e),
           statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
@@ -131,34 +131,25 @@ class _TemplesHomeState extends State<EmergencyContacts> {
         backgroundColor: Color(0xFF255898),
         leading: GestureDetector(
           onTap: (){
-            print("------back---");
-            //Navigator.pop(context);
-
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ComplaintHomePage()),
             );
           },
-          child: Icon(Icons.arrow_back_ios,
+          child: const Icon(Icons.arrow_back_ios,
             color: Colors.white,),
         ),
         title: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5),
           child: Text(
             'Department List',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'Montserrat',
-            ),
+            style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
             textAlign: TextAlign.center,
           ),
         ),
         //centerTitle: true,
         elevation: 0, // Removes shadow under the AppBar
       ),
-
 
       drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
       body:
@@ -177,6 +168,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
                         shrinkWrap: true,
                         itemCount: emergencyTitleList?.length ?? 0,
                         itemBuilder: (context, index) {
+                       final color = borderColors[index % borderColors.length];
                           return Column(
                             children: <Widget>[
                               Padding(
@@ -198,32 +190,20 @@ class _TemplesHomeState extends State<EmergencyContacts> {
 
                                   child: ListTile(
                                     leading: Container(
-                                      width: 35,
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        gradient: const LinearGradient(
-                                          colors: [Colors.red, Colors.orange],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          color: color, // Set the dynamic color
+                                          borderRadius: BorderRadius.circular(5),
                                         ),
-                                      ),
-                                      // child: Center(
-                                      //   child: Image.asset(
-                                      //     itemList2[index]['leadingIcon']!,
-                                      //     width: 30,
-                                      //     height: 30,
-                                      //     fit: BoxFit.cover,
-                                      //   ),
-                                      // ),
+                                        child: const Icon(Icons.ac_unit,
+                                          color: Colors.white,
+                                        )
                                     ),
                                     title: Text(
                                       emergencyTitleList![index]['sHeadName']!,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Colors.black87,
-                                      ),
+                                      style: AppTextStyle.font14OpenSansRegularBlackTextStyle,
+
                                     ),
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -232,6 +212,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
                                           'assets/images/arrow.png',
                                           height: 12,
                                           width: 12,
+                                          color: color
                                         ),
                                       ],
                                     ),

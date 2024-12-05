@@ -256,7 +256,7 @@ class _LoginPageState extends State<RegistrationPage> {
                           width: AppSize.s50,
                           height: AppSize.s50,
                           child: Image.asset(
-                            "assets/images/home.png",
+                            "assets/images/dmc_logo.png",
                             // ImageAssets.noidaauthoritylogo, // Replace with your image asset path
                             width: AppSize.s50,
                             height: AppSize.s50,
@@ -268,7 +268,7 @@ class _LoginPageState extends State<RegistrationPage> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 5),
                             child: Image.asset(
-                              ImageAssets.favicon, // Replace with your image asset path
+                              "assets/images/daman_state_logo.png", // Replace with your image asset path
                               width: 40,
                               height: 40,
                               fit: BoxFit.cover,
@@ -293,12 +293,19 @@ class _LoginPageState extends State<RegistrationPage> {
                         padding: const EdgeInsets.all(AppMargin.m16),
                         child: Center(
                           child: Image.asset(
-                            "assets/images/home.png",
-                            //ImageAssets.loginIcon, // Replace with your image asset path
+                            //"assets/images/ic_launcher.png",
+                            ImageAssets.iclauncher, // Replace with your image asset path
                             width: AppSize.s145,
                             height: AppSize.s145,
                             fit: BoxFit.contain, // Adjust as needed
                           ),
+                          // child: Image.asset(
+                          //   "assets/images/home.png",
+                          //   //ImageAssets.loginIcon, // Replace with your image asset path
+                          //   width: AppSize.s145,
+                          //   height: AppSize.s145,
+                          //   fit: BoxFit.contain, // Adjust as needed
+                          // ),
                         ),
                       ),
                     ),
@@ -348,7 +355,7 @@ class _LoginPageState extends State<RegistrationPage> {
                                         ),
 
                                         prefixIcon: Icon(
-                                          Icons.phone,
+                                          Icons.how_to_reg,
                                           color: Color(0xFF255899),
                                         ),
                                         // errorBorder
@@ -357,15 +364,15 @@ class _LoginPageState extends State<RegistrationPage> {
                                       ),
                                       autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Enter User Name';
-                                        }
-                                        // if (value.length > 1 && value.length < 10) {
-                                        //   return 'Enter 10 digit mobile number';
-                                        // }
-                                        return null;
-                                      },
+                                      // validator: (value) {
+                                      //   if (value!.isEmpty) {
+                                      //     return 'Enter User Name';
+                                      //   }
+                                      //   // if (value.length > 1 && value.length < 10) {
+                                      //   //   return 'Enter 10 digit mobile number';
+                                      //   // }
+                                      //   return null;
+                                      // },
                                     ),
                                   ),
                                   SizedBox(height: 10),
@@ -401,15 +408,15 @@ class _LoginPageState extends State<RegistrationPage> {
                                       ),
                                       autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Enter mobile number';
-                                        }
-                                        if (value.length > 1 && value.length < 10) {
-                                          return 'Enter 10 digit mobile number';
-                                        }
-                                        return null;
-                                      },
+                                      // validator: (value) {
+                                      //   if (value!.isEmpty) {
+                                      //     return 'Enter mobile number';
+                                      //   }
+                                      //   if (value.length > 1 && value.length < 10) {
+                                      //     return 'Enter 10 digit mobile number';
+                                      //   }
+                                      //   return null;
+                                      // },
                                     ),
                                   ),
                                   SizedBox(height: 10),
@@ -417,68 +424,32 @@ class _LoginPageState extends State<RegistrationPage> {
                                     padding: const EdgeInsets.only(left: 13,right: 13),
                                     child: InkWell(
                                       onTap: () async {
-                                       // getLocation();
-                                        var phone = _phoneNumberController.text;
-                                        var name = _userController.text;
+                                         var name = _userController.text.trim();
+                                        var phone = _phoneNumberController.text.trim();
 
-                                        if(_formKey.currentState!.validate() && phone != null && name != null){
+                                        if(_formKey.currentState!.validate() && name.isNotEmpty && phone.isNotEmpty){
                                           // Call Api
+                                          loginMap = await CitizenRegistrationRepo().citizenRegistration(context, name!, phone);
 
-                                           loginMap = await CitizenRegistrationRepo().citizenRegistration(context, phone!, name);
-
-
-                                          print('---431----$loginMap');
+                                          print('---358----$loginMap');
                                           result = "${loginMap['Result']}";
                                           msg = "${loginMap['Msg']}";
-                                          print('---434----$result');
-                                          print('---435----$msg');
+                                          print('---361----$result');
+                                          print('---362----$msg');
                                         }else{
-                                          if(_phoneNumberController.text.isEmpty){
-                                            phoneNumberfocus.requestFocus();
-                                          }else if(_userController.text.isEmpty){
-                                            userfocus.requestFocus();
+                                          if(name.isEmpty){
+                                           displayToast("Please Enter Name");
+                                           return;
+                                          } if(phone.isEmpty){
+                                            displayToast("Please Enter Mobile Number");
                                           }
                                         } // condition to fetch a response form a api
                                         if(result=="1"){
-                                          var iCitizenCode = "${loginMap['Data'][0]['iCitizenCode']}";
-                                          var sContactNo = "${loginMap['Data'][0]['sContactNo']}";
-                                          var sCitizenName = "${loginMap['Data'][0]['sCitizenName']}";
-                                          var sToken = "${loginMap['Data'][0]['sToken']}";
-                                          // To store value in  a SharedPreference
 
-                                          SharedPreferences prefs = await SharedPreferences.getInstance();
-                                          prefs.setString('iCitizenCode',iCitizenCode);
-                                          prefs.setString('sContactNo',sContactNo);
-                                          prefs.setString('sCitizenName',sCitizenName);
-                                          prefs.setString('sToken',sToken);
-
-                                           // navigate to login screen
-                                           Navigator.pushReplacement(context,
-                                             MaterialPageRoute(builder: (context) => LoginScreen_2()),);
-
-                                          if(iCitizenCode =="1"){
-
-                                            // Navigator.pushReplacement(
-                                            //   context,
-                                            //   MaterialPageRoute(builder: (context) => HomePage()),
-                                            // );
-
-
-
-                                            // print('----xxxx--------493---');
-                                          }else{
-                                            // HomeScreen_2
-                                            // Navigator.pushReplacement(
-                                            //   context,
-                                            //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
-                                            // );
-                                            print('----xxxx--------500---');
-
-                                          }
-                                          // Navigator.pushReplacement(
-                                          //   context,
-                                          //   MaterialPageRoute(builder: (context) => HomePage()),
-                                          // );
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => OtpPage(phone:phone)),
+                                          );
 
                                         }else{
                                           print('----373---To display error msg---');
@@ -486,6 +457,82 @@ class _LoginPageState extends State<RegistrationPage> {
 
                                         }
                                       },
+                                      // onTap: () async {
+                                      //  // getLocation();
+                                      //   var phone = _phoneNumberController.text;
+                                      //   var name = _userController.text;
+                                      //   print("-----423---$phone");
+                                      //   print("-----424---$name");
+                                      //
+                                      //   if(_formKey.currentState!.validate() && phone != null && name != null){
+                                      //     // Call Api
+                                      //
+                                      //      loginMap = await CitizenRegistrationRepo().citizenRegistration(context, phone!, name);
+                                      //
+                                      //      print('---431----$loginMap');
+                                      //
+                                      //     result = "${loginMap['Result']}";
+                                      //     msg = "${loginMap['Msg']}";
+                                      //     print('---434----$result');
+                                      //     print('---435----$msg');
+                                      //   }else{
+                                      //     if(name.isEmpty){
+                                      //      // phoneNumberfocus.requestFocus();
+                                      //       displayToast("Please enter User name");
+                                      //       return;
+                                      //     }else if(phone.isEmpty){
+                                      //       //userfocus.requestFocus();
+                                      //       displayToast("Please enter Mobile Number");
+                                      //     }
+                                      //   } // condition to fetch a response form a api
+                                      //   if(result=="1"){
+                                      //
+                                      //     // var iCitizenCode = "${loginMap['Data'][0]['iCitizenCode']}";
+                                      //     // var sContactNo = "${loginMap['Data'][0]['sContactNo']}";
+                                      //     // var sCitizenName = "${loginMap['Data'][0]['sCitizenName']}";
+                                      //     // var sToken = "${loginMap['Data'][0]['sToken']}";
+                                      //     // // To store value in  a SharedPreference
+                                      //     //
+                                      //     // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      //     // prefs.setString('iCitizenCode',iCitizenCode);
+                                      //     // prefs.setString('sContactNo',sContactNo);
+                                      //     // prefs.setString('sCitizenName',sCitizenName);
+                                      //     // prefs.setString('sToken',sToken);
+                                      //
+                                      //      // navigate to login screen
+                                      //      Navigator.pushReplacement(context,
+                                      //        MaterialPageRoute(builder: (context) => LoginScreen_2()),);
+                                      //
+                                      //     if(iCitizenCode =="1"){
+                                      //
+                                      //       // Navigator.pushReplacement(
+                                      //       //   context,
+                                      //       //   MaterialPageRoute(builder: (context) => HomePage()),
+                                      //       // );
+                                      //
+                                      //
+                                      //
+                                      //       // print('----xxxx--------493---');
+                                      //     }else{
+                                      //       // HomeScreen_2
+                                      //       // Navigator.pushReplacement(
+                                      //       //   context,
+                                      //       //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
+                                      //       // );
+                                      //       print('----xxxx--------500---');
+                                      //
+                                      //     }
+                                      //     // Navigator.pushReplacement(
+                                      //     //   context,
+                                      //     //   MaterialPageRoute(builder: (context) => HomePage()),
+                                      //     // );
+                                      //
+                                      //   }else{
+                                      //     print('----373---To display error msg---');
+                                      //     displayToast(msg);
+                                      //
+                                      //   }
+                                      // },
                                       child: Container(
                                         width: double.infinity, // Make container fill the width of its parent
                                         height: AppSize.s45,
@@ -516,10 +563,10 @@ class _LoginPageState extends State<RegistrationPage> {
                                         children: [
                                           GestureDetector(
                                             onTap: (){
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => OtpPage(phone: "987195081",)),
-                                              );
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(builder: (context) => OtpPage(phone: "987195081",)),
+                                              // );
                                             },
                                             child: Container(
                                               child: Text(

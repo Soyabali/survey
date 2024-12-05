@@ -264,7 +264,7 @@ class _MyHomePageState extends State<OtpPage> {
                                                       otp != null && phoneNumber != null)
                                                     {
                                                       print('----otp----276---$otp');
-                                                      print('----contactNo----269---$contactNo');
+                                                      print('----contactNo----269---${{widget.phone}}');
 
                                                       verifyCitizenOtpMap = await VerifyCitizenOtpRepo().verifyCitizenOtp(context, otp!, '${widget.phone}');
                                                       print('-----verifyCityzen----270---$verifyCitizenOtpMap');

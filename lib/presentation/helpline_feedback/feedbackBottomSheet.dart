@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../app/generalFunction.dart';
+import '../../services/PostOccupancyCertificateReq.dart';
+import '../../services/feedbackRepo.dart';
+import '../circle/circle.dart';
+import '../resources/app_text_style.dart';
+import '../resources/assets_manager.dart';
 import '../resources/custom_elevated_button.dart';
 import '../resources/values_manager.dart';
 
-
 class FeedbackBottomSheet extends StatelessWidget {
-
   final TextEditingController _feedbackController = TextEditingController();
 
   @override
@@ -16,6 +21,7 @@ class FeedbackBottomSheet extends StatelessWidget {
     );
   }
 }
+
 class FeedbackForm extends StatefulWidget {
   const FeedbackForm({super.key});
 
@@ -24,202 +30,169 @@ class FeedbackForm extends StatefulWidget {
 }
 
 class _FeedbackFormState extends State<FeedbackForm> {
-
   TextEditingController _feedbackController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  FocusNode namefocus = FocusNode();
+  FocusNode feedbackfocus = FocusNode();
+  var result,msg;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   void dispose() {
     _feedbackController.dispose();
+    feedbackfocus.dispose();
     super.dispose();
   }
+  // rest api call
+  void validateAndCallApi() async {
+    // Trim values to remove leading/trailing spaces
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Contact No
+    String? sContactNo = prefs.getString('sContactNo');
+
+    var feedback = _feedbackController.text.trim();
+    final isFormValid = _formKey.currentState!.validate();
+
+ // Validate all conditions
+    if (isFormValid &&
+        feedback.isNotEmpty) {
+      // All conditions met; call the API
+      print('---Call API---');
+
+      var feedbackResponse = await FeedbackRepo().feedfack(
+          context,
+          feedback
+      );
+      print('----845---->>.--->>>>---$feedbackResponse');
+      result = feedbackResponse['Result'];
+      msg = feedbackResponse['Msg'];
+      displayToast(msg);
+      // Your API call logic here
+    } else {
+      // If conditions fail, display appropriate error messages
+      print('--Not Call API--');
+      if (feedback.isEmpty) {
+        displayToast('Please enter Feedback');
+        return;
+      }
+    }
+  }
+
   void clearText() {
     _feedbackController.clear();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-         body: Form(
-           key: _formKey,
-           child: SingleChildScrollView(
-             child: Column(
-               children: <Widget>[
-                 Container(
-                   height: AppSize.s145,
-                   width: MediaQuery.of(context).size.width - 50,
-                   margin: const EdgeInsets.all(AppMargin.m20),
-                   decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(8.0),
-                     image: const DecorationImage(
-                       image: AssetImage(
-                         'assets/images/temple_3.png',
-                       ),
-                       fit: BoxFit.fill,
-                     ),
-                   ),
-                 ),
-                 SizedBox(height: 10),
-                 Padding(
-                   padding: const EdgeInsets.only(
-                     left: 15, // Adjusted padding value
-                     right: 15, // Adjusted padding value
-                   ),
-                   child: Container(
-                     height: 80, // Adjusted container height
-                     child: TextFormField(
-                       focusNode: namefocus,
-                       controller: _feedbackController,
-                       minLines: 2, // Minimum number of lines
-                       maxLines: 2, // Maximum number of lines
-                       textInputAction: TextInputAction.next,
-                       onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                       decoration: const InputDecoration(
-                         label: Padding(
-                           padding: EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
-                           child: Text('Enter Feedback'),
-                         ),
-                         border: OutlineInputBorder(),
-                         focusedBorder: OutlineInputBorder(
-                           borderSide: BorderSide(color: Colors.orange),
-                         ),
-                         enabledBorder: OutlineInputBorder(
-                           borderSide: BorderSide(color: Colors.orange),
-                         ),
-                         contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0), // Adjusted content padding
-                         prefixIcon: Icon(
-                           Icons.feedback,
-                           color: Colors.orange,
-                         ),
-                       ),
-                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                       validator: (value) {
-                         if (value!.isEmpty) {
-                           return 'Enter Feedback';
-                         }
-                         return null;
-                       },
-                     ),
-                   ),
-                 ),
-                 // Padding(
-                 //   padding: const EdgeInsets.only(
-                 //       left: AppPadding.p15, right: AppPadding.p15),
-                 //   child: Container(
-                 //     height: 40,
-                 //     child: TextFormField(
-                 //       focusNode: namefocus,
-                 //       controller: _feedbackController,
-                 //       maxLines: 2,
-                 //       textInputAction: TextInputAction.next,
-                 //       onEditingComplete: () =>
-                 //           FocusScope.of(context).nextFocus(),
-                 //       decoration: const InputDecoration(
-                 //         // labelText: 'Mobile',
-                 //         label: Padding(
-                 //           padding: const EdgeInsets.symmetric(horizontal: 8.0), // Padding for the label
-                 //           child: Text('Enter Feedback'),
-                 //         ),
-                 //         border: OutlineInputBorder(),
-                 //         focusedBorder: OutlineInputBorder(
-                 //           borderSide: BorderSide(color: Colors.orange),
-                 //         ),
-                 //         enabledBorder: OutlineInputBorder(
-                 //           borderSide: BorderSide(color: Colors.orange),
-                 //         ),
-                 //         contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                 //         prefixIcon: Icon(
-                 //           Icons.feedback,
-                 //           color: Colors.orange,
-                 //         ),
-                 //       ),
-                 //       autovalidateMode:
-                 //       AutovalidateMode.onUserInteraction,
-                 //       validator: (value) {
-                 //         if (value!.isEmpty) {
-                 //           return 'Enter Feedback';
-                 //         }
-                 //         return null;
-                 //       },
-                 //     ),
-                 //   ),
-                 //
-                 // ),
-                 SizedBox(height: 20),
-                 /// LoginButton code and onclik Operation
-                 Center(
-                   child: Container(
-                     height: 35,
-                     decoration: BoxDecoration(
-                       color: Colors.red,
-                       // Background color of the container
-                       borderRadius: BorderRadius.circular(28.0),
-                       // Circular border radius
-                       border: Border.all(
-                         color: Colors.yellow, // Border color
-                         width: 0.5, // Border width
-                       ),
-                     ),
-                     child: CustomElevatedButton(
-                       text: 'Submit Feedback',
-                       onTap: () async {
-                         //  getLocation();
-                         // var phone = _phoneNumberController.text;
-                         //
-                         // if (_formKey.currentState!.validate() &&
-                         //     phone != null) {
-                         //   // Call Api
-                         //   print('-----311----phone---$phone');
-                         //   loginMap =
-                         //   await SendOtpForCitizenLoginRepo()
-                         //       .sendOtpForCitizenLogin(
-                         //       context, phone!);
-                         //
-                         //   print('---311----$loginMap');
-                         //   result = "${loginMap['Result']}";
-                         //   msg = "${loginMap['Msg']}";
-                         //   print('---315----$result');
-                         //   print('---316----$msg');
-                         // } else {
-                         //   if (_phoneNumberController.text.isEmpty) {
-                         //     phoneNumberfocus.requestFocus();
-                         //   } else if (passwordController
-                         //       .text.isEmpty) {
-                         //     passWordfocus.requestFocus();
-                         //   }
-                         // } // condition to fetch a response form a api
-                         // if (result == "1") {
-                         //   print('--Login Success---');
-                         //   _showToast(context, msg);
-                         //   Navigator.push(
-                         //     context,
-                         //     MaterialPageRoute(
-                         //         builder: (context) => OtpPage(
-                         //             phone: _phoneNumberController
-                         //                 .text)),
-                         //   );
-                         // } else {
-                         //   _showToast(context, msg);
-                         //   print(
-                         //       '----373---To display error msg---');
-                         // }
-                       },
-                     ),
-                   ),
-                 ),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 10),
+                Center(
+                  child: Image.asset(
+                    //"assets/images/home.png",
+                    ImageAssets.iclauncher, // Replace with your image asset path
+                    width: AppSize.s145,
+                    height: AppSize.s145,
+                    fit: BoxFit.contain, // Adjust as needed
+                  ),
+                ),
+                SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(width: 5),
+                    CircleWithSpacing(),
+                    Text('Feedback',
+                        style:
+                            AppTextStyle.font14OpenSansRegularBlack45TextStyle),
+                  ],
+                ),
+                SizedBox(height: 5),
 
-               ],
-             ),
-           ),
-         ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15, // Adjusted padding value
+                    right: 15, // Adjusted padding value
+                  ),
+                  child: Container(
+                   // height: 80, // Adjusted container height
+                    child: Expanded(
+                        child: TextFormField(
+                      focusNode: feedbackfocus, // Focus node for the text field
+                      controller:
+                          _feedbackController, // Controller to manage the text field's value
+                      textInputAction:
+                          TextInputAction.next, // Set action for the keyboard
+                      onEditingComplete: () => FocusScope.of(context)
+                          .nextFocus(), // Move to next input on completion
+                      decoration: const InputDecoration(
+                        border:
+                            OutlineInputBorder(), // Add a border around the text field
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 10.0,
+                        ), // Adjust padding inside the text field
+                        filled:
+                            true, // Enable background color for the text field
+                        fillColor: Colors.white,
+                        // fillColor: Color(0xFFf2f3f5), // Set background color
+                        // hintText: "Email ID", // Placeholder text when field is empty
+                        hintStyle: TextStyle(
+                            color:
+                                Colors.grey), // Style for the placeholder text
+                      ),
+                      autovalidateMode: AutovalidateMode
+                          .onUserInteraction, // Enable validation on user interaction
+                    )),
+                  ),
+                ),
+                SizedBox(height: 10),
 
+                /// LoginButton code and onclik Operation
+                InkWell(
+                  onTap: () {
+                     validateAndCallApi();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15,right: 15),
+                    child: Container(
+                      // Make container fill the width of its parent
+                      height: AppSize.s45,
+                      padding: EdgeInsets.all(AppPadding.p5),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF255898),
+                        // Background color using HEX value
+                        borderRadius: BorderRadius.circular(
+                            AppMargin.m10), // Rounded corners
+                      ),
+                      //  #00b3c7
+                      child: Center(
+                        child: Text(
+                          "Submit",
+                          style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

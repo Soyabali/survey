@@ -213,183 +213,133 @@ class _MyHomePageState extends State<EmergencyListPage> {
                           return Card(
                             elevation: 1,
                             color: Colors.white,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(0.0),
-                                border: Border.all(
-                                  color: Colors.grey, // Outline border color
-                                  width: 0.2, // Outline border width
-                                ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8), // Consistent border radius
+                              side: const BorderSide(
+                                color: Colors.grey, // Border color
+                                width: 0.2,         // Border width
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 0, right: 8, top: 8),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          GestureDetector(
-                                            onTap: () {
-                                              // var images =
-                                              //     leaveStatus.sEmpImage;
-                                              // var designation =
-                                              //     leaveStatus.sDsgName;
-                                              //
-                                              // openFullScreenDialog(
-                                              //     context,
-                                              //     images,
-                                              //     designation
-                                              // );
-                                            },
-                                            child: Center(
-                                              child: ClipOval(
-                                                // Clip the image to make it circular
-                                                child: Container(
-                                                  height: 35,
-                                                  width: 35,
-                                                  color: Colors.grey,
-                                                ),
-                                                // child: Container(
-                                                //     child: leaveStatus.sEmpImage != null && leaveStatus.sEmpImage.isNotEmpty
-                                                //         ? Image.network(
-                                                //       leaveStatus.sEmpImage, // Replace with your image URL
-                                                //       height: 35, // Adjust height as needed
-                                                //       width: 35, // Adjust width as needed
-                                                //       fit: BoxFit.cover, // Make the image cover the container
-                                                //     )
-                                                //         : Container(
-                                                //       height: 50, // Set the height of the container
-                                                //       width: 50,  // Set the width of the container
-                                                //       decoration: BoxDecoration(
-                                                //         color: Colors.grey.shade400, // Background color
-                                                //         borderRadius: BorderRadius.circular(50), // Make the corners rounded
-                                                //       ),
-                                                //       child: ClipOval( // Clip the child to a circle
-                                                //       ),
-                                                //     )
-                                                // ),
-                                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0), // Padding inside the card
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      // change a image
+
+                                      GestureDetector(
+                                        onTap: () {
+                                          // Handle image tap
+                                        },
+                                        child: ClipOval(
+                                          child: Container(
+                                            height: 35,
+                                            width: 35,
+                                            color: Colors.grey, // Fallback color if image doesn't load
+                                            child: Image.asset(
+                                              'assets/images/human.png', // Path to your asset image
+                                              fit: BoxFit.cover, // Ensures the image fills the circle properly
                                             ),
                                           ),
+                                        ),
+                                      ),
 
-                                          SizedBox(width: 10),
-                                          // Wrap the column in Flexible to prevent overflow
-                                          Flexible(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
+                                      SizedBox(width: 10),
+                                      Flexible(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              emergencyList![index]['sName']!,
+                                              style: AppTextStyle.font14OpenSansRegularBlackTextStyle,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            Row(
+                                              children: [
                                                 Text(
-                                                  emergencyList![index]['sName']!,
-
-                                                  //'Prabhat Yadav',
-                                                  style: AppTextStyle
-                                                      .font12OpenSansRegularBlackTextStyle,
-                                                  maxLines: 2,
-                                                  // Limits the text to 2 lines
-                                                  overflow: TextOverflow
-                                                      .ellipsis, // Truncates with an ellipsis if too long
+                                                  "Designation : ",
+                                                  style: AppTextStyle.font14OpenSansRegularBlackTextStyle,
                                                 ),
-                                                // SizedBox(height: 4), // Add spacing between texts if needed
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10),
-                                                  child: Text(
-                                                    emergencyList![index]['sDesignation']!,
-
-                                                    style: AppTextStyle
-                                                        .font12OpenSansRegularBlack45TextStyle,
-                                                    maxLines: 2,
-                                                    // Limits the text to 2 lines
-                                                    overflow: TextOverflow
-                                                        .ellipsis, // Truncates with an ellipsis if too long
-                                                  ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  emergencyList![index]['sDesignation']!,
+                                                  style: AppTextStyle.font12OpenSansRegularBlack45TextStyle,
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            // Background color
-                                            border: Border.all(
-                                              color: Color(0xFF255898),
-                                              // Border color
-                                              width: 2, // Border width
-                                            ),
-                                            borderRadius: BorderRadius.circular(
-                                                8), // Optional: Rounded corners
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(4),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                            color: Color(0xFF255898),
+                                            width: 2,
                                           ),
-                                          child: Center(
-                                            child: Text(
-                                                "Mobile No: ${emergencyList![index]['sContactNo']!}",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                          ),
+                                          borderRadius: BorderRadius.circular(8),
                                         ),
-                                        SizedBox(width: 5),
-                                        Container(
-                                          height: 30,
-                                          child: ElevatedButton(
-                                              onPressed: () {
-                                                /// todo to show dialog box
-                                                ///
-                                                ///
-                                                var sEmpName = "${emergencyList![index]['sName']!}";
-                                                var sContactNo = "${emergencyList![index]['sContactNo']!}";
-                                                //-------
-
-                                                showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return buildDialogCall(
-                                                          context,
-                                                          sEmpName,
-                                                          sContactNo);
-                                                    });
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Contact No : ",
+                                              style: AppTextStyle.font14OpenSansRegularBlackTextStyle,
+                                            ),
+                                            SizedBox(width: 5),
+                                            Text(
+                                              emergencyList![index]['sContactNo']!,
+                                              style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      SizedBox(
+                                        height: 30,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            var sEmpName = "${emergencyList![index]['sName']!}";
+                                            var sContactNo = "${emergencyList![index]['sContactNo']!}";
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return buildDialogCall(context, sEmpName, sContactNo);
                                               },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: Color(0xFF255898),
-                                                // Button background color
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          17), // Border radius
-                                                ),
-                                              ),
-                                              child: Text(
-                                                'Call',
-                                                style: AppTextStyle
-                                                    .font16OpenSansRegularWhiteTextStyle,
-                                              )),
+                                            );
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color(0xFF255898),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            'Call',
+                                            style: AppTextStyle.font14OpenSansRegularWhiteTextStyle,
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 5),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           );
-                        }))
+                        }
+                        ))
               ],
             ),
           ),

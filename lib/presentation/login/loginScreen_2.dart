@@ -249,34 +249,38 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
+
                           Container(
                             margin: const EdgeInsets.all(AppMargin.m10),
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(ImageAssets.roundcircle), // Replace with your image asset path
+                                image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
                                 fit: BoxFit.cover,
                               ),
                             ),
                             width: AppSize.s50,
                             height: AppSize.s50,
                             child: Image.asset(
-                              "assets/images/home.png",
-                             // ImageAssets.noidaauthoritylogo, // Replace with your image asset path
+                              ImageAssets.logintopleft,
                               width: AppSize.s50,
                               height: AppSize.s50,
                             ),
                           ),
                           Expanded(child: Container()),
                           Container(
-                            margin: EdgeInsets.only(right: 5),
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: Image.asset(
-                                ImageAssets.favicon, // Replace with your image asset path
-                                width: 40,
-                                height: 40,
+                            margin: const EdgeInsets.all(AppMargin.m10),
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
                                 fit: BoxFit.cover,
                               ),
+                            ),
+                            width: AppSize.s50,
+                            height: AppSize.s50,
+                            child: Image.asset(
+                              ImageAssets.toprightlogin,
+                              width: AppSize.s50,
+                              height: AppSize.s50,
                             ),
                           ),
                         ],
@@ -297,8 +301,8 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.all(AppMargin.m16),
                           child: Center(
                             child: Image.asset(
-                              "assets/images/home.png",
-                              //ImageAssets.loginIcon, // Replace with your image asset path
+                              //"assets/images/home.png",
+                              ImageAssets.iclauncher, // Replace with your image asset path
                               width: AppSize.s145,
                               height: AppSize.s145,
                               fit: BoxFit.contain, // Adjust as needed
@@ -412,69 +416,6 @@ class _LoginPageState extends State<LoginPage> {
                                               context,
                                               MaterialPageRoute(builder: (context) => OtpPage(phone:phone)),
                                             );
-                                            // var iUserId = "${loginMap['Data'][0]['iUserId']}";
-                                            // var sName =
-                                            //     "${loginMap['Data'][0]['sName']}";
-                                            // var sContactNo =
-                                            //     "${loginMap['Data'][0]['sContactNo']}";
-                                            // var sDesgName =
-                                            //     "${loginMap['Data'][0]['sDesgName']}";
-                                            // var iDesgCode =
-                                            //     "${loginMap['Data'][0]['iDesgCode']}";
-                                            // var iDeptCode =
-                                            //     "${loginMap['Data'][0]['iDeptCode']}";
-                                            // var iUserTypeCode =
-                                            //     "${loginMap['Data'][0]['iUserTypeCode']}";
-                                            // var sToken =
-                                            //     "${loginMap['Data'][0]['sToken']}";
-                                            // var dLastLoginAt =
-                                            //     "${loginMap['Data'][0]['dLastLoginAt']}";
-                                            // var iAgencyCode =
-                                            //     "${loginMap['Data'][0]['iAgencyCode']}";
-
-                                            // To store value in  a SharedPreference
-
-                                            // SharedPreferences prefs = await SharedPreferences.getInstance();
-                                            // prefs.setString('iUserId',iUserId);
-                                            // prefs.setString('sName',sName);
-                                            // prefs.setString('sContactNo',sContactNo);
-                                            // prefs.setString('sDesgName',sDesgName);
-                                            // prefs.setString('iDesgCode',iDesgCode);
-                                            // prefs.setString('iDeptCode',iDeptCode);
-                                            // prefs.setString('iUserTypeCode',iUserTypeCode);
-                                            // prefs.setString('sToken',sToken);
-                                            // prefs.setString('dLastLoginAt',dLastLoginAt);
-                                            // prefs.setString('iAgencyCode',iAgencyCode);
-                                            // // prefs.setDouble('lat',lat!);
-                                            // //prefs.setDouble('long',long!);
-                                            // String? stringName = prefs.getString('sName');
-                                            // String? stringContact = prefs.getString('sContactNo');
-                                            // iAgencyCode = prefs.getString('iAgencyCode').toString();
-                                            // print('---464-----stringContact--$stringName');
-                                            // print('---465----stringContact----$stringContact');
-                                            // print('---473----iAgencyCode----$iAgencyCode');
-                                            //
-                                            // if(iAgencyCode =="1"){
-                                            //
-                                            //   // Navigator.pushReplacement(
-                                            //   //   context,
-                                            //   //   MaterialPageRoute(builder: (context) => HomePage()),
-                                            //   // );
-                                            //
-                                            //   // print('----570---To go with $iAgencyCode---');
-                                            // }else{
-                                            //   // HomeScreen_2
-                                            //   // Navigator.pushReplacement(
-                                            //   //   context,
-                                            //   //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
-                                            //   // );
-                                            //   print('----HomeScreen 2---');
-                                            //
-                                            // }
-                                            // Navigator.pushReplacement(
-                                            //   context,
-                                            //   MaterialPageRoute(builder: (context) => HomePage()),
-                                            // );
 
                                           }else{
                                             print('----373---To display error msg---');

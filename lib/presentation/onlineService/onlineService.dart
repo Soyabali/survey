@@ -1,19 +1,22 @@
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:puri/presentation/onlineService/propertyAssessment/propertyAssessment.dart';
+import 'package:puri/presentation/onlineService/propertyTax/propertyTax.dart';
 import '../../app/generalFunction.dart';
 import '../../services/getEmergencyContactTitleRepo.dart';
+import '../aboutDiu/Aboutdiupage.dart';
 import '../complaints/complaintHomePage.dart';
-import '../onlineComplaint/onlineComplaintForm.dart';
 import '../nodatavalue/NoDataValue.dart';
+import '../resources/app_text_style.dart';
+import 'buildingPlan/buildingPlan.dart';
 
 
 class OnlineServives extends StatefulWidget {
-  final name;
 
+  final name;
   OnlineServives({super.key, this.name});
 
   @override
@@ -24,14 +27,14 @@ class _OnlineComplaintState extends State<OnlineServives> {
 
   GeneralFunction generalFunction = GeneralFunction();
 
-  List<Map<String, dynamic>>? emergencyTitleList;
+  List<Map<String,dynamic>>? emergencyTitleList;
   bool isLoading = true; // logic
   String? sName, sContactNo;
   // GeneralFunction generalFunction = GeneralFunction();
 
   getEmergencyTitleResponse() async {
     emergencyTitleList = await GetEmergencyContactTitleRepo().getEmergencyContactTitle(context);
-    print('------31----$emergencyTitleList');
+    print('------34----$emergencyTitleList');
     setState(() {
       isLoading = false;
     });
@@ -85,6 +88,18 @@ class _OnlineComplaintState extends State<OnlineServives> {
       'temple': 'Other Important Numbers'
     },
   ];
+  var OnlineTitle = ["Property Tax",
+    "Building Plan",
+    "Property Assessment",
+    "License",
+    "Community Hall",
+    "Water Supply",
+    "Electricity Bill",
+    "Mamlatdar Diu"
+  ];
+  // "Water Supply",
+  // "Electricity Bill",
+  // "Mamlatdar Diu"
 
   final List<Color> borderColors = [
     Colors.red,
@@ -166,7 +181,7 @@ class _OnlineComplaintState extends State<OnlineServives> {
       body:
       isLoading
           ? Center(child: Container())
-          : (emergencyTitleList == null || emergencyTitleList!.isEmpty)
+          : (OnlineTitle == null || OnlineTitle!.isEmpty)
           ? NoDataScreenPage()
           :
       Column(
@@ -177,61 +192,96 @@ class _OnlineComplaintState extends State<OnlineServives> {
             height: MediaQuery.of(context).size.height * 0.8, // Adjust the height as needed
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: emergencyTitleList?.length ?? 0,
+             // itemCount: emergencyTitleList?.length ?? 0,
+              itemCount: OnlineTitle?.length ?? 0,
               itemBuilder: (context, index) {
+             final color = borderColors[index % borderColors.length];
                 return Column(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 1.0),
                       child: GestureDetector(
                         onTap: () {
-                          var name = emergencyTitleList![index]['sHeadName'];
-                          var iHeadCode = emergencyTitleList![index]['iHeadCode'];
-                          var sIcon = emergencyTitleList![index]['sIcon'];
+                          // var name = emergencyTitleList![index]['sHeadName'];
+                          // var iHeadCode = emergencyTitleList![index]['iHeadCode'];
+                          // var sIcon = emergencyTitleList![index]['sIcon'];
 
+                          var title = OnlineTitle[index];
                           // sIcon
-                          print('----categoryNmae---$name');
-                          print('----categoryCode---$iHeadCode');
-                          print('----sIcon---$sIcon');
+                          print('----title---207---$title');
+                          if(title=="Property Tax"){
+                            //  PropertyTax
+                            var name = "Property Tax";
 
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PropertyTaxDiu(name:name)),
+                            );
 
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         OnlineComplaintForm(name:name),
-                          //   ),
-                          // );
+                            //print('------209---Property Tax');
+                          }else if(title=="Building Plan"){
+                            //   BuildingPlan
+                           // print('------211---Building Plan');
+                            var name ="Building Plan";
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => BuildingPlan(name:name)),
+                            );
+                          }else if(title=="Property Assessment"){
+                            // PropertyAssessment
+                            var sName = "Property Assessment";
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PropertyAssessment(name:sName,iCategoryCode:"")),
+                            );
+                            print('------213---Property Assessment');
+                          }else if(title=="License"){
+                            print('------215---License');
+                          }else if(title=="Community Hall"){
+                            print('------217---Community Hall');
+                          }else if(title=="Water Supply"){
+                            print('------219---Water Supply');
+                          }else if(title=="Electricity Bill"){
+                            print("-------221--Electricity Bill--");
+                            var sPageName = "Electricity Bill";
+                            var sPageLink = "https://connect.torrentpower.com/tplcp/index.php/crCustmast/quickpay";
 
-                        },
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => AboutDiuPage(name:sPageName,sPageLink:sPageLink)),
+                            );
+
+                          }else if(title=="Mamlatdar Diu"){
+                            print("-------223--Mamlatdar Diu--");
+                            var sPageName = "Mamlatdar Diu";
+                            var sPageLink = "https://sugam.dddgov.in/mamlatdar-diu";
+                            // AboutDiuPage(name:sPageName,sPageLink:sPageLink);
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => AboutDiuPage(name:sPageName,sPageLink:sPageLink)),
+                            );
+                          }else{
+                            print("-----225---");
+                          }
+                          },
                         child: ListTile(
                           leading: Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              gradient: const LinearGradient(
-                                colors: [Colors.red, Colors.orange],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: color, // Set the dynamic color
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                itemList2[index]['leadingIcon']!,
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                              child: const Icon(Icons.ac_unit,
+                                color: Colors.white,
+                              )
                           ),
                           title: Text(
-                            emergencyTitleList![index]['sHeadName']!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.black87,
-                            ),
+                            //emergencyTitleList![index]['sHeadName']!,
+                           // "Property Tax",
+                            OnlineTitle[index],
+                            style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -240,6 +290,7 @@ class _OnlineComplaintState extends State<OnlineServives> {
                                 'assets/images/arrow.png',
                                 height: 12,
                                 width: 12,
+                                color: color,
                               ),
                             ],
                           ),

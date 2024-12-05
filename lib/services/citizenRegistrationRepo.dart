@@ -11,7 +11,7 @@ class CitizenRegistrationRepo {
   // this is a loginApi call functin
   GeneralFunction generalFunction = GeneralFunction();
 
-  Future citizenRegistration(BuildContext context, String phone, String name) async {
+  Future citizenRegistration(BuildContext context, String name, String phone) async {
 
     try {
       print('----phone-----17--$phone');

@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import '../../app/generalFunction.dart';
+import '../../services/aboutdiuRepo.dart';
 import '../../services/getEmergencyContactTitleRepo.dart';
 import '../birth_death/birthanddeath.dart';
 import '../complaints/complaintHomePage.dart';
 import '../onlineComplaint/onlineComplaintForm.dart';
 import '../nodatavalue/NoDataValue.dart';
+import '../resources/app_text_style.dart';
+import 'Aboutdiupage.dart';
 
 
 class AboutDiu extends StatefulWidget {
@@ -30,7 +33,7 @@ class _AboutDiuState extends State<AboutDiu> {
   // GeneralFunction generalFunction = GeneralFunction();
 
   getEmergencyTitleResponse() async {
-    emergencyTitleList = await GetEmergencyContactTitleRepo().getEmergencyContactTitle(context);
+    emergencyTitleList = await AboutDiuRepo().aboutdiu(context);
     print('------31----$emergencyTitleList');
     setState(() {
       isLoading = false;
@@ -133,33 +136,22 @@ class _AboutDiuState extends State<AboutDiu> {
         leading: GestureDetector(
           onTap: (){
             print("------back---");
-            // Navigator.pop(context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ComplaintHomePage()),
-            );
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back_ios,
             color: Colors.white,),
         ),
-        title: const Padding(
+        title: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5),
           child: Text(
-            'About DIU',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-              fontFamily: 'Montserrat',
-            ),
+            'About Diu',
+            style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
             textAlign: TextAlign.center,
           ),
         ),
         //centerTitle: true,
         elevation: 0, // Removes shadow under the AppBar
       ),
-      //appBar: getAppBarBack(context, '${widget.name}'),
-
       drawer:
       generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
@@ -180,65 +172,45 @@ class _AboutDiuState extends State<AboutDiu> {
               itemCount: emergencyTitleList?.length ?? 0,
               // itemCount: emergencyTitleList?.length ?? 0,
               itemBuilder: (context, index) {
+              final color = borderColors[index % borderColors.length];
                 return Column(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 1.0),
                       child: GestureDetector(
                         onTap: () {
-                          var name = emergencyTitleList![index]['sHeadName'];
-                          var iHeadCode = emergencyTitleList![index]['iHeadCode'];
-                          var sIcon = emergencyTitleList![index]['sIcon'];
+                          var sPageName = emergencyTitleList![index]['sPageName'];
+                          var sPageLink = emergencyTitleList![index]['sPageLink'];
+
 
                           // sIcon
-                          print('----categoryNmae---$name');
-                          print('----categoryCode---$iHeadCode');
-                          print('----sIcon---$sIcon');
+                          print('----sPageName---$sPageName');
+                          print('----categoryCode---$sPageLink');
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    BirthAndDeathCertificate(name:name),
+                                    AboutDiuPage(name:sPageName,sPageLink:sPageLink),
                               ));
-
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         OnlineComplaintForm(name:name),
-                          //   ),
-                          // );
 
                         },
                         child: ListTile(
                           leading: Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              gradient: const LinearGradient(
-                                colors: [Colors.red, Colors.orange],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: color, // Set the dynamic color
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                itemList2[index]['leadingIcon']!,
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                              child: const Icon(Icons.ac_unit,
+                                color: Colors.white,
+                              )
                           ),
                           title: Text(
-                            emergencyTitleList![index]['sHeadName']!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.black87,
-                            ),
+                            emergencyTitleList![index]['sPageName']!,
+                            style: AppTextStyle
+                                .font14OpenSansRegularBlack45TextStyle,
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -247,6 +219,7 @@ class _AboutDiuState extends State<AboutDiu> {
                                 'assets/images/arrow.png',
                                 height: 12,
                                 width: 12,
+                                color: color,
                               ),
                             ],
                           ),

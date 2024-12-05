@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class BirthAndDeathWebViewStack extends StatefulWidget {
 
-  const BirthAndDeathWebViewStack({super.key});
+   BirthAndDeathWebViewStack({super.key});
 
   @override
   State<BirthAndDeathWebViewStack> createState() => _WebViewStackState();
@@ -17,6 +17,7 @@ class _WebViewStackState extends State<BirthAndDeathWebViewStack> {
   @override
   void initState() {
     super.initState();
+
     controller = WebViewController()
       ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
@@ -37,7 +38,9 @@ class _WebViewStackState extends State<BirthAndDeathWebViewStack> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)  // Enable JavaScript
       ..loadRequest(
+        //  sPageLink
         Uri.parse('https://dc.crsorgi.gov.in/crs/Auth/general-public'),
+       // Uri.parse(sPageLink),
       );
   }
 

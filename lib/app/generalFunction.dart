@@ -14,6 +14,7 @@ import '../presentation/complaints/complaintHomePage.dart';
 import '../presentation/homepage/homepage.dart';
 import '../presentation/login/loginScreen_2.dart';
 import '../presentation/resources/app_text_style.dart';
+import '../presentation/resources/assets_manager.dart';
 import '../presentation/resources/values_manager.dart';
 import '../presentation/temples/cityhistory/cityhistory.dart';
 import '../presentation/temples/emergency/emergencyhome.dart';
@@ -454,19 +455,17 @@ getAppBarBack(BuildContext context ,String title) {
         print("------back---");
         Navigator.pop(context);
       },
-      child: Icon(Icons.arrow_back_ios,
-        color: Colors.white,),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(Icons.arrow_back_ios,
+          color: Colors.white,),
+      ),
     ),
     title: Padding(
       padding: EdgeInsets.symmetric(horizontal: 5),
       child: Text(
         '$title',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'Montserrat',
-        ),
+        style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
         textAlign: TextAlign.center,
       ),
     ),
@@ -497,6 +496,7 @@ class GeneralFunction {
     );
   }
   // drawerfuntiion 2
+
   drawerFunction(BuildContext context, String sName, String sContactNo) {
     return Drawer(
       child: Column(
@@ -544,9 +544,9 @@ class GeneralFunction {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "email",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Colors.white,
                       fontSize: 14.0,
@@ -660,9 +660,13 @@ class GeneralFunction {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
+
+
+
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => WeatherHome()),
                       );
+
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -717,68 +721,43 @@ class GeneralFunction {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          DrawerHeader(
+           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Color(0xFF255898),
+              // Set background image
+              color: Colors.lightBlue,
             ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300], // Light gray color
-                      borderRadius: BorderRadius.circular(40), // Border radius of 40
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                // User profile image
+                const CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage('assets/images/ic_launcher.png'),
+                ),
+                const SizedBox(height: 10),
+                // First text (e.g., user name)
+                Text(
+                  sName,
+                  style: AppTextStyle.font16OpenSansRegularBlackTextStyle,
+                ),
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.call,
+                    size: 18,
                     ),
-                    /// todo apply a funcation to set a internet images
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Container(
-                        child:   Image.asset('assets/images/clear_sky_front.png',
-                          fit: BoxFit.cover,
-                         ),
-                      ),
+                    SizedBox(width: 10),
+                    Text(
+                      sContactNo,
+                      style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    sName,
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  Text(
-                    sContactNo,
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-
-                ],
-              ),
+                  ],
+                )
+              ],
             ),
           ),
-          // Drawer
-          // DrawerHeader(
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //       image: AssetImage('assets/images/puriOned4.png'),
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          //   child: Container(),
-          // ),
-
-          Padding(
+           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: SingleChildScrollView(
               child: Column(
@@ -789,16 +768,15 @@ class GeneralFunction {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => ComplaintHomePage()),
                       );
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(builder: (context) => HomePage()),
-                      // );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Image.asset('assets/images/home.png',
+                        Image.asset('assets/images/home_nw.png',
                             width: 25,
-                            height: 25),
+                            height: 25,
+                            fit: BoxFit.fill,
+                        ),
                            // color: Colors.red),
                         const SizedBox(width: 10),
                         Text('Home',
@@ -810,28 +788,20 @@ class GeneralFunction {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: ()async {
-                      // lat and long in a sharedPreferenc
-                      //
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      double? lat = prefs.getDouble('lat');
-                      double? long = prefs.getDouble('long');
-                      print('---334---lat---$lat');
-                      print('---335---long---$long');
+
 
                       // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
+                      //   MaterialPageRoute(builder: (context) => TemplesHome()),
                       // );
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => TemplesHome()),
-                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Image.asset(
-                          'assets/images/templepin.png',
+                          'assets/images/holdicon.jpeg',
                           width: 25,
                           height: 25,
+                          fit: BoxFit.fill,
                         ),
                         const SizedBox(width: 10),
                         Text('Advertisement Booking Status',
@@ -843,17 +813,17 @@ class GeneralFunction {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CityHistory(templeName: "", image: "")),
-                      );
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           CityHistory(templeName: "", image: "")),
+                      // );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Image.asset(
-                          'assets/images/cityhistory.png',
+                          'assets/images/notification.png',
                           width: 25,
                           height: 25,
                         ),
@@ -882,7 +852,7 @@ class GeneralFunction {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Image.asset(
-                          'assets/images/weather.png',
+                          'assets/images/logout_new.png',
                           width: 25,
                           height: 25,
                         ),
@@ -893,30 +863,40 @@ class GeneralFunction {
                       ],
                     ),
                   ),
-                  // const SizedBox(height: 15),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Navigator.of(context).pushReplacement(
-                  //       MaterialPageRoute(builder: (context) => HowToReach()),
-                  //     );
-                  //   },
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: <Widget>[
-                  //       Image.asset(
-                  //         'assets/images/how_to_rech.png',
-                  //         width: 25,
-                  //         height: 25,
-                  //       ),
-                  //       const SizedBox(width: 10),
-                  //       Text('How To Reach',
-                  //           style: AppTextStyle
-                  //               .font16penSansExtraboldRedTextStyle),
-                  //     ],
-                  //   ),
-                  // ),
-                 // SizedBox(height: 15),
                 ],
+              ),
+            ),
+          ),
+           Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 5.0,left: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text('Synergy Telematics Pvt.Ltd.',style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Color(0xffF37339),//#F37339
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                    ),),
+                    const SizedBox(width: 0),
+                    Padding(
+                      padding: EdgeInsets.only(right: AppSize.s10),
+                      child: Container(
+                        margin: EdgeInsets.all(AppSize.s10),
+                        child: Image.asset(
+                          ImageAssets.favicon,
+                          //width: AppSize.s50,
+                          width: 20,
+                          height: 20,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
