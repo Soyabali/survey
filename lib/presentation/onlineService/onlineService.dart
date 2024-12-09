@@ -12,6 +12,7 @@ import '../complaints/complaintHomePage.dart';
 import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_text_style.dart';
 import 'buildingPlan/buildingPlan.dart';
+import 'communityHall/communityHall.dart';
 
 
 class OnlineServives extends StatefulWidget {
@@ -239,6 +240,12 @@ class _OnlineComplaintState extends State<OnlineServives> {
                             print('------215---License');
                           }else if(title=="Community Hall"){
                             print('------217---Community Hall');
+                            // CommunityHall
+                            var sName = "Community Hall";
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => CommunityHall(name:sName)),
+                            );
                           }else if(title=="Water Supply"){
                             print('------219---Water Supply');
                           }else if(title=="Electricity Bill"){
