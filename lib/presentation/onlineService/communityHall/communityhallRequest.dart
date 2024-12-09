@@ -16,6 +16,8 @@ import '../../resources/values_manager.dart';
 class CommunityHallRequest extends StatefulWidget {
 
   var name, iCategoryCode;
+  var name2, iCategoryCode2;
+  var name3, iCategoryCode3;
 
   CommunityHallRequest(
       {super.key, required this.name, required this.iCategoryCode});
