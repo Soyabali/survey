@@ -7,6 +7,7 @@ import '../../services/verifyCitizenOTP.dart';
 import '../presentation/complaints/complaintHomePage.dart';
 import '../presentation/registration/registration.dart';
 import '../presentation/resources/app_text_style.dart';
+import 'CitizenVerifiedOTP/CitizenVerifiedOTPREPO.dart';
 
 
 class OtpPageRegistration extends StatefulWidget {
@@ -141,7 +142,7 @@ class _MyHomePageState extends State<OtpPageRegistration> {
                           ),
                           Text(
                             'OTP has been sent on : ${widget.phone}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xff3f617d),
                               fontSize: 12.0,
@@ -259,16 +260,14 @@ class _MyHomePageState extends State<OtpPageRegistration> {
                                                   print('OTP---260: $otp');
 
                                                   var contactNo = _nameController.text;
-
-
-                                                  if (_formKey.currentState!.validate() &&
-                                                      otp != null && phoneNumber != null)
+                                                  if (_formKey.currentState!.validate() && otp != null)
                                                   {
                                                     print('----otp----276---$otp');
                                                     print('----contactNo----269---${{widget.phone}}');
 
-                                                    verifyCitizenOtpMap = await VerifyCitizenOtpRepo().verifyCitizenOtp(context, otp!, '${widget.phone}');
-                                                    print('-----verifyCityzen----270---$verifyCitizenOtpMap');
+                                                    //verifyCitizenOtpMap = await VerifyCitizenOtpRepo().verifyCitizenOtp(context, otp!);
+                                                    verifyCitizenOtpMap = await CitizenVerifiedOtpRepo().citizenVerifyOtp(context, otp!,phoneNumber);
+                                                    print('-----verifyCityzen----269---$verifyCitizenOtpMap');
 
                                                     result = "${verifyCitizenOtpMap['Result']}";
                                                     msg = "${verifyCitizenOtpMap['Msg']}";
@@ -303,9 +302,7 @@ class _MyHomePageState extends State<OtpPageRegistration> {
                                                       context,
                                                       MaterialPageRoute(builder: (context) => const ComplaintHomePage()),
                                                     );
-
                                                     controllers?.clear();
-
 
                                                   }else{
                                                     _showToast(context,msg);

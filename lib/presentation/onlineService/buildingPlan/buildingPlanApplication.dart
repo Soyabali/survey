@@ -321,7 +321,6 @@ class _MyHomePageState extends State<BuildingPlanApplication> {
     }
   }
 
-
   @override
   void initState() {
     var subCategoryCode = "${widget.iCategoryCode}";

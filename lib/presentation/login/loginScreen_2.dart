@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../services/loginRepo.dart';
+import '../complaints/complaintHomePage.dart';
+import '../forgotPassword/forgotPassword.dart';
 import '../otp/otpverification.dart';
 import '../registration/registration.dart';
 import '../resources/app_strings.dart';
@@ -42,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
   bool _isObscured = true;
   var loginProvider;
 
@@ -138,10 +142,12 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     // TODO: implement dispose
     _phoneNumberController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
   void clearText() {
     _phoneNumberController.clear();
+    passwordController.clear();
   }
   // bottomSheet
   void _showBottomSheet(BuildContext context) {
@@ -254,14 +260,15 @@ class _LoginPageState extends State<LoginPage> {
                             margin: const EdgeInsets.all(AppMargin.m10),
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
+                                image: AssetImage("assets/images/roundcircle.png"),
+//image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
                                 fit: BoxFit.cover,
                               ),
                             ),
                             width: AppSize.s50,
                             height: AppSize.s50,
-                            child: Image.asset(
-                              ImageAssets.logintopleft,
+                            child: Image.asset("assets/images/login_icon.png",
+                              //ImageAssets.logintopleft,
                               width: AppSize.s50,
                               height: AppSize.s50,
                             ),
@@ -277,8 +284,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             width: AppSize.s50,
                             height: AppSize.s50,
-                            child: Image.asset(
-                              ImageAssets.toprightlogin,
+                            child: Image.asset("assets/images/favicon.png",
+                             // ImageAssets.toprightlogin,
                               width: AppSize.s50,
                               height: AppSize.s50,
                             ),
@@ -301,8 +308,8 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.all(AppMargin.m16),
                           child: Center(
                             child: Image.asset(
-                              //"assets/images/home.png",
-                              ImageAssets.iclauncher, // Replace with your image asset path
+                              "assets/images/login_icon.png",
+                             // ImageAssets.iclauncher, // Replace with your image asset path
                               width: AppSize.s145,
                               height: AppSize.s145,
                               fit: BoxFit.contain, // Adjust as needed
@@ -379,30 +386,83 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     SizedBox(height: 10),
                                     Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: AppPadding.p15, right: AppPadding.p15),
+                                      // passWord TextFormField
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        obscureText: _isObscured,
+                                        decoration: InputDecoration(
+                                          labelText: AppStrings.txtpassword,
+                                          border: const OutlineInputBorder(),
+                                          contentPadding: const EdgeInsets.symmetric(
+                                            vertical: AppPadding.p10,
+                                            horizontal: AppPadding.p10, // Add horizontal padding
+                                          ),
+                                          prefixIcon: const Icon(Icons.lock,
+                                              color: Color(0xFF255899)),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(_isObscured
+                                                ? Icons.visibility
+                                                : Icons.visibility_off),
+                                            onPressed: () {
+                                              setState(() {
+                                                _isObscured = !_isObscured;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Enter password';
+                                          }
+                                          if (value.length < 1) {
+                                            return 'Please enter Valid Name';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Padding(
                                       padding: const EdgeInsets.only(left: 13,right: 13),
                                       child: InkWell(
-                                        // onTap: (){
-                                        //   Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                                        //   );
-                                        // },
+
 
                                         onTap: () async {
                                           getLocation();
-                                          var phone = _phoneNumberController.text;
+                                          var phone = _phoneNumberController.text.trim();
+                                          var password = passwordController.text.trim();
+                                          print("---phone--$phone");
+                                          print("----password ---$password");
 
-                                          if(_formKey.currentState!.validate() && phone != null && phone!=''){
+
+                                          if(_formKey.currentState!.validate() && phone.isNotEmpty && password.isNotEmpty){
                                             // Call Api
 
-                                             loginMap = await LoginRepo().login(context, phone!);
+                                             loginMap = await LoginRepo().login(context, phone!,password);
 
 
-                                            print('---358----$loginMap');
+                                            print('---451----->>>>>---XXXXX---XXXX----$loginMap');
+
                                             result = "${loginMap['Result']}";
                                             msg = "${loginMap['Msg']}";
+                                            //
+                                             var token = "${loginMap['Msg']}";
                                             print('---361----$result');
                                             print('---362----$msg');
+                                            /// to store the value in a local data base
+                                            //--------------
+                                            //  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                            //  prefs.setString('sGender',sGender);
+                                            //  prefs.setString('sContactNo',sContactNo);
+                                            //  prefs.setString('sCitizenName',sCitizenName);
+                                            //  prefs.setString('sEmailId',sEmailId);
+                                            //  prefs.setString('sToken',sToken);
+                                             //----------
+
                                           }else{
                                             if(_phoneNumberController.text.isEmpty){
                                               phoneNumberfocus.requestFocus();
@@ -410,13 +470,39 @@ class _LoginPageState extends State<LoginPage> {
                                               passWordfocus.requestFocus();
                                             }
                                           } // condition to fetch a response form a api
-                                          if(result=="1"){
+                                          if(result=="1") {
 
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => OtpPage(phone:phone)),
-                                            );
+                                            var sContactNo = "${loginMap['Data'][0]['sContactNo']}";
+                                            var sCitizenName = "${loginMap['Data'][0]['sCitizenName']}";
+                                            var sGender = "${loginMap['Data'][0]['sGender']}";
+                                            var sEmailId = "${loginMap['Data'][0]['sEmailId']}";
+                                            var sToken = "${loginMap['Data'][0]['sToken']}";
+                                            // to store the value in local dataBase
 
+                                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                                            prefs.setString('sGender',sGender);
+                                            prefs.setString('sContactNo',sContactNo);
+                                            prefs.setString('sCitizenName',sCitizenName);
+                                            prefs.setString('sEmailId',sEmailId);
+                                            prefs.setString('sToken',sToken);
+
+                                            String? token = prefs.getString('sToken');
+                                            print("------495----$token");
+                                            //
+                                            if((lat==null && lat=='') ||(long==null && long=='')){
+                                              displayToast("Please turn on Location");
+                                            }else{
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => ComplaintHomePage(lat:lat,long:long)),
+                                              );
+                                            }
+
+
+                                            // Navigator.pushReplacement(
+                                            //   context,
+                                            //   MaterialPageRoute(builder: (context) => OtpPage(phone:phone)),
+                                            // );
                                           }else{
                                             print('----373---To display error msg---');
                                             displayToast(msg);
@@ -451,10 +537,23 @@ class _LoginPageState extends State<LoginPage> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute space between texts
                                           children: [
-                                            Container(
-                                              child: Text(
-                                                "If you are a new user ?",
-                                                style: AppTextStyle.font14penSansBlackTextStyle,
+                                            GestureDetector(
+                                              onTap:(){
+                                               print("-----Forgot Password----");
+                                               // ForgotPassword
+                                               Navigator.push(
+                                                 context,
+                                                 MaterialPageRoute(builder: (context) => ForgotPassword()),
+                                               );
+                                               },
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  child: Text(
+                                                    "Forgot Password ?",
+                                                    style: AppTextStyle.font14penSansBlackTextStyle,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             GestureDetector(

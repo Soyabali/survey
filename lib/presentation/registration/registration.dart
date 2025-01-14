@@ -7,7 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
+import '../../services/OtpPageRegistration.dart';
 import '../../services/citizenRegistrationRepo.dart';
+import '../complaints/complaintHomePage.dart';
 import '../login/loginScreen_2.dart';
 import '../otp/otpverification.dart';
 import '../resources/app_strings.dart';
@@ -38,16 +40,24 @@ class RegistrationPage extends StatefulWidget {
 
 class _LoginPageState extends State<RegistrationPage> {
 
-  TextEditingController _phoneNumberController = TextEditingController();
-  TextEditingController _userController = TextEditingController();
+  TextEditingController _userNameController = TextEditingController();
+  TextEditingController _mobileNoController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
 
   final _formKey = GlobalKey<FormState>();
   bool _isObscured = true;
+  bool _isObscured2 = true;
   var loginProvider;
 
   // focus
-  FocusNode phoneNumberfocus = FocusNode();
-  FocusNode userfocus = FocusNode();
+  FocusNode userNamefocus = FocusNode();
+  FocusNode mobileNofocus = FocusNode();
+  FocusNode emailfocus = FocusNode();
+  FocusNode passwordfocus = FocusNode();
+
+ // FocusNode userfocus = FocusNode();
 
   bool passwordVisible = false;
   // Visible and Unvisble value
@@ -57,6 +67,11 @@ class _LoginPageState extends State<RegistrationPage> {
   var loginMap;
   double? lat, long;
   GeneralFunction generalFunction = GeneralFunction();
+  String? _selectedGender;
+  var sToken;
+
+  // Gender options
+  final List<String> _genderOptions = ["Male", "Female", "Other"];
 
   // void getLocation() async {
   //   bool serviceEnabled;
@@ -135,13 +150,17 @@ class _LoginPageState extends State<RegistrationPage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _phoneNumberController.dispose();
-    _userController.dispose();
+    _userNameController.dispose();
+    _mobileNoController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
   void clearText() {
-    _phoneNumberController.clear();
-    _userController.clear();
+    _userNameController.clear();
+    _mobileNoController.clear();
+    _emailController.clear();
+    _passwordController.clear();
   }
   // bottomSheet
   void _showBottomSheet(BuildContext context) {
@@ -220,7 +239,8 @@ class _LoginPageState extends State<RegistrationPage> {
       },
     );
   }
-
+  // WillPopScope(
+  // onWillPop: () async => false,
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -234,384 +254,568 @@ class _LoginPageState extends State<RegistrationPage> {
         );
         return false; // Prevent the back button action
       },
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    // mention all widget here
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    // return  WillPopScope(
+    //   onWillPop: () async => false,
+    // return WillPopScope(
+    //     onWillPop: () async => false,
+    // child: GestureDetector(
+    // onTap: () {
+    // FocusScope.of(context).unfocus();
+    // },
+        child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              // statusBarColore
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Color(0xFF12375e),
+                statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+                statusBarBrightness: Brightness.light, // For iOS (dark icons)
+              ),
+              // backgroundColor: Colors.blu
+              backgroundColor: Color(0xFF255898),
+              leading: GestureDetector(
+                onTap: (){
+                  print("------back---");
+                  // Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+                  );
+                },
+                child: Icon(Icons.arrow_back_ios,
+                  color: Colors.white,),
+              ),
+              title: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  'Registration',
+                  style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              //centerTitle: true,
+              elevation: 0, // Removes shadow under the AppBar
+            ),
+            body: GestureDetector(
+              onTap: (){
+                FocusScope.of(context).unfocus();
+              },
+              child: Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: SingleChildScrollView(
+                    child: Column(
                       children: <Widget>[
+                        // mention all widget here
+              //           Row(
+              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //             children: <Widget>[
+              //
+              //               Container(
+              //                 margin: const EdgeInsets.all(AppMargin.m10),
+              //                 decoration: const BoxDecoration(
+              //                   image: DecorationImage(
+              //                     image: AssetImage("assets/images/roundcircle.png"),
+              // //image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
+              //                     fit: BoxFit.cover,
+              //                   ),
+              //                 ),
+              //                 width: AppSize.s50,
+              //                 height: AppSize.s50,
+              //                 child: Image.asset("assets/images/login_icon.png",
+              //                   //ImageAssets.logintopleft,
+              //                   width: AppSize.s50,
+              //                   height: AppSize.s50,
+              //                 ),
+              //               ),
+              //               Expanded(child: Container()),
+              //               Container(
+              //                 margin: const EdgeInsets.all(AppMargin.m10),
+              //                 decoration: const BoxDecoration(
+              //                   image: DecorationImage(
+              //                     image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
+              //                     fit: BoxFit.cover,
+              //                   ),
+              //                 ),
+              //                 width: AppSize.s50,
+              //                 height: AppSize.s50,
+              //                 child: Image.asset("assets/images/favicon.png",
+              //                   // ImageAssets.toprightlogin,
+              //                   width: AppSize.s50,
+              //                   height: AppSize.s50,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
                         Container(
-                          margin: const EdgeInsets.all(AppMargin.m10),
+                          height: AppSize.s145,
+                          width: AppSize.s145,
+                          margin: const EdgeInsets.all(AppMargin.m20),
                           decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(ImageAssets.roundcircle), // Replace with your image asset path
+                              image: AssetImage(
+                                ImageAssets.roundcircle,
+                              ),
                               fit: BoxFit.cover,
                             ),
                           ),
-                          width: AppSize.s50,
-                          height: AppSize.s50,
-                          child: Image.asset(
-                            "assets/images/dmc_logo.png",
-                            // ImageAssets.noidaauthoritylogo, // Replace with your image asset path
-                            width: AppSize.s50,
-                            height: AppSize.s50,
+                          child: Padding(
+                            padding: const EdgeInsets.all(AppMargin.m16),
+                            child: Center(
+                              child: Image.asset(
+                                "assets/images/login_icon.png",
+                                // ImageAssets.iclauncher, // Replace with your image asset path
+                                width: AppSize.s145,
+                                height: AppSize.s145,
+                                fit: BoxFit.contain, // Adjust as needed
+                              ),
+                            ),
                           ),
                         ),
-                        Expanded(child: Container()),
-                        Container(
-                          margin: EdgeInsets.only(right: 5),
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: Image.asset(
-                              "assets/images/daman_state_logo.png", // Replace with your image asset path
-                              width: 40,
-                              height: 40,
-                              fit: BoxFit.cover,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 25),
+                          child: Align(
+                            alignment: Alignment.centerLeft, // Align to the left
+                            child: Text(
+                              "Registration",
+                              style: AppTextStyle.font14penSansBlackTextStyle,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        /// Todo here we mention main code for a login ui.
+                        GestureDetector(
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                          },
+                          child: Form(
+                            key: _formKey,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10,right: 10),
+                              child: Column(
+                                children: <Widget>[
+                                  Column(
+                                    children: [
+                                      // name
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: AppPadding.p15, right: AppPadding.p15),
+                                        // PHONE NUMBER TextField
+                                        child: TextFormField(
+                                          focusNode: userNamefocus,
+                                          controller: _userNameController,
+                                          textInputAction: TextInputAction.next,
+                                          onEditingComplete: () => FocusScope.of(context).nextFocus(),
+                                         // keyboardType: TextInputType.phone,
+                                          //inputFormatters: [LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                            //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                         // ],
+                                          decoration: const InputDecoration(
+                                            labelText: "User Name",
+                                            border: OutlineInputBorder(),
+                                            contentPadding: EdgeInsets.symmetric(
+                                              vertical: AppPadding.p10,
+                                              horizontal: AppPadding.p10, // Add horizontal padding
+                                            ),
+
+                                            prefixIcon: Icon(
+                                              Icons.how_to_reg,
+                                              color: Color(0xFF255899),
+                                            ),
+                                            // errorBorder
+                                            // errorBorder: OutlineInputBorder(
+                                            //     borderSide: BorderSide(color: Colors.green, width: 0.5))
+                                          ),
+                                          autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                          // validator: (value) {
+                                          //   if (value!.isEmpty) {
+                                          //     return 'Enter User Name';
+                                          //   }
+                                          //   // if (value.length > 1 && value.length < 10) {
+                                          //   //   return 'Enter 10 digit mobile number';
+                                          //   // }
+                                          //   return null;
+                                          // },
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      // Mobile no
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: AppPadding.p15, right: AppPadding.p15),
+                                        // PHONE NUMBER TextField
+                                        child: TextFormField(
+                                          focusNode: mobileNofocus,
+                                          controller: _mobileNoController,
+                                          textInputAction: TextInputAction.next,
+                                          onEditingComplete: () => FocusScope.of(context).nextFocus(),
+                                          keyboardType: TextInputType.phone,
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                            //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                          ],
+                                          decoration: const InputDecoration(
+                                            labelText: AppStrings.txtMobile,
+                                            border: OutlineInputBorder(),
+                                            contentPadding: EdgeInsets.symmetric(
+                                              vertical: AppPadding.p10,
+                                              horizontal: AppPadding.p10, // Add horizontal padding
+                                            ),
+
+                                            prefixIcon: Icon(
+                                              Icons.phone,
+                                              color: Color(0xFF255899),
+                                            ),
+                                            // errorBorder
+                                            // errorBorder: OutlineInputBorder(
+                                            //     borderSide: BorderSide(color: Colors.green, width: 0.5))
+                                          ),
+                                          autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Enter mobile number';
+                                            }
+                                            if (value.length > 1 && value.length < 10) {
+                                              return 'Enter 10 digit mobile number';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      // Email Id
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: AppPadding.p15, right: AppPadding.p15),
+                                        // PHONE NUMBER TextField
+                                        child: TextFormField(
+                                          focusNode: emailfocus,
+                                          controller: _emailController,
+                                          textInputAction: TextInputAction.next,
+                                          onEditingComplete: () => FocusScope.of(context).nextFocus(),
+                                         // keyboardType: TextInputType.phone,
+                                         //  inputFormatters: [
+                                         //    LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                         //    //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                         //  ],
+                                          decoration: const InputDecoration(
+                                            labelText: AppStrings.txtEmail,
+                                            border: OutlineInputBorder(),
+                                            contentPadding: EdgeInsets.symmetric(
+                                              vertical: AppPadding.p10,
+                                              horizontal: AppPadding.p10, // Add horizontal padding
+                                            ),
+
+                                            prefixIcon: Icon(
+                                              Icons.email,
+                                              color: Color(0xFF255899),
+                                            ),
+                                            // errorBorder
+                                            // errorBorder: OutlineInputBorder(
+                                            //     borderSide: BorderSide(color: Colors.green, width: 0.5))
+                                          ),
+                                          autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                          // validator: (value) {
+                                          //   if (value!.isEmpty) {
+                                          //     return 'Enter mobile number';
+                                          //   }
+                                          //   if (value.length > 1 && value.length < 10) {
+                                          //     return 'Enter 10 digit mobile number';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      //password
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: AppPadding.p15, right: AppPadding.p15),
+                                        // passWord TextFormField
+                                        child: TextFormField(
+                                          controller: _passwordController,
+                                          decoration: InputDecoration(
+                                            labelText: AppStrings.txtpassword,
+                                            border: const OutlineInputBorder(),
+                                            contentPadding: const EdgeInsets.symmetric(
+                                              vertical: AppPadding.p10,
+                                              horizontal: AppPadding.p10, // Add horizontal padding
+                                            ),
+                                            prefixIcon: const Icon(Icons.lock,
+                                                color: Color(0xFF255899)),
+                                            suffixIcon: IconButton(
+                                              icon: Icon(_isObscured2
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _isObscured2 = !_isObscured2;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Enter password';
+                                            }
+                                            if (value.length < 1) {
+                                              return 'Please enter Valid Name';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      // DropDown
+                                       Padding(
+                                      padding: const EdgeInsets.only(left: 15,right: 15),
+                                      child: DropdownButtonFormField<String>(
+                                                                value: _selectedGender,
+                                                                items: _genderOptions.map((String value) {
+                                                                  return DropdownMenuItem<String>(
+                                                                    value: value,
+                                                                    child: Text(value),
+                                                                  );
+                                                                }).toList(),
+                                                                onChanged: (newValue) {
+                                                                  setState(() {
+                                                                    _selectedGender = newValue;
+                                                                  });
+                                                                  print("Selected Gender: $_selectedGender");
+                                                                },
+                                                                decoration: const InputDecoration(
+                                                                  labelText: "Select Gender",
+                                                                  border: OutlineInputBorder(),
+                                                                  contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                                                                ),
+                                                              ),
+                                    ),
+                                      SizedBox(height: 10),
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 13,right: 13),
+                                        child: InkWell(
+                                          onTap: () async {
+                                             var name = _userNameController.text.trim();
+                                            var mobileNo = _mobileNoController.text.trim();
+                                            var email = _emailController.text.trim();
+                                            var password = _passwordController.text.trim();
+                                            print("Name -----$name");
+                                             print("mobileNo -----$mobileNo");
+                                             print("email -----$email");
+                                             print("password -----$password");
+                                             print("Selected Gender---$_selectedGender");
+
+                                            if(_formKey.currentState!.validate() && name.isNotEmpty && mobileNo.isNotEmpty && password.isNotEmpty && _selectedGender!=null && _selectedGender!=''){
+                                              // Call Api
+                                              loginMap = await CitizenRegistrationRepo().citizenRegistration(context, name!, mobileNo,email,password,_selectedGender);
+
+                                              print('---567----$loginMap');
+                                              result = "${loginMap['Result']}";
+                                              msg = "${loginMap['Msg']}";
+                                               sToken = "${loginMap['sToken']}";
+                                              //var token="";
+                                              print('---573----$result');
+                                              print('---574----$msg');
+                                              print('---575----$sToken');
+
+                                            }else{
+                                              if(name.isEmpty){
+                                               displayToast("Please Enter Name");
+                                               return;
+                                              } if(mobileNo.isEmpty){
+                                                displayToast("Please Enter Mobile Number");
+                                                return;
+                                              }if(email.isEmpty){
+                                                displayToast("Please Enter Email");
+                                                return;
+                                              }if(password.isEmpty){
+                                                displayToast("Please Enter Password");
+                                                return;
+                                              }
+                                            } // condition to fetch a response form a api
+                                            if(result=="1"){
+                                              // to store the token
+                                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                                              prefs.setString('mobileNo',mobileNo);
+                                              prefs.setString('sToken',sToken);
+
+                                           // todo otp
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => OtpPageRegistration(phone:mobileNo)),
+                                              );
+                                            }else if(result=="0"){
+                                              displayToast(msg);
+                                            }
+                                            else{
+                                              //print('----373---To display error msg---');
+                                              displayToast(msg);
+
+                                            }
+                                          },
+                                          // onTap: () async {
+                                          //  // getLocation();
+                                          //   var phone = _phoneNumberController.text;
+                                          //   var name = _userController.text;
+                                          //   print("-----423---$phone");
+                                          //   print("-----424---$name");
+                                          //
+                                          //   if(_formKey.currentState!.validate() && phone != null && name != null){
+                                          //     // Call Api
+                                          //
+                                          //      loginMap = await CitizenRegistrationRepo().citizenRegistration(context, phone!, name);
+                                          //
+                                          //      print('---431----$loginMap');
+                                          //
+                                          //     result = "${loginMap['Result']}";
+                                          //     msg = "${loginMap['Msg']}";
+                                          //     print('---434----$result');
+                                          //     print('---435----$msg');
+                                          //   }else{
+                                          //     if(name.isEmpty){
+                                          //      // phoneNumberfocus.requestFocus();
+                                          //       displayToast("Please enter User name");
+                                          //       return;
+                                          //     }else if(phone.isEmpty){
+                                          //       //userfocus.requestFocus();
+                                          //       displayToast("Please enter Mobile Number");
+                                          //     }
+                                          //   } // condition to fetch a response form a api
+                                          //   if(result=="1"){
+                                          //
+                                          //     // var iCitizenCode = "${loginMap['Data'][0]['iCitizenCode']}";
+                                          //     // var sContactNo = "${loginMap['Data'][0]['sContactNo']}";
+                                          //     // var sCitizenName = "${loginMap['Data'][0]['sCitizenName']}";
+                                          //     // var sToken = "${loginMap['Data'][0]['sToken']}";
+                                          //     // // To store value in  a SharedPreference
+                                          //     //
+                                          //     // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                          //     // prefs.setString('iCitizenCode',iCitizenCode);
+                                          //     // prefs.setString('sContactNo',sContactNo);
+                                          //     // prefs.setString('sCitizenName',sCitizenName);
+                                          //     // prefs.setString('sToken',sToken);
+                                          //
+                                          //      // navigate to login screen
+                                          //      Navigator.pushReplacement(context,
+                                          //        MaterialPageRoute(builder: (context) => LoginScreen_2()),);
+                                          //
+                                          //     if(iCitizenCode =="1"){
+                                          //
+                                          //       // Navigator.pushReplacement(
+                                          //       //   context,
+                                          //       //   MaterialPageRoute(builder: (context) => HomePage()),
+                                          //       // );
+                                          //
+                                          //
+                                          //
+                                          //       // print('----xxxx--------493---');
+                                          //     }else{
+                                          //       // HomeScreen_2
+                                          //       // Navigator.pushReplacement(
+                                          //       //   context,
+                                          //       //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
+                                          //       // );
+                                          //       print('----xxxx--------500---');
+                                          //
+                                          //     }
+                                          //     // Navigator.pushReplacement(
+                                          //     //   context,
+                                          //     //   MaterialPageRoute(builder: (context) => HomePage()),
+                                          //     // );
+                                          //
+                                          //   }else{
+                                          //     print('----373---To display error msg---');
+                                          //     displayToast(msg);
+                                          //
+                                          //   }
+                                          // },
+                                          child: Container(
+                                            width: double.infinity, // Make container fill the width of its parent
+                                            height: AppSize.s45,
+                                            //  padding: EdgeInsets.all(AppPadding.p5),
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF255899), // Background color using HEX value
+                                              borderRadius: BorderRadius.circular(
+                                                  AppMargin.m10), // Rounded corners
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                "Sign up",
+                                                style: TextStyle(
+                                                    fontSize: AppSize.s16,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 13,right: 13),
+                                        child: Container(
+                                          height: 45,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end, // Distribute space between texts
+                                            children: [
+                                              // GestureDetector(
+                                              //   onTap: (){
+                                              //     // Navigator.push(
+                                              //     //   context,
+                                              //     //   MaterialPageRoute(builder: (context) => OtpPage(phone: "987195081",)),
+                                              //     // );
+                                              //   },
+                                              //   child: Container(
+                                              //     child: Text(
+                                              //       "Already a user ?",
+                                              //       style: AppTextStyle.font14penSansBlackTextStyle,
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  // Registration
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+                                                  );
+
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.all(10.0), // 10dp padding around the text
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(color: Color(0xFF255899)), // Gray border color
+                                                    borderRadius: BorderRadius.circular(8.0), // Rounded corners for the border
+                                                  ),
+                                                  child: Text(
+                                                    "Login",
+                                                    style: AppTextStyle.font14penSansBlackTextStyle,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    Container(
-                      height: AppSize.s145,
-                      width: AppSize.s145,
-                      margin: const EdgeInsets.all(AppMargin.m20),
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            ImageAssets.roundcircle,
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(AppMargin.m16),
-                        child: Center(
-                          child: Image.asset(
-                            //"assets/images/ic_launcher.png",
-                            ImageAssets.iclauncher, // Replace with your image asset path
-                            width: AppSize.s145,
-                            height: AppSize.s145,
-                            fit: BoxFit.contain, // Adjust as needed
-                          ),
-                          // child: Image.asset(
-                          //   "assets/images/home.png",
-                          //   //ImageAssets.loginIcon, // Replace with your image asset path
-                          //   width: AppSize.s145,
-                          //   height: AppSize.s145,
-                          //   fit: BoxFit.contain, // Adjust as needed
-                          // ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: Align(
-                        alignment: Alignment.centerLeft, // Align to the left
-                        child: Text(
-                          "Registration",
-                          style: AppTextStyle.font14penSansBlackTextStyle,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    /// Todo here we mention main code for a login ui.
-                    GestureDetector(
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
-                      },
-                      child: Form(
-                        key: _formKey,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10,right: 10),
-                          child: Column(
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: AppPadding.p15, right: AppPadding.p15),
-                                    // PHONE NUMBER TextField
-                                    child: TextFormField(
-                                      focusNode: userfocus,
-                                      controller: _userController,
-                                      textInputAction: TextInputAction.next,
-                                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                                     // keyboardType: TextInputType.phone,
-                                      //inputFormatters: [LengthLimitingTextInputFormatter(10), // Limit to 10 digits
-                                        //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                     // ],
-                                      decoration: const InputDecoration(
-                                        labelText: "User Name",
-                                        border: OutlineInputBorder(),
-                                        contentPadding: EdgeInsets.symmetric(
-                                          vertical: AppPadding.p10,
-                                          horizontal: AppPadding.p10, // Add horizontal padding
-                                        ),
+                  )),
+            )
 
-                                        prefixIcon: Icon(
-                                          Icons.how_to_reg,
-                                          color: Color(0xFF255899),
-                                        ),
-                                        // errorBorder
-                                        // errorBorder: OutlineInputBorder(
-                                        //     borderSide: BorderSide(color: Colors.green, width: 0.5))
-                                      ),
-                                      autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                      // validator: (value) {
-                                      //   if (value!.isEmpty) {
-                                      //     return 'Enter User Name';
-                                      //   }
-                                      //   // if (value.length > 1 && value.length < 10) {
-                                      //   //   return 'Enter 10 digit mobile number';
-                                      //   // }
-                                      //   return null;
-                                      // },
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: AppPadding.p15, right: AppPadding.p15),
-                                    // PHONE NUMBER TextField
-                                    child: TextFormField(
-                                      focusNode: phoneNumberfocus,
-                                      controller: _phoneNumberController,
-                                      textInputAction: TextInputAction.next,
-                                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                                      keyboardType: TextInputType.phone,
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(10), // Limit to 10 digits
-                                        //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
-                                      ],
-                                      decoration: const InputDecoration(
-                                        labelText: AppStrings.txtMobile,
-                                        border: OutlineInputBorder(),
-                                        contentPadding: EdgeInsets.symmetric(
-                                          vertical: AppPadding.p10,
-                                          horizontal: AppPadding.p10, // Add horizontal padding
-                                        ),
-
-                                        prefixIcon: Icon(
-                                          Icons.phone,
-                                          color: Color(0xFF255899),
-                                        ),
-                                        // errorBorder
-                                        // errorBorder: OutlineInputBorder(
-                                        //     borderSide: BorderSide(color: Colors.green, width: 0.5))
-                                      ),
-                                      autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                      // validator: (value) {
-                                      //   if (value!.isEmpty) {
-                                      //     return 'Enter mobile number';
-                                      //   }
-                                      //   if (value.length > 1 && value.length < 10) {
-                                      //     return 'Enter 10 digit mobile number';
-                                      //   }
-                                      //   return null;
-                                      // },
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 13,right: 13),
-                                    child: InkWell(
-                                      onTap: () async {
-                                         var name = _userController.text.trim();
-                                        var phone = _phoneNumberController.text.trim();
-
-                                        if(_formKey.currentState!.validate() && name.isNotEmpty && phone.isNotEmpty){
-                                          // Call Api
-                                          loginMap = await CitizenRegistrationRepo().citizenRegistration(context, name!, phone);
-
-                                          print('---358----$loginMap');
-                                          result = "${loginMap['Result']}";
-                                          msg = "${loginMap['Msg']}";
-                                          print('---361----$result');
-                                          print('---362----$msg');
-                                        }else{
-                                          if(name.isEmpty){
-                                           displayToast("Please Enter Name");
-                                           return;
-                                          } if(phone.isEmpty){
-                                            displayToast("Please Enter Mobile Number");
-                                          }
-                                        } // condition to fetch a response form a api
-                                        if(result=="1"){
-
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => OtpPage(phone:phone)),
-                                          );
-
-                                        }else{
-                                          print('----373---To display error msg---');
-                                          displayToast(msg);
-
-                                        }
-                                      },
-                                      // onTap: () async {
-                                      //  // getLocation();
-                                      //   var phone = _phoneNumberController.text;
-                                      //   var name = _userController.text;
-                                      //   print("-----423---$phone");
-                                      //   print("-----424---$name");
-                                      //
-                                      //   if(_formKey.currentState!.validate() && phone != null && name != null){
-                                      //     // Call Api
-                                      //
-                                      //      loginMap = await CitizenRegistrationRepo().citizenRegistration(context, phone!, name);
-                                      //
-                                      //      print('---431----$loginMap');
-                                      //
-                                      //     result = "${loginMap['Result']}";
-                                      //     msg = "${loginMap['Msg']}";
-                                      //     print('---434----$result');
-                                      //     print('---435----$msg');
-                                      //   }else{
-                                      //     if(name.isEmpty){
-                                      //      // phoneNumberfocus.requestFocus();
-                                      //       displayToast("Please enter User name");
-                                      //       return;
-                                      //     }else if(phone.isEmpty){
-                                      //       //userfocus.requestFocus();
-                                      //       displayToast("Please enter Mobile Number");
-                                      //     }
-                                      //   } // condition to fetch a response form a api
-                                      //   if(result=="1"){
-                                      //
-                                      //     // var iCitizenCode = "${loginMap['Data'][0]['iCitizenCode']}";
-                                      //     // var sContactNo = "${loginMap['Data'][0]['sContactNo']}";
-                                      //     // var sCitizenName = "${loginMap['Data'][0]['sCitizenName']}";
-                                      //     // var sToken = "${loginMap['Data'][0]['sToken']}";
-                                      //     // // To store value in  a SharedPreference
-                                      //     //
-                                      //     // SharedPreferences prefs = await SharedPreferences.getInstance();
-                                      //     // prefs.setString('iCitizenCode',iCitizenCode);
-                                      //     // prefs.setString('sContactNo',sContactNo);
-                                      //     // prefs.setString('sCitizenName',sCitizenName);
-                                      //     // prefs.setString('sToken',sToken);
-                                      //
-                                      //      // navigate to login screen
-                                      //      Navigator.pushReplacement(context,
-                                      //        MaterialPageRoute(builder: (context) => LoginScreen_2()),);
-                                      //
-                                      //     if(iCitizenCode =="1"){
-                                      //
-                                      //       // Navigator.pushReplacement(
-                                      //       //   context,
-                                      //       //   MaterialPageRoute(builder: (context) => HomePage()),
-                                      //       // );
-                                      //
-                                      //
-                                      //
-                                      //       // print('----xxxx--------493---');
-                                      //     }else{
-                                      //       // HomeScreen_2
-                                      //       // Navigator.pushReplacement(
-                                      //       //   context,
-                                      //       //   MaterialPageRoute(builder: (context) => HomeScreen_2()),
-                                      //       // );
-                                      //       print('----xxxx--------500---');
-                                      //
-                                      //     }
-                                      //     // Navigator.pushReplacement(
-                                      //     //   context,
-                                      //     //   MaterialPageRoute(builder: (context) => HomePage()),
-                                      //     // );
-                                      //
-                                      //   }else{
-                                      //     print('----373---To display error msg---');
-                                      //     displayToast(msg);
-                                      //
-                                      //   }
-                                      // },
-                                      child: Container(
-                                        width: double.infinity, // Make container fill the width of its parent
-                                        height: AppSize.s45,
-                                        //  padding: EdgeInsets.all(AppPadding.p5),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF255899), // Background color using HEX value
-                                          borderRadius: BorderRadius.circular(
-                                              AppMargin.m10), // Rounded corners
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            "Sign up",
-                                            style: TextStyle(
-                                                fontSize: AppSize.s16,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 13,right: 13),
-                                    child: Container(
-                                      height: 45,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute space between texts
-                                        children: [
-                                          GestureDetector(
-                                            onTap: (){
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(builder: (context) => OtpPage(phone: "987195081",)),
-                                              // );
-                                            },
-                                            child: Container(
-                                              child: Text(
-                                                "Already a user ?",
-                                                style: AppTextStyle.font14penSansBlackTextStyle,
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              // Registration
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => const LoginScreen_2()),
-                                              );
-
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.all(10.0), // 10dp padding around the text
-                                              decoration: BoxDecoration(
-                                                border: Border.all(color: Color(0xFF255899)), // Gray border color
-                                                borderRadius: BorderRadius.circular(8.0), // Rounded corners for the border
-                                              ),
-                                              child: Text(
-                                                "Login",
-                                                style: AppTextStyle.font14penSansBlackTextStyle,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ))),
-    );
+            ),
+      );
   }
   // toast code
   void displayToast(String msg){
@@ -619,7 +823,7 @@ class _LoginPageState extends State<RegistrationPage> {
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
+        timeInSecForIosWeb: 2,
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0);

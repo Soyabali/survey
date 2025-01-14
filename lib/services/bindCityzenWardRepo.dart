@@ -20,16 +20,16 @@ class BindCityzenWardRepo
     {
       showLoader();
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "BindCitizenWard/BindCitizenWard";
+      var endPoint = "BindSectorCitizen";
       var bindCityzenWardApi = "$baseURL$endPoint";
       var headers = {
         'token': '$sToken'
       };
-      var request = http.Request('GET', Uri.parse('$bindCityzenWardApi'));
+      var request = http.Request('POST', Uri.parse('$bindCityzenWardApi'));
 
-      // request.body = json.encode({
-      //   "iCategoryCode": "1",
-      // });
+      request.body = json.encode({
+        "iUserId": "1000",
+      });
 
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();

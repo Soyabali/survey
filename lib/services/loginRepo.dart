@@ -11,13 +11,14 @@ class LoginRepo {
   // this is a loginApi call functin
   GeneralFunction generalFunction = GeneralFunction();
 
-  Future login(BuildContext context, String phone) async {
+  Future login(BuildContext context, String phone, String password) async {
 
     try {
       print('----phone-----17--$phone');
+      print('----password-----18--$password');
 
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "SendOTPForCitizenLogin/SendOTPForCitizenLogin";
+      var endPoint = "CitizenLogin/CitizenLogin";
       var loginApi = "$baseURL$endPoint";
       print('------------17---loginApi---$loginApi');
 
@@ -28,7 +29,8 @@ class LoginRepo {
           Uri.parse('$loginApi'));
       request.body = json.encode(
           {
-            "sContactNo": phone
+            "sUserId": phone,
+            "sPassword":password
           });
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
@@ -43,7 +45,10 @@ class LoginRepo {
         hideLoader();
         print('----------22-----$map');
         return map;
-      } else {
+      }else if(response.statusCode==401){
+        generalFunction.logout(context);
+      }
+      else {
         print('----------29---LOGINaPI RESPONSE----$map');
         hideLoader();
         print(response.reasonPhrase);

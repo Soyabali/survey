@@ -8,56 +8,118 @@ import '../app/loader_helper.dart';
 import 'baseurl.dart';
 
 class BindComplaintCategoryRepo {
-
   GeneralFunction generalFunction = GeneralFunction();
-  Future<List<Map<String, dynamic>>?> bindComplaintCategory(BuildContext context) async {
 
+  Future<List<Map<String, dynamic>>?> bindComplaintCategory(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
-    String? iCitizenCode = prefs.getString('iCitizenCode');
 
-    print('-----16---$sToken');
-    print('-----17---$iCitizenCode');
-    print('---token----$sToken');
+    if (sToken == null || sToken.isEmpty) {
+      print('Token is null or empty. Please check token management.');
+      return null;
+    }
+
+    var baseURL = BaseRepo().baseurl;
+    var endPoint = "BindCitizenPointType/BindCitizenPointType";
+    var bindComplaintCategoryApi = "$baseURL$endPoint";
+
+    print('Base URL: $baseURL');
+    print('Full API URL: $bindComplaintCategoryApi');
+    print('Token: $sToken');
 
     try {
-      var baseURL = BaseRepo().baseurl;
-      var endPoint = "BindComplaintCategory/BindComplaintCategory";
-      var bindComplaintCategoryApi = "$baseURL$endPoint";
       showLoader();
-
       var headers = {
-        'token': '$sToken',
-        'Content-Type': 'application/json'
+        'token': sToken,
+        'Content-Type': 'application/json',
       };
-      var request = http.Request('GET', Uri.parse('$bindComplaintCategoryApi'));
-
+      var request = http.Request('GET', Uri.parse(bindComplaintCategoryApi));
       request.headers.addAll(headers);
+
       http.StreamedResponse response = await request.send();
-      // if(response.statusCode ==401){
-      //   generalFunction.logout(context);
-      // }
+      print('Response status code: ${response.statusCode}');
+
       if (response.statusCode == 200) {
-        hideLoader();
         var data = await response.stream.bytesToString();
+        print('Response body: $data');
+
         Map<String, dynamic> parsedJson = jsonDecode(data);
         List<dynamic>? dataList = parsedJson['Data'];
 
         if (dataList != null) {
           List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
-          print("xxxxx------46----: $notificationList");
           return notificationList;
-        } else{
+        }
+        else {
+          print('Data key is null or empty.');
           return null;
         }
-      } else {
-        hideLoader();
+      }else if(response.statusCode==401){
+        print("---58---->>>>.---${response.statusCode}");
+        generalFunction.logout(context);
+      }
+      else {
+        print('Failed to fetch data. Status code: ${response.statusCode}');
         return null;
       }
     } catch (e) {
+      print("Exception occurred: $e");
+      throw e; // Optionally handle the exception differently
+    } finally {
       hideLoader();
-      debugPrint("Exception: $e");
-      throw e;
     }
   }
 }
+
+
+// class BindComplaintCategoryRepo {
+//
+//   GeneralFunction generalFunction = GeneralFunction();
+//   Future<List<Map<String, dynamic>>?> bindComplaintCategory(BuildContext context) async {
+//
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     String? sToken = prefs.getString('sToken');
+//
+//     print('---token----$sToken');
+//
+//     try {
+//       var baseURL = BaseRepo().baseurl;
+//       var endPoint = "BindCitizenPointType/BindCitizenPointType";
+//       var bindComplaintCategoryApi = "$baseURL$endPoint";
+//       showLoader();
+//
+//       var headers = {
+//         'token': '$sToken',
+//         'Content-Type': 'application/json'
+//       };
+//       var request = http.Request('GET', Uri.parse('$bindComplaintCategoryApi'));
+//
+//       request.headers.addAll(headers);
+//       http.StreamedResponse response = await request.send();
+//       // if(response.statusCode ==401){
+//       //   generalFunction.logout(context);
+//       // }
+//       if (response.statusCode == 200) {
+//         hideLoader();
+//         var data = await response.stream.bytesToString();
+//         Map<String, dynamic> parsedJson = jsonDecode(data);
+//         List<dynamic>? dataList = parsedJson['Data'];
+//
+//         if (dataList != null) {
+//           List<Map<String, dynamic>> notificationList = dataList.cast<Map<String, dynamic>>();
+//           print("xxxxx------46----: $notificationList");
+//           return notificationList;
+//         } else{
+//           return null;
+//         }
+//       } else {
+//         hideLoader();
+//         return null;
+//       }
+//     } catch (e) {
+//       hideLoader();
+//       debugPrint("Exception: $e");
+//       throw e;
+//     }
+//   }
+// }

@@ -7,9 +7,11 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../app/loader_helper.dart';
+import '../../services/PostCitizenComplaintRepo.dart';
 import '../../services/baseurl.dart';
 import '../../services/bindCityzenWardRepo.dart';
 import '../../services/bindSubCategoryRepo.dart';
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
 
   //var _dropDownSector;
   var dropDownSubCategory;
-  var _dropDownWard;
+  var _dropDownWardValue;
   var sectorresponse;
   String? sec;
   final distDropdownFocus = GlobalKey();
@@ -83,7 +85,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
   File? _imageFile;
   var _selectedShopId;
   var _selectedSubCategoryId;
-  var _selectedWardId;
+  var _selectedWardId2;
   final _formKey = GlobalKey<FormState>();
   var iUserTypeCode;
   var userId;
@@ -92,13 +94,17 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
   File? image;
   var uplodedImage;
   double? lat, long;
+  var categoryType;
+  var iCategoryCodeList;
+  List<Map<String, dynamic>> firstFormCombinedList = [];
 
+  // online location
   // pick image from a Camera
 
   Future pickImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
-    print('---Token----113--$sToken');
+    print('---Token----107--$sToken');
     try {
       final pickFileid = await ImagePicker()
           .pickImage(source: ImageSource.camera, imageQuality: 65);
@@ -154,7 +160,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
     String randomNumber = '';
 
     for (int i = 0; i < 10; i++) {
-      randomNumber += random.nextInt(10).toString();
+      randomNumber += random.nextInt(12).toString();
     }
 
     return randomNumber;
@@ -164,10 +170,9 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
     print("--------225---tolen---$token");
     print("--------226---imageFile---$imageFile");
     var baseURL = BaseRepo().baseurl;
-    var endPoint = "PostImage/PostImage";
+    var endPoint = "PostCitizenImage/PostCitizenImage";
     var uploadImageApi = "$baseURL$endPoint";
     try {
-      print('-----xx-x----214----');
       showLoader();
       // Create a multipart request
       var request = http.MultipartRequest(
@@ -176,9 +181,9 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
       // Add headers
       //request.headers['token'] = '04605D46-74B1-4766-9976-921EE7E700A6';
       request.headers['token'] = token;
-      request.headers['sFolder'] = 'CompImage';
+    //  request.headers['sFolder'] = 'CompImage';
       // Add the image file as a part of the request
-      request.files.add(await http.MultipartFile.fromPath('sFolder',imageFile.path,
+      request.files.add(await http.MultipartFile.fromPath('sImagePath',imageFile.path,
       ));
       // Send the request
       var streamedResponse = await request.send();
@@ -191,11 +196,10 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
       if (responseData is Map<String, dynamic>) {
         // Check for specific keys in the response
         uplodedImage = responseData['Data'][0]['sImagePath'];
-        print('Uploaded Image Path----194--: $uplodedImage');
+        print('Uploaded Image--------201---->>.--: $uplodedImage');
       } else {
         print('Unexpected response format: $responseData');
       }
-
       hideLoader();
     } catch (error) {
       hideLoader();
@@ -203,99 +207,19 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
     }
   }
 
-  // build dialog sucess
-  Widget _buildDialogSucces2(BuildContext context, String msg) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: 190,
-            padding: EdgeInsets.fromLTRB(20, 45, 20, 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 0),
-                // Space for the image
-                //  Text('Success', style: AppTextStyle.font16OpenSansRegularBlackTextStyle),
-                SizedBox(height: 10),
-                Text(
-                  msg,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                  ),
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Navigator.of(context).pop();
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => const ExpenseManagement()),
-                        // );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        // Set the background color to white
-                        foregroundColor:
-                            Colors.black, // Set the text color to black
-                      ),
-                      child: Text('Ok',
-                          style:
-                              AppTextStyle.font16OpenSansRegularBlackTextStyle),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Positioned(
-            top: -30, // Position the image at the top center
-            child: CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.blueAccent,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/sussess.jpeg',
-                  // Replace with your asset image path
-                  fit: BoxFit.cover,
-                  width: 60,
-                  height: 60,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     // updatedSector();
+    getLocation();
     var subCategoryCode = "${widget.iCategoryCode}";
+    categoryType = "${widget.name}";
+    iCategoryCodeList = "${widget.iCategoryCode}";
     print("---------240-------$subCategoryCode");
     bindSubCategory(subCategoryCode);
     bindWard();
-    getLocation();
+
     generateRandom20DigitNumber();
     super.initState();
     _addressfocus = FocusNode();
@@ -312,81 +236,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
     FocusScope.of(context).unfocus();
   }
 
-  // Todo bind sector code
-  Widget _bindSubCategory() {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10.0),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: Container(
-          width: MediaQuery.of(context).size.width - 50,
-          height: 42,
-          color: Color(0xFFf2f3f5),
-          child: DropdownButtonHideUnderline(
-            child: ButtonTheme(
-              alignedDropdown: true,
-              child: DropdownButton(
-                isDense: true,
-                // Helps to control the vertical size of the button
-                isExpanded: true,
-                dropdownColor: Colors.white,
-                // Allows the DropdownButton to take full width
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                },
-                hint: RichText(
-                  text: TextSpan(
-                    text: "Select Sub Category",
-                    style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
-                    // style: TextStyle(
-                    //     color: Colors.black,
-                    //     fontSize: 14,
-                    //     fontWeight: FontWeight.normal),
-                  ),
-                ),
-                value: dropDownSubCategory,
-                key: subCategoryFocus,
-                onChanged: (newValue) {
-                  setState(() {
-                    dropDownSubCategory = newValue;
-                    subCategoryList.forEach((element) {
-                      if (element["sSubCategoryName"] == dropDownSubCategory) {
-                        _selectedSubCategoryId = element['iSubCategoryCode'];
-                        setState(() {});
-                      }
-                    });
-                  });
-                },
-                items: subCategoryList.map((dynamic item) {
-                  return DropdownMenuItem(
-                    value: item["sSubCategoryName"].toString(),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            item['sSubCategoryName'].toString(),
-                            overflow: TextOverflow.ellipsis,
-                            // Handles long text
-                            style: AppTextStyle
-                                .font14OpenSansRegularBlack45TextStyle,
-                            // style: TextStyle(
-                            //   fontSize: 16,
-                            //   fontWeight: FontWeight.normal,
-                            // ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   // bind Ward
   Widget _bindWard() {
@@ -418,25 +267,27 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                     style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
                   ),
                 ),
-                value: _dropDownWard,
+                value: _dropDownWardValue,
                 onChanged: (newValue) {
                   setState(() {
-                    _dropDownWard = newValue;
+                    _dropDownWardValue = newValue;
                     wardList.forEach((element) {
-                      if (element["sWardName"] == _dropDownWard) {
-                        _selectedWardId = element['sWardCode'];
+                      if (element["sSectorName"] == _dropDownWardValue) {
+                        _selectedWardId2 = element['iSectorCode'];
+
                       }
                     });
+                    print("----wardCode---$_selectedWardId2");
                   });
                 },
                 items: wardList.map((dynamic item) {
                   return DropdownMenuItem(
-                    value: item["sWardName"].toString(),
+                    value: item["sSectorName"].toString(),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
-                            item['sWardName'].toString(),
+                            item['sSectorName'].toString(),
                             overflow: TextOverflow.ellipsis,
                             style: AppTextStyle
                                 .font14OpenSansRegularBlack45TextStyle,
@@ -456,103 +307,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
 
   /// Algo.  First of all create repo, secodn get repo data in the main page after that apply list data on  dropdown.
   // function call
-
-  void validateAndCallApi() async {
-    // Trim values to remove leading/trailing spaces
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Contact No
-    String? sContactNo = prefs.getString('sContactNo');
-    // random number
-    String random20DigitNumber = generateRandom20DigitNumber();
-
-    // TextFormField value
-    var address = _addressController.text.trim();
-    var landmark = _landmarkController.text.trim();
-    var mentionYourConcerns = _mentionController.text.trim();
-    // Debug logs
-    print('---iCompCode----$random20DigitNumber');
-    print("--iSubCategoryCode--: $_selectedSubCategoryId");
-    print("---sWardCode--: $_selectedWardId");
-    print("---sAddress---: $address");
-    print("---sLandmark---: $landmark");
-    print("---sComplaintDetails--: $mentionYourConcerns");
-    print('---sComplaintPhoto----$uplodedImage');
-    print("sPostedBy: $sContactNo");
-    print("---fLatitude-- :    $lat");
-    print("---fLongitude-- :    $long");
-    // Check Form Validation
-    final isFormValid = _formKey.currentState!.validate();
-    print("Form Validation: $isFormValid");
-
-    // Validate all conditions
-    if (isFormValid &&
-        _selectedSubCategoryId != null &&
-        _selectedWardId != null &&
-        address.isNotEmpty &&
-        landmark.isNotEmpty &&
-        mentionYourConcerns.isNotEmpty &&
-        uplodedImage!=null) {
-      // All conditions met; call the API
-      print('---Call API---');
-
-      var onlineComplaintResponse = await OnlineComplaintFormRepo().onlineComplaintFormApi(
-       context,
-       random20DigitNumber,
-       _selectedSubCategoryId,
-        _selectedWardId,
-        address,
-        landmark,
-        mentionYourConcerns,
-        uplodedImage,
-        sContactNo,
-        lat,
-        long
-      );
-      print('----562---$onlineComplaintResponse');
-      result2 = onlineComplaintResponse['Result'];
-      msg2 = onlineComplaintResponse['Msg'];
-      if(result2=="1"){
-        displayToast(msg2);
-        Navigator.pop(context);
-      }else{
-        displayToast(msg2);
-      }
-      //displayToast(msg2);
-     // print('---806---xxxxx----$result');
-      //print('---807--$msg');
-
-      // call here to api
-      // Your API call logic here
-    } else {
-      // If conditions fail, display appropriate error messages
-      print('--Not Call API--');
-      if (_selectedSubCategoryId == null) {
-        displayToast('Select Sub Category');
-        return;
-      }
-      if (_selectedWardId == null) {
-        displayToast('Select Ward');
-        return;
-      }
-      if (address.isEmpty) {
-        displayToast('Please Enter Address');
-        return;
-      }
-      if (landmark.isEmpty) {
-        displayToast('Please Enter Landmark');
-        return;
-      }
-      if (mentionYourConcerns.isEmpty) {
-        displayToast('Please Enter Mention Your Concerns');
-        return;
-      }
-      if (uplodedImage == null) {
-        displayToast('Please Upload an Image');
-      }
-    }
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -613,7 +367,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                       // width: 200, // Width of the container
                       //step3.jpg
                       child: Image.asset(
-                        'assets/images/complaints_header.png',
+                        'assets/images/noidaCitizen.png',
                         // Replace 'image_name.png' with your asset image path
                         fit: BoxFit.fill, // Adjust the image fit to cover the container
                       ),
@@ -720,25 +474,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                 ),
                                 // Sub Category
                                 SizedBox(height: 5),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    // Align items vertically
-                                    children: <Widget>[
-                                      CircleWithSpacing(),
-                                      // Space between the circle and text
-                                      Text(
-                                        'Sub Category',
-                                        style: AppTextStyle
-                                            .font14OpenSansRegularBlack45TextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                _bindSubCategory(),
-                                SizedBox(height: 5),
                                 // WARD
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
@@ -749,7 +484,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                       CircleWithSpacing(),
                                       // Space between the circle and text
                                       Text(
-                                        'Ward',
+                                        'Sector',
                                         style: AppTextStyle
                                             .font14OpenSansRegularBlack45TextStyle,
                                       ),
@@ -769,7 +504,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                       CircleWithSpacing(),
                                       // Space between the circle and text
                                       Text(
-                                        'Address',
+                                        'Location',
                                         style: AppTextStyle
                                             .font14OpenSansRegularBlack45TextStyle,
                                       ),
@@ -796,12 +531,10 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                               textInputAction:
                                                   TextInputAction.next,
                                               onEditingComplete: () =>
-                                                  FocusScope.of(context)
-                                                      .nextFocus(),
+                                                  FocusScope.of(context).nextFocus(),
                                               decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
+                                                contentPadding: EdgeInsets.symmetric(
                                                         vertical: 10.0,
                                                         horizontal: 10.0),
                                                 filled: true,
@@ -827,7 +560,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                       CircleWithSpacing(),
                                       // Space between the circle and text
                                       Text(
-                                        'Landmark',
+                                        'Complaint Description',
                                         style: AppTextStyle
                                             .font14OpenSansRegularBlack45TextStyle,
                                       ),
@@ -864,50 +597,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                   ),
                                 ),
                                 // Mention your concerns here
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    // Align items vertically
-                                    children: <Widget>[
-                                      CircleWithSpacing(),
-                                      // Space between the circle and text
-                                      Text(
-                                        'Mention your Concerns here',
-                                        style: AppTextStyle
-                                            .font14OpenSansRegularBlack45TextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, right: 0),
-                                  child: Container(
-                                    height: 70,
-                                    color: Colors.white,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 0),
-                                      child: TextFormField(
-                                        controller: _mentionController,
-                                        textInputAction: TextInputAction.next,
-                                        onEditingComplete: () =>
-                                            FocusScope.of(context).nextFocus(),
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 10.0, horizontal: 10.0),
-                                          filled: true, // Enable background color
-                                          fillColor: Color(
-                                              0xFFf2f3f5), // Set your desired background color here
-                                        ),
-                                        autovalidateMode:
-                                            AutovalidateMode.onUserInteraction,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 // uplode Photo
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
@@ -942,30 +631,32 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                       children: [
                                         // Column Section
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text("Click Photo",
-                                                style: AppTextStyle
-                                                    .font14OpenSansRegularBlack45TextStyle),
+                                                style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
                                             SizedBox(height: 5),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "Please click here to take a photo",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.red[300]),
-                                                ),
-                                                SizedBox(width: 5),
-                                                Icon(
-                                                  Icons.arrow_forward_ios,
-                                                  color: Colors.red[300],
-                                                  size: 16,
-                                                ),
-                                              ],
+                                            Expanded(
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "Please click here to take a photo",
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.red[300]),
+                                                  ),
+                                                  SizedBox(width: 0),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 4),
+                                                    child: Icon(
+                                                      Icons.arrow_forward_ios,
+                                                      color: Colors.red[300],
+                                                      size: 16,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -973,7 +664,9 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                         GestureDetector(
                                           onTap: () {
                                             print("---------image-----");
+                                            getLocation();
                                             pickImage();
+
                                           },
                                           child: Padding(
                                             padding:
@@ -1056,31 +749,115 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                             )
                                     ]),
                                 SizedBox(height: 10),
-                                InkWell(
-                                  onTap: () {
-                                    validateAndCallApi();
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    // Make container fill the width of its parent
-                                    height: AppSize.s45,
-                                    padding: EdgeInsets.all(AppPadding.p5),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF255898),
-                                      // Background color using HEX value
-                                      borderRadius: BorderRadius.circular(
-                                          AppMargin.m10), // Rounded corners
-                                    ),
-                                    //  #00b3c7
-                                    child: Center(
-                                      child: Text(
-                                        "Post Complaint",
-                                        style: AppTextStyle
-                                            .font16OpenSansRegularWhiteTextStyle,
+                                 GestureDetector(
+
+                                   onTap: () async{
+
+
+                                     SharedPreferences prefs = await SharedPreferences.getInstance();
+                                     // Contact No
+                                     String? sContactNo = prefs.getString('sContactNo');
+                                     // random number
+                                     String random12DigitNumber = generateRandom20DigitNumber();
+                                     // datrFormat
+                                     DateTime now = DateTime.now();
+                                     // Define the format
+                                     String formattedDate = DateFormat('dd/MMM/yyyy hh:mm').format(now);
+                                     // TextFormField value
+                                     var location = _addressController.text.trim();
+                                     var complaintDescription = _landmarkController.text.trim();
+
+                                     var iPostedBy = "0";
+                                     var iAgencyCode = "1";
+                                     var sCitizenContactNo = sContactNo;
+                                     // Check Form Validation
+                                     final isFormValid = _formKey.currentState!.validate();
+
+                                     print("Form Validation: $isFormValid");
+                                     if(_formKey.currentState!.validate() && _selectedWardId2 != null
+                                         && location.isNotEmpty && complaintDescription.isNotEmpty && uplodedImage!=null){
+                                       // call api
+                                          print("----call Api----");
+                                          print("----wardId---$_selectedWardId2");
+                                          print("----location---$location");
+                                          print("----complaintDescription---$complaintDescription");
+                                          print("----uplodedImage---$uplodedImage");
+                                          print("----lat---$lat");
+                                          print("----long---$long");
+
+                                       var  postComplaintResponse =
+
+                                       await PostCitizenComplaintRepo().postComplaint(
+                                           context,
+                                           random12DigitNumber,
+                                           categoryType,
+                                           _selectedWardId2,
+                                           location,
+                                           lat,
+                                           long,
+                                           complaintDescription,
+                                           uplodedImage,
+                                           formattedDate,
+                                           iPostedBy,
+                                           iAgencyCode,
+                                           sContactNo,
+                                           iCategoryCodeList,
+                                           image
+                                       );
+                                       print('----1092---$postComplaintResponse');
+                                       result = postComplaintResponse['Result'];
+                                       msg = postComplaintResponse['Msg'];
+
+                                     }else{
+                                         print("----Not call Api----");
+
+                                       // to apply condtion and check if any value is not selected then give a toast
+                                       if(_selectedWardId2==null){
+                                         displayToast("Please Select Sector");
+                                         return;
+                                       }else if(location.isEmpty){
+                                         displayToast("Please Enter Location");
+                                         return;
+                                       }else if(complaintDescription.isEmpty){
+                                         displayToast("Please Enter Description");
+                                         return;
+                                       }else if(uplodedImage==null){
+                                         displayToast("Please Pic image");
+                                         return;
+                                       }
+                                     }
+                                     if(result=="1"){
+                                       displayToast(msg);
+                                       Navigator.push(
+                                         context,
+                                         MaterialPageRoute(builder: (context) => OnlineComplaint()),
+                                       );
+                                     }else{
+                                       displayToast(msg);
+                                     }
+                                     },
+                                   child: Container(
+                                      width: double.infinity,
+                                      // Make container fill the width of its parent
+                                      height: AppSize.s45,
+                                      padding: EdgeInsets.all(AppPadding.p5),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF255898),
+                                        // Background color using HEX value
+                                        borderRadius: BorderRadius.circular(
+                                            AppMargin.m10), // Rounded corners
+                                      ),
+                                      //  #00b3c7
+                                      child: Center(
+                                        child: Text(
+                                          "Submit",
+                                          style: AppTextStyle
+                                              .font16OpenSansRegularWhiteTextStyle,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                                 ),
+
                               ],
                             ),
                           ),
@@ -1096,4 +873,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
       ),
     );
   }
+  // location
 }
+// location

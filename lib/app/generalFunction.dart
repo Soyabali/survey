@@ -11,6 +11,7 @@ import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../presentation/complaints/complaintHomePage.dart';
+import '../presentation/complaints/raiseGrievance/notification.dart';
 import '../presentation/homepage/homepage.dart';
 import '../presentation/login/loginScreen_2.dart';
 import '../presentation/resources/app_text_style.dart';
@@ -22,6 +23,7 @@ import '../presentation/temples/facilities/facilities.dart';
 import '../presentation/temples/howToReach/howToReach.dart';
 import '../presentation/temples/templehome.dart';
 import '../presentation/temples/weather/weather.dart';
+import '../services/deleteAccountRepo.dart';
 
 // pdf downlodd path
 
@@ -61,7 +63,7 @@ Widget buildDialogCall(BuildContext context, String sEmpName, String sContactNo)
             mainAxisSize: MainAxisSize.min,
             children: [
               // Space for the image
-              Row(
+              const Row(
                 children: [
                   Icon(
                     Icons.phone, // Exclamation icon
@@ -386,6 +388,7 @@ middleHeaderPuri(BuildContext context, String templeName) {
      ),
      // backgroundColor: Colors.blu
      backgroundColor: Color(0xFF255898),
+     centerTitle: true,
      title: Padding(
        padding: EdgeInsets.symmetric(horizontal: 5),
        child: Text(
@@ -450,11 +453,13 @@ getAppBarBack(BuildContext context ,String title) {
     ),
     // backgroundColor: Colors.blu
     backgroundColor: Color(0xFF255898),
+    centerTitle: true,
     leading: GestureDetector(
       onTap: (){
         print("------back---");
         Navigator.pop(context);
       },
+
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Icon(Icons.arrow_back_ios,
@@ -477,22 +482,19 @@ getAppBarBack(BuildContext context ,String title) {
 dynamic? lat,long;
 
 class GeneralFunction {
+
   void logout(BuildContext context) async {
-    /// TODO LOGOUT CODE
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("iCitizenCode");
-    prefs.remove("sContactNo");
-    prefs.remove("sCitizenName");
-    prefs.remove("sToken");
-    //displayToastlogout();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear(); // This removes all stored data
     goNext(context);
+
   }
 
   goNext(BuildContext context) {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => LoginScreen_2()),
-          (route) => false, // Pop all routes until this page
+          (Route<dynamic> route) => false, // Condition to retain routes
     );
   }
   // drawerfuntiion 2
@@ -661,8 +663,6 @@ class GeneralFunction {
                   GestureDetector(
                     onTap: () {
 
-
-
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => WeatherHome()),
                       );
@@ -715,6 +715,270 @@ class GeneralFunction {
     );
   }
   // drawerFunction
+  // Sucess account dialog box
+  Widget _buildDialogSucces2(BuildContext context,String msg) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          Container(
+            height: 190,
+            padding: EdgeInsets.fromLTRB(20, 45, 20, 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 0), // Space for the image
+                Text(
+                    'Success',
+                    style: AppTextStyle.font16OpenSansRegularBlackTextStyle
+                ),
+                SizedBox(height: 10),
+                Text(
+                  msg,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                  ),
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // navigate to LoginScreen
+
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                              (Route<dynamic> route) => false, // Condition to retain routes
+                        );
+
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                        // );
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+                        // );
+                        // Navigator.of(context).pushAndRemoveUntil(
+                        //   MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                        //       (Route<dynamic> route) => false, // This removes all the routes from the stack
+                        // );
+                       // Navigator.of(context).pop();
+
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white, // Set the background color to white
+                        foregroundColor: Colors.black, // Set the text color to black
+                      ),
+                      child: Text('Ok',style: AppTextStyle.font16OpenSansRegularBlackTextStyle),
+                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     getLocation();
+                    //     Navigator.of(context).pop();
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Colors.white, // Set the background color to white
+                    //     foregroundColor: Colors.black, // Set the text color to black
+                    //   ),
+                    //   child: Text('OK',style: AppTextStyle.font16OpenSansRegularBlackTextStyle),
+                    // )
+                  ],
+                )
+              ],
+            ),
+          ),
+          Positioned(
+            top: -30, // Position the image at the top center
+            child: CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.blueAccent,
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/sussess.jpeg', // Replace with your asset image path
+                  fit: BoxFit.cover,
+                  width: 60,
+                  height: 60,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  // Delete Account dialogBOX
+  Widget _buildDialogSucces(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          Container(
+            height: 170,
+            padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Space for the image
+                const Row(
+                  children: [
+                    Icon(
+                      Icons.error_outline, // Exclamation icon
+                      color: Colors.red, // Color of the icon
+                      size: 22, // Size of the icon
+                    ),
+                    SizedBox(width: 8), // Spacing between the icon and text
+                    Text(
+                      'Delete Account',
+                      style: TextStyle(
+                        fontSize: 16, // Adjust font size
+                        fontWeight: FontWeight.bold, // Make the text bold
+                        color: Colors.black, // Text color
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Expanded( // Wrap the text in Expanded to allow it to take available space and wrap
+                  child: Text(
+                    "Are you sure you want to Delete Account?",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                    ),
+                    textAlign: TextAlign.left, // Align the text to the left
+                    softWrap: true, // Allow text to wrap
+                    maxLines: 2, // Set the maximum number of lines the text can take
+                    overflow: TextOverflow.ellipsis, // Add ellipsis if the text exceeds the available space
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  height: 35, // Reduced height to 35
+                  padding: EdgeInsets.symmetric(horizontal: 5), // Adjust padding as needed
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Container background color
+                    borderRadius: BorderRadius.circular(15), // Rounded corners
+                    border: Border.all(color: Colors.grey), // Border color
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () {
+                            //generalFunction.logout(context);
+                            Navigator.of(context).pop();
+                          },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero, // Remove default padding
+                            minimumSize: Size(0, 0), // Remove minimum size constraints
+                            backgroundColor: Colors.white, // Button background
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15), // Button border radius
+                            ),
+                          ),
+                          child: Text(
+                            'No',
+                            style: GoogleFonts.openSans(
+                              color: Colors.red, // Text color for "Yes"
+                              fontSize: 12, // Adjust font size to fit the container
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(
+                        color: Colors.grey, // Divider color
+                        width: 20, // Space between buttons
+                        thickness: 1, // Thickness of the divider
+                      ),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: ()async {
+                           // getLocation();
+                            Navigator.pop(context);
+                            print("----Call api delete the Account---");
+
+                            var  deleteAccount = await DeleteAccountRepo().deleteAccount(context,"");
+                            print("-----DeleteAccount---$deleteAccount");
+
+                            var  result = "${deleteAccount['Result']}";
+                            var msg = "${deleteAccount['Msg']}";
+
+
+                           if(result=="1"){
+                             // show dialog Account is deleted
+                            // _buildDialogSucces2
+                             showDialog(
+                               context: context,
+                               builder: (BuildContext context) {
+                                 return _buildDialogSucces2(context,msg);
+                               },
+                             );
+                           }else{
+                             displayToast(msg);
+                             // show a msg api msg
+                           }
+                           // Navigator.of(context).pop();
+                          },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero, // Remove default padding
+                            minimumSize: Size(0, 0), // Remove minimum size constraints
+                            backgroundColor: Colors.white, // Button background
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15), // Button border radius
+                            ),
+                          ),
+                          child: Text(
+                            'Yes',
+                            style: GoogleFonts.openSans(
+                              color: Colors.green, // Text color for "No"
+                              fontSize: 12, // Adjust font size to fit the container
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
 
   drawerFunction_2(BuildContext context, String sName, String sContactNo) {
     return Drawer(
@@ -731,12 +995,22 @@ class GeneralFunction {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // User profile image
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage('assets/images/ic_launcher.png'),
+                ClipOval(
+                  child: SizedBox(
+                    height: 90, // Set the height
+                    width: 90,  // Set the width
+                    child: Image.asset(
+                      'assets/images/login_icon.png',
+                      fit: BoxFit.cover, // Ensures the image covers the circular area
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 10),
-                // First text (e.g., user name)
+                // const CircleAvatar(
+                //   radius: 30,
+                //   backgroundImage: AssetImage('assets/images/login_icon.png',
+                //   ),
+                // ),
+
                 Text(
                   sName,
                   style: AppTextStyle.font16OpenSansRegularBlackTextStyle,
@@ -787,49 +1061,27 @@ class GeneralFunction {
                   ),
                   const SizedBox(height: 15),
                   GestureDetector(
-                    onTap: ()async {
-
-
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(builder: (context) => TemplesHome()),
-                      // );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/images/holdicon.jpeg',
-                          width: 25,
-                          height: 25,
-                          fit: BoxFit.fill,
-                        ),
-                        const SizedBox(width: 10),
-                        Text('Advertisement Booking Status',
-                            style: AppTextStyle
-                                .font16penSansExtraboldBlackTextStyle),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  GestureDetector(
                     onTap: () {
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           CityHistory(templeName: "", image: "")),
-                      // );
+                      print("-----Deleting Account-----");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return _buildDialogSucces(context);
+                        },
+                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
+                        //Icon(Icons.delete,size: 25,color: Colors.red),
                         Image.asset(
-                          'assets/images/notification.png',
+                          'assets/images/deleteaccount.png',
                           width: 25,
                           height: 25,
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'Notification',
+                          'Delete Account',
                           style:
                               AppTextStyle.font16penSansExtraboldBlackTextStyle,
                         ),
@@ -840,14 +1092,16 @@ class GeneralFunction {
                   GestureDetector(
                     onTap: () async {
                       // clear all store SharedPreferenceValue :
+                     // _logoutDiuCitizen(context);
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.clear(); // This removes all stored data
 
-                      Navigator.of(context).pushReplacement(
+                      Navigator.pushAndRemoveUntil(
+                        context,
                         MaterialPageRoute(builder: (context) => LoginScreen_2()),
+                            (Route<dynamic> route) => false, // Condition to retain routes
                       );
-
-                    },
+                      },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -871,9 +1125,10 @@ class GeneralFunction {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 5.0,left: 15),
+                padding: EdgeInsets.only(bottom: 5.0,left: 25),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     const Text('Synergy Telematics Pvt.Ltd.',style: TextStyle(
                       fontFamily: 'Montserrat',

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../app/generalFunction.dart';
 import '../app/loader_helper.dart';
 import 'baseurl.dart';
@@ -11,24 +12,36 @@ class VerifyCitizenOtpRepo {
   // this is a loginApi call functin
   GeneralFunction generalFunction = GeneralFunction();
 
-  Future verifyCitizenOtp(BuildContext context, String otp, String contactNo) async {
+  Future verifyCitizenOtp(BuildContext context, String otp, String newPassword, phoneNumber) async {
+     // sharedPreference
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? sToken = prefs.getString('sToken');
+      String? mobileNo = prefs.getString('mobileNo');
 
     try {
       print('----otp-----17--$otp');
-      print('----contactNo------18-$contactNo');
+      print('----mobileNo------18-$mobileNo');
+      print('----sToken------18-$sToken');
+      print("-----phone------$phoneNumber");
 
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "VerifyCitizenOTP/VerifyCitizenOTP";
+      var endPoint = "CitizenChangePassword/CitizenChangePassword";
       var registrationApi = "$baseURL$endPoint";
       print('------------17---registrationApi---$registrationApi');
 
       showLoader();
       var headers = {'Content-Type': 'application/json'};
+      // var headers = {
+      //   'token': '$sToken',
+      //   'Content-Type': 'application/json'
+      // };
+
       var request = http.Request('POST', Uri.parse('$registrationApi'));
       request.body = json.encode(
           {
-            "sContactNo": contactNo,
-            "sOTP": otp
+            "sUserId": phoneNumber,
+            "sPassword":newPassword,
+            "sOtp": otp,
           });
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();

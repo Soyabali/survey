@@ -61,6 +61,15 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
       isLoading = false;
     });
   }
+  // bottom rating Code
+  int _selectedRating = 0; // To track the selected rating
+
+  void _setRating(int rating) {
+    setState(() {
+      _selectedRating = rating;
+    });
+  }
+
 
   @override
   void initState() {
@@ -139,7 +148,7 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: getAppBarBack(context,'${widget.name}'),
+        appBar: getAppBarBack(context,'FeedBack'),
         // appBar: getAppBarBack(context,'jjsjsjsj'),
         drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         body :
@@ -215,7 +224,7 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 2,right: 2),
                                     child: Container(
-                                      height: 50,
+                                      height: 55,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
                                         color :Colors.white,
@@ -251,11 +260,22 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
                                                     ),
                                                   ),
                                                 ),
-                                                title: Text(
-                                                  //"202411211334552667",
-                                                    item['iApplicationId'] ?? '',
-                                                    style: AppTextStyle
-                                                        .font14penSansExtraboldBlack45TextStyle),
+                                                title: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                        "Sand piled on roadsides",
+                                                        //item['iApplicationId'] ?? '',
+                                                        style: AppTextStyle
+                                                            .font14penSansExtraboldBlack45TextStyle),
+                                                    Text(
+                                                        "Point Name",
+                                                        //item['iApplicationId'] ?? '',
+                                                        style: AppTextStyle
+                                                            .font14penSansExtraboldBlack45TextStyle),
+                                                  ],
+                                                )
                                               )),
                                           Positioned(
                                             top: 10,
@@ -311,7 +331,7 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Project Name',
+                                      Text('Sector',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
@@ -329,7 +349,7 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Applicant Name',
+                                      Text('Posted At',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
@@ -347,7 +367,7 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Application Mobile Number',
+                                      Text('Location',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
@@ -365,7 +385,7 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Email Id',
+                                      Text('Description',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
@@ -383,114 +403,48 @@ class _TemplesHomeState extends State<BuildingPlanStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Address',
+                                      Text('Pending Since : -',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 24),
-                                    child: Text(
-                                     // "Diu",
-                                       item['sAddress'] ?? '',
-                                        style: AppTextStyle
-                                            .font14penSansExtraboldBlack26TextStyle),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
                                       SizedBox(width: 5),
-                                      CircleWithSpacing(),
-                                      Text('Status',
+                                      Text('95 Days, 4 Hr,23 Min',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
+
+
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 24),
-                                    child: Text(
-                                     // "Certificate Issued",
-                                        item['sStatusType'] ?? '',
-                                        style:
-                                        AppTextStyle.font14OpenSansRegularGreenTextStyle),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
-                                    child: Row(
-                                      children: [
-                                        // First Container
-                                        Expanded(
-                                          child: Container(
-                                            height: 50,
-                                            //color: Colors.blue,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              gradient: const LinearGradient(
-                                                // colors: [Colors.red, Colors.orange],
-                                                colors: [Color(0xFF255898),Color(0xFF12375e)],
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomRight,
-                                              ),
+                                  SizedBox(width: 5),
+                                  // in a Bottoom take a row right hand side with rating bar and elevatedButton
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space between widgets
+                                    children: [
+                                      // Rating Widget
+                                      Row(
+                                        children: List.generate(5, (index) {
+                                          return IconButton(
+                                            onPressed: () => _setRating(index + 1), // Set rating
+                                            icon: Icon(
+                                              Icons.star,
+                                              color: index < _selectedRating
+                                                  ? Colors.amber
+                                                  : Colors.grey, // Highlight stars up to the selected rating
+                                            ),
+                                          );
+                                        }),
+                                      ),
 
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 10, top: 5),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('Architect Name',
-                                                      style: AppTextStyle
-                                                          .font140penSansExtraboldWhiteTextStyle),
-                                                  Text(
-                                                   // "Anil",
-                                                      item['sArchitectName'] ?? '',
-                                                      style: AppTextStyle
-                                                          .font140penSansExtraboldWhiteTextStyle)
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(width: 5),
-                                        // Second Container
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(bottom: 0),
-                                            child: Container(
-                                              height: 50,
-                                              //color: Colors.blue,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(5),
-                                                gradient: const LinearGradient(
-                                                  colors: [Color(0xFF255898),Color(0xFF12375e)],
-                                                  begin: Alignment.topLeft,
-                                                  end: Alignment.bottomRight,
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(left: 10, top: 5),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text('Posted At',
-                                                        style: AppTextStyle
-                                                            .font140penSansExtraboldWhiteTextStyle),
-                                                    Text(
-                                                       // "21/Nov/2024 13:34",
-                                                        item['dCreatedDate'] ?? '',
-                                                        style: AppTextStyle
-                                                            .font140penSansExtraboldWhiteTextStyle)
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                      // Feedback Button
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          // Handle feedback action
+                                          print("Feedback button pressed. Selected Rating: $_selectedRating");
+                                        },
+                                        child: Text("Feedback"),
+                                      ),
+                                    ],
+                                  ),
+
                                 ],
                               ),
                             ),

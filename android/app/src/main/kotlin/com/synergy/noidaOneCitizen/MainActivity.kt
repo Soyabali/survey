@@ -1,4 +1,4 @@
-package com.city.purione
+package com.synergy.noidaOneCitizen
 
 import io.flutter.embedding.android.FlutterActivity
 

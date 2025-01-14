@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:puri/presentation/onlineService/propertyAssessment/propertyAssessment.dart';
+import 'package:puri/presentation/onlineService/propertyMutation/propertyMutation.dart';
 import 'package:puri/presentation/onlineService/propertyTax/propertyTax.dart';
+import 'package:puri/presentation/onlineService/waterSupply/waterSupply.dart';
 import '../../app/generalFunction.dart';
 import '../../services/getEmergencyContactTitleRepo.dart';
 import '../aboutDiu/Aboutdiupage.dart';
@@ -13,6 +15,7 @@ import '../nodatavalue/NoDataValue.dart';
 import '../resources/app_text_style.dart';
 import 'buildingPlan/buildingPlan.dart';
 import 'communityHall/communityHall.dart';
+import 'license/license.dart';
 
 
 class OnlineServives extends StatefulWidget {
@@ -89,14 +92,17 @@ class _OnlineComplaintState extends State<OnlineServives> {
       'temple': 'Other Important Numbers'
     },
   ];
-  var OnlineTitle = ["Property Tax",
+  var OnlineTitle = [
+    "Property Tax",
     "Building Plan",
     "Property Assessment",
     "License",
     "Community Hall",
+    "Property Mutation",
     "Water Supply",
     "Electricity Bill",
-    "Mamlatdar Diu"
+    "Mamlatdar Diu",
+    "Collectorate Diu"
   ];
   // "Water Supply",
   // "Electricity Bill",
@@ -233,11 +239,17 @@ class _OnlineComplaintState extends State<OnlineServives> {
                             var sName = "Property Assessment";
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => PropertyAssessment(name:sName,iCategoryCode:"")),
+                              MaterialPageRoute(builder: (context) => PropertyAssessment(name:sName)),
                             );
                             print('------213---Property Assessment');
                           }else if(title=="License"){
+
                             print('------215---License');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => License()),
+                            );
+
                           }else if(title=="Community Hall"){
                             print('------217---Community Hall');
                             // CommunityHall
@@ -247,7 +259,16 @@ class _OnlineComplaintState extends State<OnlineServives> {
                               MaterialPageRoute(builder: (context) => CommunityHall(name:sName)),
                             );
                           }else if(title=="Water Supply"){
+                            // WaterSupply
+
                             print('------219---Water Supply');
+
+                            var sName = "Water Supply";
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => WaterSupply(name:sName)),
+                            );
+
                           }else if(title=="Electricity Bill"){
                             print("-------221--Electricity Bill--");
                             var sPageName = "Electricity Bill";
@@ -258,7 +279,7 @@ class _OnlineComplaintState extends State<OnlineServives> {
                               MaterialPageRoute(builder: (context) => AboutDiuPage(name:sPageName,sPageLink:sPageLink)),
                             );
 
-                          }else if(title=="Mamlatdar Diu"){
+                          }else if(title=="Mamlatdar Diu") {
                             print("-------223--Mamlatdar Diu--");
                             var sPageName = "Mamlatdar Diu";
                             var sPageLink = "https://sugam.dddgov.in/mamlatdar-diu";
@@ -266,10 +287,41 @@ class _OnlineComplaintState extends State<OnlineServives> {
 
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AboutDiuPage(name:sPageName,sPageLink:sPageLink)),
+                              MaterialPageRoute(builder: (context) =>
+                                  AboutDiuPage(
+                                      name: sPageName, sPageLink: sPageLink)),
                             );
-                          }else{
-                            print("-----225---");
+                          }
+                          //  PropertyMutation
+                          else if(title=="Collectorate Diu"){
+                            var sPageName = "Collectorate Diu";
+                            var sPageLink = "https://swp.dddgov.in/collectorate-dnhdd";
+                            // AboutDiuPage(name:sPageName,sPageLink:sPageLink);
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  AboutDiuPage(
+                                      name: sPageName, sPageLink: sPageLink)),
+                            );
+                          }
+                          else if(title=="Property Mutation"){
+                            var sPageName = "Property Mutation";
+                           // var sPageName = "Collectorate Diu";
+                            //var sPageLink = "https://swp.dddgov.in/collectorate-dnhdd";
+                            // AboutDiuPage(name:sPageName,sPageLink:sPageLink);
+
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) =>
+                            //       AboutDiuPage(
+                            //           name: sPageName, sPageLink: sPageLink)),
+                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PropertyMutation(name:sPageName)),
+                            );
+
                           }
                           },
                         child: ListTile(

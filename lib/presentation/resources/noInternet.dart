@@ -39,7 +39,8 @@ class NoInternetState extends State<NoInternet> {
             SizedBox(
               height: 150,
               width: 150,
-              child: Image.asset("assets/images/ic_launcher.png",
+              child: Image.asset("assets/icon/icon.png",
+                fit: BoxFit.cover,
                 // color: Colors.transparent,
               ),
             ),
@@ -72,7 +73,7 @@ class NoInternetState extends State<NoInternet> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text('Diu Citizen',
+              child: Text('Noida One Citizen',
                   style: AppTextStyle.font12OpenSansRegularBlackTextStyle),
             ),
           ],

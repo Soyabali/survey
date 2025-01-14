@@ -11,11 +11,15 @@ class CitizenRegistrationRepo {
   // this is a loginApi call functin
   GeneralFunction generalFunction = GeneralFunction();
 
-  Future citizenRegistration(BuildContext context, String name, String phone) async {
+  Future citizenRegistration(BuildContext context, String name, String mobileNo, String email, String password, String? selectedGender) async {
 
     try {
-      print('----phone-----17--$phone');
+
       print('----name-----17--$name');
+      print('----mobile-----19--$mobileNo');
+      print('----email-----19--$email');
+      print('----password-----19--$password');
+      print('----selectedGender-----19--$selectedGender');
 
       var baseURL = BaseRepo().baseurl;
       var endPoint = "CitizenRegistration/CitizenRegistration";
@@ -29,8 +33,11 @@ class CitizenRegistrationRepo {
           Uri.parse('$registrationApi'));
       request.body = json.encode(
           {
-            "sContactNo": phone,
+            "sContactNo": mobileNo,
             "sCitizenName": name,
+            "sEmailId": email,
+            "sPassword":password,
+            "sGender":selectedGender,
           });
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
@@ -39,6 +46,9 @@ class CitizenRegistrationRepo {
       map = json.decode(data);
       print('----------20---Registration response----$map');
 
+      if(response.statusCode==401){
+        generalFunction.logout(context);
+      }
       if (response.statusCode == 200) {
         // create an instance of auth class
         print('----44-${response.statusCode}');

@@ -23,6 +23,8 @@ class _SplaceState extends State<SplashView> {
 
   bool activeConnection = false;
   String T = "";
+  var result,msg;
+
   Future checkUserConnection() async {
     try {
       final result = await InternetAddress.lookup('google.com');
@@ -56,7 +58,6 @@ class _SplaceState extends State<SplashView> {
       throw 'Could not launch $url';
     }
   }
-
   //
   void displayToast(String msg){
     Fluttertoast.showToast(
@@ -73,9 +74,13 @@ class _SplaceState extends State<SplashView> {
   @override
   void initState() {
     // TODO: implement initState
-    checkUserConnection();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      checkUserConnection();
+    });
+
     // versionAliCall();
-    getlocalDataBaseValue();
+    //getlocalDataBaseValue();
     print('---------xx--xxxxxx-------');
     super.initState();
   }
@@ -97,49 +102,50 @@ class _SplaceState extends State<SplashView> {
       );
     }
   }
-  versionAliCall() async{
-    /// TODO HERE YOU SHOULD CHANGE APP VERSION FLUTTER VERSION MIN 3 DIGIT SUCH AS 1.0.0
-    /// HERE YOU PASS variable _appVersion
-    var loginMap = await VerifyAppVersionRepo().verifyAppVersion(context,'1');
-    var result = "${loginMap['Result']}";
-    var msg = "${loginMap['Msg']}";
-    // print('---73--$result');
-    // print('---74--$msg');
+  Future<void> versionAliCall() async {
+    try {
+      // Call the API to check the app version
+      var loginMap = await VerifyAppVersionRepo().verifyAppVersion(context, "1");
+      result = "${loginMap['Result']}";
+      msg = "${loginMap['Msg']}";
 
-    if(result=="1"){
-     // LoginScreen_2
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) =>  const LoginScreen_2()),
-      );
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(builder: (context) =>  const HomePage()),
-      // );
-
-      // displayToast(msg);
-    }else{
-      showDialog(context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('New Version Available'),
-            content: const Text('Download the latest version of the app from the Play Store.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  _launchGooglePlayStore(); // Close the dialog
-                },
-                child: const Text('Downlode'),
+      // Check result and navigate or show dialog
+      if (result == "1") {
+        // Navigate to LoginScreen if version matches
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+        );
+      } else {
+        // Show dialog for mismatched version
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('New Version Available'),
+              content: const Text(
+                'Please download the latest version of the app from the Play Store.',
               ),
-
-            ],
-          );
-        },
-      );
-      displayToast(msg);
-      //print('----F---');
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    _launchGooglePlayStore();
+                  },
+                  child: const Text('Download'),
+                ),
+              ],
+            );
+          },
+        );
+        //displayToast(msg ?? "Version mismatch. Please update the app.");
+      }
+    } catch (e) {
+      // Handle potential errors
+      print("Error in versionAliCall: $e");
+      displayToast("Failed to verify app version.");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -151,8 +157,6 @@ class _SplaceState extends State<SplashView> {
 
 class SplaceScreen extends StatelessWidget {
   const SplaceScreen({super.key});
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -175,13 +179,13 @@ class SplaceScreen extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                     // Container(
-                     //   child: Image.asset(ImageAssets.cityname,
-                     //     height: 200,
-                     //     width: 300,),
-                     // ),
+                     Container(
+                       child: Image.asset("assets/images/login_icon.png",
+                         height: 200,
+                         width: 300,),
+                     ),
                      Positioned(
-                         child: Text('Diu Citizen',
+                         child: Text('',
                            style:AppTextStyle.font30penSansExtraboldWhiteTextStyle,
                          ),
                      )
@@ -196,82 +200,3 @@ class SplaceScreen extends StatelessWidget {
 
 }
 
-// class SplashView extends StatelessWidget {
-//   const SplashView({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: MyHomePage(),
-//     );
-//   }
-// }
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key});
-//
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-//
-// class _MyHomePageState extends State<MyHomePage> {
-//
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     _goNextPage();
-//   }
-//
-//   @override
-//   void dispose() {
-//     super.dispose();
-//   }
-//
-//   _goNextPage(){
-//     Future.delayed(Duration(seconds: 1), () {
-//       Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomePage()));
-//
-//     });
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: Stack(
-//         fit: StackFit.expand,
-//         clipBehavior: Clip.hardEdge,
-//         alignment: Alignment.bottomRight,
-//           children: [
-//             Container(
-//                 decoration: const BoxDecoration(
-//                   image: DecorationImage(
-//                     image: AssetImage(ImageAssets.templepuri4), // Replace 'background_image.jpg' with your image path
-//                     fit: BoxFit.cover, // Cover the entire container
-//                   ),
-//                 ),
-//               ),
-//             Container(
-//               child: Stack(
-//                 alignment: Alignment.center,
-//                 children: [
-//                      Container(
-//                        child: Image.asset(ImageAssets.cityname,
-//                          height: 200,
-//                          width: 300,),
-//                      ),
-//                      Positioned(
-//                          child: Text(AppStrings.puriOne,
-//                            style:AppTextStyle.font30penSansExtraboldWhiteTextStyle,
-//                          ),
-//                      )
-//                 ],
-//               )
-//             )
-//
-//           ],
-//       )
-//     );
-//   }
-// }
