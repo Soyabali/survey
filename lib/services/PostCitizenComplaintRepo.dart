@@ -17,6 +17,7 @@ class PostCitizenComplaintRepo {
     // sharedP
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('sToken');
+    var iPostedBy2 = prefs.getString('sContactNo');
 
     //  ---
     // firstFormCombinedList.add({
@@ -39,20 +40,20 @@ class PostCitizenComplaintRepo {
       showLoader();
       print('----iCompCode----40---$random12digitNumber');
       print('----iPointTypeCode----41---$categoryType');
-      print('----iSectorCode---$selectedWardId');
-      print('----sWardCode---$location');
-      print('----sLocation---$complaintDescription');
-      print('----sComplaintPhoto---$uplodedImage');
-      print('----sContactNo---$sContactNo');// lat
-      print('----lat---$lat');
-      print('----long---$long');
-      print('----long---$long');
-      print('----iPostedBy---$iPostedBy');
-      print('----iAgencyCode---$iAgencyCode');
-      print('----iAgencyCode-----52---$iAgencyCode');
+      print('----iSectorCode---43--$selectedWardId');
+      print('----sWardCode---44--$location');
+      print('----sLocation---45--$complaintDescription');
+      print('----sComplaintPhoto---46--$uplodedImage');
+      print('----sContactNo---47--$sContactNo');// lat
+      print('----lat---48--$lat');
+      print('----long---49--$long');
+      print('----long---50--$long');
+      print('----iPostedBy---51--$iPostedBy');
+      print('----iAgencyCode---52--$iAgencyCode');
+      print('----iAgencyCode-----53---$iAgencyCode');
      //  iCategoryCodeList
       print('----iCategoryCodeList-----54---$iCategoryCodeList');
-      print("--------35--token--$token");
+      print("--------55--token--$token");
 
       var baseURL = BaseRepo().baseurl;
 
@@ -61,8 +62,7 @@ class PostCitizenComplaintRepo {
       var postComplaintApi = "$baseURL$endPoint";
       print('------------48-----postComplaintApi---$postComplaintApi');
      //  random12digitNumber  -  lat -- long -- uplodedImage ---categoryType
-      String jsonResponse =
-          '{"sArray":[{"iCompCode":"$random12digitNumber","iPointTypeCode":"$iCategoryCodeList","iSectorCode":$selectedWardId,"sLocation":"$location","fLatitude":"$lat","fLongitude":"$long","sDescription":"$complaintDescription","sBeforePhoto":"$uplodedImage","dPostedOn":"$formattedDate","iPostedBy":$iPostedBy,"iAgencyCode":$iAgencyCode,"sCitizenContactNo":$sContactNo}]}';
+      String jsonResponse = '{"sArray":[{"iCompCode":"$random12digitNumber","iPointTypeCode":"$iCategoryCodeList","iSectorCode":"$selectedWardId","sLocation":"$location","fLatitude":"$lat","fLongitude":"$long","sDescription":"$complaintDescription","sBeforePhoto":"$uplodedImage","dPostedOn":"$formattedDate","iPostedBy":"$iPostedBy","iAgencyCode":"$iAgencyCode","sCitizenContactNo":"$sContactNo"}]}';
 // Parse the JSON response
       Map<String, dynamic> parsedResponse = jsonDecode(jsonResponse);
 

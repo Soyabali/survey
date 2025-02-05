@@ -394,8 +394,6 @@ class _MyHomePageState extends State<OtpPageRegistration> {
                                                     var newPassword = _newPasswordController.text.trim();
                                                     var confirmPassword = _confirmPassWordController.text.trim();
 
-
-
                                                     if (_formKey.currentState!.validate() &&
                                                         otp != null)
                                                     {

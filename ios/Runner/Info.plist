@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>FLTEnableImpeller</key>
+     <false />
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -19,11 +21,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1</string>
+	<string>2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.7</string>
+	<string>2.0.0</string>
      <key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
@@ -34,6 +36,9 @@
 	<string>This app uses your location to associate complaints with the correct area in Noida and help resolve issues effectively.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>This app requires access to the photo library to take or upload a photo when submitting a complaint.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app needs your location to link your complaint to the correct area and assist in resolving the issue.</string>
+
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

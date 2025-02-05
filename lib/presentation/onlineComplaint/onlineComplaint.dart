@@ -147,7 +147,7 @@ class _OnlineComplaintState extends State<OnlineComplaint> {
                 MaterialPageRoute(builder: (context) => const ComplaintHomePage()),
               );
             },
-            child: Icon(Icons.arrow_back_ios,
+            child: const Icon(Icons.arrow_back_ios,
               color: Colors.white,),
           ),
           title: Padding(

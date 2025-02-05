@@ -22,6 +22,10 @@ import '../resources/app_text_style.dart';
 import '../resources/values_manager.dart';
 import 'dart:math';
 
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+
 class OnlineComplaintForm extends StatefulWidget {
 
   var name, iCategoryCode;
@@ -32,7 +36,7 @@ class OnlineComplaintForm extends StatefulWidget {
   State<OnlineComplaintForm> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<OnlineComplaintForm> {
+class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObserver {
 
   List stateList = [];
   List<dynamic> subCategoryList = [];
@@ -94,6 +98,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
   File? image;
   var uplodedImage;
   double? lat, long;
+  bool _isLoading = false;
   var categoryType;
   var iCategoryCodeList;
   List<Map<String, dynamic>> firstFormCombinedList = [];
@@ -106,8 +111,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
     String? sToken = prefs.getString('sToken');
     print('---Token----107--$sToken');
     try {
-      final pickFileid = await ImagePicker()
-          .pickImage(source: ImageSource.camera, imageQuality: 65);
+      final pickFileid = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 65);
       if (pickFileid != null) {
         image = File(pickFileid.path);
         setState(() {});
@@ -119,40 +123,129 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
       }
     } catch (e) {}
   }
-  // takeaLocation
+
   void getLocation() async {
+    setState(() {
+      _isLoading = true; // Start loading
+    });
+
     bool serviceEnabled;
     LocationPermission permission;
+
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      await Geolocator.openLocationSettings();
+      setState(() {
+        _isLoading = false;
+      });
+      return;
     }
+
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        print("Location permission denied");
+        setState(() {
+          _isLoading = false;
+        });
+        return;
       }
     }
+
     if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      print("Location permissions are permanently denied. Open settings.");
+      openAppSettings();
+      setState(() {
+        _isLoading = false;
+      });
+      return;
     }
+
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    debugPrint("-------------Position-----------------");
-    debugPrint(position.latitude.toString());
 
-    lat = position.latitude;
-    long = position.longitude;
-    print('-----------105----$lat');
-    print('-----------106----$long');
-    // setState(() {
-    // });
-    debugPrint("Latitude: ----1056--- $lat and Longitude: $long");
-    debugPrint(position.toString());
+    setState(() {
+      lat = position.latitude;
+      long = position.longitude;
+      _isLoading = false; // Stop loading
+    });
+
+    print("Latitude: $lat, Longitude: $long");
   }
+
+  // void getLocation() async {
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     await Geolocator.openLocationSettings();
+  //     return;
+  //   }
+  //
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       print("Location permission denied");
+  //       return;
+  //     }
+  //   }
+  //
+  //   if (permission == LocationPermission.deniedForever) {
+  //     print("Location permissions are permanently denied. Open settings.");
+  //     openAppSettings();
+  //     return;
+  //   }
+  //
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   print("Latitude---->>--156--: ${position.latitude}, Longitude: ${position.longitude}");
+  //   //   double lat = double.parse('${position.latitude}');
+  //   setState(() {
+  //     lat = double.parse('${position.latitude}');
+  //     long = double.parse('${position.longitude}');
+  //   });
+  //
+  //   //long = '${position.longitude}' as double?;
+  //   print('----lat---159-->>>--$lat');
+  //   print('----long----160->>>--$long');
+  // }
+  // takeaLocation
+  // void getLocation() async {
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     return Future.error('Location services are disabled.');
+  //   }
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       return Future.error('Location permissions are denied');
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     // Permissions are denied forever, handle appropriately.
+  //     return Future.error(
+  //         'Location permissions are permanently denied, we cannot request permissions.');
+  //   }
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   debugPrint("-------------Position-----------------");
+  //   debugPrint(position.latitude.toString());
+  //
+  //   lat = position.latitude;
+  //   long = position.longitude;
+  //   print('-----------105--lat-xx--$lat');
+  //   print('-----------106-----long----$long');
+  //   // setState(() {
+  //   // });
+  //   debugPrint("Latitude: ----1056--- $lat and Longitude: $long");
+  //   debugPrint(position.toString());
+  // }
 
   // generateRandomNumber
   String generateRandom20DigitNumber() {
@@ -212,6 +305,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
   void initState() {
     // TODO: implement initState
     // updatedSector();
+    WidgetsBinding.instance.addObserver(this);
     getLocation();
     var subCategoryCode = "${widget.iCategoryCode}";
     categoryType = "${widget.name}";
@@ -219,7 +313,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
     print("---------240-------$subCategoryCode");
     bindSubCategory(subCategoryCode);
     bindWard();
-
     generateRandom20DigitNumber();
     super.initState();
     _addressfocus = FocusNode();
@@ -229,14 +322,20 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
   @override
   void dispose() {
     // TODO: implement dispose
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
     _addressController.dispose();
     _landmarkController.dispose();
     _mentionController.dispose();
     FocusScope.of(context).unfocus();
   }
-
-
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // App resumed from background, check location again
+      getLocation();
+    }
+  }
   // bind Ward
   Widget _bindWard() {
     return Material(
@@ -433,9 +532,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                     children: <Widget>[
                                       CircleWithSpacing(),
                                       // Space between the circle and text
-                                      Text(
-                                        'Category',
-                                        style: AppTextStyle
+                                      Text('Category', style: AppTextStyle
                                             .font14OpenSansRegularBlack45TextStyle,
                                       ),
                                     ],
@@ -453,10 +550,8 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 0),
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                               padding: EdgeInsets.all(10.0),
@@ -664,7 +759,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                         GestureDetector(
                                           onTap: () {
                                             print("---------image-----");
-                                            getLocation();
+                                           // getLocation();
                                             pickImage();
 
                                           },
@@ -697,8 +792,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                   ),
                                 ),
                                 Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       image != null
                                           ? Stack(
@@ -750,9 +844,10 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                     ]),
                                 SizedBox(height: 10),
                                  GestureDetector(
-
-                                   onTap: () async{
-
+                                     onTap: () async {
+                                       // pick a location
+                                       //getLocation();
+                                     getLocation();
 
                                      SharedPreferences prefs = await SharedPreferences.getInstance();
                                      // Contact No
@@ -764,30 +859,24 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                      // Define the format
                                      String formattedDate = DateFormat('dd/MMM/yyyy hh:mm').format(now);
                                      // TextFormField value
+
                                      var location = _addressController.text.trim();
                                      var complaintDescription = _landmarkController.text.trim();
 
                                      var iPostedBy = "0";
                                      var iAgencyCode = "1";
-                                     var sCitizenContactNo = sContactNo;
+                                      var sCitizenContactNo = sContactNo;
                                      // Check Form Validation
                                      final isFormValid = _formKey.currentState!.validate();
 
                                      print("Form Validation: $isFormValid");
+                                     _isLoading ? CircularProgressIndicator() : "";
+
                                      if(_formKey.currentState!.validate() && _selectedWardId2 != null
-                                         && location.isNotEmpty && complaintDescription.isNotEmpty && uplodedImage!=null){
-                                       // call api
-                                          print("----call Api----");
-                                          print("----wardId---$_selectedWardId2");
-                                          print("----location---$location");
-                                          print("----complaintDescription---$complaintDescription");
-                                          print("----uplodedImage---$uplodedImage");
-                                          print("----lat---$lat");
-                                          print("----long---$long");
+                                         && location.isNotEmpty && complaintDescription.isNotEmpty && uplodedImage!=null)
+                                     {
 
-                                       var  postComplaintResponse =
-
-                                       await PostCitizenComplaintRepo().postComplaint(
+                                       var  postComplaintResponse = await PostCitizenComplaintRepo().postComplaint(
                                            context,
                                            random12DigitNumber,
                                            categoryType,
@@ -807,7 +896,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                        print('----1092---$postComplaintResponse');
                                        result = postComplaintResponse['Result'];
                                        msg = postComplaintResponse['Msg'];
-
                                      }else{
                                          print("----Not call Api----");
 
