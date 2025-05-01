@@ -180,7 +180,7 @@ class SplaceScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                      Container(
-                       child: Image.asset("assets/images/login_icon.png",
+                       child: Image.asset("assets/icon/icon.png",
                          height: 200,
                          width: 300,),
                      ),

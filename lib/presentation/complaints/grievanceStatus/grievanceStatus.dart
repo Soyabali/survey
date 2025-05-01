@@ -55,8 +55,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
     pendingInternalComplaintList =
         await CitizenMyPostComplaintRepo().cityzenpostcomplaint(context);
     print('-----53----$pendingInternalComplaintList');
-    _filteredData =
-        List<Map<String, dynamic>>.from(pendingInternalComplaintList ?? []);
+    _filteredData = List<Map<String, dynamic>>.from(pendingInternalComplaintList ?? []);
 
     setState(() {
       // parkList=[];
@@ -151,7 +150,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
               body: isLoading
                   ? Center(child: Container())
                   : (pendingInternalComplaintList == null ||
-                          pendingInternalComplaintList!.isEmpty)
+                     pendingInternalComplaintList!.isEmpty)
                       ? NoDataScreenPage()
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -161,13 +160,11 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                 padding: EdgeInsets.only(
                                     left: 15, right: 15, top: 10),
                                 child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(
-                                      color:
-                                          Colors.grey, // Outline border color
+                                      color: Colors.grey, // Outline border color
                                       width: 0.2, // Outline border width
                                     ),
                                     color: Colors.white,
@@ -200,16 +197,13 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                               child: ListView.builder(
                                 itemCount: _filteredData.length ?? 0,
                                 itemBuilder: (context, index) {
-                                  Map<String, dynamic> item =
-                                      _filteredData[index];
+                                  Map<String, dynamic> item = _filteredData[index];
 
                                   fRating = "${item['fRating']}";
-                                  double? ratingValue =
-                                      double.tryParse(fRating);
+                                  double? ratingValue = double.tryParse(fRating);
 
                                   return Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, top: 8, right: 8),
+                                    padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
                                     child: Container(
                                       child: Column(
                                         children: [
@@ -219,10 +213,8 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                             child: Container(
                                               color: Colors.white,
                                               child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   SizedBox(height: 5),
                                                   Container(
@@ -238,26 +230,18 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                                         'assets/images/home12.jpeg',
                                                         height: 25,
                                                         width: 25,
-                                                        fit: BoxFit
-                                                            .cover, // Ensures the image fits well
+                                                        fit: BoxFit.cover, // Ensures the image fits well
                                                       ),
                                                       title: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           Expanded(
                                                             child: Text(
-                                                              item['sPointTypeName']
-                                                                      .toString() ??
-                                                                  '',
-                                                              style: AppTextStyle
-                                                                  .font14penSansExtraboldBlack45TextStyle,
+                                                              item['sPointTypeName'].toString() ?? '',
+                                                              style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
                                                               maxLines: 2,
                                                               // Ensure the title doesn't exceed two lines
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
+                                                              overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ),
                                                           SizedBox(width: 4),
@@ -318,9 +302,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                                     children: <Widget>[
                                                       SizedBox(width: 5),
                                                       CircleWithSpacing(),
-                                                      Text('Sector',
-                                                          style: AppTextStyle
-                                                              .font14OpenSansRegularBlack45TextStyle),
+                                                      Text('Sector', style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
                                                     ],
                                                   ),
                                                   Padding(

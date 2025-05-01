@@ -230,8 +230,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                     margin: EdgeInsets.all(5.0),
                                     shadowColor: Colors.green,
                                     shape: RoundedRectangleBorder(
-                                      side:
-                                          BorderSide(color: Colors.green, width: 0.5),
+                                      side: BorderSide(color: Colors.green, width: 0.5),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Padding(

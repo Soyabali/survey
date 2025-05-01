@@ -1000,7 +1000,7 @@ class GeneralFunction {
                     height: 90, // Set the height
                     width: 90,  // Set the width
                     child: Image.asset(
-                      'assets/images/login_icon.png',
+                      'assets/icon/icon.png',
                       fit: BoxFit.cover, // Ensures the image covers the circular area
                     ),
                   ),
