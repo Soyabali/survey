@@ -4,28 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
-import '../../app/generalFunction.dart';
 import '../../services/citizenMyPostedComplaint.dart';
-import '../aboutDiu/aboutdiu.dart';
-import '../birth_death/birthanddeath.dart';
-import '../bookAdvertisement/bookAdvertisement.dart';
 import '../changePassword/changePassword.dart';
-import '../circle/circle.dart';
-import '../emergencyContact/emergencyContact.dart';
-import '../fullscreen/imageDisplay.dart';
-import '../helpline_feedback/feedbackBottomSheet.dart';
-import '../helpline_feedback/helplinefeedback.dart';
-import '../nodatavalue/NoDataValue.dart';
 import '../notification/notification.dart';
 import '../onlineComplaint/onlineComplaint.dart';
-import '../onlineService/buildingPlan/buildingPlanStatus.dart';
-import '../onlineService/onlineService.dart';
 import '../resources/app_text_style.dart';
 import 'grievanceStatus/grievanceStatus.dart';
-import 'grievanceStatus/pendingcomplaint.dart';
+
 
 class ComplaintHomePage extends StatefulWidget {
-   final lat,long;
+
+  final lat,long;
   const ComplaintHomePage({super.key, double? this.lat, double? this.long});
 
   @override
@@ -142,7 +131,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
         backgroundColor: Colors.white,
         // appBar
        appBar: appBarFunction(context,"Noida One Citizen"),
-
        drawer: generalFunction.drawerFunction_2(context,"$sCitizenName","$sContactNo"),
 
         body: Stack(
@@ -210,18 +198,18 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                 height: 120,
                                 width: MediaQuery.of(context).size.width / 2 - 14,
                                 decoration: const BoxDecoration(
-                                  border: Border(
+                                  // border
+                                border: Border(
                                     left: BorderSide(
                                       color: Colors.green,
                                       // Specify your desired border color here
                                       width: 5.0, // Adjust the width of the border
                                     ),
                                   ),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10.0),
+                                borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.0),
                                     // Adjust the radius for the top-left corner
-                                    bottomLeft: Radius.circular(
-                                        10.0), // Adjust the radius for the bottom-left corner
+                                bottomLeft: Radius.circular(10.0), // Adjust the radius for the bottom-left corner
                                   ),
                                 ),
                                 // color: Colors.black,
@@ -250,7 +238,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                             child: const Center(
                                                 child: Image(
                                               image: AssetImage(
-                                                  'assets/images/online_Complain.png'),
+                                              'assets/images/online_Complain.png'),
                                               width: 45,
                                               height: 45,
                                             )),
@@ -294,6 +282,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                 width: MediaQuery.of(context).size.width / 2 - 14,
                                 decoration: const BoxDecoration(
                                   border: Border(
+                                    // right border side
                                     right: BorderSide(
                                       color: Colors.orange,
                                       // Specify your desired border color here
@@ -303,8 +292,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(10.0),
                                     // Adjust the radius for the top-left corner
-                                    bottomRight: Radius.circular(
-                                        10.0), // Adjust the radius for the bottom-left corner
+                                    bottomRight: Radius.circular(10.0), // Adjust the radius for the bottom-left corner
                                   ),
                                 ),
                                 // color: Colors.black,
@@ -313,7 +301,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                     shadowColor: Colors.orange,
                                     shape: RoundedRectangleBorder(
                                       side: const BorderSide(
-                                          color: Colors.orange, width: 0.5),
+                                      color: Colors.orange, width: 0.5),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Padding(
@@ -331,9 +319,8 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                               borderRadius: BorderRadius.circular(12), // Optional: Adds rounded corners
                                             ),
                                             child: const Center(
-                                                child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/complaint_list.png'),
+                                             child: Image(
+                                              image: AssetImage('assets/images/complaint_list.png'),
                                               width: 45,
                                               height: 45,
                                             )),
@@ -363,11 +350,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                           children: <Widget>[
                             InkWell(
                               onTap: () {
-                                // Add your onTap functionality here
-                                print('-----52------');
-                               // displayToast("Coming Soon");
-                                var name="Birth & Death Cert";
-
 
                                 Navigator.pushAndRemoveUntil(
                                   context,
@@ -376,13 +358,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                   ),
                                       (Route<dynamic> route) => false, // This removes all previous routes.
                                 );
-
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           ChangePassword(name: "Change Password")),
-                                // );
                               },
                               child: Container(
                                 height: 120,

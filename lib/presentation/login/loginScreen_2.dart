@@ -10,7 +10,6 @@ import '../../app/generalFunction.dart';
 import '../../services/loginRepo.dart';
 import '../complaints/complaintHomePage.dart';
 import '../forgotPassword/forgotPassword.dart';
-import '../otp/otpverification.dart';
 import '../registration/registration.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
@@ -32,7 +31,6 @@ class LoginScreen_2 extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
-
   const LoginPage({super.key});
 
   @override
@@ -400,8 +398,7 @@ class _LoginPageState extends State<LoginPage> {
                                             vertical: AppPadding.p10,
                                             horizontal: AppPadding.p10, // Add horizontal padding
                                           ),
-                                          prefixIcon: const Icon(Icons.lock,
-                                              color: Color(0xFF255899)),
+                                          prefixIcon: const Icon(Icons.lock,color: Color(0xFF255899)),
                                           suffixIcon: IconButton(
                                             icon: Icon(_isObscured
                                                 ? Icons.visibility
@@ -430,8 +427,6 @@ class _LoginPageState extends State<LoginPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 13,right: 13),
                                       child: InkWell(
-
-
                                         onTap: () async {
                                           getLocation();
                                           var phone = _phoneNumberController.text.trim();
@@ -439,15 +434,10 @@ class _LoginPageState extends State<LoginPage> {
                                           print("---phone--$phone");
                                           print("----password ---$password");
 
-
                                           if(_formKey.currentState!.validate() && phone.isNotEmpty && password.isNotEmpty){
                                             // Call Api
-
-                                             loginMap = await LoginRepo().login(context, phone!,password);
-
-
+                                            loginMap = await LoginRepo().login(context, phone!,password);
                                             print('---451----->>>>>---XXXXX---XXXX----$loginMap');
-
                                             result = "${loginMap['Result']}";
                                             msg = "${loginMap['Msg']}";
                                             //
@@ -492,6 +482,7 @@ class _LoginPageState extends State<LoginPage> {
                                             //
                                             if((lat==null && lat=='') ||(long==null && long=='')){
                                               displayToast("Please turn on Location");
+
                                             }else{
                                               Navigator.pushReplacement(
                                                 context,

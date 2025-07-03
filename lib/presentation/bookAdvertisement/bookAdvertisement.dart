@@ -37,14 +37,13 @@ class _BookAdvertisementState extends State<BookAdvertisement> {
 
   File? image;
   List distList = [];
-  var _dropDownValueDistric;
   List stateList = [];
   List blockList = [];
   List marklocationList = [];
   List<dynamic> advertisementPlaceType = [];
   List<dynamic> advertisementPlace = [];
   List<dynamic> advertisementPlan = [];
-  var _dropDownValueMarkLocation;
+
   var _dropDownValueAdvertisementPlaceType;
   var _dropDownValueAdvertisementPlace;
   var _dropDownValueAdvertisementPlan;

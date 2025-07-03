@@ -11,7 +11,6 @@ import '../resources/app_text_style.dart';
 import 'onlineComplaintForm.dart';
 import '../nodatavalue/NoDataValue.dart';
 
-
 class OnlineComplaint extends StatefulWidget {
 
   final name;
@@ -121,7 +120,7 @@ class _OnlineComplaintState extends State<OnlineComplaint> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async => false,
+    onWillPop: () async => false,
     child: GestureDetector(
     onTap: (){
     FocusScope.of(context).unfocus();
@@ -187,7 +186,6 @@ class _OnlineComplaintState extends State<OnlineComplaint> {
                           onTap: () {
                             var iCategoryCode = emergencyTitleList![index]['iPointTypeCode'];
                             var sCategoryName = emergencyTitleList![index]['sPointTypeName'];
-
                             // sIcon
                             print('----sCategoryName---$sCategoryName');
                             print('----iCategoryCode---$iCategoryCode');

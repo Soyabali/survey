@@ -25,7 +25,6 @@ import 'dart:math';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class OnlineComplaintForm extends StatefulWidget {
 
   var name, iCategoryCode;
@@ -162,15 +161,13 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
       return;
     }
 
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     setState(() {
       lat = position.latitude;
       long = position.longitude;
       _isLoading = false; // Stop loading
     });
-
     print("Latitude: $lat, Longitude: $long");
   }
 
@@ -248,6 +245,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
   // }
 
   // generateRandomNumber
+
   String generateRandom20DigitNumber() {
     final Random random = Random();
     String randomNumber = '';
@@ -255,7 +253,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
     for (int i = 0; i < 10; i++) {
       randomNumber += random.nextInt(12).toString();
     }
-
     return randomNumber;
   }
 
@@ -282,7 +279,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
       var streamedResponse = await request.send();
       // Get the response
       var response = await http.Response.fromStream(streamedResponse);
-
       // Parse the response JSON
       var responseData = json.decode(response.body); // No explicit type casting
       print("---------248-----$responseData");
@@ -388,8 +384,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                           child: Text(
                             item['sSectorName'].toString(),
                             overflow: TextOverflow.ellipsis,
-                            style: AppTextStyle
-                                .font14OpenSansRegularBlack45TextStyle,
+                            style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
                           ),
                         ),
                       ],
@@ -403,7 +398,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
       ),
     );
   }
-
   /// Algo.  First of all create repo, secodn get repo data in the main page after that apply list data on  dropdown.
   // function call
 
@@ -453,6 +447,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
             //centerTitle: true,
             elevation: 0, // Removes shadow under the AppBar
           ),
+
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
@@ -540,8 +535,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, right: 0),
+                                  padding: const EdgeInsets.only(left: 10, right: 0),
                                   child: Container(
                                     height: 45,
                                     width: MediaQuery.of(context).size.width,
@@ -557,10 +551,8 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                               padding: EdgeInsets.all(10.0),
                                               child: Text(
                                                 "${widget.name}",
-                                                style: AppTextStyle
-                                                    .font14OpenSansRegularBlack45TextStyle,
-                                                textAlign: TextAlign
-                                                    .left, // Aligns the text to the left
+                                                style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
+                                                textAlign: TextAlign.left, // Aligns the text to the left
                                               )),
                                         ],
                                       ),
@@ -578,8 +570,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                     children: <Widget>[
                                       CircleWithSpacing(),
                                       // Space between the circle and text
-                                      Text(
-                                        'Sector',
+                                      Text('Sector',
                                         style: AppTextStyle
                                             .font14OpenSansRegularBlack45TextStyle,
                                       ),
@@ -609,8 +600,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                 SizedBox(height: 5),
                                 // this is my TextFormFoield
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, right: 0),
+                                  padding: const EdgeInsets.only(left: 10, right: 0),
                                   child: Container(
                                     height: 70,
                                     // Increased height to accommodate error message without resizing
@@ -623,10 +613,8 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                             child: TextFormField(
                                               focusNode: _addressfocus,
                                               controller: _addressController,
-                                              textInputAction:
-                                                  TextInputAction.next,
-                                              onEditingComplete: () =>
-                                                  FocusScope.of(context).nextFocus(),
+                                              textInputAction: TextInputAction.next,
+                                              onEditingComplete: () => FocusScope.of(context).nextFocus(),
                                               decoration: const InputDecoration(
                                                 border: OutlineInputBorder(),
                                                 contentPadding: EdgeInsets.symmetric(
@@ -664,8 +652,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, right: 0),
+                                  padding: const EdgeInsets.only(left: 10, right: 0),
                                   child: Container(
                                     height: 70,
                                     color: Colors.white,
@@ -676,17 +663,16 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                         controller: _landmarkController,
                                         textInputAction: TextInputAction.next,
                                         onEditingComplete: () =>
-                                            FocusScope.of(context).nextFocus(),
+                                         FocusScope.of(context).nextFocus(),
                                         decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           contentPadding: EdgeInsets.symmetric(
-                                              vertical: 10.0, horizontal: 10.0),
+                                          vertical: 10.0, horizontal: 10.0),
                                           filled: true, // Enable background color
                                           fillColor: Color(
-                                              0xFFf2f3f5), // Set your desired background color here
+                          0xFFf2f3f5), // Set your desired background color here
                                         ),
-                                        autovalidateMode:
-                                            AutovalidateMode.onUserInteraction,
+                                        autovalidateMode: AutovalidateMode.onUserInteraction,
                                       ),
                                     ),
                                   ),
@@ -701,8 +687,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                     children: <Widget>[
                                       CircleWithSpacing(),
                                       // Space between the circle and text
-                                      Text(
-                                        'Uplode Photo',
+                                      Text('Uplode Photo',
                                         style: AppTextStyle
                                             .font14OpenSansRegularBlack45TextStyle,
                                       ),
@@ -722,7 +707,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                     padding: EdgeInsets.all(10),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         // Column Section
                                         Column(
@@ -730,20 +715,72 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text("Click Photo",
-                                                style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
+                                            style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
                                             SizedBox(height: 5),
+                                            // Flexible(
+                                            //   child: Row(
+                                            //     children: [
+                                            //       Expanded(
+                                            //         child: Text(
+                                            //           "Please click here to take a photo",
+                                            //           style: TextStyle(
+                                            //             fontSize: 14,
+                                            //             color: Colors.red[300],
+                                            //           ),
+                                            //           overflow: TextOverflow.ellipsis,
+                                            //           softWrap: true,
+                                            //         ),
+                                            //       ),
+                                            //       Padding(
+                                            //         padding: const EdgeInsets.only(right: 4),
+                                            //         child: Icon(
+                                            //           Icons.arrow_forward_ios,
+                                            //           color: Colors.red[300],
+                                            //           size: 16,
+                                            //         ),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            // )
+
+                                            // Expanded(
+                                            //   child: Row(
+                                            //     children: [
+                                            //       Expanded(
+                                            //         child: Text(
+                                            //           "Please click here to take a photo",
+                                            //           style: TextStyle(
+                                            //             fontSize: 14,
+                                            //             color: Colors.red[300],
+                                            //           ),
+                                            //           overflow: TextOverflow.ellipsis,
+                                            //           softWrap: true,
+                                            //         ),
+                                            //       ),
+                                            //       Padding(
+                                            //         padding: const EdgeInsets.only(right: 4),
+                                            //         child: Icon(
+                                            //           Icons.arrow_forward_ios,
+                                            //           color: Colors.red[300],
+                                            //           size: 16,
+                                            //         ),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            // )
+
                                             Expanded(
                                               child: Row(
                                                 children: [
-                                                  Text(
-                                                    "Please click here to take a photo",
+                                                  Text("Please click here to take a photo",
                                                     style: TextStyle(
-                                                        fontSize: 14,
+                                                        fontSize: 12,
                                                         color: Colors.red[300]),
+                                                       overflow: TextOverflow.ellipsis,
+                                                       softWrap: true,
                                                   ),
                                                   SizedBox(width: 0),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(right: 4),
+                                                  Padding(padding: const EdgeInsets.only(right: 4),
                                                     child: Icon(
                                                       Icons.arrow_forward_ios,
                                                       color: Colors.red[300],
@@ -764,8 +801,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
 
                                           },
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 10),
+                                            padding: const EdgeInsets.only(top: 10),
                                             child: Container(
                                               padding: EdgeInsets.all(10),
                                               decoration: BoxDecoration(
@@ -862,20 +898,17 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
 
                                      var location = _addressController.text.trim();
                                      var complaintDescription = _landmarkController.text.trim();
-
                                      var iPostedBy = "0";
                                      var iAgencyCode = "1";
                                       var sCitizenContactNo = sContactNo;
                                      // Check Form Validation
                                      final isFormValid = _formKey.currentState!.validate();
-
                                      print("Form Validation: $isFormValid");
                                      _isLoading ? CircularProgressIndicator() : "";
 
                                      if(_formKey.currentState!.validate() && _selectedWardId2 != null
                                          && location.isNotEmpty && complaintDescription.isNotEmpty && uplodedImage!=null)
                                      {
-
                                        var  postComplaintResponse = await PostCitizenComplaintRepo().postComplaint(
                                            context,
                                            random12DigitNumber,
@@ -898,9 +931,8 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
                                        msg = postComplaintResponse['Msg'];
                                      }else{
                                          print("----Not call Api----");
-
-                                       // to apply condtion and check if any value is not selected then give a toast
-                                       if(_selectedWardId2==null){
+                                         // to apply condtion and check if any value is not selected then give a toast
+                                       if(_selectedWardId2==null) {
                                          displayToast("Please Select Sector");
                                          return;
                                        }else if(location.isEmpty){

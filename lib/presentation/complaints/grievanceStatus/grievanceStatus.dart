@@ -13,6 +13,7 @@ import '../../nodatavalue/NoDataValue.dart';
 import '../../resources/app_text_style.dart';
 
 class GrievanceStatus extends StatefulWidget {
+
   final name;
 
   GrievanceStatus({super.key, this.name});
@@ -22,6 +23,7 @@ class GrievanceStatus extends StatefulWidget {
 }
 
 class _TemplesHomeState extends State<GrievanceStatus> {
+
   GeneralFunction generalFunction = GeneralFunction();
 
   var variableName;
@@ -144,7 +146,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
             },
             child: Scaffold(
               backgroundColor: Colors.white,
-              appBar: getAppBarBack(context, '${widget.name}'),
+             appBar: getAppBarBack(context, '${widget.name}'),
               // appBar: getAppBarBack(context,'jjsjsjsj'),
               //  drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
               body: isLoading
@@ -175,6 +177,9 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                         child: TextFormField(
                                           controller: _searchController,
                                           autofocus: true,
+                                          onChanged: (value) {
+                                            _search(); // 👈 call your custom search function
+                                          },
                                           decoration: const InputDecoration(
                                             prefixIcon: Icon(Icons.search),
                                             hintText: 'Enter Keywords',
@@ -275,8 +280,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
 
                                                   SizedBox(height: 5),
                                                   Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
                                                     children: <Widget>[
                                                       SizedBox(width: 5),
                                                       CircleWithSpacing(),
@@ -286,12 +290,8 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                                     ],
                                                   ),
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 24),
-                                                    child: Text(
-                                                        item['iCompCode']
-                                                                .toString() ??
+                                                    padding: const EdgeInsets.only(left: 24),
+                                                    child: Text(item['iCompCode'].toString() ??
                                                             '',
                                                         style: AppTextStyle
                                                             .font14OpenSansRegularRedTextStyle),
@@ -328,13 +328,10 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.only(
-                                                            left: 24),
+                                                        const EdgeInsets.only(left: 24),
                                                     child: Text(
-                                                        item['sAgencyName'] ??
-                                                            '',
-                                                        style: AppTextStyle
-                                                            .font14penSansExtraboldBlack26TextStyle),
+                                                        item['sAgencyName'] ?? '',
+                                                        style: AppTextStyle.font14penSansExtraboldBlack26TextStyle),
                                                   ),
                                                   Row(
                                                     mainAxisAlignment:
@@ -443,16 +440,12 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                                                             // Number of stars
                                                             itemSize: 40.0,
                                                             // Size of each star
-                                                            itemPadding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        4.0),
+                                                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                                                             itemBuilder:
                                                                 (context, _) =>
                                                                     const Icon(
                                                               Icons.star,
-                                                              color:
-                                                                  Colors.amber,
+                                                              color: Colors.amber,
                                                             ),
                                                             onRatingUpdate:
                                                                 (rating) {

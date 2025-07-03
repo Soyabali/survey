@@ -48,7 +48,6 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
   var _dropDownValueComplaintSubCategory;
   var _selectedValueWard;
   var _selectedbindComplaintSubCategory;
-  var _selectedBlockId;
   // Focus
   FocusNode namefieldfocus = FocusNode();
   final distDropdownFocus = GlobalKey();

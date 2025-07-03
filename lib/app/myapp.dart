@@ -24,7 +24,6 @@ class MyApp extends StatefulWidget {
 
   @override
   _MyAppState createState() => _MyAppState();
-
 }
 
 class _MyAppState extends State<MyApp> {
@@ -47,6 +46,7 @@ class _MyAppState extends State<MyApp> {
   //     });
   //   }
   // }
+
   bool activeConnection = false;
   String connectionType = "No Internet";
 
