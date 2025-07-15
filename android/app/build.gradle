@@ -47,6 +47,8 @@ android {
     }
 
 
+    def flutterVersionCode2 = localProperties.getProperty('flutter.versionCode')?.toInteger() ?: 5
+    def flutterVersionName2 = localProperties.getProperty('flutter.versionName') ?: "5.0.0"
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
@@ -55,8 +57,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 7
+        versionName "7.0.0"
     }
 
     signingConfigs {

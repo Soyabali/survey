@@ -167,7 +167,7 @@ class _OnlineComplaintState extends State<OnlineComplaint> {
             : (emergencyTitleList == null || emergencyTitleList!.isEmpty)
             ? NoDataScreenPage()
             :
-        Column(
+           Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             // middleHeader(context, '${widget.name}'),
@@ -177,7 +177,10 @@ class _OnlineComplaintState extends State<OnlineComplaint> {
                 shrinkWrap: true,
                 itemCount: emergencyTitleList?.length ?? 0,
                 itemBuilder: (context, index) {
+                  // logic to random color
+
                   final color = borderColors[index % borderColors.length];
+
                   return Column(
                     children: <Widget>[
                       Padding(
