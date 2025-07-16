@@ -100,7 +100,10 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
   bool _isLoading = false;
   var categoryType;
   var iCategoryCodeList;
+  String? sCitizenName;
+  String? sContactNo;
   List<Map<String, dynamic>> firstFormCombinedList = [];
+  GeneralFunction generalFunction = GeneralFunction();
 
   // online location
   // pick image from a Camera
@@ -303,6 +306,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
     // updatedSector();
     WidgetsBinding.instance.addObserver(this);
     getLocation();
+    getLocatdata();
     var subCategoryCode = "${widget.iCategoryCode}";
     categoryType = "${widget.name}";
     iCategoryCodeList = "${widget.iCategoryCode}";
@@ -398,6 +402,16 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
       ),
     );
   }
+  // getLocation
+  getLocatdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    sCitizenName = prefs.getString('sCitizenName');
+    sContactNo = prefs.getString('sContactNo');
+    print('---46--$sCitizenName');
+    print('---47--$sContactNo');
+    setState(() {
+    });
+  }
   /// Algo.  First of all create repo, secodn get repo data in the main page after that apply list data on  dropdown.
   // function call
 
@@ -412,41 +426,44 @@ class _MyHomePageState extends State<OnlineComplaintForm> with WidgetsBindingObs
         child: Scaffold(
           backgroundColor: Colors.white,
           // appBar: getAppBarBack(context,"Online Complaint"),
-          appBar: AppBar(
-            // statusBarColore
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: Color(0xFF12375e),
-              statusBarIconBrightness: Brightness.dark,
-              // For Android (dark icons)
-              statusBarBrightness: Brightness.light, // For iOS (dark icons)
-            ),
-            // backgroundColor: Colors.blu
-            backgroundColor: Color(0xFF255898),
-            leading: GestureDetector(
-              onTap: () {
-                print("------back---");
-                // Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => OnlineComplaint()),
-                );
-              },
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              ),
-            ),
-            title: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              child: Text(
-                "${widget.name}",
-                style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            //centerTitle: true,
-            elevation: 0, // Removes shadow under the AppBar
-          ),
+          appBar: appBarFunction(context,"Noida One Citizen"),
+          drawer: generalFunction.drawerFunction_2(context,"$sCitizenName","$sContactNo"),
+
+          // appBar: AppBar(
+          //   // statusBarColore
+          //   systemOverlayStyle: const SystemUiOverlayStyle(
+          //     statusBarColor: Color(0xFF12375e),
+          //     statusBarIconBrightness: Brightness.dark,
+          //     // For Android (dark icons)
+          //     statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          //   ),
+          //   // backgroundColor: Colors.blu
+          //   backgroundColor: Color(0xFF255898),
+          //   leading: GestureDetector(
+          //     onTap: () {
+          //       print("------back---");
+          //       // Navigator.pop(context);
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => OnlineComplaint()),
+          //       );
+          //     },
+          //     child: const Icon(
+          //       Icons.arrow_back_ios,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          //   title: Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 5),
+          //     child: Text(
+          //       "${widget.name}",
+          //       style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
+          //       textAlign: TextAlign.center,
+          //     ),
+          //   ),
+          //   //centerTitle: true,
+          //   elevation: 0, // Removes shadow under the AppBar
+          // ),
 
           body: SingleChildScrollView(
             child: Padding(

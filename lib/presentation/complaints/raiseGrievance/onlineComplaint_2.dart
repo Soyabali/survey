@@ -291,7 +291,7 @@ class _TemplesHomeState extends State<OnlineComplaint_2> {
                                     builder: (context) =>
                                         OnlineComplaintForm(
                                             complaintName: categoryName,
-                                            categoryCode : categoryCode
+                                            categoryCode : categoryCode, name: '',
                                         ),
                                   ),
                                 );

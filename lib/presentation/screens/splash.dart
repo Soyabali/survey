@@ -12,7 +12,6 @@ import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
 
 class SplashView extends StatefulWidget {
-
   const SplashView({super.key});
 
   @override
@@ -44,12 +43,10 @@ class _SplaceState extends State<SplashView> {
       });
     }
   }
-
   String? _appVersion ;
-
   // get app Version
-
   //url
+
   void _launchGooglePlayStore() async {
     const url = 'https://play.google.com/store/apps/details?id=com.instagram.android&hl=en_IN&gl=US'; // Replace <YOUR_APP_ID> with your app's package name
     if (await canLaunch(url)) {
@@ -78,7 +75,6 @@ class _SplaceState extends State<SplashView> {
     Future.delayed(const Duration(seconds: 1), () {
       checkUserConnection();
     });
-
     // versionAliCall();
     //getlocalDataBaseValue();
     print('---------xx--xxxxxx-------');

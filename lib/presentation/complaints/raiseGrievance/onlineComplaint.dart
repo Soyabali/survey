@@ -146,7 +146,7 @@ class _TemplesHomeState extends State<OnlineComplaint> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    OnlineComplaintForm(complaintName: name)),
+                                    OnlineComplaintForm(complaintName: name, name: '',)),
                           );
                         },
                         splashColor: Colors.red.withAlpha(30),

@@ -15,9 +15,6 @@ import '../presentation/login/loginScreen_2.dart';
 import '../presentation/resources/app_text_style.dart';
 import '../presentation/resources/assets_manager.dart';
 import '../presentation/resources/values_manager.dart';
-import '../presentation/temples/cityhistory/cityhistory.dart';
-import '../presentation/temples/templehome.dart';
-import '../presentation/temples/weather/weather.dart';
 import '../services/deleteAccountRepo.dart';
 
 // pdf downlodd path
@@ -476,8 +473,7 @@ class GeneralFunction {
         children: <Widget>[
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Color(0xFF0098a6),
-
+              color: Color(0xFF255898)
             ),
             child: Center(
               child: Column(
@@ -516,8 +512,9 @@ class GeneralFunction {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  const Text(
-                    "email",
+                  SizedBox(height: 5),
+                  Text(
+                    sContactNo,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Colors.white,
@@ -547,94 +544,97 @@ class GeneralFunction {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                  //     );
+                  //     // Navigator.of(context).pushReplacement(
+                  //     //   MaterialPageRoute(builder: (context) => HomePage()),
+                  //     // );
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Image.asset('assets/images/home.png',
+                  //           width: 25,
+                  //           height: 25),
+                  //       // color: Colors.red),
+                  //       const SizedBox(width: 10),
+                  //       Text('Home',
+                  //           style: AppTextStyle
+                  //               .font16penSansExtraboldBlackTextStyle),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 15),
+                  // GestureDetector(
+                  //   onTap: ()async {
+                  //     // lat and long in a sharedPreferenc
+                  //     //
+                  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+                  //     double? lat = prefs.getDouble('lat');
+                  //     double? long = prefs.getDouble('long');
+                  //     print('---334---lat---$lat');
+                  //     print('---335---long---$long');
+                  //
+                  //     // Navigator.of(context).pushReplacement(
+                  //     //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
+                  //     // );
+                  //     Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(builder: (context) => TemplesHome()),
+                  //     );
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Image.asset(
+                  //         'assets/images/templepin.png',
+                  //         width: 25,
+                  //         height: 25,
+                  //       ),
+                  //       const SizedBox(width: 10),
+                  //       Text('Advertisement Booking Status',
+                  //           style: AppTextStyle
+                  //               .font16penSansExtraboldBlackTextStyle),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 15),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(
+                  //           builder: (context) =>
+                  //               CityHistory(templeName: "", image: "")),
+                  //     );
+                  //   },
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Image.asset(
+                  //         'assets/images/cityhistory.png',
+                  //         width: 25,
+                  //         height: 25,
+                  //       ),
+                  //       const SizedBox(width: 10),
+                  //       Text(
+                  //         'Notification',
+                  //         style:
+                  //         AppTextStyle.font16penSansExtraboldBlackTextStyle,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 15),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                      );
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(builder: (context) => HomePage()),
-                      // );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.asset('assets/images/home.png',
-                            width: 25,
-                            height: 25),
-                        // color: Colors.red),
-                        const SizedBox(width: 10),
-                        Text('Home',
-                            style: AppTextStyle
-                                .font16penSansExtraboldBlackTextStyle),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: ()async {
-                      // lat and long in a sharedPreferenc
-                      //
+                    onTap: ()  async {
+                     // clear the shared Preference
                       SharedPreferences prefs = await SharedPreferences.getInstance();
-                      double? lat = prefs.getDouble('lat');
-                      double? long = prefs.getDouble('long');
-                      print('---334---lat---$lat');
-                      print('---335---long---$long');
-
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(builder: (context) => TemplesHome(lat:lat,long:long)),
-                      // );
+                      prefs.clear();
+                      // to navigate login screen
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => TemplesHome()),
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/images/templepin.png',
-                          width: 25,
-                          height: 25,
-                        ),
-                        const SizedBox(width: 10),
-                        Text('Advertisement Booking Status',
-                            style: AppTextStyle
-                                .font16penSansExtraboldBlackTextStyle),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CityHistory(templeName: "", image: "")),
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/images/cityhistory.png',
-                          width: 25,
-                          height: 25,
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          'Notification',
-                          style:
-                          AppTextStyle.font16penSansExtraboldBlackTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: () {
-
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => WeatherHome()),
+                        MaterialPageRoute(builder: (context) => LoginScreen_2()),
                       );
 
                     },
@@ -947,8 +947,6 @@ class GeneralFunction {
       ),
     );
   }
-
-
 
   drawerFunction_2(BuildContext context, String sName, String sContactNo) {
     return Drawer(

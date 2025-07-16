@@ -21,7 +21,6 @@ class LoginRepo {
       var endPoint = "CitizenLogin/CitizenLogin";
       var loginApi = "$baseURL$endPoint";
       print('------------17---loginApi---$loginApi');
-
       showLoader();
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(

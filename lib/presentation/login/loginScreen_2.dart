@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../services/loginRepo.dart';
 import '../complaints/complaintHomePage.dart';
+import '../complaints/raiseGrievance/onlineComplaintForm.dart';
 import '../forgotPassword/forgotPassword.dart';
 import '../registration/registration.dart';
 import '../resources/app_strings.dart';
@@ -93,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
     debugPrint("Latitude: ----1056--- $lat and Longitude: $long");
     debugPrint(position.toString());
   }
+
   turnOnLocationMsg(){
     if((lat==null && lat=='') ||(long==null && long=='')){
       displayToast("Please turn on Location");
@@ -250,46 +252,48 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: <Widget>[
                       // mention all widget here
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
 
-                          Container(
-                            margin: const EdgeInsets.all(AppMargin.m10),
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/images/roundcircle.png"),
-//image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            width: AppSize.s50,
-                            height: AppSize.s50,
-                            child: Image.asset("assets/icon/icon.png",
-                              //ImageAssets.logintopleft,
-                              width: AppSize.s50,
-                              height: AppSize.s50,
-                            ),
-                          ),
-                          Expanded(child: Container()),
-                          Container(
-                            margin: const EdgeInsets.all(AppMargin.m10),
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            width: AppSize.s50,
-                            height: AppSize.s50,
-                            child: Image.asset("assets/images/favicon.png",
-                             // ImageAssets.toprightlogin,
-                              width: AppSize.s50,
-                              height: AppSize.s50,
-                            ),
-                          ),
-                        ],
-                      ),
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: <Widget>[
+//
+//                           Container(
+//                             margin: const EdgeInsets.all(AppMargin.m10),
+//                             decoration: const BoxDecoration(
+//                               image: DecorationImage(
+//                                 image: AssetImage("assets/images/roundcircle.png"),
+// //image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
+//                                 fit: BoxFit.cover,
+//                               ),
+//                             ),
+//                             width: AppSize.s50,
+//                             height: AppSize.s50,
+//                             child: Image.asset("assets/icon/icon.png",
+//                               //ImageAssets.logintopleft,
+//                               width: AppSize.s50,
+//                               height: AppSize.s50,
+//                             ),
+//                           ),
+//                           Expanded(child: Container()),
+//                           Container(
+//                             margin: const EdgeInsets.all(AppMargin.m10),
+//                             decoration: const BoxDecoration(
+//                               image: DecorationImage(
+//                                 image: AssetImage("assets/images/roundcircle.png"), // Correct path to background image
+//                                 fit: BoxFit.cover,
+//                               ),
+//                             ),
+//                             width: AppSize.s50,
+//                             height: AppSize.s50,
+//                             child: Image.asset("assets/images/favicon.png",
+//                              // ImageAssets.toprightlogin,
+//                               width: AppSize.s50,
+//                               height: AppSize.s50,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+                    SizedBox(height: 100),
                       Container(
                         height: AppSize.s145,
                         width: AppSize.s145,
@@ -307,7 +311,7 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.all(AppMargin.m16),
                           child: Center(
                             child: Image.asset(
-                              "assets/icon/icon.png",
+                              "assets/images/snow.png",
                              // ImageAssets.iclauncher, // Replace with your image asset path
                               width: AppSize.s145,
                               height: AppSize.s145,
@@ -479,17 +483,24 @@ class _LoginPageState extends State<LoginPage> {
 
                                             String? token = prefs.getString('sToken');
                                             print("------495----$token");
+
                                             //
                                             if((lat==null && lat=='') ||(long==null && long=='')){
                                               displayToast("Please turn on Location");
-
                                             }else{
-                                              Navigator.pushReplacement(
+                                              //
+                                              Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => ComplaintHomePage(lat:lat,long:long)),
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        OnlineComplaintForm(name: "")),
                                               );
-                                            }
 
+                                              // Navigator.pushReplacement(
+                                              //   context,
+                                              //   MaterialPageRoute(builder: (context) => ComplaintHomePage(lat:lat,long:long)),
+                                              // );
+                                            }
 
                                             // Navigator.pushReplacement(
                                             //   context,
@@ -498,7 +509,6 @@ class _LoginPageState extends State<LoginPage> {
                                           }else{
                                             print('----373---To display error msg---');
                                             displayToast(msg);
-
                                           }
                                         },
                                         child: Container(
@@ -522,12 +532,14 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     SizedBox(height: 10),
+
+                                    /// todo forot Password and Register here
                                     Padding(
                                       padding: const EdgeInsets.only(left: 13,right: 13),
                                       child: Container(
                                         height: 45,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute space between texts
+                                          mainAxisAlignment: MainAxisAlignment.end, // Distribute space between texts
                                           children: [
                                             GestureDetector(
                                               onTap:(){
@@ -548,27 +560,27 @@ class _LoginPageState extends State<LoginPage> {
                                                 ),
                                               ),
                                             ),
-                                            GestureDetector(
-                                              onTap: (){
-                                                // Registration
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => const Registration()),
-                                                );
-
-                                              },
-                                              child: Container(
-                                                padding: EdgeInsets.all(10.0), // 10dp padding around the text
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(color: Color(0xFF255899)), // Gray border color
-                                                  borderRadius: BorderRadius.circular(8.0), // Rounded corners for the border
-                                                ),
-                                                child: Text(
-                                                  "Register Here",
-                                                  style: AppTextStyle.font14penSansBlackTextStyle,
-                                                ),
-                                              ),
-                                            ),
+                                            // GestureDetector(
+                                            //   onTap: (){
+                                            //     // Registration
+                                            //     Navigator.push(
+                                            //       context,
+                                            //       MaterialPageRoute(builder: (context) => const Registration()),
+                                            //     );
+                                            //
+                                            //   },
+                                            //   child: Container(
+                                            //     padding: EdgeInsets.all(10.0), // 10dp padding around the text
+                                            //     decoration: BoxDecoration(
+                                            //       border: Border.all(color: Color(0xFF255899)), // Gray border color
+                                            //       borderRadius: BorderRadius.circular(8.0), // Rounded corners for the border
+                                            //     ),
+                                            //     child: Text(
+                                            //       "Register Here",
+                                            //       style: AppTextStyle.font14penSansBlackTextStyle,
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ),
