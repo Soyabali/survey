@@ -1,16 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/generalFunction.dart';
-import '../../../app/loader_helper.dart';
 import '../../../services/bindCityzenWardRepo.dart';
-import '../../../services/bindComplaintCategory.dart';
 import '../../resources/app_text_style.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
 
 class OnlineComplaintForm extends StatefulWidget {
   final complaintName;
