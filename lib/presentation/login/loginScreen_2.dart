@@ -8,18 +8,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../services/loginRepo.dart';
-import '../complaints/complaintHomePage.dart';
-import '../complaints/raiseGrievance/onlineComplaintForm.dart';
 import '../forgotPassword/forgotPassword.dart';
-import '../registration/registration.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
 import '../resources/values_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginScreen_2 extends StatelessWidget {
+import '../surveryform/surveryform.dart';
 
+class LoginScreen_2 extends StatelessWidget {
   const LoginScreen_2({super.key});
 
   @override
@@ -40,8 +38,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  TextEditingController _phoneNumberController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController _phoneNumberController = TextEditingController(text:"9758244908");
+  TextEditingController passwordController = TextEditingController(text: "anil@1233#");
 
   final _formKey = GlobalKey<FormState>();
 
@@ -293,7 +291,7 @@ class _LoginPageState extends State<LoginPage> {
 //                           ),
 //                         ],
 //                       ),
-                    SizedBox(height: 100),
+                      SizedBox(height: 100),
                       Container(
                         height: AppSize.s145,
                         width: AppSize.s145,
@@ -457,7 +455,6 @@ class _LoginPageState extends State<LoginPage> {
                                             //  prefs.setString('sEmailId',sEmailId);
                                             //  prefs.setString('sToken',sToken);
                                              //----------
-
                                           }else{
                                             if(_phoneNumberController.text.isEmpty){
                                               phoneNumberfocus.requestFocus();
@@ -467,34 +464,44 @@ class _LoginPageState extends State<LoginPage> {
                                           } // condition to fetch a response form a api
                                           if(result=="1") {
 
+                                            var sUserId = "${loginMap['Data'][0]['sUserId']}";
+                                            var sUserName = "${loginMap['Data'][0]['sUserName']}";
                                             var sContactNo = "${loginMap['Data'][0]['sContactNo']}";
-                                            var sCitizenName = "${loginMap['Data'][0]['sCitizenName']}";
-                                            var sGender = "${loginMap['Data'][0]['sGender']}";
-                                            var sEmailId = "${loginMap['Data'][0]['sEmailId']}";
                                             var sToken = "${loginMap['Data'][0]['sToken']}";
+                                            var sUserType = "${loginMap['Data'][0]['sUserType']}";
+                                            var dLastLoginAt = "${loginMap['Data'][0]['dLastLoginAt']}";
+
                                             // to store the value in local dataBase
 
                                             SharedPreferences prefs = await SharedPreferences.getInstance();
-                                            prefs.setString('sGender',sGender);
+                                            prefs.setString('sUserId',sUserId);
+                                            prefs.setString('sUserName',sUserName);
                                             prefs.setString('sContactNo',sContactNo);
-                                            prefs.setString('sCitizenName',sCitizenName);
-                                            prefs.setString('sEmailId',sEmailId);
                                             prefs.setString('sToken',sToken);
+                                            prefs.setString('sUserType',sUserType);
+                                            prefs.setString('dLastLoginAt',dLastLoginAt);
 
                                             String? token = prefs.getString('sToken');
-                                            print("------495----$token");
+                                            print("------485----$token");
 
                                             //
                                             if((lat==null && lat=='') ||(long==null && long=='')){
                                               displayToast("Please turn on Location");
                                             }else{
-                                              //
+                                              //  SurveryForm
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        OnlineComplaintForm(name: "")),
+                                                        SurveryForm()),
                                               );
+
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           OnlineComplaintForm(name: "")),
+                                              // );
 
                                               // Navigator.pushReplacement(
                                               //   context,

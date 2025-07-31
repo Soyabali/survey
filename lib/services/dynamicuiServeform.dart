@@ -6,23 +6,23 @@ import 'baseurl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
-class BindCityzenWardRepo
+import 'dynamicFieldRepo.dart';
+
+class DynamicUiSurveryFormRepo
 {
-  List bindcityWardList = [];
-  Future<List> getbindWard() async
+  List dynamicui_List = [];
+  Future<List<DynamicField>> dynamicUi(SurveyCode) async
   {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
-    String? iUserId = prefs.getString('sUserId');
-
     print('---19-  TOKEN---$sToken');
-    print("------19---$iUserId");
+    print("------17-----$SurveyCode");
 
     try
     {
       showLoader();
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "BindSurveyType/BindSurveyType";
+      var endPoint = "BindSurveyParameters/BindSurveyParameters";
       var bindCityzenWardApi = "$baseURL$endPoint";
       var headers = {
         'token': '$sToken'
@@ -30,7 +30,7 @@ class BindCityzenWardRepo
       var request = http.Request('POST', Uri.parse('$bindCityzenWardApi'));
 
       request.body = json.encode({
-        "iUserId": iUserId,
+        "iSurveyCode": SurveyCode,
       });
 
       request.headers.addAll(headers);
@@ -41,13 +41,13 @@ class BindCityzenWardRepo
         hideLoader();
         var data = await response.stream.bytesToString();
         Map<String, dynamic> parsedJson = jsonDecode(data);
-        bindcityWardList = parsedJson['Data'];
-        print("Dist list Marklocation Api ----71------>:$bindcityWardList");
-        return bindcityWardList;
+        final List fields = parsedJson['Data'];
+        print("Dist list Marklocation Api ----71------>:$dynamicui_List");
+        return fields.map((e) => DynamicField.fromJson(e)).toList();
       } else
       {
         hideLoader();
-        return bindcityWardList;
+        return [];
       }
     } catch (e)
     {

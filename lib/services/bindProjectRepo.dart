@@ -6,23 +6,21 @@ import 'baseurl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
-class BindCityzenWardRepo
+class BindProjectRepo
 {
   List bindcityWardList = [];
-  Future<List> getbindWard() async
+  Future<List> getbindProject() async
   {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sToken = prefs.getString('sToken');
-    String? iUserId = prefs.getString('sUserId');
 
     print('---19-  TOKEN---$sToken');
-    print("------19---$iUserId");
 
     try
     {
       showLoader();
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "BindSurveyType/BindSurveyType";
+      var endPoint = "BindSectorCitizen";
       var bindCityzenWardApi = "$baseURL$endPoint";
       var headers = {
         'token': '$sToken'
@@ -30,7 +28,7 @@ class BindCityzenWardRepo
       var request = http.Request('POST', Uri.parse('$bindCityzenWardApi'));
 
       request.body = json.encode({
-        "iUserId": iUserId,
+        "iUserId": "1000",
       });
 
       request.headers.addAll(headers);

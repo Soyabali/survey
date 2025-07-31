@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/generalFunction.dart';
@@ -57,8 +57,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
     print(" -----xxxxx---- 78---> $bindComplintWard");
     setState(() {});
   }
-  // bindi ward
-  Widget _bindWard() {
+  // bind Location
+  Widget _bindLocation() {
     return Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
@@ -75,7 +75,109 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                 FocusScope.of(context).unfocus();
               },
               hint: Text(
-                "Select Ward",
+                "Select Location",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+              ),
+              value: _dropDownValueWard,
+              onChanged: (newValue) {
+                setState(() {
+                  _dropDownValueWard = newValue;
+                  bindComplintWard.forEach((element) {
+                    if (element["sSectorName"] == _dropDownValueWard) {
+                      _selectedValueWard = element['iSectorCode'];
+                    }
+                  });
+                });
+              },
+              items: bindComplintWard.map((dynamic item) {
+                return DropdownMenuItem(
+                  value: item["iSectorCode"].toString(),
+                  child: Text(
+                    item['sSectorName'].toString(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  // bind Project
+  Widget _bindProject() {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width - 50,
+        height: 42,
+        color: Color(0xFFf2f3f5),
+        child: DropdownButtonHideUnderline(
+          child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButton(
+              isExpanded: true, // Important to prevent overflow
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              hint: Text(
+                "Select Project",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+              ),
+              value: _dropDownValueWard,
+              onChanged: (newValue) {
+                setState(() {
+                  _dropDownValueWard = newValue;
+                  bindComplintWard.forEach((element) {
+                    if (element["sSectorName"] == _dropDownValueWard) {
+                      _selectedValueWard = element['iSectorCode'];
+                    }
+                  });
+                });
+              },
+              items: bindComplintWard.map((dynamic item) {
+                return DropdownMenuItem(
+                  value: item["iSectorCode"].toString(),
+                  child: Text(
+                    item['sSectorName'].toString(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  // bind Survery Type
+  Widget _bindSurveyType() {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width - 50,
+        height: 42,
+        color: Color(0xFFf2f3f5),
+        child: DropdownButtonHideUnderline(
+          child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButton(
+              isExpanded: true, // Important to prevent overflow
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              hint: Text(
+                "Select Survey Type",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
@@ -185,49 +287,51 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5, top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                  color: Colors.black54
-                              ),
-                            ),
-                            SizedBox(width: 5),
-                            Text('Location',
-                                style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
-                          ],
-                        ),
-                      ),
-                      _bindWard(),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(bottom: 5, top: 10),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     children: <Widget>[
+                      //       Container(
+                      //         width: 8,
+                      //         height: 8,
+                      //         decoration: const BoxDecoration(
+                      //           shape: BoxShape.circle,
+                      //             color: Colors.black54
+                      //         ),
+                      //       ),
+                      //       SizedBox(width: 5),
+                      //       Text('Location',
+                      //           style: AppTextStyle
+                      //               .font14penSansExtraboldBlack45TextStyle),
+                      //     ],
+                      //   ),
+                      // ),
+                      SizedBox(height: 10),
+                      _bindLocation(),
                       const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.black54
-                              ),
-                            ),
-                            SizedBox(width: 5),
-                            Text('Project',
-                                style: AppTextStyle
-                                    .font14penSansExtraboldBlack45TextStyle),
-                          ],
-                        ),
-                      ),
-                      _bindWard(),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(bottom: 5),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     children: <Widget>[
+                      //       Container(
+                      //         width: 8,
+                      //         height: 8,
+                      //         decoration: const BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             color: Colors.black54
+                      //         ),
+                      //       ),
+                      //       SizedBox(width: 5),
+                      //       Text('Project',
+                      //           style: AppTextStyle
+                      //               .font14penSansExtraboldBlack45TextStyle),
+                      //     ],
+                      //   ),
+                      // ),
+                     // _bindWard(),
+                      _bindProject(),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Row(
@@ -248,7 +352,8 @@ class _TemplesHomeState extends State<OnlineComplaintForm> {
                           ],
                         ),
                       ),
-                      _bindWard(),
+                     // _bindWard(),
+                      _bindSurveyType(),
                       const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),

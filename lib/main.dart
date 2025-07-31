@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app/myapp.dart';
 
 void main() {
 
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(
+      ProviderScope(child: MyApp(),));
   configLoading();
 }
 
@@ -21,6 +23,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void configLoading() {
+
 
   EasyLoading.instance
 

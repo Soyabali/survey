@@ -9,9 +9,10 @@ import '../../services/verifyAppVersion.dart';
 import '../complaints/complaintHomePage.dart';
 import '../login/loginScreen_2.dart';
 import '../resources/app_text_style.dart';
-import '../resources/assets_manager.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class SplashView extends StatefulWidget {
+
   const SplashView({super.key});
 
   @override
@@ -24,24 +25,48 @@ class _SplaceState extends State<SplashView> {
   String T = "";
   var result,msg;
 
+  // after 1 second delay to navigate
+  void navigateToLoginScreen(BuildContext context) {
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen_2()),
+      );
+    });
+  }
+
   Future checkUserConnection() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        setState(() {
-          activeConnection = true;
-          T = "Turn off the data and repress again";
-          versionAliCall();
-          //displayToast(T);
-        });
+    final listener = InternetConnection().onStatusChange.listen((InternetStatus status) {
+      switch (status) {
+        case InternetStatus.connected:
+        // The internet is now connected
+          navigateToLoginScreen(context);
+
+          break;
+        case InternetStatus.disconnected:
+        // The internet is now disconnected
+         displayToast("Internet not Connected");
+          break;
       }
-    } on SocketException catch (_) {
-      setState(() {
-        activeConnection = false;
-        T = "Turn On the data and repress again";
-        displayToast(T);
-      });
-    }
+    });
+    // try {
+    //   final result = await InternetAddress.lookup('google.com');
+    //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+    //     setState(() {
+    //       activeConnection = true;
+    //       T = "Turn off the data and repress again";
+    //
+    //      // versionAliCall();
+    //       //displayToast(T);
+    //     });
+    //   }
+    // } on SocketException catch (_) {
+    //   setState(() {
+    //     activeConnection = false;
+    //     T = "Turn On the data and repress again";
+    //     displayToast(T);
+    //   });
+    // }
   }
   String? _appVersion ;
   // get app Version
@@ -71,15 +96,15 @@ class _SplaceState extends State<SplashView> {
   @override
   void initState() {
     // TODO: implement initState
+    /// TODO IN A FUTURE APPLY INTERNET CONNECTION.
+    checkUserConnection();
 
-    Future.delayed(const Duration(seconds: 1), () {
-      checkUserConnection();
-    });
     // versionAliCall();
     //getlocalDataBaseValue();
     print('---------xx--xxxxxx-------');
     super.initState();
   }
+
   getlocalDataBaseValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('sToken');
@@ -96,6 +121,8 @@ class _SplaceState extends State<SplashView> {
         context,
         MaterialPageRoute(builder: (context) => LoginScreen_2()),
       );
+     // SurveryForm()
+
     }
   }
   Future<void> versionAliCall() async {

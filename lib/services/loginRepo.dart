@@ -18,7 +18,7 @@ class LoginRepo {
       print('----password-----18--$password');
 
       var baseURL = BaseRepo().baseurl;
-      var endPoint = "CitizenLogin/CitizenLogin";
+      var endPoint = "AppLogin/AppLogin";
       var loginApi = "$baseURL$endPoint";
       print('------------17---loginApi---$loginApi');
       showLoader();
@@ -28,7 +28,7 @@ class LoginRepo {
           Uri.parse('$loginApi'));
       request.body = json.encode(
           {
-            "sUserId": phone,
+            "sContactNo": phone,
             "sPassword":password
           });
       request.headers.addAll(headers);

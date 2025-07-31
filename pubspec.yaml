@@ -65,6 +65,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   permission_handler: ^11.3.1
   flutter_riverpod: ^2.6.1
+  geocoding: ^4.0.0
+  internet_connection_checker_plus: ^2.7.2
+  dotted_border: ^2.1.0
 
 
 dev_dependencies:
