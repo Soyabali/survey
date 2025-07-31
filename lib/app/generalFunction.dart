@@ -15,6 +15,7 @@ import '../presentation/login/loginScreen_2.dart';
 import '../presentation/resources/app_text_style.dart';
 import '../presentation/resources/assets_manager.dart';
 import '../presentation/resources/values_manager.dart';
+import '../presentation/servereport/survey_report.dart';
 import '../services/deleteAccountRepo.dart';
 
 // pdf downlodd path
@@ -206,6 +207,16 @@ void displayToast(String msg) {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+void displayToastError(String msg) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
       backgroundColor: Colors.red,
       textColor: Colors.white,
       fontSize: 16.0);
@@ -344,6 +355,7 @@ middleHeaderPuri(BuildContext context, String templeName) {
     ],
   );
 }
+
  appBarFunction(BuildContext context,String title){
    return AppBar(
      // statusBarColore
@@ -473,100 +485,80 @@ class GeneralFunction {
         children: <Widget>[
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Color(0xFF255898)
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-
-                  // internetImage(
-                  //   '$sEmpImage',
-                  //   fit: BoxFit.cover,
-                  // ),
-                  // Container(
-                  //   width: 80,
-                  //   height: 80,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.grey[300], // Light gray color
-                  //     borderRadius: BorderRadius.circular(40), // Border radius of 40
-                  //   ),
-                  //   /// todo apply a funcation to set a internet images
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(14.0),
-                  //     child: Container(
-                  //       child:   Image.asset('assets/images/post_complaint.png',
-                  //         fit: BoxFit.cover,
-                  //        ),
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(height: 10),
-                  Text(
-                    sName,
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    sContactNo,
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF255898), // Deep blue
+                  Color(0xFF12375e), // Darker shade
+                  Color(0xFF0A243F), // Additional darker tone for smooth blend
                 ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  radius: 35,
+                  backgroundImage: AssetImage('assets/images/camera.jpeg'), // or use NetworkImage
+                  backgroundColor: Colors.white,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  sName,
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  sContactNo,
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.white70,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
-          // Drawer
-          // DrawerHeader(
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //       image: AssetImage('assets/images/puriOned4.png'),
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          //   child: Container(),
-          // ),
-
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Navigator.of(context).pushReplacement(
-                  //       MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                  //     );
-                  //     // Navigator.of(context).pushReplacement(
-                  //     //   MaterialPageRoute(builder: (context) => HomePage()),
-                  //     // );
-                  //   },
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: <Widget>[
-                  //       Image.asset('assets/images/home.png',
-                  //           width: 25,
-                  //           height: 25),
-                  //       // color: Colors.red),
-                  //       const SizedBox(width: 10),
-                  //       Text('Home',
-                  //           style: AppTextStyle
-                  //               .font16penSansExtraboldBlackTextStyle),
-                  //     ],
-                  //   ),
-                  // ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => SurveryReport()),
+                      );
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(builder: (context) => HomePage()),
+                      // );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Image.asset('assets/images/home.png',
+                            width: 25,
+                            height: 25),
+                        // color: Colors.red),
+                        const SizedBox(width: 10),
+                        Text('Report',
+                            style: AppTextStyle
+                                .font16penSansExtraboldBlackTextStyle),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
                   // const SizedBox(height: 15),
                   // GestureDetector(
                   //   onTap: ()async {

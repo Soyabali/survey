@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -103,6 +102,7 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
   List<Map<String, dynamic>> thirdFormCombinedList = [];
   List<Map<String, dynamic>> firstFormCombinedList = [];
   var result2,msg2;
+  var sUserName2,sContactNo2;
 
   // dynamic ui
   // textField Controller function
@@ -262,23 +262,14 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
     });
   }
 
-
-
   // Validite and call Api
   void validateAndCallApi() async {
     firstFormCombinedList = [];
-    var booleanValue;
+       var booleanValue;
     /// todo  here you should mention your api data----
-      firstFormCombinedList = [];
-      // Trim values to remove leading/trailing spaces
-      // random No
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? sUserName = prefs.getString('sUserName');
-      print("-------444------UserName---$sUserName");
-      print("-------445------lat---$lat");
-      print("-------446------long---$long");
-      print("-------447------surverCode---$_dropDownValueProject");
 
       setState(() {
         booleanCaptions.clear();
@@ -299,7 +290,6 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
       });
       print("------334-formCaption-$allCaptions");
       print("------335-formValue-$allValues");
-
       //  Get a boolena value
       _booleanSelections.forEach((key, value) {
         booleanCaptions.add(key);
@@ -321,13 +311,37 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
         allCaptionsImages.add(caption);
         allImageUrls.add(imageUrl);
       });
+      // to check that TextFormField value is null or not
+
+    for (var field in _formFields) {
+      if (field.iMandatory == 1) {
+        String? value = _controllers[field.Field_Caption]?.text;
+        if (value == null || value.trim().isEmpty) {
+          displayToastError('${field.Field_Caption} is mandatory');
+          return;
+        }
+      }
+    }
+    // to chek Boolean value validation
+    // for (var field in _formFields) {
+    //   if (field.iMandatory == 1 && field.Field_DataType == 'Boolean') {
+    //     final caption = field.Field_Caption;
+    //     final isSelected = _booleanSelections[caption];
+    //
+    //     if (isSelected == null) {
+    //       displayToastError('$caption is mandatory');
+    //       return;
+    //     }
+    //   }
+    // }
+
 
       final isFormValid = _formKey.currentState!.validate();
-    // }
-    //
-    print("Form Validation: $isFormValid");
+      /// todo Above you get a data and set structur data here you should applie condition
+     // to check That data is filed or not to apply validation
 
-    // Validate all conditions
+
+
     if (isFormValid &&
         allValues.isNotEmpty &&
         booleanValues.isNotEmpty
@@ -336,20 +350,7 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
       // All conditions met; call the API
       print('---Call API---');
 
-    /// todo here you have to collect your form DATA
 
-       print("--name :  $sUserName");
-      print("--lat :  $lat");
-      print("--long :  $long");
-      print("--ServeCode :  $_dropDownValueProject");
-      print("--TextFormFieldValue :  $allValues");
-      print("--TextFormFieldCaption :  $allCaptions");
-      print("--BooleanValue :  $booleanValues");   //  booleanValue
-       //print("--BooleanValue :  $booleanValue");
-      print("--BooleanCaption :  $booleanCaptions");
-      print("--ImageValue :  $allImageUrls");
-      print("--ImageCaption :  $allCaptionsImages");
-      // data bind in a json format
 
       Map<String, dynamic> finalJson = {
         "SurveyCode": _dropDownValueProject,
@@ -384,174 +385,38 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
       // Assign final list to JSON
       finalJson["Responses"] = responseList;
       print("------389---");
-    //  print(jsonEncode(finalJson));
-
-
-      // firstFormCombinedList.add({
-      //   "sBookingReqId": "$sBookingReqId",
-      //   "sApplicantName": sApplicantName,
-      //   "sMobileNo": "$sMobileNo",
-      //   "sAddress": sAddress,
-      //   "iCommunityHallName": "$_selectediCommunityHallId",
-      //   "iDaysOfBooking": "$iDaysOfBooking",
-      //   "fAmount": "$_selectedRatePerDay",
-      //   "dPurposeOfBooking": "$dPurposeOfBooking",
-      //   "sCreatedBy": sCreatedBy,
-      //   "sCommunityDocUrl":uplodedImage,
-      //   "sBookingDateArray": seleccteddates,
-      // });
-
       // lIST to convert json string
       String allThreeFormJson = jsonEncode(finalJson);
 
       print('----410--->>.---$allThreeFormJson');
+     // Api call here
 
       var onlineComplaintResponse = await DynamicServerRepo()
           .dynamicServe(context, allThreeFormJson);
 
-      print('----415---$onlineComplaintResponse');
       result2 = onlineComplaintResponse['Result'];
       msg2 = onlineComplaintResponse['Msg'];
       if (result2 == "1") {
         displayToast(msg2);
-        Navigator.pop(context);
+        //Navigator.pop(context);
       } else {
-        displayToast(msg2);
+        displayToastError(msg2);
       }
-
       // Call your API here
     } else {
       // If conditions fail, display appropriate error messages
       print('--Not Call API--');
 
       if (allValues.isEmpty) {
-        displayToast('Please Enter TextField Value');
+        displayToastError('Please Enter TextField Value');
         return;
       }
       if (booleanValues.isEmpty) {
-        displayToast('Please Select boolean Value');
+        displayToastError('Please Select boolean Value');
         return;
       }
-
     }
   }
-
-  // void validateAndCallApi() async {
-  //   firstFormCombinedList = [];
-  //   // Trim values to remove leading/trailing spaces
-  //   // random No
-  //
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? sUserName = prefs.getString('sUserName');
-  //   print("-------444------UserName---$sUserName");
-  //   print("-------445------lat---$lat");
-  //   print("-------446------long---$long");
-  //   print("-------447------surverCode---$_dropDownValueProject");
-  //
-  //   setState(() {
-  //     booleanCaptions.clear();
-  //     booleanValues.clear();
-  //     allCaptions.clear();
-  //     allValues.clear();
-  //     allCaptionsImages.clear();
-  //     allImageUrls.clear();
-  //   });
-  //   // get a formValue
-  //   final formValues = getFormValues();
-  //   // Print or use the data
-  //   formValues.forEach((field, value) {
-  //     allCaptions.add(field);
-  //     allValues.add(value);
-  //     print('$field: $value');
-  //
-  //   });
-  //   print("------334-formCaption-$allCaptions");
-  //   print("------335-formValue-$allValues");
-  //
-  //   //  Get a boolena value
-  //   _booleanSelections.forEach((key, value) {
-  //     booleanCaptions.add(key);
-  //     booleanValues.add(value);
-  //   });
-  //   // to take a image records
-  //   _uploadedImageUrls.forEach((caption, imageUrl) {
-  //     allCaptionsImages.add(caption);
-  //     allImageUrls.add(imageUrl);
-  //   });
-  //   if(_formKey.currentState!.validate() && allValues.isNotEmpty && allImageUrls.isNotEmpty){
-  //     print('------call Api----');
-  //
-  //   }else{
-  //     print('------not call api call Api----');
-  //   }
-  //
-  //   final isFormValid = _formKey.currentState!.validate();
-  //   // }
-  //   //
-  //   print("Form Validation: $isFormValid");
-  //
-  //   // Validate all conditions
-  //   if (isFormValid &&
-  //       allValues.isNotEmpty &&
-  //       booleanValues.isNotEmpty &&
-  //       allImageUrls.isNotEmpty
-  //   ) {
-  //     // All conditions met; call the API
-  //     print('---Call API---');
-  //
-  //
-  //     // firstFormCombinedList.add({
-  //     //   "sBookingReqId": "$sBookingReqId",
-  //     //   "sApplicantName": sApplicantName,
-  //     //   "sMobileNo": "$sMobileNo",
-  //     //   "sAddress": sAddress,
-  //     //   "iCommunityHallName": "$_selectediCommunityHallId",
-  //     //   "iDaysOfBooking": "$iDaysOfBooking",
-  //     //   "fAmount": "$_selectedRatePerDay",
-  //     //   "dPurposeOfBooking": "$dPurposeOfBooking",
-  //     //   "sCreatedBy": sCreatedBy,
-  //     //   "sCommunityDocUrl":uplodedImage,
-  //     //   "sBookingDateArray": seleccteddates,
-  //     // });
-  //
-  //     // lIST to convert json string
-  //     // String allThreeFormJson = jsonEncode(firstFormCombinedList);
-  //     //
-  //     // print('----572--->>.---$allThreeFormJson');
-  //     //
-  //     // var onlineComplaintResponse = await DynamicServerRepo()
-  //     //     .dynamicServe(context, allThreeFormJson);
-  //     //
-  //     // print('----657---$onlineComplaintResponse');
-  //     // result2 = onlineComplaintResponse['Result'];
-  //     // msg2 = onlineComplaintResponse['Msg'];
-  //     //
-  //     // if (result2 == "1") {
-  //     //   displayToast(msg2);
-  //     //   Navigator.pop(context);
-  //     // } else {
-  //     //   displayToast(msg2);
-  //     // }
-  //
-  //     // Call your API here
-  //   } else {
-  //     // If conditions fail, display appropriate error messages
-  //     print('--Not Call API--');
-  //
-  //     if (allValues.isEmpty) {
-  //       displayToast('Please Enter TextField Value');
-  //       return;
-  //     }
-  //     if (booleanValues.isEmpty) {
-  //       displayToast('Please Select Boolean Value');
-  //       return;
-  //     }
-  //     if (allImageUrls.isEmpty) {
-  //       displayToast('Please pick images');
-  //       return;
-  //     }
-  //   }
-  // }
 
   // Dynamic Field dataType
 
@@ -597,15 +462,15 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                           counterText: '', // hides character counter
                           errorMaxLines: 2,
                         ),
-                        validator: (value) {
-                          if (field.iMandatory == 1 && (value == null || value.trim().isEmpty)) {
-                            return '${field.Field_Caption} is required';
-                          }
-                          if (value != null && value.length > field.field_Length) {
-                            return '${field.Field_Caption} must be less than ${field.field_Length} characters';
-                          }
-                          return null;
-                        },
+                        // validator: (value) {
+                        //   if (field.iMandatory == 1 && (value == null || value.trim().isEmpty)) {
+                        //     return '${field.Field_Caption} is required';
+                        //   }
+                        //   if (value != null && value.length > field.field_Length) {
+                        //     return '${field.Field_Caption} must be less than ${field.field_Length} characters';
+                        //   }
+                         // return null;
+                       // },
                       ),
                     ],
                   ),
@@ -732,50 +597,6 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                   onTap: () async {
                     validateAndCallApi();
 
-                    // SharedPreferences prefs = await SharedPreferences.getInstance();
-                    // String? sUserName = prefs.getString('sUserName');
-                    // print("-------444------UserName---$sUserName");
-                    // print("-------445------lat---$lat");
-                    // print("-------446------long---$long");
-                    // print("-------447------surverCode---$_dropDownValueProject");
-                    //
-                    // setState(() {
-                    //   booleanCaptions.clear();
-                    //   booleanValues.clear();
-                    //   allCaptions.clear();
-                    //   allValues.clear();
-                    //   allCaptionsImages.clear();
-                    //   allImageUrls.clear();
-                    // });
-                    // // get a formValue
-                    // final formValues = getFormValues();
-                    // // Print or use the data
-                    // formValues.forEach((field, value) {
-                    //   allCaptions.add(field);
-                    //   allValues.add(value);
-                    //    print('$field: $value');
-                    //
-                    // });
-                    // print("------334-formCaption-$allCaptions");
-                    // print("------335-formValue-$allValues");
-                    //
-                    // //  Get a boolena value
-                    // _booleanSelections.forEach((key, value) {
-                    //   booleanCaptions.add(key);
-                    //   booleanValues.add(value);
-                    // });
-                    // // to take a image records
-                    // _uploadedImageUrls.forEach((caption, imageUrl) {
-                    //   allCaptionsImages.add(caption);
-                    //   allImageUrls.add(imageUrl);
-                    // });
-                    // if(_formKey.currentState!.validate() && allValues.isNotEmpty && allImageUrls.isNotEmpty){
-                    //   print('------call Api----');
-                    //
-                    // }else{
-                    //   print('------not call api call Api----');
-                    // }
-
                     },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10,right: 10),
@@ -789,9 +610,9 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                         ), // Background color using HEX value
                         borderRadius: BorderRadius.circular(AppMargin.m10), // Rounded corners
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          "Submit",
+                          (field.Field_Caption),
                           style: TextStyle(
                             fontSize: AppSize.s16,
                             color: Colors.white,
@@ -858,7 +679,10 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                 if (_dropDownValueProject != null &&
                     _dropDownValueProject != '') {
                   print("----call Api---");
+                  /// todo here we call a api to change the data
+
                   dynamicUiDrawFunction(_dropDownValueProject);
+
                 } else {
                   print("----not call Api---");
                 }
@@ -889,6 +713,7 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
   void initState() {
     // TODO: implement initState
     getLocation();
+    toGatlocalDataBase();
     super.initState();
 
     // Wait for the FutureProvider to complete and set the list into state provider
@@ -916,6 +741,12 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
     });
   }
 
+  toGatlocalDataBase() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    sUserName2 = prefs.getString('sUserName');
+    sContactNo2 = prefs.getString('sContactNo');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -923,8 +754,8 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
       appBar: appBarFunction(context, "Create Survey"),
       drawer: generalFunction.drawerFunction(
         context,
-        'Soyab Ali',
-        '9871950881',
+        sUserName2 ?? "",
+        sContactNo2 ?? "",
       ),
       body: GestureDetector(
         onTap: () {
