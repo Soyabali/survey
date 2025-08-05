@@ -648,12 +648,13 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
       child: Container(
         width: MediaQuery.of(context).size.width - 50,
         height: 42,
-        color: Color(0xFFf2f3f5),
+        color: const Color(0xFFf2f3f5),
         child: DropdownButtonHideUnderline(
           child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButton(
-              isExpanded: true, // Important to prevent overflow
+              dropdownColor: Colors.white, // 🔹 Background for dropdown items
+              isExpanded: true,
               onTap: () {
                 FocusScope.of(context).unfocus();
               },
@@ -664,37 +665,47 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                 style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
               ),
               value: _dropDownValueProject,
-
               onChanged: (newValue) {
                 setState(() {
                   _dropDownValueProject = newValue;
                   print('-----140-----serveyCode---$_dropDownValueProject');
-                  bindcityWardList.forEach((element) {
-                    if (element["Surver_Name"] == _dropDownValueProject) {
+                  for (var element in bindcityWardList) {
+                    if (element["Survey_Code"] == _dropDownValueProject) {
                       _selectedValueProjct = element['Survey_Code'];
+                      break;
                     }
-                  });
+                  }
                   print("----143---$_selectedValueProjct");
+
+                  if (_dropDownValueProject != null && _dropDownValueProject != '') {
+                    print("----call Api---");
+                    dynamicUiDrawFunction(_dropDownValueProject);
+                  } else {
+                    print("----not call Api---");
+                  }
                 });
-                if (_dropDownValueProject != null &&
-                    _dropDownValueProject != '') {
-                  print("----call Api---");
-                  /// todo here we call a api to change the data
-
-                  dynamicUiDrawFunction(_dropDownValueProject);
-
-                } else {
-                  print("----not call Api---");
-                }
               },
-              items: bindcityWardList.map((dynamic item) {
+              items: bindcityWardList.asMap().entries.map((entry) {
+                int index = entry.key;
+                var item = entry.value;
+
                 return DropdownMenuItem(
                   value: item["Survey_Code"].toString(),
-                  child: Text(
-                    item['Surver_Name'].toString(),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(fontSize: 14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item['Surver_Name'].toString(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 10),
+                      const Divider(
+                        height: 0.5,
+                        color: Colors.grey,
+                      ),
+                    ],
                   ),
                 );
               }).toList(),
@@ -704,6 +715,70 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
       ),
     );
   }
+
+  // Widget _bindLocation(List bindcityWardList) {
+  //   return Material(
+  //     color: Colors.white,
+  //     borderRadius: BorderRadius.circular(10.0),
+  //     child: Container(
+  //       width: MediaQuery.of(context).size.width - 50,
+  //       height: 42,
+  //       color: Color(0xFFf2f3f5),
+  //       child: DropdownButtonHideUnderline(
+  //         child: ButtonTheme(
+  //           alignedDropdown: true,
+  //           child: DropdownButton(
+  //             isExpanded: true, // Important to prevent overflow
+  //             onTap: () {
+  //               FocusScope.of(context).unfocus();
+  //             },
+  //             hint: Text(
+  //               "Select Project",
+  //               overflow: TextOverflow.ellipsis,
+  //               maxLines: 1,
+  //               style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
+  //             ),
+  //             value: _dropDownValueProject,
+  //
+  //             onChanged: (newValue) {
+  //               setState(() {
+  //                 _dropDownValueProject = newValue;
+  //                 print('-----140-----serveyCode---$_dropDownValueProject');
+  //                 bindcityWardList.forEach((element) {
+  //                   if (element["Surver_Name"] == _dropDownValueProject) {
+  //                     _selectedValueProjct = element['Survey_Code'];
+  //                   }
+  //                 });
+  //                 print("----143---$_selectedValueProjct");
+  //               });
+  //               if (_dropDownValueProject != null &&
+  //                   _dropDownValueProject != '') {
+  //                 print("----call Api---");
+  //                 /// todo here we call a api to change the data
+  //
+  //                 dynamicUiDrawFunction(_dropDownValueProject);
+  //
+  //               } else {
+  //                 print("----not call Api---");
+  //               }
+  //             },
+  //             items: bindcityWardList.map((dynamic item) {
+  //               return DropdownMenuItem(
+  //                 value: item["Survey_Code"].toString(),
+  //                 child: Text(
+  //                   item['Surver_Name'].toString(),
+  //                   overflow: TextOverflow.ellipsis,
+  //                   maxLines: 1,
+  //                   style: TextStyle(fontSize: 14),
+  //                 ),
+  //               );
+  //             }).toList(),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
   // bind project
 
   // dynamic ui function

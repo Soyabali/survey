@@ -64,15 +64,6 @@ class _ReportScreenState extends State<ReportScreen> {
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.white
-          // gradient: LinearGradient(
-          //   colors: [
-          //     Color(0xFFE3F2FD), // Light Blue
-          //     Color(0xFFBBDEFB), // Medium Blue
-          //     Color(0xFF90CAF9), // Deeper Blue
-          //   ],
-          //   begin: Alignment.topLeft,
-          //   end: Alignment.bottomRight,
-          // ),
         ),
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -91,25 +82,74 @@ class _ReportScreenState extends State<ReportScreen> {
 
   /// Dropdown Widget for Project Selection
   Widget _buildDropdown() {
-    return DropdownButtonFormField<String>(
-      value: _selectedProjectCode,
-      isExpanded: true,
-      decoration: const InputDecoration(
-        labelText: "Select Project",
-        border: OutlineInputBorder(),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white, // Set background color here
+        borderRadius: BorderRadius.circular(4), // Optional: round corners
       ),
-      items: bindCityWardList.map((item) {
-        return DropdownMenuItem<String>(
-          value: item["Survey_Code"].toString(),
-          child: Text(item["Surver_Name"].toString()),
-        );
-      }).toList(),
-      onChanged: (newValue) async {
-        if (newValue != null) {
-          _selectedProjectCode = newValue;
-          await _fetchSubmissionData(newValue);
-        }
-      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15, right: 15),
+        child: DropdownButtonFormField<String>(
+          value: _selectedProjectCode,
+          isExpanded: true,
+          dropdownColor: Colors.white,
+          decoration: const InputDecoration(
+            labelText: "Select Project",
+            border: OutlineInputBorder(),
+          ),
+          items: bindCityWardList.asMap().entries.map((entry) {
+            int index = entry.key;
+            var item = entry.value;
+
+            return DropdownMenuItem<String>(
+              value: item["Survey_Code"].toString(),
+              // Wrap the item in a Column to add a divider below
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(item["Surver_Name"].toString()),
+                  if (index != bindCityWardList.length - 1)
+                    const Divider(
+                      thickness: 0.5,
+                      color: Colors.black12,
+                    ),
+                ],
+              ),
+            );
+          }).toList(),
+          onChanged: (newValue) async {
+            if (newValue != null) {
+              _selectedProjectCode = newValue;
+              await _fetchSubmissionData(newValue);
+            }
+          },
+        ),
+      ),
+      // child: Padding(
+      //   padding: const EdgeInsets.only(left: 15,right: 15),
+      //   child: DropdownButtonFormField<String>(
+      //     value: _selectedProjectCode,
+      //     isExpanded: true,
+      //     dropdownColor: Colors.white,
+      //     decoration: const InputDecoration(
+      //       labelText: "Select Project",
+      //       border: OutlineInputBorder(),
+      //     ),
+      //     items: bindCityWardList.map((item) {
+      //       return DropdownMenuItem<String>(
+      //         value: item["Survey_Code"].toString(),
+      //         child: Text(item["Surver_Name"].toString()),
+      //
+      //       );
+      //     }).toList(),
+      //     onChanged: (newValue) async {
+      //       if (newValue != null) {
+      //         _selectedProjectCode = newValue;
+      //         await _fetchSubmissionData(newValue);
+      //       }
+      //     },
+      //   ),
+      // ),
     );
   }
   /// Display Cards based on submission data
@@ -139,116 +179,117 @@ class _ReportScreenState extends State<ReportScreen> {
         final data = submissions![index].data;
 
         return Card(
-          elevation: 4, // Subtle elevation
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: Colors.grey, width: 0.6), // Light gray border
-          ),
-          margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...data.entries
-                    .where((entry) => !_isExcludedKey(entry.key))
-                    .map((entry) {
-                  return Column(
+            color: Colors.white, // 👈 Set background color to white
+            elevation: 4, // Subtle elevation
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: Colors.grey, width: 0.6), // Light gray border
+            ),
+            margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...data.entries
+                      .where((entry) => !_isExcludedKey(entry.key))
+                      .map((entry) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 4,
+                                child: Text(
+                                  entry.key,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 6,
+                                child: Text(
+                                  entry.value?.toString() ?? "-",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 0.4,
+                        ),
+                      ],
+                    );
+                  }).toList(),
+
+                  // 🔽 Icons Section
+                  const SizedBox(height: 12),
+                  Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Text(
-                                entry.key,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                      InkWell(
+                        onTap: () {
+                          List<String> photoUrls = data.entries
+                              .where((entry) =>
+                          entry.key.toLowerCase().contains('site photo') &&
+                              entry.value != null &&
+                              entry.value.toString().isNotEmpty)
+                              .map((entry) => entry.value.toString())
+                              .toList();
+
+                          if (photoUrls.isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PhotoViewerPage(imageUrls: photoUrls),
                               ),
-                            ),
-                            Expanded(
-                              flex: 6,
-                              child: Text(
-                                entry.value?.toString() ?? "-",
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
-                          ],
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("No photos available for this submission")),
+                            );
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 12),
+                         // child: Icon(Icons.photo, color: Colors.grey, size: 20),
+                          child:  Image.asset(
+                            'assets/images/camra.jpeg',
+                            height: 25,
+                            width: 25,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                      const Divider(
-                        color: Colors.grey,
-                        thickness: 0.4,
+                      InkWell(
+                        onTap: () {
+                          if (data.containsKey("fLatitude")) {
+                            latitude = double.tryParse(data["fLatitude"].toString());
+                          }
+                          if (data.containsKey("fLongitude")) {
+                            longitude = double.tryParse(data["fLongitude"].toString());
+                          }
+                          if (latitude != null && longitude != null) {
+                            launchGoogleMaps(latitude!, longitude!);
+                          }
+                        },
+                        child: const Icon(Icons.location_on, color: Colors.grey, size: 25),
                       ),
                     ],
-                  );
-                }).toList(),
-
-                // 🔽 Icons Section
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        List<String> photoUrls = data.entries
-                            .where((entry) =>
-                        entry.key.toLowerCase().contains('site photo') &&
-                            entry.value != null &&
-                            entry.value.toString().isNotEmpty)
-                            .map((entry) => entry.value.toString())
-                            .toList();
-
-                        if (photoUrls.isNotEmpty) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => PhotoViewerPage(imageUrls: photoUrls),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("No photos available for this submission")),
-                          );
-                        }
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 12),
-                       // child: Icon(Icons.photo, color: Colors.grey, size: 20),
-                        child:  Image.asset(
-                          'assets/images/camra.jpeg',
-                          height: 25,
-                          width: 25,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        if (data.containsKey("fLatitude")) {
-                          latitude = double.tryParse(data["fLatitude"].toString());
-                        }
-                        if (data.containsKey("fLongitude")) {
-                          longitude = double.tryParse(data["fLongitude"].toString());
-                        }
-                        if (latitude != null && longitude != null) {
-                          launchGoogleMaps(latitude!, longitude!);
-                        }
-                      },
-                      child: const Icon(Icons.location_on, color: Colors.grey, size: 25),
-                    ),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
         );
 
       },
