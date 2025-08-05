@@ -88,10 +88,12 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
 
   List<DynamicField> _formFields = [];
   Map<String, TextEditingController> _controllers = {};
-  Map<String, bool?> _booleanSelections = {};
+  Map<String, int?> _booleanSelections = {};
+  //Map<String, String?> _booleanSelections = {};
   bool? _selectedOption;
   List<String> booleanCaptions = [];
   List<bool?> booleanValues = [];
+ // List<bool?> booleanValues = [];
   Map<String, File?> _pickedImages = {};
   Map<String, String> _uploadedImageUrls = {};
   List<String> allCaptionsImages = [];
@@ -265,92 +267,58 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
   // Validite and call Api
   void validateAndCallApi() async {
     firstFormCombinedList = [];
-       var booleanValue;
-    /// todo  here you should mention your api data----
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? sUserName = prefs.getString('sUserName');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? sUserName = prefs.getString('sUserName');
 
-      setState(() {
-        booleanCaptions.clear();
-        booleanValues.clear();
-        allCaptions.clear();
-        allValues.clear();
-        allCaptionsImages.clear();
-        allImageUrls.clear();
-      });
-      // get a formValue
-      final formValues = getFormValues();
-      // Print or use the data
-      formValues.forEach((field, value) {
-        allCaptions.add(field);
-        allValues.add(value);
-        print('$field: $value');
+    setState(() {
+      booleanCaptions.clear();
+      booleanValues.clear();
+      allCaptions.clear();
+      allValues.clear();
+      allCaptionsImages.clear();
+      allImageUrls.clear();
+    });
 
-      });
-      print("------334-formCaption-$allCaptions");
-      print("------335-formValue-$allValues");
-      //  Get a boolena value
-      _booleanSelections.forEach((key, value) {
-        booleanCaptions.add(key);
-        booleanValues.add(value);
-        if(booleanValues==true){
-          setState(() {
-            booleanValue="1";
-          });
+    // Get form values from text fields
+    final formValues = getFormValues();
 
-        }else{
-         setState(() {
-           booleanValue="0";
-         });
-        }
-
-      });
-      // to take a image records
-      _uploadedImageUrls.forEach((caption, imageUrl) {
-        allCaptionsImages.add(caption);
-        allImageUrls.add(imageUrl);
-      });
-      // to check that TextFormField value is null or not
-
+    // ✅ Loop through each field and validate individually
     for (var field in _formFields) {
-      if (field.iMandatory == 1) {
-        String? value = _controllers[field.Field_Caption]?.text;
-        if (value == null || value.trim().isEmpty) {
-          displayToastError('${field.Field_Caption} is mandatory');
+      if (field.iMandatory == 1 && field.Field_DataType == 'Text') {
+        final value = formValues[field.Field_Caption];
+        if (value == null || value.toString().trim().isEmpty) {
+          displayToastError("${field.Field_Caption} is mandatory");
           return;
         }
       }
     }
-    // to chek Boolean value validation
-    // for (var field in _formFields) {
-    //   if (field.iMandatory == 1 && field.Field_DataType == 'Boolean') {
-    //     final caption = field.Field_Caption;
-    //     final isSelected = _booleanSelections[caption];
-    //
-    //     if (isSelected == null) {
-    //       displayToastError('$caption is mandatory');
-    //       return;
-    //     }
-    //   }
-    // }
 
+    // Collect all text field data
+    formValues.forEach((field, value) {
+      allCaptions.add(field);
+      allValues.add(value);
+    });
 
-      final isFormValid = _formKey.currentState!.validate();
-      /// todo Above you get a data and set structur data here you should applie condition
-     // to check That data is filed or not to apply validation
+    print("------289-formValues-$formValues");
 
+    // ✅ Boolean Field Validation
+    for (var field in _formFields) {
+      if (field.iMandatory == 1 && field.Field_DataType == 'Boolean') {
+        final caption = field.Field_Caption;
+        var isSelected = _booleanSelections[caption];
 
+        if (isSelected == null) {
+          displayToastError('$caption is mandatory');
+          return;
+        }
+      }
+    }
 
-    if (isFormValid &&
-        allValues.isNotEmpty &&
-        booleanValues.isNotEmpty
+    final isFormValid = _formKey.currentState!.validate();
 
-    ) {
-      // All conditions met; call the API
+    if (isFormValid && allValues.isNotEmpty) {
       print('---Call API---');
-
-
 
       Map<String, dynamic> finalJson = {
         "SurveyCode": _dropDownValueProject,
@@ -359,62 +327,55 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
         "fLongitude": long,
         "Responses": []
       };
-      // Store all responses
+
       List<Map<String, dynamic>> responseList = [];
-      // 📝 Add text fields
+
+      // Add text field responses
       for (int i = 0; i < allCaptions.length; i++) {
         responseList.add({
           "Field_Caption": allCaptions[i],
           "Field_Value": allValues[i]
         });
       }
-      // boolean value
-      for (int i = 0; i < booleanCaptions.length; i++) {
+
+      // Add boolean responses
+      _booleanSelections.forEach((key, value) {
         responseList.add({
-          "Field_Caption": booleanCaptions[i],
-          "Field_Value": booleanValues[i].toString() // Convert bool to String
+          "Field_Caption": key,
+          "Field_Value": value != null ? value.toString() : "0"     //"Field_Value": value != null ? (value ? "1" : "0") : "0"
         });
-      }
-      // 🖼️ Add image fields
-      for (int i = 0; i < allCaptionsImages.length; i++) {
+      });
+
+      // Add image responses
+      _uploadedImageUrls.forEach((caption, imageUrl) {
         responseList.add({
-          "Field_Caption": allCaptionsImages[i],
-          "Field_Value": allImageUrls[i]
+          "Field_Caption": caption,
+          "Field_Value": imageUrl
         });
-      }
-      // Assign final list to JSON
+      });
+
       finalJson["Responses"] = responseList;
-      print("------389---");
-      // lIST to convert json string
       String allThreeFormJson = jsonEncode(finalJson);
 
-      print('----410--->>.---$allThreeFormJson');
-     // Api call here
+      print('----390--->>.---$allThreeFormJson');
 
-      var onlineComplaintResponse = await DynamicServerRepo()
-          .dynamicServe(context, allThreeFormJson);
+          var onlineComplaintResponse = await DynamicServerRepo()
+              .dynamicServe(context, allThreeFormJson);
 
-      result2 = onlineComplaintResponse['Result'];
-      msg2 = onlineComplaintResponse['Msg'];
+          result2 = onlineComplaintResponse['Result'];
+          msg2 = onlineComplaintResponse['Msg'];
+
+      // 🛠️ Call API here (commented)
+      // var onlineComplaintResponse = await DynamicServerRepo().dynamicServe(context, allThreeFormJson);
+
       if (result2 == "1") {
         displayToast(msg2);
-        //Navigator.pop(context);
       } else {
         displayToastError(msg2);
       }
-      // Call your API here
     } else {
-      // If conditions fail, display appropriate error messages
       print('--Not Call API--');
-
-      if (allValues.isEmpty) {
-        displayToastError('Please Enter TextField Value');
-        return;
-      }
-      if (booleanValues.isEmpty) {
-        displayToastError('Please Select boolean Value');
-        return;
-      }
+      displayToastError('Please fill all required fields');
     }
   }
 
@@ -484,31 +445,32 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        field.Field_Caption,
+                      Text(field.Field_Caption,
                         style: AppTextStyle.font12OpenSansRegularBlackTextStyle,
                       ),
                       Row(
                         children: [
-                          Radio<bool>(
-                            value: true,
+                          Radio<int>(
+                            value: 1, // Yes = 1
                             groupValue: _booleanSelections[field.Field_Caption],
                             onChanged: (value) {
                               setState(() {
                                 _booleanSelections[field.Field_Caption] = value;
                               });
                               print("Selected YES for ${field.Field_Caption}");
+                              print("Map: $_booleanSelections");
                             },
                           ),
                           const Text("Yes"),
-                          Radio<bool>(
-                            value: false,
+                          Radio<int>(
+                            value: 0, // No = 0
                             groupValue: _booleanSelections[field.Field_Caption],
                             onChanged: (value) {
                               setState(() {
                                 _booleanSelections[field.Field_Caption] = value;
                               });
                               print("Selected NO for ${field.Field_Caption}");
+                              print("Map: $_booleanSelections");
                             },
                           ),
                           const Text("No"),
@@ -519,7 +481,7 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                 ),
               );
 
-            case 'Photo':
+              case 'Photo':
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Padding(
@@ -700,11 +662,6 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                         maxLines: 1,
                         style: const TextStyle(fontSize: 14),
                       ),
-                      SizedBox(height: 10),
-                      const Divider(
-                        height: 0.5,
-                        color: Colors.grey,
-                      ),
                     ],
                   ),
                 );
@@ -715,74 +672,6 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
       ),
     );
   }
-
-  // Widget _bindLocation(List bindcityWardList) {
-  //   return Material(
-  //     color: Colors.white,
-  //     borderRadius: BorderRadius.circular(10.0),
-  //     child: Container(
-  //       width: MediaQuery.of(context).size.width - 50,
-  //       height: 42,
-  //       color: Color(0xFFf2f3f5),
-  //       child: DropdownButtonHideUnderline(
-  //         child: ButtonTheme(
-  //           alignedDropdown: true,
-  //           child: DropdownButton(
-  //             isExpanded: true, // Important to prevent overflow
-  //             onTap: () {
-  //               FocusScope.of(context).unfocus();
-  //             },
-  //             hint: Text(
-  //               "Select Project",
-  //               overflow: TextOverflow.ellipsis,
-  //               maxLines: 1,
-  //               style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-  //             ),
-  //             value: _dropDownValueProject,
-  //
-  //             onChanged: (newValue) {
-  //               setState(() {
-  //                 _dropDownValueProject = newValue;
-  //                 print('-----140-----serveyCode---$_dropDownValueProject');
-  //                 bindcityWardList.forEach((element) {
-  //                   if (element["Surver_Name"] == _dropDownValueProject) {
-  //                     _selectedValueProjct = element['Survey_Code'];
-  //                   }
-  //                 });
-  //                 print("----143---$_selectedValueProjct");
-  //               });
-  //               if (_dropDownValueProject != null &&
-  //                   _dropDownValueProject != '') {
-  //                 print("----call Api---");
-  //                 /// todo here we call a api to change the data
-  //
-  //                 dynamicUiDrawFunction(_dropDownValueProject);
-  //
-  //               } else {
-  //                 print("----not call Api---");
-  //               }
-  //             },
-  //             items: bindcityWardList.map((dynamic item) {
-  //               return DropdownMenuItem(
-  //                 value: item["Survey_Code"].toString(),
-  //                 child: Text(
-  //                   item['Surver_Name'].toString(),
-  //                   overflow: TextOverflow.ellipsis,
-  //                   maxLines: 1,
-  //                   style: TextStyle(fontSize: 14),
-  //                 ),
-  //               );
-  //             }).toList(),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-  // bind project
-
-  // dynamic ui function
-
 
   @override
   void initState() {

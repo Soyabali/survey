@@ -88,7 +88,7 @@ class _ReportScreenState extends State<ReportScreen> {
         borderRadius: BorderRadius.circular(4), // Optional: round corners
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15),
+        padding: const EdgeInsets.only(left: 15,right: 15),
         child: DropdownButtonFormField<String>(
           value: _selectedProjectCode,
           isExpanded: true,
@@ -97,24 +97,11 @@ class _ReportScreenState extends State<ReportScreen> {
             labelText: "Select Project",
             border: OutlineInputBorder(),
           ),
-          items: bindCityWardList.asMap().entries.map((entry) {
-            int index = entry.key;
-            var item = entry.value;
-
+          items: bindCityWardList.map((item) {
             return DropdownMenuItem<String>(
               value: item["Survey_Code"].toString(),
-              // Wrap the item in a Column to add a divider below
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(item["Surver_Name"].toString()),
-                  if (index != bindCityWardList.length - 1)
-                    const Divider(
-                      thickness: 0.5,
-                      color: Colors.black12,
-                    ),
-                ],
-              ),
+              child: Text(item["Surver_Name"].toString()),
+
             );
           }).toList(),
           onChanged: (newValue) async {
@@ -125,31 +112,6 @@ class _ReportScreenState extends State<ReportScreen> {
           },
         ),
       ),
-      // child: Padding(
-      //   padding: const EdgeInsets.only(left: 15,right: 15),
-      //   child: DropdownButtonFormField<String>(
-      //     value: _selectedProjectCode,
-      //     isExpanded: true,
-      //     dropdownColor: Colors.white,
-      //     decoration: const InputDecoration(
-      //       labelText: "Select Project",
-      //       border: OutlineInputBorder(),
-      //     ),
-      //     items: bindCityWardList.map((item) {
-      //       return DropdownMenuItem<String>(
-      //         value: item["Survey_Code"].toString(),
-      //         child: Text(item["Surver_Name"].toString()),
-      //
-      //       );
-      //     }).toList(),
-      //     onChanged: (newValue) async {
-      //       if (newValue != null) {
-      //         _selectedProjectCode = newValue;
-      //         await _fetchSubmissionData(newValue);
-      //       }
-      //     },
-      //   ),
-      // ),
     );
   }
   /// Display Cards based on submission data
