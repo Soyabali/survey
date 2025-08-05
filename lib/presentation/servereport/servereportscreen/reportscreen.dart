@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../app/generalFunction.dart';
 import '../../../model/getServeModel.dart';
 import '../../../services/bindCityzenWardRepo.dart';
 import '../../../services/getSurveyRepo.dart';
-
-
+import '../../resources/app_text_style.dart';
+import 'PhotoViewerPage.dart';
 
 class ReportScreen extends StatefulWidget {
 
@@ -15,9 +16,12 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
+
   String? _selectedProjectCode;
   List<dynamic> bindCityWardList = []; // Dropdown items
   List<SurveySubmissionModel>? submissions; // Report data
+  double? latitude;
+  double? longitude;
 
 
   // gradient
@@ -39,7 +43,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   // Load dropdown data initially
   Future<void> _loadInitialData() async {
-    bindCityWardList = await BindCityzenWardRepo().getbindWard();; // Dummy method
+    bindCityWardList = await BindCityzenWardRepo().getbindWard(); // Dummy method
     setState(() {});
   }
 
@@ -56,16 +60,30 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // appBar: AppBar(title: const Text("Report")),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: ListView(
-          padding: const EdgeInsets.all(12),
-          children: [
-            _buildDropdown(),
-            const SizedBox(height: 12),
-            _buildSubmissionCards(),
-          ],
+      // appBar: AppBar(title: const Text("Report")),
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white
+          // gradient: LinearGradient(
+          //   colors: [
+          //     Color(0xFFE3F2FD), // Light Blue
+          //     Color(0xFFBBDEFB), // Medium Blue
+          //     Color(0xFF90CAF9), // Deeper Blue
+          //   ],
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          // ),
+        ),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: ListView(
+            padding: const EdgeInsets.all(12),
+            children: [
+              _buildDropdown(),
+              const SizedBox(height: 12),
+              _buildSubmissionCards(),
+            ],
+          ),
         ),
       ),
     );
@@ -118,90 +136,121 @@ class _ReportScreenState extends State<ReportScreen> {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: submissions!.length,
       itemBuilder: (context, index) {
-      final data = submissions![index].data;
+        final data = submissions![index].data;
 
-      return Card(
-        elevation: 6,
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: _navGradient,
-            borderRadius: BorderRadius.circular(15),
+        return Card(
+          elevation: 4, // Subtle elevation
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Colors.grey, width: 0.6), // Light gray border
           ),
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: data.entries
-                .where((entry) => !_isExcludedKey(entry.key))
-                .map((entry) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Text(
-                      entry.key,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: Colors.white,
+          margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ...data.entries
+                    .where((entry) => !_isExcludedKey(entry.key))
+                    .map((entry) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Text(
+                                entry.key,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: Text(
+                                entry.value?.toString() ?? "-",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                        thickness: 0.4,
+                      ),
+                    ],
+                  );
+                }).toList(),
+
+                // 🔽 Icons Section
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        List<String> photoUrls = data.entries
+                            .where((entry) =>
+                        entry.key.toLowerCase().contains('site photo') &&
+                            entry.value != null &&
+                            entry.value.toString().isNotEmpty)
+                            .map((entry) => entry.value.toString())
+                            .toList();
+
+                        if (photoUrls.isNotEmpty) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => PhotoViewerPage(imageUrls: photoUrls),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("No photos available for this submission")),
+                          );
+                        }
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 12),
+                       // child: Icon(Icons.photo, color: Colors.grey, size: 20),
+                        child:  Image.asset(
+                          'assets/images/camra.jpeg',
+                          height: 25,
+                          width: 25,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 6,
-                    child: Text(
-                      entry.value?.toString() ?? "-",
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.white70,
-                      ),
+                    InkWell(
+                      onTap: () {
+                        if (data.containsKey("fLatitude")) {
+                          latitude = double.tryParse(data["fLatitude"].toString());
+                        }
+                        if (data.containsKey("fLongitude")) {
+                          longitude = double.tryParse(data["fLongitude"].toString());
+                        }
+                        if (latitude != null && longitude != null) {
+                          launchGoogleMaps(latitude!, longitude!);
+                        }
+                      },
+                      child: const Icon(Icons.location_on, color: Colors.grey, size: 25),
                     ),
-                  ),
-                ],
-              ),
-            ))
-                .toList(),
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-      );
+        );
 
-
-        // return Card(
-        //   margin: const EdgeInsets.symmetric(vertical: 8),
-        //   elevation: 3,
-        //   child: Padding(
-        //     padding: const EdgeInsets.all(12),
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: data.entries
-        //           .where((entry) => !_isExcludedKey(entry.key))
-        //           .map((entry) => Padding(
-        //         padding: const EdgeInsets.symmetric(vertical: 4),
-        //         child: Row(
-        //           children: [
-        //             Expanded(
-        //               flex: 4,
-        //               child: Text(
-        //                 "${entry.key}:",
-        //                 style: const TextStyle(fontWeight: FontWeight.bold),
-        //               ),
-        //             ),
-        //             Expanded(
-        //               flex: 6,
-        //               child: Text(entry.value?.toString() ?? "-"),
-        //             ),
-        //           ],
-        //         ),
-        //       ))
-        //           .toList(),
-        //     ),
-        //   ),
-        // );
       },
     );
   }

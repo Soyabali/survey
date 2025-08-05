@@ -10,11 +10,11 @@ import 'package:puri/presentation/servereport/servereportscreen/reportscreen.dar
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/generalFunction.dart';
 import '../../services/bindCityzenWardRepo.dart';
-import '../../services/dynamicFieldRepo.dart';
 import '../resources/app_text_style.dart';
 
 
 final bindCityzenWardProvider = FutureProvider<List>((ref) async {
+
   return await BindCityzenWardRepo().getbindWard(); // Already a List
 
 });
@@ -175,38 +175,39 @@ class _SurveryFormState extends ConsumerState<SurveryReport> {
         sContactNo2 ?? "",
       ),
      body: _pages[_selectedIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(gradient: _navGradient),
-        child: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white54,
-          selectedFontSize: 12,
-          unselectedFontSize: 11,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.report, size: _selectedIndex == 0 ? 28 : 22),
-              label: 'Report',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.photo, size: _selectedIndex == 1 ? 28 : 22),
-              label: 'Photo',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.location_on, size: _selectedIndex == 2 ? 28 : 22),
-              label: 'Location',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map, size: _selectedIndex == 3 ? 28 : 22),
-              label: 'Map',
-            ),
-          ],
-        ),
-      ),
+
+      // bottomNavigationBar: Container(
+      //   decoration: BoxDecoration(gradient: _navGradient),
+      //   child: BottomNavigationBar(
+      //     backgroundColor: Colors.transparent,
+      //     elevation: 0,
+      //     currentIndex: _selectedIndex,
+      //     onTap: _onItemTapped,
+      //     selectedItemColor: Colors.white,
+      //     unselectedItemColor: Colors.white54,
+      //     selectedFontSize: 12,
+      //     unselectedFontSize: 11,
+      //     type: BottomNavigationBarType.fixed,
+      //     items: [
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.report, size: _selectedIndex == 0 ? 28 : 22),
+      //         label: 'Report',
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.photo, size: _selectedIndex == 1 ? 28 : 22),
+      //         label: 'Photo',
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.location_on, size: _selectedIndex == 2 ? 28 : 22),
+      //         label: 'Location',
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.map, size: _selectedIndex == 3 ? 28 : 22),
+      //         label: 'Map',
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
