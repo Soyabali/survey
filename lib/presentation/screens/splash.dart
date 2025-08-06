@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:puri/presentation/surveryform/surveryform.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../services/verifyAppVersion.dart';
@@ -36,37 +37,40 @@ class _SplaceState extends State<SplashView> {
   }
 
   Future checkUserConnection() async {
-    final listener = InternetConnection().onStatusChange.listen((InternetStatus status) {
-      switch (status) {
-        case InternetStatus.connected:
-        // The internet is now connected
-          navigateToLoginScreen(context);
-
-          break;
-        case InternetStatus.disconnected:
-        // The internet is now disconnected
-         displayToast("Internet not Connected");
-          break;
-      }
-    });
-    // try {
-    //   final result = await InternetAddress.lookup('google.com');
-    //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-    //     setState(() {
-    //       activeConnection = true;
-    //       T = "Turn off the data and repress again";
+    // final listener = InternetConnection().onStatusChange.listen((InternetStatus status) {
+    //   switch (status) {
+    //     case InternetStatus.connected:
+    //     // The internet is now connected
+    //       navigateToLoginScreen(context);
     //
-    //      // versionAliCall();
-    //       //displayToast(T);
-    //     });
+    //       break;
+    //     case InternetStatus.disconnected:
+    //     // The internet is now disconnected
+    //      displayToast("Internet not Connected");
+    //       break;
     //   }
-    // } on SocketException catch (_) {
-    //   setState(() {
-    //     activeConnection = false;
-    //     T = "Turn On the data and repress again";
-    //     displayToast(T);
-    //   });
-    // }
+    // });
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          activeConnection = true;
+          T = "Turn off the data and repress again";
+
+         // versionAliCall();
+          //displayToast(T);
+          // get the local Database and take  design to go for a route/
+          getlocalDataBaseValue();
+
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        activeConnection = false;
+        T = "Turn On the data and repress again";
+        displayToast(T);
+      });
+    }
   }
   String? _appVersion ;
   // get app Version
@@ -113,7 +117,7 @@ class _SplaceState extends State<SplashView> {
       print('-----89---HomeScreen');
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+        MaterialPageRoute(builder: (context) => SurveryForm()),
       );
     }else{
       print('-----91----LoginScreen');

@@ -490,7 +490,7 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(field.Field_Caption),
+                      Text(field.Field_Caption,style: AppTextStyle.font12OpenSansRegularBlackTextStyle),
                       SizedBox(height: 5),
                       Container(
                         alignment: Alignment.centerLeft,
@@ -575,10 +575,7 @@ class _SurveryFormState extends ConsumerState<SurveryForm> {
                       child: Center(
                         child: Text(
                           (field.Field_Caption),
-                          style: TextStyle(
-                            fontSize: AppSize.s16,
-                            color: Colors.white,
-                          ),
+                          style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
                         ),
                       ),
                     ),

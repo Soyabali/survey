@@ -14,7 +14,6 @@ import '../resources/app_text_style.dart';
 import '../resources/assets_manager.dart';
 import '../resources/values_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../surveryform/surveryform.dart';
 
 class LoginScreen_2 extends StatelessWidget {
@@ -42,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController(text: "anil@1233#");
 
   final _formKey = GlobalKey<FormState>();
-
   bool _isObscured = true;
   var loginProvider;
 
@@ -343,8 +341,7 @@ class _LoginPageState extends State<LoginPage> {
                                   children: [
                                     SizedBox(height: 10),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: AppPadding.p15, right: AppPadding.p15),
+                                      padding: const EdgeInsets.only(left: AppPadding.p15, right: AppPadding.p15),
                                       // PHONE NUMBER TextField
                                       child: TextFormField(
                                         focusNode: phoneNumberfocus,
